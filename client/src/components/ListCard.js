@@ -6,6 +6,8 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import ThumbsUp from '@mui/icons-material/ThumbUpOutlined';
 import ThumbsDown from '@mui/icons-material/ThumbDownOutlined';
+import Delete from '@mui/icons-material/DeleteOutlined';
+import Open from '@mui/icons-material/KeyboardArrowDownOutlined';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -75,19 +77,43 @@ function ListCard(props) {
                 width: '100%',
             }}
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={handleToggleEdit} aria-label='edit' disabled={store.isListNameEditActive}>
-                        <ThumbsUp style={{fontSize:'48pt'}} />
-                    </IconButton>
+                <Box sx={{ p: 1, flexGrow: 1 }}>
+                    <Box sx={{ flexDirection: 'column', fontSize:24}}>{idNamePair.name}</Box>
+                    <Box sx={{ flexDirection: 'column', fontSize:12, color:'blue'  }}>{"By: "+idNamePair.author}</Box>
+                    <Box sx={{ flexDirection: 'column', fontSize:12 }}>{"Published: "+idNamePair.published}</Box>
                 </Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={(event) => {
-                        handleDeleteList(event, idNamePair._id)
-                    }} aria-label='delete' disabled={store.isListNameEditActive}>
-                        <ThumbsDown style={{fontSize:'48pt'}} />
-                    </IconButton>
+                <Box sx={{ p: 1,flexWrap:'wrap', flexDirection:'row'}}>
+                    <Box sx={{ p: 1 }}>
+                        <IconButton onClick={handleToggleEdit} aria-label='edit' disabled={store.isListNameEditActive}>
+                            <ThumbsUp style={{fontSize:'36pt'}} />
+                            {idNamePair.likes.length}
+                        </IconButton>
+                        <IconButton onClick={(event) => {
+                            handleDeleteList(event, idNamePair._id)
+                        }} aria-label='delete' disabled={store.isListNameEditActive}>
+                            <ThumbsDown style={{fontSize:'36pt'}} />
+                            {idNamePair.dislikes.length}
+                        </IconButton>
+                    </Box>
+                    <Box sx={{ p: 1 }}>
+                        <Box sx={{ fontSize:12 }}>{"Views: "+idNamePair.view}</Box>
+                    </Box>
                 </Box>
+                <Box sx={{ flexDirection:'column'}}>
+                    <Box>
+                        <IconButton sx={{ p: 1,flexWrap:'wrap', flexDirection:'column'}} onClick={(event) => {
+                                handleDeleteList(event, idNamePair._id)
+                            }} aria-label='delete' disabled={store.isListNameEditActive}>
+                                <Delete style={{fontSize:'36pt'}} />
+                        </IconButton>
+                    </Box>
+                    <Box>
+                        <IconButton>
+                            <Open style={{fontSize: '36pt'}}/>
+                        </IconButton>
+                    </Box>    
+                </Box>
+                
         </ListItem>
 
     if (editActive) {

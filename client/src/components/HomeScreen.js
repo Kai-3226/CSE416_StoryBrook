@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
@@ -76,30 +75,32 @@ const HomeScreen = () => {
             }
             </List>;
     }
+    console.log(store.addingList);
     return (
         <div id="top5-list-selector">
             <div id="list-selector-heading">
             <AppBar position="static">
                 <Toolbar sx={{bgcolor:"#c4c4c4", justifyContent:'space-between' }}>
                     <Box sx={{ display: { xs: 'none', md: 'flex'},width:1000 }}>
-                        <IconButton>
+                        <IconButton disabled={store.addingList}>
                             <Home></Home>
                         </IconButton>
-                        <IconButton>
+                        <IconButton disabled={store.addingList}>
                             <Group></Group>
                         </IconButton>
-                        <IconButton>
+                        <IconButton disabled={store.addingList}>
                             <Person></Person>
                         </IconButton>
-                        <IconButton>
+                        <IconButton disabled={store.addingList}>
                             <Sigma></Sigma>
                         </IconButton>
-                        <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' ></TextField>
+                        <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' disbaled={store.addingList} ></TextField>
                     </Box>
                     <Box sx={{ display: {md:'flex',color:'black',fontSize:20},alignItems:'center'}}>
                         SORT BY
                         <IconButton
                             onClick={handleProfileMenuOpen}
+                            disabled={store.addingList}
                         >
                             <Sort></Sort>
                         </IconButton>

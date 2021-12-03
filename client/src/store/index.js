@@ -36,7 +36,8 @@ function GlobalStoreContextProvider(props) {
         newListCounter: 0,
         listNameActive: false,
         itemActive: false,
-        listMarkedForDeletion: null
+        listMarkedForDeletion: null,
+        addingList: false
     });
     const history = useHistory();
 
@@ -56,7 +57,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:false
                 });
             }
             // STOP EDITING THE CURRENT LIST
@@ -67,7 +69,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:false
                 })
             }
             // CREATE A NEW LIST
@@ -78,7 +81,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter + 1,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:true
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
@@ -89,7 +93,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:false
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -100,7 +105,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: payload
+                    listMarkedForDeletion: payload,
+                    addingList:false
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -111,7 +117,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:false
                 });
             }
             // UPDATE A LIST
@@ -122,7 +129,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:false
                 });
             }
             // START EDITING A LIST ITEM
@@ -133,7 +141,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: true,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:false
                 });
             }
             // START EDITING A LIST NAME
@@ -144,7 +153,8 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     isListNameEditActive: true,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    addingList:false
                 });
             }
             default:
@@ -210,7 +220,13 @@ function GlobalStoreContextProvider(props) {
         let payload = {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
-            ownerEmail: auth.user.email
+            ownerEmail: auth.user.email,
+            published:Date(),
+            view:0,
+            likes:[],
+            dislikes:[],
+            comment:[],
+            author: auth.user.lastName+" "+auth.user.firstName
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
@@ -224,6 +240,7 @@ function GlobalStoreContextProvider(props) {
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
             history.push("/top5list/" + newList._id);
         }
+        
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
         }
@@ -234,9 +251,11 @@ function GlobalStoreContextProvider(props) {
         const response = await api.getTop5ListPairs();
         if (response.data.success) {
             let pairsArray = response.data.idNamePairs;
+            console.log(response.data)
             let listOwned=[];
             for(let key in pairsArray){
                 let list = pairsArray[key];
+                console.log(list);
                 if(list.email===auth.user.email){
                     listOwned.push(list);
                 }
