@@ -56,16 +56,15 @@ function ListCard(props) {
     function handleUpdateText(event) {
         setText(event.target.value);
     }
-    let published=false;
     let color="#d3d4f6"
-    if (published){
+    if (idNamePair.published.published){
         color="#fffef2"
     }
     let cardElement =
         <ListItem
             id={idNamePair._id}
             key={idNamePair._id}
-            sx={{ marginTop: '15px', display: 'flex', p: 1, bgcolor:color }}
+            sx={{ marginTop: '15px', display: 'flex', p: 1, bgcolor:color, height:'50%' }}
             button
             disabled={store.isListNameEditActive}
             onClick={(event) => {
@@ -74,16 +73,16 @@ function ListCard(props) {
             }
             style={{
                 fontSize: '48pt',
-                width: '100%',
+                width: '100%'
             }}
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>
+                <Box sx={{ p: 1, flexGrow: 1, height:'40%' }}>
                     <Box sx={{ flexDirection: 'column', fontSize:24}}>{idNamePair.name}</Box>
                     <Box sx={{ flexDirection: 'column', fontSize:12, color:'blue'  }}>{"By: "+idNamePair.author}</Box>
                     <Box sx={{ flexDirection: 'column', fontSize:12 }}>{"Published: "+idNamePair.published}</Box>
                 </Box>
-                <Box sx={{ p: 1,flexWrap:'wrap', flexDirection:'row'}}>
-                    <Box sx={{ p: 1 }}>
+                <Box sx={{ flexDirection:'row'}}>
+                    <Box sx={{ p: 1,height:'40%' }}>
                         <IconButton onClick={handleToggleEdit} aria-label='edit' disabled={store.isListNameEditActive}>
                             <ThumbsUp style={{fontSize:'36pt'}} />
                             {idNamePair.likes.length}
@@ -95,21 +94,21 @@ function ListCard(props) {
                             {idNamePair.dislikes.length}
                         </IconButton>
                     </Box>
-                    <Box sx={{ p: 1 }}>
-                        <Box sx={{ fontSize:12 }}>{"Views: "+idNamePair.view}</Box>
+                    <Box sx={{ height:'40%' }}>
+                        <Box sx={{ fontSize:12}}>{"Views: "+idNamePair.view}</Box>
                     </Box>
                 </Box>
-                <Box sx={{ flexDirection:'column'}}>
-                    <Box>
-                        <IconButton sx={{ p: 1,flexWrap:'wrap', flexDirection:'column'}} onClick={(event) => {
+                <Box sx={{ height:'40%', flexDirection: 'column', justifyContent:'space-around'}}>
+                    <Box >
+                        <IconButton sx={{flexDirection:'column'}} onClick={(event) => {
                                 handleDeleteList(event, idNamePair._id)
                             }} aria-label='delete' disabled={store.isListNameEditActive}>
-                                <Delete style={{fontSize:'36pt'}} />
+                                <Delete style={{fontSize:'18pt'}} />
                         </IconButton>
                     </Box>
                     <Box>
                         <IconButton>
-                            <Open style={{fontSize: '36pt'}}/>
+                            <Open style={{fontSize: '18pt'}}/>
                         </IconButton>
                     </Box>    
                 </Box>

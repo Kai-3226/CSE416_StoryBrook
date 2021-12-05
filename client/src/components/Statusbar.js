@@ -27,7 +27,7 @@ function Statusbar() {
                     aria-label="add"
                     id="add-list-button"
                     onClick={handleCreateNewList}
-                    disabled={store.isListNameEditActive}
+                    disabled={store.editActive}
                 >   
                     <AddIcon />
                 </Button>

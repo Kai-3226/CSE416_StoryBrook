@@ -11,7 +11,7 @@ export const AuthActionType = {
     REGISTER_USER: "REGISTER_USER",
     LOGOUT_USER: "LOGOUT_USER",
     LOGIN_USER: "LOGIN_USER",
-    ERROR: "ERROR"
+    ERROR: "ERROR",
 }
 
 function AuthContextProvider(props) {
@@ -102,7 +102,7 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
-                history.push("/");
+                history.push("/home");
                 store.loadIdNamePairs();
             }
         }
@@ -134,7 +134,7 @@ function AuthContextProvider(props) {
                     type: AuthActionType.LOGIN_USER,
                     payload:response.data.user
                 })
-                history.push("/");
+                history.push("/home");
             }
         }
         catch(err){
@@ -150,7 +150,6 @@ function AuthContextProvider(props) {
         }
         
     }
-
     return (
         <AuthContext.Provider value={{
             auth

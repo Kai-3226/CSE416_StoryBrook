@@ -16,6 +16,7 @@ import Group from '@mui/icons-material/GroupsOutlined';
 import Person from '@mui/icons-material/PersonOutline';
 import Sigma from '@mui/icons-material/FunctionsOutlined';
 import Sort from '@mui/icons-material/Sort';
+import Create from './CreateScreen';
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -59,23 +60,24 @@ const HomeScreen = () => {
             <MenuItem>Dislikes</MenuItem>
         </Menu>
     );
-
     let listCard = "";
+    console.log(store.idNamePairs);
     if (store) {
         listCard = 
-            <List sx={{ width: '90%', left: '5%', bgcolor: 'background.paper' }}>
-            {
                 store.idNamePairs.map((pair) => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}
                         selected={false}
+                        sx={{padding:'5px'}}
                     />
                 ))
-            }
-            </List>;
     }
-    console.log(store.addingList);
+    if (store.editActive){
+        listCard=
+            <Create></Create>
+    }
+
     return (
         <div id="top5-list-selector">
             <div id="list-selector-heading">
