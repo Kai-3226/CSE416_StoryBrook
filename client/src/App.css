@@ -6,12 +6,13 @@
     
         @author McKilla Gorilla
     */
-  --swatch-foundation: #eeeedd;
-  --swatch-primary: #e6e6e6;
-  --swatch-complement: #8a8a8a;
-  --swatch-contrast: #111111;
-  --swatch-accent: #aa2eaa;
-  --swatch-status: #672169;
+  --swatch-foundation: #e0e0e0;
+  --swatch-primary: #C4c4c4;
+  --swatch-complement: #FFFEC0;
+  --swatch-contrast: #FFFFF1;
+  --swatch-listclr: #d4af36;
+  --swatch-listbg: #2c2f70;
+  --swatch-published: #d5d3f5;
   --my-font-family: "Robaaaoto";
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
 }
@@ -150,17 +151,37 @@ body {
 }
 
 .list-card,
-.published-list-card,
+.published-list-card{
+  font-size: 18pt;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 25px;
+  background-color:var(--swatch-published);
+  flex-direction: row;
+  height: 20%;
+}
 .unpublished-list-card {
   font-size: 18pt;
   margin: 10px;
   padding: 20px;
   border-radius: 25px;
+  background-color:var(--swatch-contrast);
+  flex-direction: row;
+  height: 20%;
+}
+.published-list-card-open{
+  font-size: 18pt;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 25px;
+  background-color:var(--swatch-published);
+  flex-direction: row;
+  height: 100%;
 }
 
 .list-card:aria-disabled,
 .list-card[aria-disabled] {
-  border: 1px solid #999999;
+  border: 2px solid black;
   background-color: #cccccc;
   color: #666666;
   pointer-events: none;
@@ -171,46 +192,54 @@ body {
   background-color: var(--swatch-contrast);
   color: white;
 }
-
-.published-list-card {
-  background-color: var(--swatch-accent);
-  color: white;
+.firstrow{
+  flex-direction:row;
+  justify-content: space-between;
+  display:flex;
 }
-
-.unpublished-list-card {
-  background-color: var(--swatch-complement);
-}
-
-.list-card-button {
-  float: right;
-  transform: scale(2);
-}
-
 #workspace-home,
 #workspace-edit {
-  position: absolute;
+  display: flex;
   left: 0%;
   top: 0%;
   width: 100%;
   height: 100%;
 }
 
+.secondrow{
+  flex-direction:row;
+  justify-content: space-between;
+  display:flex;
+}
+
+
+.list-card-button {
+  float: right;
+  transform: scale(2);
+}
+
+
 #edit-numbering {
-  position: absolute;
+  display:flex;
   left: 0%;
   top: 0%;
-  width: 20%;
+  width: 100%;
   height: 100%;
-  background-color: var(--swatch-status);
+  font-size: 18pt;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 25px;
+  background-color: var(--swatch-listbg);
+  
 }
 
 #edit-items {
-  position: absolute;
+  display:flex;
   left: 20%;
   top: 0%;
-  width: 80%;
+  width: 50%;
   height: 100%;
-  background-color: var(--swatch-primary);
+  color:var(--swatch-listclr);
 }
 
 .item-number,

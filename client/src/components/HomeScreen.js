@@ -40,20 +40,16 @@ const HomeScreen = () => {
     };
     function handleUpdateText(event) {
         setInput(event.target.value);
-        console.log(input);
     }
     function handleKeyPress(event) {
         if(event.code === "Enter") {
-            store.searchLists(input);
+            store.searchLists(input.toLowerCase());
         }
-        store.loadIdNamePairs();
     }
-    function handleClick(button) {
-        console.log(button+"input");
+    async function handleClick(event,button) {
+        event.stopPropagation();
         store.setMode(button);
-        console.log(store.mode+"output")
     }
-
     const menu = (
         <Menu
         anchorEl={anchorEl}
@@ -76,7 +72,6 @@ const HomeScreen = () => {
         </Menu>
     );
     let listCard = "";
-    console.log(store.idNamePairs);
     if (store) {
         listCard = 
                 store.idNamePairs.map((pair) => (
@@ -88,7 +83,7 @@ const HomeScreen = () => {
                     />
                 ))
     }
-    if (store.editActive||store.currentList){
+    if (store.editActive){
         listCard=
             <Create></Create>
     }
@@ -98,21 +93,22 @@ const HomeScreen = () => {
             <AppBar position="static">
                 <Toolbar sx={{bgcolor:"#c4c4c4", justifyContent:'space-between' }}>
                     <Box sx={{ display: { xs: 'none', md: 'flex'},width:1000 }}>
-                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("home")}}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick(event,"home")}}>
                             <Home></Home>
                         </IconButton>
-                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("all")}}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick(event,"all")}}>
                             <Group></Group>
                         </IconButton>
-                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("user")}}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick(event,"user")}}>
                             <Person></Person>
                         </IconButton>
-                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("community")}}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick(event,"community")}}>
                             <Sigma></Sigma>
                         </IconButton>
                         <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' disbaled={store.addingList}
-                            onChange={handleUpdateText}
-                            onKeyPress={handleKeyPress}
+                            onChange={(event) => {handleUpdateText(event)}}
+                            onKeyPress={(event) => {handleKeyPress(event)}}
+                            defaultValue={store.text}
                         />
                     </Box>
                     <Box sx={{ display: {md:'flex',color:'black',fontSize:20},alignItems:'center'}}>

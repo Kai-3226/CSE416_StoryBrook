@@ -138,8 +138,6 @@ function AuthContextProvider(props) {
             }
         }
         catch(err){
-            console.log(err.response.data);
-            console.log(err.response.status);
             authReducer({
                 type: AuthActionType.ERROR,
                 payload:{

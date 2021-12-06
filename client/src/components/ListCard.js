@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ListItem from '@mui/material/ListItem';
@@ -9,6 +8,8 @@ import ThumbsUp from '@mui/icons-material/ThumbUpOutlined';
 import ThumbsDown from '@mui/icons-material/ThumbDownOutlined';
 import Delete from '@mui/icons-material/DeleteOutlined';
 import Open from '@mui/icons-material/KeyboardArrowDownOutlined';
+import Work from './WorkspaceScreen';
+import Close from '@mui/icons-material/KeyboardArrowUpOutlined';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -21,11 +22,19 @@ function ListCard(props) {
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const { idNamePair } = props;
+    const [anchorEl, setAnchorEl] = useState(false);
+    const isOpen = Boolean(anchorEl);
     function handleLoadList(event, id) {
         if (!event.target.disabled) {
             // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
+            store.setCurrentList(id,true);
         }
+    }
+    function handleLike(){
+        store.like(idNamePair._id);
+    }
+    function handleDislike(){
+        store.dislike(idNamePair._id);
     }
 
     function handleToggleEdit(event) {
@@ -57,87 +66,82 @@ function ListCard(props) {
     function handleUpdateText(event) {
         setText(event.target.value);
     }
-    function handleEdit(){
+    function handleOpen(id){
+        if(!isOpen){
+            setAnchorEl(!isOpen);
+            store.setCurrentList(id);
+        }
     }
-    let color="#fffef2"
+    function handleClose(){
+        setAnchorEl(!isOpen);
+        store.closeCurrentList();
+    }
+    let open="";
+    let color="unpublished-list-card"
     let publish= <Button sx={{color:"red" }} onClick={(event) => {
                     handleLoadList(event, idNamePair._id)
                 }}>
                     Edit
                 </Button>;
     if (idNamePair.published.published){
-        color="#d3d4f6"
+        color="published-list-card";
         publish="Published:"+idNamePair.published.time;
+        open=
+        <IconButton onClick={(event) => {handleOpen(idNamePair._id)}}>
+            <Open style={{fontSize: '18pt'}}/>
+        </IconButton>  
+    }
+    let list="";
+    if(isOpen){
+        list=<Work></Work>;
+        open=
+        <IconButton onClick={(event) => {handleClose(idNamePair._id)}}>
+            <Close style={{fontSize: '18pt'}}/>
+        </IconButton>
     }
     let cardElement =
         <ListItem
             id={idNamePair._id}
             key={idNamePair._id}
-            sx={{ marginTop: '15px', display: 'flex', p: 1, bgcolor:color, height:'50%' }}
+            sx={{ marginTop: '15px', display: 'flex', p: 1, height:'50%' }}
             disabled={store.isListNameEditActive}
-            style={{
-                fontSize: '48pt',
-                width: '100%'
-            }}
+            class={color}
         >
-                <Box sx={{ p: 1, flexGrow: 1, height:'40%' }}>
-                    <Box sx={{ flexDirection: 'column', fontSize:24}}>{idNamePair.name}</Box>
-                    <Box sx={{ flexDirection: 'column', fontSize:12, color:'blue'  }}>{"By: "+idNamePair.author}</Box>
-                    <Box sx={{ flexDirection: 'column', fontSize:12 }}>{publish}</Box>
-                </Box>
-                <Box sx={{ flexDirection:'row'}}>
-                    <Box sx={{ p: 1,height:'40%' }}>
-                        <IconButton onClick={handleToggleEdit} aria-label='edit' disabled={store.isListNameEditActive}>
-                            <ThumbsUp style={{fontSize:'36pt'}} />
-                            {idNamePair.likes.length}
-                        </IconButton>
-                        <IconButton onClick={(event) => {
-                            handleDeleteList(event, idNamePair._id)
-                        }} aria-label='delete' disabled={store.isListNameEditActive}>
-                            <ThumbsDown style={{fontSize:'36pt'}} />
-                            {idNamePair.dislikes.length}
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ height:'40%' }}>
-                        <Box sx={{ fontSize:12}}>{"Views: "+idNamePair.view}</Box>
-                    </Box>
-                </Box>
-                <Box sx={{ height:'40%', flexDirection: 'column', justifyContent:'space-around'}}>
-                    <Box >
-                        <IconButton sx={{flexDirection:'column'}} onClick={(event) => {
-                                handleDeleteList(event, idNamePair._id)
+                <div class="firstrow">
+                    <div width="50%">
+                        <Box sx={{ width:0.5, fontSize:24}}>{idNamePair.name}</Box>
+                        <Box sx={{ width:0.5, fontSize:12, color:'blue'  }}>{"By: "+idNamePair.author}</Box>
+                    </div>
+                    <div width="50%">
+                        <IconButton onClick={handleLike} aria-label='edit' disabled={store.isListNameEditActive}>
+                                <ThumbsUp style={{fontSize:'36pt'}} />
+                                {idNamePair.likes.length}
+                            </IconButton>
+                            <IconButton onClick={(event) => {
+                                handleDislike(event, idNamePair._id)
                             }} aria-label='delete' disabled={store.isListNameEditActive}>
-                                <Delete style={{fontSize:'18pt'}} />
-                        </IconButton>
-                    </Box>
-                    <Box>
-                        <IconButton>
-                            <Open style={{fontSize: '18pt'}}/>
-                        </IconButton>
-                    </Box>    
-                </Box>
+                                <ThumbsDown style={{fontSize:'36pt'}} />
+                                {idNamePair.dislikes.length}
+                            </IconButton>
+                            <IconButton  onClick={(event) => {
+                                    handleDeleteList(event, idNamePair._id)
+                                }} aria-label='delete' disabled={store.isListNameEditActive}>
+                                    <Delete style={{fontSize:'36pt'}} />
+                            </IconButton>
+                    </div>
+                </div>
+                <div id="worspace-edit">
+                    {list}
+                </div>
+                <div class="secondrow">   
+                    <Box sx={{ fontSize:12 }}>{publish}</Box>
+                    <div font-size="12">
+                        {"Views: "+idNamePair.view}
+                        {open}
+                    </div>                        
+                </div>
                 
         </ListItem>
-
-    if (editActive) {
-        cardElement =
-            <TextField
-                margin="normal"
-                required
-                fullWidth
-                id={"list-" + idNamePair._id}
-                label="Top 5 List Name"
-                name="name"
-                autoComplete="Top 5 List Name"
-                className='list-card'
-                onKeyPress={handleKeyPress}
-                onChange={handleUpdateText}
-                defaultValue={idNamePair.name}
-                inputProps={{style: {fontSize: 48}}}
-                InputLabelProps={{style: {fontSize: 24}}}
-                autoFocus
-            />
-    }
     return (
         cardElement
     );

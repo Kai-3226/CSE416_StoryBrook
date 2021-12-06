@@ -35,6 +35,9 @@ function Statusbar() {
             </div>
         );
     }
+    if (store.text){
+        text=store.text+" Lists";
+    }
     return (
         <div id="top5-statusbar">
             <Typography variant="h4">{text}</Typography>
