@@ -50,9 +50,15 @@ updateTop5List = async (req, res) => {
                 message: 'Top 5 List not found!',
             })
         }
-
-        top5List.name = body.name
-        top5List.items = body.items
+        top5List.name = body.name;
+        top5List.items = body.items;
+        top5List.ownerEmail = body.ownerEmail;
+        top5List.published = body.published;
+        top5List.view = body.view;
+        top5List.likes = body.likes;
+        top5List.dislikes = body.dislikes;
+        top5List.comment = body.comment;
+        top5List.author = body.author;
         top5List
             .save()
             .then(() => {

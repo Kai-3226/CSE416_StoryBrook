@@ -17,6 +17,7 @@ import Person from '@mui/icons-material/PersonOutline';
 import Sigma from '@mui/icons-material/FunctionsOutlined';
 import Sort from '@mui/icons-material/Sort';
 import Create from './CreateScreen';
+import Work from './WorkspaceScreen';
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -26,11 +27,10 @@ const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
-
+    const [input,setInput] = useState("");
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
-
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -38,6 +38,21 @@ const HomeScreen = () => {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
+    function handleUpdateText(event) {
+        setInput(event.target.value);
+        console.log(input);
+    }
+    function handleKeyPress(event) {
+        if(event.code === "Enter") {
+            store.searchLists(input);
+        }
+        store.loadIdNamePairs();
+    }
+    function handleClick(button) {
+        console.log(button+"input");
+        store.setMode(button);
+        console.log(store.mode+"output")
+    }
 
     const menu = (
         <Menu
@@ -73,30 +88,32 @@ const HomeScreen = () => {
                     />
                 ))
     }
-    if (store.editActive){
+    if (store.editActive||store.currentList){
         listCard=
             <Create></Create>
     }
-
     return (
         <div id="top5-list-selector">
             <div id="list-selector-heading">
             <AppBar position="static">
                 <Toolbar sx={{bgcolor:"#c4c4c4", justifyContent:'space-between' }}>
                     <Box sx={{ display: { xs: 'none', md: 'flex'},width:1000 }}>
-                        <IconButton disabled={store.addingList}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("home")}}>
                             <Home></Home>
                         </IconButton>
-                        <IconButton disabled={store.addingList}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("all")}}>
                             <Group></Group>
                         </IconButton>
-                        <IconButton disabled={store.addingList}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("user")}}>
                             <Person></Person>
                         </IconButton>
-                        <IconButton disabled={store.addingList}>
+                        <IconButton disabled={store.addingList} onClick={(event) => {handleClick("community")}}>
                             <Sigma></Sigma>
                         </IconButton>
-                        <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' disbaled={store.addingList} ></TextField>
+                        <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' disbaled={store.addingList}
+                            onChange={handleUpdateText}
+                            onKeyPress={handleKeyPress}
+                        />
                     </Box>
                     <Box sx={{ display: {md:'flex',color:'black',fontSize:20},alignItems:'center'}}>
                         SORT BY

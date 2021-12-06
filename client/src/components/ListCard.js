@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import ThumbsUp from '@mui/icons-material/ThumbUpOutlined';
@@ -56,21 +57,24 @@ function ListCard(props) {
     function handleUpdateText(event) {
         setText(event.target.value);
     }
-    let color="#d3d4f6"
+    function handleEdit(){
+    }
+    let color="#fffef2"
+    let publish= <Button sx={{color:"red" }} onClick={(event) => {
+                    handleLoadList(event, idNamePair._id)
+                }}>
+                    Edit
+                </Button>;
     if (idNamePair.published.published){
-        color="#fffef2"
+        color="#d3d4f6"
+        publish="Published:"+idNamePair.published.time;
     }
     let cardElement =
         <ListItem
             id={idNamePair._id}
             key={idNamePair._id}
             sx={{ marginTop: '15px', display: 'flex', p: 1, bgcolor:color, height:'50%' }}
-            button
             disabled={store.isListNameEditActive}
-            onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
-                }
-            }
             style={{
                 fontSize: '48pt',
                 width: '100%'
@@ -79,7 +83,7 @@ function ListCard(props) {
                 <Box sx={{ p: 1, flexGrow: 1, height:'40%' }}>
                     <Box sx={{ flexDirection: 'column', fontSize:24}}>{idNamePair.name}</Box>
                     <Box sx={{ flexDirection: 'column', fontSize:12, color:'blue'  }}>{"By: "+idNamePair.author}</Box>
-                    <Box sx={{ flexDirection: 'column', fontSize:12 }}>{"Published: "+idNamePair.published}</Box>
+                    <Box sx={{ flexDirection: 'column', fontSize:12 }}>{publish}</Box>
                 </Box>
                 <Box sx={{ flexDirection:'row'}}>
                     <Box sx={{ p: 1,height:'40%' }}>
