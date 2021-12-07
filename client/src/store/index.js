@@ -24,7 +24,8 @@ export const GlobalStoreActionType = {
     EDIT_LIST: "EDIT_LIST",
     UPDATE_LIST: "UPDATE_LIST",
     SEARCH: "SEARCH",
-    MODE: "MODE"
+    MODE: "MODE",
+    SORT: "SORT",
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -73,7 +74,7 @@ function GlobalStoreContextProvider(props) {
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_ID_NAME_PAIRS: {
-                console.log(store);
+                console.log("loading");
                 return setStore({
                     idNamePairs: payload,
                     currentList: null,
@@ -158,6 +159,16 @@ function GlobalStoreContextProvider(props) {
                     text: store.text
                 });
             }
+            case GlobalStoreActionType.SORT: {
+                return setStore({
+                    idNamePairs:payload,
+                    currentList:null,
+                    editActive:false,
+                    listMarkedForDeletion:null,
+                    mode: store.mode,
+                    text: store.text
+                })
+            }
             default:
                 return store;
         }
@@ -231,7 +242,11 @@ function GlobalStoreContextProvider(props) {
             for(let key in pairsArray){
                 let list = pairsArray[key];
                 if(auth.loggedIn){
-                    if(auth.user.email===list.email||list.published.published){
+                    if(auth.user.email===list.email){
+                        console.log(auth.user.email,list.email,list.published.published)
+                        listOwned.push(list);
+                    }
+                    else if(list.published.published){
                         console.log(auth.user.email,list.email,list.published.published)
                         listOwned.push(list);
                     }
@@ -437,6 +452,51 @@ function GlobalStoreContextProvider(props) {
             store.updateList2(top5List);
         }
     }
+    function swap(arr, xp, yp){
+        var temp = arr[xp];
+        arr[xp] = arr[yp];
+        arr[yp] = temp;
+    }
+ 
+// An optimized version of Bubble Sort
+    store.sortBy = function(criteria) {
+        let i, j;
+        let lists=store.idNamePairs;
+        for (i = 0; i < lists.length-1; i++) {
+            for (j = 0; j < lists.length-i-1; j++) {
+                if(criteria===1){
+                    if (lists[j].published.time > lists[j+1].published.time){
+                        swap(lists,j,j+1);
+                    }
+                }
+                else if(criteria===2){
+                    if (lists[j].published.time < lists[j+1].published.time){
+                        swap(lists,j,j+1);
+                    }
+                }
+                else if(criteria===3){
+                    if (lists[j].view < lists[j+1].view){
+                        swap(lists,j,j+1);
+                    }
+                }
+                else if(criteria===4){
+                    if (lists[j].likes.length < lists[j+1].likes.length){
+                        swap(lists,j,j+1);
+                    }
+                }
+                else {
+                    if (lists[j].dislikes.length < lists[j+1].dislikes.length){
+                        swap(lists,j,j+1);
+                    }
+                }
+            }
+        }
+        storeReducer({
+            type: GlobalStoreActionType.SORT,
+            payload: lists
+        });
+    }
+    
     return (
         <GlobalStoreContext.Provider value={{
             store

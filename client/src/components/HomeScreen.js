@@ -50,6 +50,9 @@ const HomeScreen = () => {
         event.stopPropagation();
         store.setMode(button);
     }
+    function handleSort(criteria){
+        store.sortBy(criteria);
+    }
     const menu = (
         <Menu
         anchorEl={anchorEl}
@@ -64,11 +67,11 @@ const HomeScreen = () => {
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-            <MenuItem>Published Date (Newest)</MenuItem>
-            <MenuItem>Published Date (Oldest)</MenuItem>
-            <MenuItem>Views</MenuItem>
-            <MenuItem>Likes</MenuItem>
-            <MenuItem>Dislikes</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(2)}}>Published Date (Newest)</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(1)}}>Published Date (Oldest)</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(3)}}>Views</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(4)}}>Likes</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(5)}}>Dislikes</MenuItem>
         </Menu>
     );
     let listCard = "";
