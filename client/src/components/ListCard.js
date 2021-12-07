@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ListItem from '@mui/material/ListItem';
@@ -24,6 +25,7 @@ function ListCard(props) {
     const { idNamePair } = props;
     const [anchorEl, setAnchorEl] = useState(false);
     const isOpen = Boolean(anchorEl);
+    const { auth } = useContext(AuthContext);
     function handleLoadList(event, id) {
         if (!event.target.disabled) {
             // CHANGE THE CURRENT LIST
@@ -32,9 +34,11 @@ function ListCard(props) {
     }
     function handleLike(){
         store.like(idNamePair._id);
+        store.loadIdNamePairs();
     }
     function handleDislike(){
         store.dislike(idNamePair._id);
+        store.loadIdNamePairs();
     }
 
     function handleToggleEdit(event) {
@@ -69,11 +73,15 @@ function ListCard(props) {
     function handleOpen(id){
         if(!isOpen){
             setAnchorEl(!isOpen);
+            let card=document.getElementById(idNamePair._id);
             store.setCurrentList(id);
+            console.log(store.currentList);
         }
     }
     function handleClose(){
         setAnchorEl(!isOpen);
+        let card=document.getElementById(idNamePair._id);
+        card.classList.remove(".expand");
         store.closeCurrentList();
     }
     let open="";
@@ -99,6 +107,19 @@ function ListCard(props) {
             <Close style={{fontSize: '18pt'}}/>
         </IconButton>
     }
+    let deletebutton=
+    <IconButton  onClick={(event) => {
+        handleDeleteList(event, idNamePair._id)
+        }} aria-label='delete' disabled={store.isListNameEditActive}>
+        <Delete style={{fontSize:'36pt'}} />
+    </IconButton>;
+    if(auth.user===null){
+        deletebutton="";
+    }
+    else if(auth.user.email!==idNamePair.email){
+        deletebutton="";
+    }
+
     let cardElement =
         <ListItem
             id={idNamePair._id}
@@ -123,11 +144,7 @@ function ListCard(props) {
                                 <ThumbsDown style={{fontSize:'36pt'}} />
                                 {idNamePair.dislikes.length}
                             </IconButton>
-                            <IconButton  onClick={(event) => {
-                                    handleDeleteList(event, idNamePair._id)
-                                }} aria-label='delete' disabled={store.isListNameEditActive}>
-                                    <Delete style={{fontSize:'36pt'}} />
-                            </IconButton>
+                            {deletebutton}
                     </div>
                 </div>
                 <div id="worspace-edit">

@@ -198,8 +198,7 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
             payload: {}
         });
-        
-        history.push("/home");
+        store.loadIdNamePairs();    
     }
 
     // THIS FUNCTION CREATES A NEW LIST
@@ -254,6 +253,7 @@ function GlobalStoreContextProvider(props) {
                 else{
                     if(list.published.published){
                         listOwned.push(list);
+                        console.log(listOwned);
                     } 
                 }
                 
@@ -311,14 +311,10 @@ function GlobalStoreContextProvider(props) {
         let response = await api.getTop5ListById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
-
-            response = await api.updateTop5ListById(top5List._id, top5List);
-            if (response.data.success) {
-                storeReducer({
-                    type: GlobalStoreActionType.SET_CURRENT_LIST,
-                    payload: {list: top5List,edit: input}
-                });
-            }
+            storeReducer({
+                type: GlobalStoreActionType.SET_CURRENT_LIST,
+                payload: {list: top5List,edit: input}
+            });
         }
     }
     store.updateList = async function (newList) {
@@ -377,7 +373,6 @@ function GlobalStoreContextProvider(props) {
             }
         }
         updateList(newList);
-        store.loadIdNamePairs();
     }
 
     store.updateCurrentList = async function () {
@@ -478,6 +473,16 @@ function GlobalStoreContextProvider(props) {
             else{
                 top5List.dislikes.pop(auth.user.email);
             }
+            store.updateList2(top5List);
+        }
+    }
+    store.comment = async function (input,id) {
+        let response = await api.getTop5ListById(id);
+        if (response.data.success) {
+            let top5List = response.data.top5List;
+            let author=auth.user.firstName+" "+auth.user.lastName;
+            let payload={comment:input,author:author}
+            top5List.comment.push(payload);
             store.updateList2(top5List);
         }
     }

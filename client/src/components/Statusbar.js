@@ -19,6 +19,12 @@ function Statusbar() {
     let text ="";
     if (store.currentList)
         text = store.currentList.name;
+    if (store.text!==""){
+        text=store.text+" Lists";
+    }
+    if (store.currentList){
+        text=store.currentList.name+" List";
+    }    
     if (auth.loggedIn){
         return(
             <div id="top5-statusbar">
@@ -27,16 +33,13 @@ function Statusbar() {
                     aria-label="add"
                     id="add-list-button"
                     onClick={handleCreateNewList}
-                    disabled={store.editActive}
+                    disabled={store.editActive||store.currentList}
                 >   
                     <AddIcon />
                 </Button>
-                <Typography variant="h4">Your Lists</Typography>
+                <Typography variant="h4">{text}</Typography>
             </div>
         );
-    }
-    if (store.text){
-        text=store.text+" Lists";
     }
     return (
         <div id="top5-statusbar">

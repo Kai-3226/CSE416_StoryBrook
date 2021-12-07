@@ -24,7 +24,7 @@ const CreateScreen = () => {
         store.currentList.items.map((item)=>
             <Box sx={{justifyContent:'space-evenly',flexDirection:'row', bgcolor:'#d4af36',margin:2, fontSize:36, flexWrap:'wrap',justifyContent:'center'}}>
                 <Typography variant="h3" sx={{flexDirection:'row', width:0.1}}>{(i++)+"."}</Typography>
-                <Box><TextField sx={{width:0.9, flexDirection:'row'}} id={"item"+i} name={"item"+i} defaultValue={item}></TextField></Box>
+                <Box><TextField sx={{width:0.9, flexDirection:'row'}} id={"item"+i} class='list-card' name={"item"+i} defaultValue={item}></TextField></Box>
             </Box>
         )
     return (
