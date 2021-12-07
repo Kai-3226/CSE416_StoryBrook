@@ -234,7 +234,8 @@ body {
   border-radius: 25px;
   background-color: var(--swatch-listbg);
   flex-direction: column;
-  overflow:scroll;
+  justify-content: space-evenly;
+  overflow:visible;
   
 }
 
@@ -244,7 +245,7 @@ body {
   left: 20%;
   top: 0%;
   width: 50%;
-  height: 20%;
+  height: 100%;
   color:var(--swatch-listclr);
 }
 

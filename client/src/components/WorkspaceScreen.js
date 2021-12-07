@@ -7,6 +7,7 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import AuthContext from '../auth/';
+import ListItem from '@mui/material/ListItem';
 
  
 /*
@@ -34,8 +35,7 @@ function WorkspaceScreen() {
     let editItems = "";
     let comment = "";
     if (store.currentList) {
-        editItems = (
-        <Box id = "workspace-edit">  
+        editItems = (  
             <Box id="edit-numbering">
             {store.currentList.items.map((item) => (
                 <Box className='item-number'sx={{flexDirection:"column",color:'#d4af36', bgcolor: 'inherit'}}>
@@ -43,17 +43,17 @@ function WorkspaceScreen() {
                 </Box>
             ))}
             </Box>
-        </Box>  
         );
         comment = (
-        <Box id = "workspace-edit">  
-            <Box id="edit-numbering">
+            <Box id="edit-numbering" sx={{overflow:'scroll'}}>
+            <ListItem sx={{ marginTop: '15px', display: 'flex', p: 1, height:'100%', flexDirection:'column' }}>
             {store.currentList.comment.map((text) => (
                 <Box className='item-number' sx={{flexDirection:"column",color:'black', bgcolor: '#d4af36', overflow: 'scroll'}}>
                     <Box sx={{color:'blue'}}>{text.author}</Box>
                     <Box>{text.comment}</Box>
                 </Box>
             ))}
+            </ListItem>
             <TextField sx={{bgcolor:'white',color:'white'}} label="add comment..." 
             onKeyPress={(event) => {
                 handleKeyPress(event)
@@ -62,9 +62,9 @@ function WorkspaceScreen() {
             name="comment"
             id="comment"></TextField>
             </Box>
-        </Box>  
         );
     }
+    console.log(comment);
     return (
         <div id="top5-workspace">
             <div id="workspace-edit">
