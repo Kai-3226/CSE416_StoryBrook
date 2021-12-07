@@ -141,12 +141,12 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.SEARCH: {
                 console.log("search");
                 return setStore({
-                    idNamePairs:store.idNamePairs,
+                    idNamePairs:payload,
                     currentList:null,
                     editActive:false,
                     listMarkedForDeletion:null,
                     mode: store.mode,
-                    text: payload
+                    text: ""
                 });
             }
             case GlobalStoreActionType.MODE: {
@@ -405,10 +405,39 @@ function GlobalStoreContextProvider(props) {
             store.updateList(list);
         }
     }
-    store.searchLists = function (payload) {
+    store.searchLists = async function (payload) {
+        const response = await api.getTop5ListPairs();
+        let lists= response.data.idNamePairs;
+        console.log(lists);
+        let filter =[];
+        for(let key in lists){
+            let list=lists[key]
+            if(list.published.published){
+                if(store.mode==="home"){
+                    if(list.name.toLowerCase().startsWith(payload.toLowerCase())){
+                        filter.push(list);
+                    }
+                }
+                else if(store.mode==="all"){
+                    if(list.name.toLowerCase()===payload.toLowerCase()){
+                        filter.push(list);
+                    }
+                }
+                else if(store.mode==="user"){
+                    if(list.author.toLowerCase()===payload.toLowerCase()){
+                        filter.push(list);
+                    }
+                }
+                else{
+                    if(list.name.toLowerCase().startsWith(payload.toLowerCase())){
+                        filter.push(list);
+                    }
+                }
+            }
+        }
         storeReducer({
             type: GlobalStoreActionType.SEARCH,
-            payload:payload
+            payload:filter
         });
     }
     store.setMode= function (input){
