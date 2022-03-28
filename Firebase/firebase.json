@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site":"purifyworld",
+    "site":"Story-Brook",
     "public": "public",
     "ignore": [
       "firebase.json",
