@@ -1,5 +1,6 @@
 // THESE ARE NODE APIs WE WISH TO USE
 const express = require('express')
+const mongoose = require('mongoose')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
@@ -8,6 +9,12 @@ const cookieParser = require('cookie-parser')
 dotenv.config()
 const PORT = process.env.PORT || 4000;
 const app = express()
+
+// CONNECT DATABASE
+mongoose.connect(process.env.MONGODB_URI, {
+    useNEWUrlParser: true,
+    useUnifiedTopology: true
+});
 
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
@@ -29,4 +36,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 // PUT THE SERVER IN LISTENING MODE
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
-
+//HEROKU
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
