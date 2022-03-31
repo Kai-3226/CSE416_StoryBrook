@@ -79,7 +79,7 @@ registerUser = async (req, res) => {
 }
 
 loginUser = async (req, res) => {
-    console.log("asdf");
+   
         const { email, password} = req.body;
         if (!email || !password) {
             return res
@@ -135,9 +135,17 @@ logoutUser= async (req, res) => {
     }).send();
 }
 
+getUserData = async(req,res) =>{
+
+}
+updateUser =async (req,res) => {
+
+}
 module.exports = {
     getLoggedIn,
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    getUserData,
+    updateUser
 }
