@@ -15,4 +15,6 @@ router.post('/register', UserController.registerUser)
 router.post('/login',UserController.loginUser)
 router.get('/logout',UserController.logoutUser)
 router.get('/loggedIn', UserController.getLoggedIn)
+router.post('/sendEmail', UserController.sendEmail)
+router.post('/resetPassword/:userId/:token', auth.verify, auth.verify, UserController.resetPassword)
 module.exports = router
