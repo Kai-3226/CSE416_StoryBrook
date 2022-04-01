@@ -140,7 +140,7 @@ getUserData = async(req,res) =>{
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
-        return res.status(200).json({ success: true, top5List: user })
+        return res.status(200).json({ success: true, user: user })
     }).catch(err => console.log(err))
 }
 
@@ -154,7 +154,7 @@ updateUser =async (req,res) => {
         })
     }
 
-    Top5List.findOne({ _id: req.params.id }, (err, user) => {
+    User.findOne({ _id: req.params.id }, (err, user) => {
         console.log("user found: " + JSON.stringify(user));
         if (err) {
             return res.status(404).json({
@@ -191,7 +191,7 @@ updateUser =async (req,res) => {
                 console.log("FAILURE: " + JSON.stringify(error));
                 return res.status(404).json({
                     error,
-                    message: 'User  data not updated!',
+                    message: 'User data not updated!',
                 })
             })
     })

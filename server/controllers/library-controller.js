@@ -1,40 +1,41 @@
 const Library = require('../models/library-model');
 
-createTop5List = (req, res) => {
+// created and upload a new library
+createLibrary = (req, res) => {
     const body = req.body;
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a Top 5 List',
+            error: 'You must provide a library',
         })
     }
 
-    const top5List = new Top5List(body);
-    console.log("creating top5List: " + JSON.stringify(top5List));
-    if (!top5List) {
+    const library = new Library(body);
+    console.log("creating a new library: " + JSON.stringify(library));
+    if (!library) {
         return res.status(400).json({ success: false, error: err })
     }
 
-    top5List
+    library
         .save()
         .then(() => {
             return res.status(201).json({
                 success: true,
-                top5List: top5List,
-                message: 'Top 5 List Created!'
+                library: library,
+                message: 'New library Created!'
             })
         })
         .catch(error => {
             return res.status(400).json({
                 error,
-                message: 'Top 5 List Not Created!'
+                message: 'New library Not Created!'
             })
         })
 }
 
-updateTop5List = async (req, res) => {
+updateLibrary = async (req, res) => {
     const body = req.body
-    console.log("updateTop5List: " + JSON.stringify(body));
+    console.log("update Library: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
             success: false,
@@ -42,24 +43,23 @@ updateTop5List = async (req, res) => {
         })
     }
 
-    Top5List.findOne({ _id: req.params.id }, (err, top5List) => {
-        console.log("top5List found: " + JSON.stringify(top5List));
+    Library.findOne({ _id: req.params.id }, (err, library) => {
+        console.log("Library: " + JSON.stringify(library));
         if (err) {
             return res.status(404).json({
                 err,
-                message: 'Top 5 List not found!',
+                message: 'Library not found!',
             })
         }
-        top5List.name = body.name;
-        top5List.items = body.items;
-        top5List.ownerEmail = body.ownerEmail;
-        top5List.published = body.published;
-        top5List.view = body.view;
-        top5List.likes = body.likes;
-        top5List.dislikes = body.dislikes;
-        top5List.comment = body.comment;
-        top5List.author = body.author;
-        top5List
+        library.ownerId = body.ownerId;
+        library.name = body.name;
+        library.content = body.content;
+        library.public = body.public;
+        library.used = body.used;
+
+        
+
+        library
             .save()
             .then(() => {
                 console.log("SUCCESS!!!");
@@ -79,80 +79,80 @@ updateTop5List = async (req, res) => {
     })
 }
 
-deleteTop5List = async (req, res) => {
-    Top5List.findById({ _id: req.params.id }, (err, top5List) => {
+deleteLibrary = async (req, res) => {
+    Library.findById({ _id: req.params.id }, (err, library) => {
         if (err) {
             return res.status(404).json({
                 err,
-                message: 'Top 5 List not found!',
+                message: 'Library not found!',
             })
         }
-        Top5List.findOneAndDelete({ _id: req.params.id }, () => {
-            return res.status(200).json({ success: true, data: top5List })
+        Library.findOneAndDelete({ _id: req.params.id }, () => {
+            return res.status(200).json({ success: true, data: Library })
         }).catch(err => console.log(err))
     })
 }
 
-getTop5ListById = async (req, res) => {
-    await Top5List.findById({ _id: req.params.id }, (err, list) => {
+getLibraryById = async (req, res) => {
+    await Library.findById({ _id: req.params.id }, (err,library) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
-        return res.status(200).json({ success: true, top5List: list })
-    }).catch(err => console.log(err))
-}
-getTop5Lists = async (req, res) => {
-    await Top5List.find({}, (err, top5Lists) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        if (!top5Lists.length) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Top 5 Lists not found` })
-        }
-        return res.status(200).json({ success: true, data: top5Lists })
-    }).catch(err => console.log(err))
-}
-getTop5ListPairs = async (req, res) => {
-    await Top5List.find({ }, (err, top5Lists) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        if (!top5Lists) {
-            console.log("!top5Lists.length");
-            return res
-                .status(404)
-                .json({ success: false, error: 'Top 5 Lists not found' })
-        }
-        else {
-            // PUT ALL THE LISTS INTO ID, NAME PAIRS
-            let pairs = [];
-            for (let key in top5Lists) {
-                let list = top5Lists[key];
-                let pair = {
-                    _id: list._id,
-                    name: list.name,
-                    email: list.ownerEmail,
-                    likes: list.likes,
-                    dislikes: list.dislikes,
-                    author: list.author,
-                    published: list.published,
-                    view: list.view,
-                    comment: list.comment
-                };
-                pairs.push(pair);
-            }
-            return res.status(200).json({ success: true, idNamePairs: pairs })
-        }
+        return res.status(200).json({ success: true, top5List: library })
     }).catch(err => console.log(err))
 }
 
+getAllLibrary = async (req, res) => {
+    await Library.find({}, (err,  libraries) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!libraries.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: ` Libraries not found` })
+        }
+        return res.status(200).json({ success: true, data:  libraris })
+    }).catch(err => console.log(err))
+}
+
+getLibrariesByName =async(req,res) => {
+    let name=req.params.name;
+
+    await Library.find({ }, (err, libraries) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!libraries) {
+            console.log("!libraries.length");
+            return res
+                .status(404)
+                .json({ success: false, error: 'Libraries not found' })
+        }
+        else {
+            // PUT ALL THE LISTS INTO ID, NAME PAIRS
+            let namedLibraries = [];
+            for (let key in libraries) {
+                let namedLibrary = libraries[key];
+               if(namedLibrary.name===name) {
+
+                 namedLibraries.push(namedLibrary);
+               }    
+            }
+            return res.status(200).json({ success: true,  namedLibraries:  namedLibraries})
+        }
+    }).catch(err => console.log(err))
+  
+
+}
+
+
+
 module.exports = {
-    createTop5List,
-    updateTop5List,
-    deleteTop5List,
-    getTop5Lists,
-    getTop5ListPairs,
-    getTop5ListById
+    createLibrary,
+    updateLibrary,
+    deleteLibrary,
+    getLibraryById,
+    getAllLibrary,
+    getLibrariesByName
 }
