@@ -23,7 +23,7 @@ const UserSchema = new Schema(
                                 required: true},
         like: { type: [String], required: true},
         dislike: { type: [String], required: true},
-        notification: { type: [Object], required: true},
+        alarm: { type: [Object], required: true},
         profile: { type:{"age": Number ,
                         "gender": Number,
                         "userName":String ,
