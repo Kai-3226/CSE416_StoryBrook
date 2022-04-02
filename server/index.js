@@ -10,12 +10,6 @@ dotenv.config()
 const PORT = process.env.PORT || 4000;
 const app = express()
 
-// CONNECT DATABASE
-mongoose.connect(process.env.MONGODB_URI, {
-    useNEWUrlParser: true,
-    useUnifiedTopology: true
-});
-
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
