@@ -8,7 +8,7 @@
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "node ./server/index.js"
+    "start": "node ./client/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,3 +21,4 @@
   },
   "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme"
 }
+
