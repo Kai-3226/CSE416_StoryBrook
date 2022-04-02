@@ -26,7 +26,7 @@ app.use('/api', top5listsRouter)
 // INITIALIZE OUR DATABASE OBJECT
 console.log(process.env.DB_CONNECT);
 mongoose
-    .connect(process.env.DB_CONNECT, { useNewUrlParser: true })
+    .connect("mongodb+srv://CSE416:StoryBrook@cse416.r919d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true })
     .catch(e => {
         console.error('Connection error', e.message)
     })
