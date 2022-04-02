@@ -24,15 +24,8 @@ const top5listsRouter = require('./routes/top5lists-router')
 app.use('/api', top5listsRouter)
 
 // INITIALIZE OUR DATABASE OBJECT
-// const db = require('./db')
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'))
-mongoose
-    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
-    .catch(e => {
-        console.error('Connection error', e.message)
-    })
-
-const db = mongoose.connection
+const db = require('./db')
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 // PUT THE SERVER IN LISTENING MODE
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
