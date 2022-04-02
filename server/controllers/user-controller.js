@@ -79,7 +79,7 @@ registerUser = async (req, res) => {
 }
 
 loginUser = async (req, res) => {
-    console.log("asdf");
+   
         const { email, password} = req.body;
         if (!email || !password) {
             return res
@@ -135,9 +135,72 @@ logoutUser= async (req, res) => {
     }).send();
 }
 
+getUserData = async(req,res) =>{
+    await User.findById({ _id: req.params.id }, (err, user) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        return res.status(200).json({ success: true, user: user })
+    }).catch(err => console.log(err))
+}
+
+updateUser =async (req,res) => {
+    const body = req.body
+    console.log("updateUser: " + JSON.stringify(body));
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update',
+        })
+    }
+
+    User.findOne({ _id: req.params.id }, (err, user) => {
+        console.log("user found: " + JSON.stringify(user));
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'User not found!',
+            })
+        }
+        user.firstName = body.firstName;
+        user.lastName = body.lastName;
+        user.passwordHash=body.passwordHash;
+        user.email = body.email;
+        user.friends = body.friends;
+        user.following = body.following;
+        user.follower = body.follower;
+        user.message = body.message;
+        user.works = body.works;
+        user.comicLibrary = body.comicLibrary;
+        user.like = body.like;
+        user.dislike=body.dislike;
+        user.notification=body.notification;
+        user.profile=body.profile;
+        
+        user
+            .save()
+            .then(() => {
+                console.log("SUCCESS!!!");
+                return res.status(200).json({
+                    success: true,
+                    id: user._id,
+                    message: 'User data updated!',
+                })
+            })
+            .catch(error => {
+                console.log("FAILURE: " + JSON.stringify(error));
+                return res.status(404).json({
+                    error,
+                    message: 'User data not updated!',
+                })
+            })
+    })
+}
 module.exports = {
     getLoggedIn,
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    getUserData,
+    updateUser
 }
