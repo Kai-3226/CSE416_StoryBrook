@@ -1,0 +1,19 @@
+{
+  "name": "storybrook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kai-3226/CSE416_StoryBrook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kai-3226/CSE416_StoryBrook/issues"
+  },
+  "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme"
+}
