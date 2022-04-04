@@ -12,7 +12,6 @@ router.put('/work/:id', auth.verify, WorkController.updateWork)
 router.delete('/work/:id', auth.verify, WorkController.deleteWork)
 router.get('/work/:id', WorkController.getWorkById)
 router.get('/works', WorkController.getWorks)
-//router.get('/top5listpairs', Top5ListController.getTop5ListPairs)
 
 router.post('/register', UserController.registerUser)
 router.post('/login',UserController.loginUser)

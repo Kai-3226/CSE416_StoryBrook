@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
-const top5listsRouter = require('./routes/top5lists-router')
+const top5listsRouter = require('./routes/storybrook-router')
 app.use('/api', top5listsRouter)
 
 // INITIALIZE OUR DATABASE OBJECT
@@ -29,4 +29,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 // PUT THE SERVER IN LISTENING MODE
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
-
+// Heroku Deploy
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
