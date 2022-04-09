@@ -37,7 +37,7 @@ function GlobalStoreContextProvider(props) {
         currentList: null,
         editActive: false,
         listMarkedForDeletion: null,
-        mode: "home",
+        mode: null,
         text: ""
     });
     const history = useHistory();
@@ -440,7 +440,6 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.MODE,
             payload:input
         });
-        console.log(store.mode);
     }
     store.like = async function (id) {
         let response = await api.getTop5ListById(id);

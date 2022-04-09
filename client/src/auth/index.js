@@ -148,6 +148,9 @@ function AuthContextProvider(props) {
         }
         
     }
+    auth.searchUser = async function(user){
+        
+    }
     return (
         <AuthContext.Provider value={{
             auth

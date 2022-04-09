@@ -18,11 +18,11 @@
 }
 
 body {
-  background-color: #fffdc1;
+  background-color: white;
 }
 
 #root {
-  background-color: #c4c4c4;
+  background-color: white;
   font-family: "Lexend Exa";
   position: absolute;
   width: 80%;
@@ -99,15 +99,6 @@ body {
   background-color: var(--swatch-primary);
 }
 
-#top5-workspace {
-  position: absolute;
-  left: 0%;
-  top: 10%;
-  width: 100%;
-  height: 80%;
-  background-color: var(--swatch-accent);
-}
-
 #top5-statusbar {
   position: absolute;
   left: 0%;
@@ -150,48 +141,6 @@ body {
   overflow: scroll;
 }
 
-.list-card,
-.published-list-card{
-  font-size: 18pt;
-  margin: 10px;
-  padding: 20px;
-  border-radius: 25px;
-  background-color:var(--swatch-published);
-  flex-direction: row;
-  height: 20%;
-}
-.unpublished-list-card {
-  font-size: 18pt;
-  margin: 10px;
-  padding: 20px;
-  border-radius: 25px;
-  background-color:var(--swatch-contrast);
-  flex-direction: row;
-  height: 20%;
-}
-.published-list-card-open{
-  font-size: 18pt;
-  margin: 10px;
-  padding: 20px;
-  border-radius: 25px;
-  background-color:var(--swatch-published);
-  flex-direction: row;
-  height: 100%;
-}
-
-.list-card:aria-disabled,
-.list-card[aria-disabled] {
-  border: 2px solid black;
-  background-color: #cccccc;
-  color: #666666;
-  pointer-events: none;
-}
-
-.unselected-list-card:hover {
-  cursor: pointer;
-  background-color: var(--swatch-contrast);
-  color: white;
-}
 .firstrow{
   flex-direction:row;
   justify-content: space-between;
@@ -372,6 +321,202 @@ input {
 
 #confirm-cancel-container {
   text-align: center;
+}
+#sidebar {
+  position:absolute;
+  left: 0%;
+  top: 20%;
+  width: 20%;
+  height: 70%;
+  background: #f3f3f3;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+#sidebar-menu {
+  position:absolute;
+  left:0%;
+  top:0%;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction: column;  
+}
+#content {
+  position: absolute;
+  left: 20%;
+  top: 10%;
+  width: 80%;
+  height: 80%;
+  flex-direction: column;
+  padding: 5px;
+}
+#mypage-search {
+  border-radius: 5px;
+  top: 0%;
+  left: 5%;
+  height:10%;
+  width:100%;
+  background: #e7e7e7;
+}
+#mypage-list{
+  border-radius:5px;
+  top:10%;
+  left:0%;
+  height:90%;
+  width:100%;
+  background-color: #C7CA3D;
+}
+#work-published{
+  position:absolute;
+  top:15%;
+  left:5%;
+  height:5%;
+  width:40%;
+}
+#work-following{
+  position:absolute;
+  top:15%;
+  left:50%;
+  height:5%;
+  width:40%;
+}
+.selected-menu, .unselected-menu {
+  font-size: 18pt;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 25px;
+  background:#c4c4c4
+}
+
+.unselected-menu:hover {
+  cursor: pointer;
+  background-color: var(#c4c4c4);
+  color:white;
+}
+
+.selected-menu {
+  background-color: #c4c4c4;
+  color: white;
+}
+.selected-menu:hover {
+  background-color: #c4c4c4;
+  color: white;
+}
+.unselected-menu {
+  background-color: var(#C4c4c4);
+}
+
+.list-card-button {
+  float:right;
+  font-size:18pt;
+}
+#profilePage{
+  font-family: 'Revalia';
+  top:0%;
+  left:0%;
+  height:100%;
+  width:100%;
+  background-color:white;
+  flex-direction:column;
+}
+#profile-head{
+  font-family: 'Revalia';
+  top:0%;
+  left:0%;
+  height:20%;
+  width:100%;
+  flex-direction:row;
+}
+#profile-ac{
+  font-family: 'Revalia';
+  top:0%;
+  left:0%;
+  height:20%;
+  width:20;
+}
+#profile-setting{
+  font-family: 'Revalia';
+  position:absolute;
+  flex-direction:row;
+  top:20%;
+  left:0%;
+  height:80%;
+  width:100%;
+  flex-wrap:wrap;
+  flex-direction:row;
+  font-size: 24pt;
+}
+#profile-name{
+  position:absolute;
+  top:10%;
+  left:0%;
+  height:33%;
+  width:33%;
+}
+#profile-age{
+  position:absolute;
+  top:10%;
+  left:33%;
+  height:33%;
+  width:33%;
+}
+#profile-gender{
+  position:absolute;
+  top:10%;
+  left:66%;
+  height:33%;
+  width:33%;
+
+}
+#profile-email{
+  position:absolute;
+  top:33%;
+  left:0%;
+  height:33%;
+  width:100%;
+}
+#profile-statement{
+  position:absolute;
+  top:50%;
+  left:0%;
+  height:33%;
+  width:100%;
+}
+#profile-button{
+  position:absolute;
+  top:90%;
+  left:90%;
+  height:5%;
+  width:10;
+}
+#profile-save{
+  position:absolute;
+  top:90%;
+  left:88%;
+  height:5%;
+  width:5%;
+}
+#profile-cancel{
+  position:absolute;
+  top:90%;
+  left:95%;
+  height:5%;
+  width:5%;
+}
+#profile-mg{
+  position:absolute;
+  font-size: 24px;
+  top:10%;
+  left:10%;
+  height:5%;
+  width:75%;
+}
+#profile-upload{
+  position:absolute;
+  top:15%;
+  left:10%;
+  height:5%;
+  width:75%;
 }
 
 /* ANIMATIONS

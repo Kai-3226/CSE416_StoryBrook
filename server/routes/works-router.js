@@ -9,7 +9,7 @@ router.put('/work/:id', auth.verify, WorkController.updateWork)
 router.delete('/work/:id', auth.verify, WorkController.deleteWork)
 router.get('/work/:id', WorkController.getWorkById)
 router.get('/works', WorkController.getWorks)
-router.get('/top5listpairs', WorkController.getWorks)
+router.get('/workpairs', WorkController.getWorks)
 
 router.post('/register', UserController.registerUser)
 router.post('/login',UserController.loginUser)
