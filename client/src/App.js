@@ -42,7 +42,7 @@ const App = () => {
                     </Switch>
                     
                 </GlobalStoreContextProvider>
-            </AuthContextProvider>
+            </AuthContextProvider>mer
         </BrowserRouter>
     )
 }
