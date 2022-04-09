@@ -1,4 +1,4 @@
-import './App.css';
+import './App2.css';
 import { React } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
