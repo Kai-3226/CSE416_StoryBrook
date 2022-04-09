@@ -57,7 +57,7 @@ const MessageScreen = () => {
                 <Box id= "messagePage_text">
                     <TextField id="messageTextField" defaultValue="Message field" sx={{top:'20%',width:'80%',borderRadius:'0.1cm',bgcolor:'lightgrey'}}></TextField>
                    <Button  variant="outlined" id="sendMessageButton" sx={{top:'25%',left:'5%'}}>Send</Button> 
-                    </Box>  
+                </Box>  
             
         </Box>
        

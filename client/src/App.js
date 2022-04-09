@@ -1,5 +1,6 @@
 import './App.css';
 import './harry.css';
+import './xiyhu.css';
 import { React } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
@@ -34,7 +35,6 @@ const App = () => {
                 <GlobalStoreContextProvider>              
                     <AppBanner />
                     <Switch>
-                        <Route path="/" exact component={MessageScreen} />
                         <Route path="/" exact component={SplashScreen} />
                         <Route path="/home/" exact component = {HomeScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
