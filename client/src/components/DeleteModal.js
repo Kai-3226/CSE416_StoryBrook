@@ -55,10 +55,10 @@ function DeleteModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            List Deletion
+            Deletion
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Delete the {name} Top5 List?
+            Delete the {name}?
           </Typography>
           <Button
             id="dialog-yes-button"

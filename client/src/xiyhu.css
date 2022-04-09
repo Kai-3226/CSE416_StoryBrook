@@ -9,11 +9,10 @@
 
 /* Rectangle 55 */
 #splash_screen_description{
-position: absolute;
-width: 1084px;
-height: 361px;
-left: 185px;
-top: 233px;
+position: relative;
+width: 100%;
+height: 90%;
+
 
 background: rgba(196, 196, 196, 0.47);
 }
