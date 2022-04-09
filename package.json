@@ -7,7 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
+<<<<<<< HEAD
     "heroku-postbuild": "npm run install-client && npm run build",
+=======
+    "install-server": "cd server && npm install",
+    "heroku-postbuild": "npm run install-client && npm run install server && npm run build",
+>>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     "start": "node ./server/index.js",
     "client": "cd client && npm start"
   },
@@ -20,5 +25,12 @@
   "bugs": {
     "url": "https://github.com/Kai-3226/CSE416_StoryBrook/issues"
   },
+<<<<<<< HEAD
   "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme"
+=======
+  "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+>>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
 }

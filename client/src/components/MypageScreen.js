@@ -9,7 +9,11 @@ import Button from '@mui/material/Button';
 export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
+<<<<<<< HEAD
     const user = auth.searchUser(auth.user)
+=======
+    //const user = auth.searchUser(auth.user)
+>>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     let list="";
     let selectbar="";
     if (store.mode=="works"){
