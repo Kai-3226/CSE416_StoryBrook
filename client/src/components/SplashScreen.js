@@ -19,15 +19,17 @@ export default function SplashScreen() {
 
     return (
         <div id="splash_screen_background">
-            <Typography id="splash_screen_description" align='center'component="h1" variant="h4" >
+            <Box>
+                <Typography id="splash_screen_description" align='center'component="h1" variant="h4" >
                 Hello there!<br /> 
                 Welcome to StoryBrook!<br /> 
                 In this place, you can draw story or tell story.<br />
                 Pick one you want to do!!
-            </Typography>
+                </Typography>
+            </Box>
             <Box component="form">
-                <Button variant="outlined" size="medium"><Link to='/comicScreen/'>Draw</Link></Button>
-                <Button variant="outlined" size="medium"><Link to='/storytellingScreen/'>Tell</Link></Button>
+                <Button variant="outlined" size="large" sx={{top:'10%',left:'20%'}}><Link to='/comicScreen/'>Draw</Link></Button>
+                <Button variant="outlined" size="large" sx={{top:'10%',left:'50%'}}><Link to='/storytellingScreen/'>Tell</Link></Button>
             </Box>
         </div>
     )
