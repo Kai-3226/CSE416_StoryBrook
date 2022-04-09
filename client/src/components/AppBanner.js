@@ -52,6 +52,7 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to='/profilescreen/'>Profile</Link></MenuItem>
         </Menu>
     );
 
@@ -104,7 +105,7 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: '#d4b038' }} to='/'>T<sup>5</sup>L</Link>
+                        <Link style={{ textDecoration: 'none', color: '#d4b038' }} to='/'>StoryBrook</Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
