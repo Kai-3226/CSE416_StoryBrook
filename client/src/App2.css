@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 :root {
     /* 
           FIRST WE'LL DEFINE OUR SWATCHES, i.e. THE COMPLEMENTARY
@@ -243,9 +242,6 @@
   .disabled:hover {
     color: var(--swatch-neutral);
   }
-=======
-
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
   
   /* THIS STYLE SHEET MANAGES STYLE FOR OUR MODAL, i.e. DIALOG BOX */
   
@@ -300,7 +296,6 @@
     justify-content: space-between;
     border-bottom: dotted;
   }
-  
   .modal-header,
   .modal-close {
     font-size: 1.5rem;
@@ -327,11 +322,7 @@
     text-align: center;
   }
   #sidebar {
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     left: 0%;
     top: 20%;
     width: 20%;
@@ -341,11 +332,7 @@
     border-radius: 15px;
   }
   #sidebar-menu {
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     left:0%;
     top:0%;
     width:100%;
@@ -354,11 +341,7 @@
     flex-direction: column;  
   }
   #content {
-<<<<<<< HEAD
     position: relative;
-=======
-    position: absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     left: 20%;
     top: 10%;
     width: 80%;
@@ -383,22 +366,14 @@
     background-color: #C7CA3D;
   }
   #work-published{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:15%;
     left:5%;
     height:5%;
     width:40%;
   }
   #work-following{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:15%;
     left:50%;
     height:5%;
@@ -460,11 +435,7 @@
   }
   #profile-setting{
     font-family: 'Revalia';
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     flex-direction:row;
     top:20%;
     left:0%;
@@ -475,33 +446,21 @@
     font-size: 24pt;
   }
   #profile-name{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:10%;
     left:0%;
     height:33%;
     width:33%;
   }
   #profile-age{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:10%;
     left:33%;
     height:33%;
     width:33%;
   }
   #profile-gender{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:10%;
     left:66%;
     height:33%;
@@ -509,66 +468,42 @@
   
   }
   #profile-email{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:33%;
     left:0%;
     height:33%;
     width:100%;
   }
   #profile-statement{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:50%;
     left:0%;
     height:33%;
     width:100%;
   }
   #profile-button{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:90%;
     left:90%;
     height:5%;
     width:10;
   }
   #profile-save{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:90%;
     left:88%;
     height:5%;
     width:5%;
   }
   #profile-cancel{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:90%;
     left:95%;
     height:5%;
     width:5%;
   }
   #profile-mg{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     font-size: 24px;
     top:10%;
     left:10%;
@@ -576,11 +511,7 @@
     width:75%;
   }
   #profile-upload{
-<<<<<<< HEAD
     position:relative;
-=======
-    position:absolute;
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     top:15%;
     left:10%;
     height:5%;
