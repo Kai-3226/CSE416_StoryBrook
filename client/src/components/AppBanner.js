@@ -10,6 +10,9 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import NotificationModal from './NotificationModal';
+import FriendModal from './FriendModal';
+
 
 
 export default function AppBanner() {
@@ -122,6 +125,9 @@ export default function AppBanner() {
             {
                 menu
             }
+            <NotificationModal/>
+            <FriendModal/>
+
         </Box>
     );
 }
