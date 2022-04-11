@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 mongoose
-    .connect(process.env.MONGODB_URI || process.env.DB_CONNECT||"mongodb://127.0.0.1:27017/storybrook", {
+    .connect(process.env.MONGODB_URI || process.env.DB_CONNECT||"mongodb://127.0.0.1:27017/storybrook"||"mongodb+srv://CSE416:StoryBrook@cse416.r919d.mongodb.net/CSE416?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
