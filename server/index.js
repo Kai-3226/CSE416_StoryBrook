@@ -30,6 +30,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
 // Heroku Deploy
-if (true) {
+if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
