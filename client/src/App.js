@@ -9,9 +9,11 @@ import { GlobalStoreContextProvider } from './store'
 import {
     AppBanner,
     SplashScreen,
+    ForgetPassword,
     RegisterScreen,
     Statusbar,
-    HomeScreen
+    HomeScreen,
+    ChangePassword
 } from './components'
 import LoginScreen from './components/LoginScreen'
 import CreateScreen from './components/CreateScreen'
@@ -41,12 +43,12 @@ const App = () => {
                         <Route path="/home/" exact component = {HomeScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
                         <Route path="/register/" exact component={RegisterScreen} />
+                        <Route path="/forgetPassword/" exact component={ForgetPassword}/>
+                        <Route path="/changepassword/" exact component={ChangePassword}/>
                         <Route path="/create/" exact component={CreateScreen} />
                         <Route path="/message/" exact component={MessageScreen} />
                         <Route path="/read/" exact component={ReadScreen} />
                         <Route path="/myPage/" exact component={MypageScreen}/>
-                        
-                        
                     </Switch>
                     
                 </GlobalStoreContextProvider>
