@@ -6,6 +6,9 @@ import { React } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
 import { GlobalStoreContextProvider } from './store'
+import { AuthProvider } from './auth'
+
+
 import {
     AppBanner,
     SplashScreen,
@@ -18,7 +21,10 @@ import CreateScreen from './components/CreateScreen'
 import MessageScreen from './components/MessageScreen';
 import ReadScreen from './components/ReadScreen';
 import CreatePageBanner from './components/CreatePageBanner' ;
-import MypageScreen from './components/MypageScreen'
+import MypageScreen from './components/MypageScreen';
+import ForgotPassScreen from './components/ForgetPassScreen';
+import ResetPassScreen  from './components/ResetPassScreen';
+
 /*
     This is our application's top-level component.
     
@@ -45,6 +51,8 @@ const App = () => {
                         <Route path="/message/" exact component={MessageScreen} />
                         <Route path="/read/" exact component={ReadScreen} />
                         <Route path="/myPage/" exact component={MypageScreen}/>
+                        <Route path="/requestPasswordReset/" exact component={ForgotPassScreen}/>
+                        <Route path="/passwordReset/:token/:id" exact component={ResetPassScreen}/>
                         
                         
                     </Switch>

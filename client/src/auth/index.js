@@ -148,6 +148,49 @@ function AuthContextProvider(props) {
         }
         
     }
+    auth.forgetPassword= async function(email){
+        try{
+            const response = await api.sendUserEmail({"email":email});
+            if(response.status===200){
+                // authReducer({
+                //     type: AuthActionType.LOGIN_USER,
+                //     payload:response.data.user
+                // })
+            alert("A reset link is sent to your email box.");
+            }
+            
+        }
+        catch(err){
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.data.errorMessage
+            //     }
+            // })
+            console.log("error of sent reset email");
+        }
+    }
+    auth.resetPassword= async function(token,id,newPass){
+        try{
+            
+            const response = await api.resetPassword(token,id,{"newPass":newPass});
+           if(response.status===200){
+                history.push('/login')
+            }
+           
+        }
+        catch(err){
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.data.errorMessage
+            //     }
+            // })
+            console.log("error of sent reset email");
+        }
+    }
     return (
         <AuthContext.Provider value={{
             auth
