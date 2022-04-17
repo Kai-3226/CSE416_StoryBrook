@@ -27,6 +27,11 @@ router.get('/library/:id', auth.verify, LibraryController.getLibraryById)
 router.get('/library', auth.verify,LibraryController.getAllLibrary)
 router.get('/library/:name', auth.verify,LibraryController.getLibrariesByName)
 
+<<<<<<< HEAD
+router.post('/sendEmail', UserController.sendUserEmail)
+router.post('/resetPassword/:userId/:token', auth.verify, auth.verify, UserController.resetPassword)
+=======
 router.post('/sendEmail/', UserController.sendUserEmail)
 router.post('/resetPassword/:token/:id', auth.verify, UserController.resetPassword)
+>>>>>>> refs/remotes/origin/main
 module.exports = router
