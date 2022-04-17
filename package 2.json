@@ -23,16 +23,6 @@
   },
   "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.16.4",
-    "framer-motion": "^4.1.17",
-    "handlebars": "^4.7.7",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.5",
-    "nodemailer": "^6.7.3"
+    "express": "^4.16.4"
   }
 }
