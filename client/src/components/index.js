@@ -7,7 +7,7 @@ import Statusbar from './Statusbar'
 import Top5Item from './Top5Item'
 import CreateScreen from './CreateScreen'
 import ForgetPassword from './ForgetPassword'
-import ChangePassword from './ChangePassword'
+import ResetPassword from './ResetPassword'
 /*
     This serves as a module so that we can import
     all the other components as we wish.
@@ -24,5 +24,5 @@ export {
     Top5Item, 
     CreateScreen,
     ForgetPassword,
-    ChangePassword
+    ResetPassword
  }
