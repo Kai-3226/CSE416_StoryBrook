@@ -5,7 +5,7 @@ dotenv.config();
 
 //
 mongoose
-    .connect(process.env.MONGODB_URI||"mongodb+srv://CSE416:StoryBrook@cse416.r919d.mongodb.net/CSE416?retryWrites=true&w=majority", {
+    .connect(process.env.MONGODB_URI||process.env.DB_CONNECT, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })

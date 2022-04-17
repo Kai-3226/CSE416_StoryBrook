@@ -28,7 +28,6 @@ import MypageScreen from './components/MypageScreen';
 import ForgotPassScreen from './components/ForgetPassScreen';
 import ResetPassScreen  from './components/ResetPassScreen';
 
-import MypageScreen from './components/MypageScreen'
 import ProfileScreen from './components/MypageProfile'
 /*
     This is our application's top-level component.
