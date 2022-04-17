@@ -200,7 +200,7 @@ updateUser =async (req,res) => {
     })
 }
 
-sendEmail = async (req, res) => {
+sendUserEmail = async (req, res) => {
     try {
         const { email} = req.body;
         const existingUser = await User.findOne({ email: email });
@@ -293,6 +293,6 @@ module.exports = {
     logoutUser,
     getUserData,
     updateUser,
-    sendEmail,
+    sendUserEmail,
     resetPassword
 }

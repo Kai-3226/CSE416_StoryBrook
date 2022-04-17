@@ -8,7 +8,9 @@ import {
     SplashScreen,
     RegisterScreen,
     Statusbar,
-    HomeScreen
+    HomeScreen,
+    ViewScreen,
+    HomeScreen2
 } from './components'
 import LoginScreen from './components/LoginScreen'
 /*
@@ -30,7 +32,8 @@ const App = () => {
                     <AppBanner />
                     <Switch>
                         <Route path="/" exact component={SplashScreen} />
-                        <Route path="/home/" exact component = {HomeScreen} />
+                        <Route path="/home/" exact component = {HomeScreen2} />
+                        <Route path="/view/" exact component = {ViewScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
                         <Route path="/register/" exact component={RegisterScreen} />
                     </Switch>
