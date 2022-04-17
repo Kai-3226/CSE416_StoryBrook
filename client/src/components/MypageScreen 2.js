@@ -9,6 +9,9 @@ import Button from '@mui/material/Button';
 export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
+
+    //const user = auth.searchUser(auth.user)
+
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";

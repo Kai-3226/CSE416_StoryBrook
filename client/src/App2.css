@@ -1,328 +1,6 @@
-:root {
-    /* 
-          FIRST WE'LL DEFINE OUR SWATCHES, i.e. THE COMPLEMENTARY
-          COLORS THAT WE'LL USE TOGETHER IN MULTIPLE PLACES THAT
-          TOGETHER WILL MAKE UP A GIVEN THEME
-      
-          @author McKilla Gorilla
-      */
-    --swatch-foundation: #e0e0e0;
-    --swatch-primary: #C4c4c4;
-    --swatch-complement: #FFFEC0;
-    --swatch-contrast: #FFFFF1;
-    --swatch-listclr: #d4af36;
-    --swatch-listbg: #2c2f70;
-    --swatch-published: #d5d3f5;
-    --my-font-family: "Robaaaoto";
-    --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
-  }
-  
-  body {
-    background-color: white;
-  }
-  
-  #root {
-    background-color: white;
-    font-family: "Lexend Exa";
-    position: relative;
-    width: 80%;
-    left: 10%;
-    height: 90%;
-    top: 5%;
-  }
-  
-  #app-root {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    top: 0%;
-    left: 0%;
-  }
-  
-  #top5-banner {
-    position: relative;
-    left: 0%;
-    top: 0%;
-    width: 100%;
-    height: 10%;
-    float: left;
-    background-image: linear-gradient(to bottom, #d3d4f6, #c4c4c4);
-    color: white;
-    font-size: 48pt;
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 10px;
-  }
-  #splash-screen {
-    background-image: linear-gradient(to bottom, #d3d4f6, #c4c4c4);
-    color: white;
-    font-size: 5vw;
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 10px;
-    padding-left: 10%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    height:70%;
-    text-align: center;
-    vertical-align: center;
-  }
-  
-  .top5-button,
-  .top5-button-disabled {
-    font-size: 36pt;
-    border-width: 0px;
-    float: left;
-    color: black;
-    cursor: pointer;
-    opacity: 100%;
-  }
-  
-  .top5-button:hover {
-    cursor: pointer;
-    color: black;
-  }
-  
-  .top5-button-disabled {
-    opacity: 0.25;
-    cursor: not-allowed;
-  }
-  
-  #top5-list-selector {
-    position: relative;
-    left: 0%;
-    top: 10%;
-    width: 100%;
-    height: 80%;
-    background-color: var(--swatch-primary);
-  }
-  
-  #top5-statusbar {
-    position: relative;
-    left: 0%;
-    top: 90%;
-    width: 100%;
-    height: 10%;
-    background-color: #c4c4c4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36pt;
-  }
-  
-  #list-selector-heading {
-    position: relative;
-    left: 0%;
-    top: 0%;
-    width: 100%;
-    height: 10%;
-    text-align: center;
-    font-size: 24pt;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  #add-list-button {
-    float: left;
-  }
-  
-  #list-selector-list {
-    position: relative;
-    left: 0%;
-    top: 10%;
-    width: 100%;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    overflow: scroll;
-  }
-  
-  .firstrow{
-    flex-direction:row;
-    justify-content: space-between;
-    display:flex;
-  }
-  #workspace-home,
-  #workspace-edit {
-    display: flex;
-    left: 0%;
-    top: 0%;
-    width: 100%;
-    height: 100%;
-    overflow:visible;
-    justify-content: flex;
-    text-align:left;
-  }
-  
-  .secondrow{
-    flex-direction:row;
-    justify-content: space-between;
-    display:flex;
-  }
-  
-  
-  .list-card-button {
-    float: right;
-    transform: scale(2);
-  }
-  
-  
-  #edit-numbering {
-    display:flex;
-    left: 0%;
-    top: 0%;
-    width: 100%;
-    height: 100%;
-    font-size: 18pt;
-    margin: 10px;
-    padding: 20px;
-    border-radius: 25px;
-    background-color: var(--swatch-listbg);
-    flex-direction: column;
-    justify-content: space-evenly;
-    overflow:visible;
-    
-  }
-  
-  #edit-items {
-    display:flex;
-    flex-direction:"column";
-    left: 20%;
-    top: 0%;
-    width: 50%;
-    height: 100%;
-    color:var(--swatch-listclr);
-  }
-  
-  .item-number,
-  .top5-item,
-  .top5-item-dragged-to {
-    display: flex;
-    align-items: center;
-    font-size: 12pt;
-    height: 100%;
-  }
-  
-  .item-number {
-    justify-content: center;
-    width: 100%;
-    border: 1px 0px 1px 1px;
-    border-color: black;
-    background-color: linen;
-    color: black;
-  }
-  
-  input {
-    font-size: 20pt;
-  }
-  
-  .top5-item,
-  .top5-item-dragged-to {
-    display:flex;
-    text-align: left;
-    width: 95%;
-    padding-left: 5%;
-  }
-  .top5-item {
-    width:100%;
-    background-color: var(--swatch-listbg);
-  }
-  .top5-item-dragged-to {
-    background-color: var(--swatch-accent);
-  }
-  
-  .disabled {
-    background-color: lightgray;
-  }
-  
-  .disabled:hover {
-    color: var(--swatch-neutral);
-  }
-  
-  /* THIS STYLE SHEET MANAGES STYLE FOR OUR MODAL, i.e. DIALOG BOX */
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background: var(--black);
-    color: var(--swatch-text);
-    cursor: pointer;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.35s ease-in;
-    font-family: var(--font-primary);
-  }
-  
-  .modal.is-visible {
-    visibility: visible;
-    opacity: 1;
-  }
-  
-  .modal-dialog {
-    position: relative;
-    max-width: 800px;
-    max-height: 80vh;
-    background: var(--swatch-complement);
-    overflow: auto;
-    cursor: default;
-    border-width: 5px;
-    border-radius: 10px;
-    border-style: groove;
-  }
-  
-  .modal-dialog > * {
-    padding: 1rem;
-  }
-  
-  .modal-header,
-  .modal-footer {
-    background: var(--lightgray);
-  }
-  
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: dotted;
-  }
-  .modal-header,
-  .modal-close {
-    font-size: 1.5rem;
-  }
-  
-  .modal p + p {
-    margin-top: 1rem;
-  }
-  
-  .modal-control {
-    cursor: pointer;
-    width: 20%;
-  }
-  
-  .dialog-header {
-    font-size: 24pt;
-  }
-  
-  #close-modal-button {
-    float: right;
-  }
-  
-  #confirm-cancel-container {
-    text-align: center;
-  }
+
   #sidebar {
-    position:relative;
+    position:absolute;
     left: 0%;
     top: 20%;
     width: 20%;
@@ -332,7 +10,7 @@
     border-radius: 15px;
   }
   #sidebar-menu {
-    position:relative;
+    position:absolute;
     left:0%;
     top:0%;
     width:100%;
@@ -341,7 +19,7 @@
     flex-direction: column;  
   }
   #content {
-    position: relative;
+    position: absolute;
     left: 20%;
     top: 10%;
     width: 80%;
@@ -356,6 +34,7 @@
     height:10%;
     width:100%;
     background: #e7e7e7;
+
   }
   #mypage-list{
     border-radius:5px;
@@ -366,14 +45,14 @@
     background-color: #C7CA3D;
   }
   #work-published{
-    position:relative;
+    position:absolute;
     top:15%;
     left:5%;
     height:5%;
     width:40%;
   }
   #work-following{
-    position:relative;
+    position:absolute;
     top:15%;
     left:50%;
     height:5%;
@@ -435,7 +114,6 @@
   }
   #profile-setting{
     font-family: 'Revalia';
-    position:relative;
     flex-direction:row;
     top:20%;
     left:0%;
@@ -446,21 +124,18 @@
     font-size: 24pt;
   }
   #profile-name{
-    position:relative;
     top:10%;
     left:0%;
     height:33%;
     width:33%;
   }
   #profile-age{
-    position:relative;
     top:10%;
     left:33%;
     height:33%;
     width:33%;
   }
   #profile-gender{
-    position:relative;
     top:10%;
     left:66%;
     height:33%;
@@ -468,42 +143,36 @@
   
   }
   #profile-email{
-    position:relative;
     top:33%;
     left:0%;
     height:33%;
     width:100%;
   }
   #profile-statement{
-    position:relative;
     top:50%;
     left:0%;
     height:33%;
     width:100%;
   }
   #profile-button{
-    position:relative;
     top:90%;
     left:90%;
     height:5%;
     width:10;
   }
   #profile-save{
-    position:relative;
     top:90%;
     left:88%;
     height:5%;
     width:5%;
   }
   #profile-cancel{
-    position:relative;
     top:90%;
-    left:95%;
+    left:90%;
     height:5%;
     width:5%;
   }
   #profile-mg{
-    position:relative;
     font-size: 24px;
     top:10%;
     left:10%;
@@ -511,7 +180,6 @@
     width:75%;
   }
   #profile-upload{
-    position:relative;
     top:15%;
     left:10%;
     height:5%;

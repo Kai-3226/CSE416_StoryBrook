@@ -1,10 +1,8 @@
 import './App.css';
 import './harry.css';
 import './xiyhu.css';
-<<<<<<< HEAD
-=======
 import  './App2.css';
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
+
 import { React } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
@@ -21,10 +19,8 @@ import CreateScreen from './components/CreateScreen'
 import MessageScreen from './components/MessageScreen';
 import ReadScreen from './components/ReadScreen';
 import CreatePageBanner from './components/CreatePageBanner' ;
-<<<<<<< HEAD
-=======
 import MypageScreen from './components/MypageScreen'
->>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
+import ProfileScreen from './components/MypageProfile'
 /*
     This is our application's top-level component.
     
@@ -51,12 +47,13 @@ const App = () => {
                         <Route path="/message/" exact component={MessageScreen} />
                         <Route path="/read/" exact component={ReadScreen} />
                         <Route path="/myPage/" exact component={MypageScreen}/>
+                        <Route path="/profile/" exact component={ProfileScreen}/>
                         
                         
                     </Switch>
                     
                 </GlobalStoreContextProvider>
-            </AuthContextProvider>mer
+            </AuthContextProvider>
         </BrowserRouter>
     )
 }

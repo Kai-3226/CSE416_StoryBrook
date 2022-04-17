@@ -285,6 +285,24 @@ resetPassword = async (req, res) => {
     }
 }
 
+changePassword = async (req, res) => {
+    try {
+        const { userId, password} = req.body;
+       
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        await User.updateOne(
+        { _id: userId },
+        { $set: { password: passwordHash } },
+        { new: true }
+        );
+    } catch (error) {
+        console.log(error, "error to reset");
+    }
+}
+
 
 module.exports = {
     getLoggedIn,
