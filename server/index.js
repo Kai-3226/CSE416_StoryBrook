@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 
 // CREATE OUR SERVER
-dotenv.config()
+dotenv.config();
 const PORT = process.env.PORT || 4000;
 const app = express()
 
@@ -30,6 +30,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
 // Heroku Deploy
-if (process.env.NODE_ENV === 'production') {
+//if (process.env.NODE_ENV === 'production') 
     app.use(express.static('client/build'));
-}
+
