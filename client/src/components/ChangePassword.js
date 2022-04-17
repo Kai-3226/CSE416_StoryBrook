@@ -7,11 +7,11 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
+import Copyright from './Copyright'
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import api from '../api';
-import images from '../Images';
-
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 export default function ChangePassword() {
     const {auth} = useContext(AuthContext);
@@ -84,7 +84,7 @@ export default function ChangePassword() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
             >
-                Send Email
+                Change Password
             </Button>
             <Grid container justifyContent="flex-end">
                 <Grid item>
@@ -95,5 +95,6 @@ export default function ChangePassword() {
             </Grid>
         </Box>
     </Box>
+    <Copyright sx={{ mt: 5 }} />
 </Container>);
 };
