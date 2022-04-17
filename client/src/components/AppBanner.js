@@ -10,6 +10,9 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import NotificationModal from './NotificationModal';
+import FriendModal from './FriendModal';
+
 
 
 export default function AppBanner() {
@@ -49,6 +52,8 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to='/changepassword/'>Change Password</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to='/profilescreen/'>Profile</Link></MenuItem>
         </Menu>
     );
 
@@ -92,7 +97,7 @@ export default function AppBanner() {
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">
                 <Toolbar sx={{bgcolor:"#e0e0e0"}}>
                     <Typography                        
@@ -101,7 +106,7 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: '#d4b038' }} to='/'>T<sup>5</sup>L</Link>
+                        <Link style={{ textDecoration: 'none', color: '#d4b038' }} to='/'>StoryBrook</Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -122,6 +127,9 @@ export default function AppBanner() {
             {
                 menu
             }
+            <NotificationModal/>
+            <FriendModal/>
+
         </Box>
     );
 }

@@ -2,7 +2,8 @@ const auth = require('../auth')
 const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
 const sendEmail = require("../utils/email/sendEmail");
-const crypto = require("crypto");
+//const crypto = require("crypto");
+const jwt = require("jsonwebtoken")
 
 getLoggedIn = async (req, res) => {
     auth.verify(req, res, async function () {
@@ -53,6 +54,7 @@ registerUser = async (req, res) => {
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
+   
 
         const newUser = new User({
             firstName, lastName, email, passwordHash
@@ -202,63 +204,121 @@ updateUser =async (req,res) => {
 
 sendUserEmail = async (req, res) => {
     try {
-        const { email} = req.body;
-        const existingUser = await User.findOne({ email: email });
-        if (!existingUser) {
-            return res
+        const email = req.body.email;
+      
+        const existingUser=await User.findOne({ email: email });
+       
+        if (!existingUser) {          
+           console.log("An account with this email address does not exist.") ;
+           return res
                 .status(404)
                 .json({
                     success: false,
                     errorMessage: "An account with this email address does not exist."
                 })
         }
+       
+        // let token = await Token.findOne({ user: existingUser._id });
+        // if (token) await token.deleteOne();
+        // let resetToken = crypto.randomBytes(32).toString("hex");
 
-        let token = await Token.findOne({ userId: existingUser._id });
-        if (token) await token.deleteOne();
-        let resetToken = crypto.randomBytes(32).toString("hex");
+        // const saltRounds = 10;
+        // const salt = await bcrypt.genSalt(saltRounds);
+        // const passwordHash = await bcrypt.hash(resetToken, salt);
+      
+        // await new Token({
+        //   userId: existingUser._id,
+        //   token: passwordHash,
+        //   createdAt: Date.now(),
+        // }).save();
+      
+        const token = auth.signToken(existingUser);
+        if(!token){console.log("cant create token");
+                    return res
+                    .status(400)
+                    .json({
+                        success: false,
+                        errorMessage: "cant create token"
+                    })
+    }
 
-        const saltRounds = 10;
-        const salt = await bcrypt.genSalt(saltRounds);
-        const passwordHash = await bcrypt.hash(resetToken, salt);
-      
-        await new Token({
-          userId: existingUser._id,
-          token: passwordHash,
-          createdAt: Date.now(),
-        }).save();
-      
-        const link = `${clientURL}/passwordReset?token=${resetToken}&id=${existingUser._id}`;
+        clientURL='storybrook.herokuapp.com/';
+        const link = `${clientURL}/passwordReset/${token}/${existingUser._id}`;
         sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
-
-
         console.log("email sent sucessfully");
+        
+        return res
+        .status(200)
+        .json({
+            success: true,
+            message: 'the reset email sent sucessfully!',
+        })
+        
     } catch (error) {
         console.log(error, "email not sent");
+        return res
+        .status(400)
+        .json({
+            success: false,
+            errorMessage: "err"
+        })
+        
     }
 }
 
 resetPassword = async (req, res) => {
     try {
-        const { userId, token, password} = req.body;
-        let passwordResetToken = await Token.findOne({ userId });
-        if (!passwordResetToken) {
+        const {newPass}= req.body;
+        const {token,id}=req.params;
+            
+        const verified = jwt.verify(token, process.env.JWT_SECRET)
+        if(verified.userId==id) {console.log("find the account need to be reset;")}
+        
+        const existingUser = await User.findOne({ _id: id });
+        if (!existingUser) {
             return res
-                    .status(404)
-                    .json({
-                        success: false,
-                        errorMessage: "Invalid or expired password reset token"
-                    })
-        }
-        const isValid = await bcrypt.compare(token, passwordResetToken.token);
-        if (!isValid) {
+                .status(400)
+                .json({
+                    success: false,
+                    errorMessage: "You account is not exists!!!"
+                })
+        }        
+        if (newPass.length < 8) {
             return res
-                    .status(404)
-                    .json({
-                        success: false,
-                        errorMessage: "Invalid or expired password reset token"
-                    })
+                .status(400)
+                .json({
+                    errorMessage: "Please enter a password of at least 8 characters."
+                });
         }
+        
+   
 
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const passwordHash = await bcrypt.hash(newPass, salt);       
+        existingUser.passwordHash=passwordHash;     
+        const savedUser = await existingUser.save();
+        
+        return res
+        .status(200)
+        .json({
+            success: true,
+            message: 'the password reset successful!',
+        })
+       
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            success:false,
+            errorMessage:"Can't reset the password",
+            }).send();
+    }
+}
+
+changePassword = async (req, res) => {
+    try {
+        const { userId, password} = req.body;
+       
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
@@ -268,18 +328,6 @@ resetPassword = async (req, res) => {
         { $set: { password: passwordHash } },
         { new: true }
         );
-
-        const user = await User.findById({ _id: userId });
-
-        sendEmail(
-        user.email,
-        "Password Reset Successfully",
-        {
-            name: user.name,
-        },
-        "./template/resetPassword.handlebars"
-        );
-        await passwordResetToken.deleteOne();
     } catch (error) {
         console.log(error, "error to reset");
     }
