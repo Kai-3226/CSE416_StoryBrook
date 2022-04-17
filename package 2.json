@@ -11,8 +11,8 @@
     "heroku-postbuild": "npm run install-client && npm run build",
 =======
     "install-server": "cd server && npm install",
-    "heroku-postbuild": "  npm run install-client&& npm run build",
->>>>>>> 8c0fd55a6cc026a491159750c0347977b0fe4f9f
+    "heroku-postbuild": "npm run install-client && npm run install server && npm run build",
+>>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
     "start": "node ./server/index.js",
     "client": "cd client && npm start"
   },
@@ -25,18 +25,12 @@
   "bugs": {
     "url": "https://github.com/Kai-3226/CSE416_StoryBrook/issues"
   },
+<<<<<<< HEAD
+  "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme"
+=======
   "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.16.4",
-    "framer-motion": "^4.1.17",
-    "handlebars": "^4.7.7",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.5",
-    "nodemailer": "^6.7.3"
+    "express": "^4.16.4"
   }
+>>>>>>> 1bfabf98e6d35d32aa03c017c2b721d5c669eced
 }

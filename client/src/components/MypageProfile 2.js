@@ -20,13 +20,13 @@ export default function Profile(){
                         <Box><Textfield size="small"></Textfield></Box>
                     </Box>
                     <Box id="profile-gender">Gender
-                        <Box><Textfield size="small"></Textfield></Box>
+                        <Box><Textfield></Textfield></Box>
                     </Box>
                     <Box id="profile-email">User Email
                         <Box>user email will be displyaed here.</Box>
                     </Box>  
                     <Box id="profile-statement">My Statement
-                        <Box><Textfield size="small"></Textfield></Box>
+                        <Box><Textfield></Textfield></Box>
                     </Box>
                 </Box>
                 <Box id="profile-button"></Box>

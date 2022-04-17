@@ -2,6 +2,7 @@ import './App.css';
 import './harry.css';
 import './xiyhu.css';
 import  './App2.css';
+
 import { React } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
@@ -12,9 +13,11 @@ import { AuthProvider } from './auth'
 import {
     AppBanner,
     SplashScreen,
+    ForgetPassword,
     RegisterScreen,
     Statusbar,
-    HomeScreen
+    HomeScreen,
+    ResetPassword
 } from './components'
 import LoginScreen from './components/LoginScreen'
 import CreateScreen from './components/CreateScreen'
@@ -25,6 +28,8 @@ import MypageScreen from './components/MypageScreen';
 import ForgotPassScreen from './components/ForgetPassScreen';
 import ResetPassScreen  from './components/ResetPassScreen';
 
+import MypageScreen from './components/MypageScreen'
+import ProfileScreen from './components/MypageProfile'
 /*
     This is our application's top-level component.
     
@@ -47,12 +52,15 @@ const App = () => {
                         <Route path="/home/" exact component = {HomeScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
                         <Route path="/register/" exact component={RegisterScreen} />
+                        <Route path="/forgetPassword/" exact component={ForgetPassword}/>
+                        <Route path="/resetpassword/" exact component={ResetPassword}/>
                         <Route path="/create/" exact component={CreateScreen} />
                         <Route path="/message/" exact component={MessageScreen} />
                         <Route path="/read/" exact component={ReadScreen} />
                         <Route path="/myPage/" exact component={MypageScreen}/>
                         <Route path="/requestPasswordReset/" exact component={ForgotPassScreen}/>
                         <Route path="/passwordReset/:token/:id" exact component={ResetPassScreen}/>
+                        <Route path="/profile/" exact component={ProfileScreen}/>
                         
                         
                     </Switch>
