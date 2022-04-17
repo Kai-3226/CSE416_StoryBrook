@@ -7,12 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
-<<<<<<< HEAD
-    "heroku-postbuild": "npm run install-client && npm run build",
-=======
     "install-server": "cd server && npm install",
     "heroku-postbuild": "  npm run install-client&& npm run build",
->>>>>>> 8c0fd55a6cc026a491159750c0347977b0fe4f9f
     "start": "node ./server/index.js",
     "client": "cd client && npm start"
   },
