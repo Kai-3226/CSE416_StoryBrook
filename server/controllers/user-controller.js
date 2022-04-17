@@ -2,7 +2,7 @@ const auth = require('../auth')
 const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
 const sendEmail = require("../utils/email/sendEmail");
-const crypto = require("crypto");
+//const crypto = require("crypto");
 const jwt = require("jsonwebtoken")
 
 getLoggedIn = async (req, res) => {
