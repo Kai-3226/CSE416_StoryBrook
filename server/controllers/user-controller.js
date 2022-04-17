@@ -53,6 +53,7 @@ registerUser = async (req, res) => {
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
+   
 
         const newUser = new User({
             firstName, lastName, email, passwordHash
@@ -200,7 +201,7 @@ updateUser =async (req,res) => {
     })
 }
 
-sendEmail = async (req, res) => {
+sendUserEmail = async (req, res) => {
     try {
         const { email} = req.body;
         const existingUser = await User.findOne({ email: email });
@@ -311,6 +312,6 @@ module.exports = {
     logoutUser,
     getUserData,
     updateUser,
-    sendEmail,
+    sendUserEmail,
     resetPassword
 }

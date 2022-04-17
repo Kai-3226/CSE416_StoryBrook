@@ -22,7 +22,7 @@ body {
 }
 
 #root {
-  background-color: #e53636;
+  background-color: var(--swatch-complement);
   font-family: "Lexend Exa";
   position: absolute;
   width: 100%;
