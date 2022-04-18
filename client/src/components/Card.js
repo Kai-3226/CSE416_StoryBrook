@@ -1,3 +1,4 @@
+//card for friend and following author
 import { useContext } from 'react';
 import { GlobalStoreContext } from '../store';
 import AuthContext from '../auth';

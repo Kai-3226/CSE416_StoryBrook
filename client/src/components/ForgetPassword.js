@@ -19,23 +19,9 @@ export default function ForgetPassword() {
     const {auth} = useContext(AuthContext);
 
     const handleSubmit = async (event)=>{
-        var newPassword = Date.now();
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        const  response =  await api.resetPassword({
-                email: formData.get('email'),
-                subject: "Password Reset",
-                newPassword: newPassword,
-                text:'Your new password is '+newPassword
-        });
-        
-        if(  response.status === 200 ){
-            alert( response.data.message );
-        }
-        else{
-            
-            alert(response.data.errorMessage);
-        }
+        auth.forgetPassword(formData.get('email'));
     }
 
     return( 

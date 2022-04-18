@@ -1,3 +1,5 @@
+//for chat currently no work
+
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth';

@@ -28,21 +28,6 @@ const HomeScreen2 = () => {
         store.loadMostLike();
     }, []);
 
-    function handleUpdateText(event) {
-        setInput(event.target.value);
-    }
-
-    function handleKeyPress(event) {
-        if(event.code === "Enter") {
-            store.searchWork(input.toLowerCase());
-        }
-    }
-
-    async function handleClick(event,button) {
-        event.stopPropagation();
-        store.setMode(button);
-    }
-
     function handleOpen(id){
         store.setCurrentWork(id);
         console.log(store.currentList);

@@ -12,28 +12,20 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import api from '../api';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import useParams from 'react-router-dom'
 
 export default function ResetPassword() {
     const {auth} = useContext(AuthContext);
+    const {token,id}=useParams();
 
     const handleSubmit = async (event)=>{
-        var newPassword = Date.now();
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        const  response =  await api.resetPassword({
-                email: formData.get('email'),
-                subject: "Password Reset",
-                newPassword: newPassword,
-                text:'Your new password is '+newPassword
-        });
-        
-        if(  response.status === 200 ){
-            alert( response.data.message );
-        }
-        else{
-            
-            alert(response.data.errorMessage);
-        }
+        if(formData.get('password') == formData.get('passwordVerify')){
+            auth.resetPassword(token,id,formData.get('password'));
+        } else{
+            alert('password not match');
+        }  
     }
 
     return( 
@@ -87,13 +79,6 @@ export default function ResetPassword() {
             >
                 Reset Password
             </Button>
-            <Grid container justifyContent="flex-end">
-                <Grid item>
-                    <Link href="/login" variant="body2">
-                        You can sign in now
-                    </Link>
-                </Grid>
-            </Grid>
         </Box>
     </Box>
     <Copyright sx={{ mt: 5 }} />
