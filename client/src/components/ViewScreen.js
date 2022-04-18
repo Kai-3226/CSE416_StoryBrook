@@ -1,3 +1,5 @@
+//author kai
+
 import React, { useContext, useEffect } from 'react'
 import {useState } from 'react';
 import { GlobalStoreContext } from '../store'
@@ -7,8 +9,6 @@ import Copyright2 from './Copyright2';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import InfiniteScroll from 'react-infinite-scroller';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 
 
 const ViewScreen = () => {
@@ -109,3 +109,4 @@ const ViewScreen = () => {
 }
 
 export default ViewScreen;
+
