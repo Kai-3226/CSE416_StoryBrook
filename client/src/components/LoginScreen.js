@@ -16,20 +16,7 @@ import { GlobalStoreContext } from '../store';
 import AuthContext from '../auth';
 import ErrorModal from './ErrorModal';
 import Container from '@mui/material/Container';
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from './Copyright'
 
 const theme = createTheme();
 
@@ -100,12 +87,12 @@ export default function LogInScreen() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/requestPasswordReset/" variant="body2">
+                  <Link href="/forgetPassword" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/register/" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

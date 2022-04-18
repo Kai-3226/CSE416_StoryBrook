@@ -66,7 +66,7 @@ export default function MyPage () {
             <MypageSidebar></MypageSidebar>
             <div id="content">
                 <div id="mypage-search">
-                    <Textfield fullWidth></Textfield>
+                    <Textfield fullWidth ></Textfield>
                 </div>
                 <div id="mypage-list">
                     {selectbar}

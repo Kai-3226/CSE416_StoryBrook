@@ -1,8 +1,11 @@
+
 //author kai
+
 import React, { useContext, useEffect } from 'react'
 import {useState } from 'react';
 import { GlobalStoreContext } from '../store'
 import AuthContext from  '../auth'
+
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MessageIcon from '@mui/icons-material/Message';
@@ -24,6 +27,7 @@ function AppBanner2(props) {
             store.searchWork(input.toLowerCase());
         }
     }
+
 
     //back buttom
     let back_buttom=
@@ -84,11 +88,13 @@ function AppBanner2(props) {
         <LoginIcon></LoginIcon>
     </IconButton>;
 
+
     if(auth.user===null){
         user_function = visiterfunction;
     } else{
         user_function = login_user_function;
     }
+
 
     let AppBanner2 =
     <AppBar position="static">
@@ -101,6 +107,7 @@ function AppBanner2(props) {
             </Box>
         </Toolbar>
     </AppBar>
+
     return (
         AppBanner2
     );

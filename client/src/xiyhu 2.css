@@ -1,0 +1,103 @@
+#splash_screen_background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    padding-top: 5%;
+    background: url('1123.png');
+}
+
+/* Rectangle 55 */
+#splash_screen_description{
+
+position: absolute;
+width: 1084px;
+height: 361px;
+left: 185px;
+top: 233px;
+
+position: relative;
+width: 100%;
+height: 100%;
+margin-top: 10%;
+
+
+background: rgba(196, 196, 196, 0.47);
+}
+
+
+/* Rectangle 58 */
+#splash_screen_draw_background{
+position: absolute;
+width: 364px;
+height: 215px;
+left: 185px;
+top: 630px;
+
+background: rgba(196, 196, 196, 0.47);
+}
+
+/* Rectangle 59 */
+#splash_screen_tell_background{
+position: absolute;
+width: 364px;
+height: 215px;
+left: 871px;
+top: 630px;
+
+background: rgba(196, 196, 196, 0.47);
+}
+
+/* Hello there! Welcome to StoryBrook! In this place, you can draw story or tell story. Pick one you want to do!! */
+#splash_screen_welcome{
+position: absolute;
+width: 1061px;
+height: 348px;
+left: 195px;
+top: 233px;
+
+font-family: 'Seaweed Script';
+font-style: normal;
+font-weight: 400;
+font-size: 64px;
+line-height: 87px;
+text-align: center;
+
+color: #000000;
+}
+
+/* DRAW */
+#splash_screen_draw{
+position: absolute;
+width: 117px;
+height: 65px;
+left: 317px;
+top: 717px;
+
+font-family: 'Seaweed Script';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 65px;
+
+color: #000000;
+}
+
+
+/* TELL */
+#splash_screen_tell{
+position: absolute;
+width: 81px;
+height: 65px;
+left: 1013px;
+top: 717px;
+
+font-family: 'Seaweed Script';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 65px;
+
+color: #000000;
+}
+

@@ -54,17 +54,17 @@ export default function Card(props) {
     else if (store.mode=="works"){
         cardElement=
             <ListItem>
-                {/* <WorkCard></WorkCard> */}
+            
             </ListItem>
     }
     else if (store.mode=="library"){
         <ListItem>
-                {/* <WorkCard></WorkCard>*/}
-            </ListItem> 
+                
+            </ListItem>
     }
     else if (store.mode=="likes"){
         <ListItem>
-                {/* <WorkCard></WorkCard> */}
+              
             </ListItem>
     }
     else{
