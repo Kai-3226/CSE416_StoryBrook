@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 
 // CREATE OUR SERVER
-dotenv.config()
+dotenv.config();
 const PORT = process.env.PORT || 4000;
 const app = express()
 
@@ -19,8 +19,8 @@ app.use(express.json())
 app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
-const top5listsRouter = require('./routes/storybrook-router')
-app.use('/api', top5listsRouter)
+const storybrookRouter = require('./routes/storybrook-router')
+app.use('/api', storybrookRouter)
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
@@ -30,6 +30,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
 // Heroku Deploy
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') 
     app.use(express.static('client/build'));
-}
+

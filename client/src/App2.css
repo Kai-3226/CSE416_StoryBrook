@@ -1,84 +1,4 @@
 
-  
-  /* THIS STYLE SHEET MANAGES STYLE FOR OUR MODAL, i.e. DIALOG BOX */
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background: var(--black);
-    color: var(--swatch-text);
-    cursor: pointer;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.35s ease-in;
-    font-family: var(--font-primary);
-  }
-  
-  .modal.is-visible {
-    visibility: visible;
-    opacity: 1;
-  }
-  
-  .modal-dialog {
-    position: relative;
-    max-width: 800px;
-    max-height: 80vh;
-    background: var(--swatch-complement);
-    overflow: auto;
-    cursor: default;
-    border-width: 5px;
-    border-radius: 10px;
-    border-style: groove;
-  }
-  
-  .modal-dialog > * {
-    padding: 1rem;
-  }
-  
-  .modal-header,
-  .modal-footer {
-    background: var(--lightgray);
-  }
-  
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: dotted;
-  }
-  
-  .modal-header,
-  .modal-close {
-    font-size: 1.5rem;
-  }
-  
-  .modal p + p {
-    margin-top: 1rem;
-  }
-  
-  .modal-control {
-    cursor: pointer;
-    width: 20%;
-  }
-  
-  .dialog-header {
-    font-size: 24pt;
-  }
-  
-  #close-modal-button {
-    float: right;
-  }
-  
-  #confirm-cancel-container {
-    text-align: center;
-  }
   #sidebar {
     position:absolute;
     left: 0%;
@@ -114,6 +34,7 @@
     height:10%;
     width:100%;
     background: #e7e7e7;
+
   }
   #mypage-list{
     border-radius:5px;
@@ -193,7 +114,6 @@
   }
   #profile-setting{
     font-family: 'Revalia';
-    position:absolute;
     flex-direction:row;
     top:20%;
     left:0%;
@@ -204,21 +124,18 @@
     font-size: 24pt;
   }
   #profile-name{
-    position:absolute;
     top:10%;
     left:0%;
     height:33%;
     width:33%;
   }
   #profile-age{
-    position:absolute;
     top:10%;
     left:33%;
     height:33%;
     width:33%;
   }
   #profile-gender{
-    position:absolute;
     top:10%;
     left:66%;
     height:33%;
@@ -226,42 +143,36 @@
   
   }
   #profile-email{
-    position:absolute;
     top:33%;
     left:0%;
     height:33%;
     width:100%;
   }
   #profile-statement{
-    position:absolute;
     top:50%;
     left:0%;
     height:33%;
     width:100%;
   }
   #profile-button{
-    position:absolute;
     top:90%;
     left:90%;
     height:5%;
     width:10;
   }
   #profile-save{
-    position:absolute;
     top:90%;
     left:88%;
     height:5%;
     width:5%;
   }
   #profile-cancel{
-    position:absolute;
     top:90%;
-    left:95%;
+    left:90%;
     height:5%;
     width:5%;
   }
   #profile-mg{
-    position:absolute;
     font-size: 24px;
     top:10%;
     left:10%;
@@ -269,7 +180,6 @@
     width:75%;
   }
   #profile-upload{
-    position:absolute;
     top:15%;
     left:10%;
     height:5%;
