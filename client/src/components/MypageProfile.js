@@ -2,7 +2,12 @@ import Box from '@mui/material/Box';
 import Textfield from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useContext, useState } from 'react';
+import { GlobalStoreContext } from '../store';
 export default function Profile(){
+    const store=useContext(GlobalStoreContext);
+    const [ editActive, setEditActive ] = useState(false);
+    const [ text, setText ] = useState("");
     return (
         <div>
             <Box id="profilePage">
