@@ -24,7 +24,7 @@ body {
 #root {
   background-color: #e53636;
   font-family: "Lexend Exa";
-  position: relative;
+  position: absolute;
   width: 100%;
   left: 0%;
   height: 100%;
