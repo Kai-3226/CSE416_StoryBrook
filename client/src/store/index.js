@@ -188,7 +188,6 @@ function GlobalStoreContextProvider(props) {
             store.updateList(top5List);
         }
     }
-
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentList = function () {
         let list=store.currentList;
@@ -531,7 +530,9 @@ function GlobalStoreContextProvider(props) {
             payload: lists
         });
     }
-    
+    store.myPage = function() {
+        history.push("/mypage/");
+    }
     return (
         <GlobalStoreContext.Provider value={{
             store
