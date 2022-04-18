@@ -13,19 +13,22 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import api from '../api';
 import ErrorModal from './ErrorModal';
 import Copyright from './Copyright'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const theme = createTheme();
 
 export default function ForgetPassword() {
     const {auth} = useContext(AuthContext);
 
-    const handleSubmit = async (event)=>{
+    const handleSubmit = (event)=>{
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         auth.forgetPassword(formData.get('email'));
     }
 
     return( 
-        <Container component="main" maxWidth="xxl" style={{ background: "rgba(209, 247, 255, 1)", height: "100vh"}}>
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
             <CssBaseline />
             <ErrorModal/>
             <Box
@@ -36,17 +39,15 @@ export default function ForgetPassword() {
                     alignItems: 'center',
                 }}
             >
-                <Avatar variant='square' >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     <LockOutlinedIcon />
                 </Avatar>
                 
                 <Typography component="h1" variant="h5">
                     Forgot Password
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        
-                    
                         <Grid item xs={12}>
                             <TextField
                                 style={{background:"white"}}
@@ -71,7 +72,7 @@ export default function ForgetPassword() {
                     <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Link href="/login" variant="body2">
-                                Already have an account? Sign in
+                                Remember your password? Sign in
                             </Link>
                         </Grid>
                     </Grid>
@@ -79,6 +80,8 @@ export default function ForgetPassword() {
             </Box>
             <Copyright sx={{ mt: 5 }} />
         </Container>
+        </ThemeProvider>
+        
     );
 
 }

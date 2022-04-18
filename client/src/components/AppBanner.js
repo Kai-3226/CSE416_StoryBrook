@@ -13,8 +13,6 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationModal from './NotificationModal';
 import FriendModal from './FriendModal';
 
-
-
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
