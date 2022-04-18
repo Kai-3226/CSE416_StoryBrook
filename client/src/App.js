@@ -15,7 +15,6 @@ import {
     SplashScreen,
     ForgetPassword,
     RegisterScreen,
-    Statusbar,
     HomeScreen,
     ViewScreen,
     HomeScreen2,
@@ -31,6 +30,7 @@ import ForgotPassScreen from './components/ForgetPassScreen';
 import ResetPassScreen  from './components/ResetPassScreen';
 
 import ProfileScreen from './components/MypageProfile'
+import MypageScreen from './components/MypageScreen'
 /*
     This is our application's top-level component.
     
@@ -54,8 +54,8 @@ const App = () => {
                         <Route path="/view/" exact component = {ViewScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
                         <Route path="/register/" exact component={RegisterScreen} />
-                        {/* <Route path="/forgetPassword/" exact component={ForgetPassword}/> */}
-                        {/* <Route path="/resetpassword/" exact component={ResetPassword}/> */}
+                        <Route path="/forgetPassword/" exact component={ForgetPassword}/>
+                        <Route path="/resetpassword/" exact component={ResetPassword}/>
                         <Route path="/create/" exact component={CreateScreen} />
                         <Route path="/message/" exact component={MessageScreen} />
                         <Route path="/read/" exact component={ReadScreen} />
