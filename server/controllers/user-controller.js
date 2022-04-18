@@ -128,7 +128,7 @@ loginUser = async (req, res) => {
                 email: existingUser.email
             }
         }).send();
-    }catch (err) {
+    } catch (err) {
         console.error(err);
         res.status(500).send();
     }
@@ -220,20 +220,6 @@ sendUserEmail = async (req, res) => {
                     errorMessage: "An account with this email address does not exist."
                 })
         }
-       
-        // let token = await Token.findOne({ user: existingUser._id });
-        // if (token) await token.deleteOne();
-        // let resetToken = crypto.randomBytes(32).toString("hex");
-
-        // const saltRounds = 10;
-        // const salt = await bcrypt.genSalt(saltRounds);
-        // const passwordHash = await bcrypt.hash(resetToken, salt);
-      
-        // await new Token({
-        //   userId: existingUser._id,
-        //   token: passwordHash,
-        //   createdAt: Date.now(),
-        // }).save();
       
         const token = auth.signToken(existingUser);
         if(!token){console.log("cant create token");
