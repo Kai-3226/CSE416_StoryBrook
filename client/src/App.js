@@ -11,7 +11,6 @@ import {
     SplashScreen,
     ForgetPassword,
     RegisterScreen,
-    Statusbar,
     HomeScreen,
     ResetPassword
 } from './components'
@@ -19,7 +18,6 @@ import LoginScreen from './components/LoginScreen'
 import CreateScreen from './components/CreateScreen'
 import MessageScreen from './components/MessageScreen';
 import ReadScreen from './components/ReadScreen';
-import CreatePageBanner from './components/CreatePageBanner' ;
 import MypageScreen from './components/MypageScreen'
 /*
     This is our application's top-level component.
