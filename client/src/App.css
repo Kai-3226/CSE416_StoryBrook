@@ -508,14 +508,14 @@ input {
 #profile-age{
   position:relative;
   top:10%;
-  left:33%;
+  left:3%;
   height:33%;
   width:33%;
 }
 #profile-gender{
   position:relative;
   top:10%;
-  left:66%;
+  left:10%;
   height:33%;
   width:33%;
 
@@ -551,7 +551,7 @@ input {
 #profile-cancel{
   position:relative;
   top:90%;
-  left:95%;
+  left:89%;
   height:5%;
   width:5%;
 }
