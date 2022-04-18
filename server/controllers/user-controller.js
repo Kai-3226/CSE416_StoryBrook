@@ -83,7 +83,7 @@ registerUser = async (req, res) => {
 }
 
 loginUser = async (req, res) => {
-   
+    try{
         const { email, password} = req.body;
         if (!email || !password) {
             return res
@@ -128,7 +128,10 @@ loginUser = async (req, res) => {
                 email: existingUser.email
             }
         }).send();
-    
+    }catch (err) {
+        console.error(err);
+        res.status(500).send();
+    }
 }
 
 logoutUser= async (req, res) => {
