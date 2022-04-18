@@ -9,7 +9,6 @@ import ThumbsUp from '@mui/icons-material/ThumbUpOutlined';
 import ThumbsDown from '@mui/icons-material/ThumbDownOutlined';
 import Delete from '@mui/icons-material/DeleteOutlined';
 import Open from '@mui/icons-material/KeyboardArrowDownOutlined';
-import Work from './WorkspaceScreen';
 import Close from '@mui/icons-material/KeyboardArrowUpOutlined';
 import { Typography } from '@mui/material';
 

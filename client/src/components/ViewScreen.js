@@ -5,10 +5,10 @@ import {useState } from 'react';
 import { GlobalStoreContext } from '../store'
 import AuthContext from  '../auth';
 import WorkCard from './WorkCard';
-import Copyright2 from './Copyright2';
+import Copyright2 from './Copyright';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import InfiniteScroll from 'react-infinite-scroller';
+// import InfiniteScroll from 'react-infinite-scroller';
 
 
 const ViewScreen = () => {
@@ -85,27 +85,28 @@ const ViewScreen = () => {
             ))
     }
     
-    return (
-        <div id="viewpage">
-            <div id="viewpage_banner">
-            <AppBanner2/>
-            </div>
-            <div>
-                <InfiniteScroll
-                    pageStart={0}
-                    // loadMore={loadFunc}
-                    hasMore={true || false}
-                    loader={<div className="loader" key={0}>Loading ...</div>}
-                    useWindow={false}
-                    getScrollParent={() => this.scrollParentRef}
-                >
-                {work}
-                </InfiniteScroll>
-            </div>
-            <div>
-                <Copyright2/>
-            </div>
-        </div>)
+    return null;
+    // return (
+    //     <div id="viewpage">
+    //         <div id="viewpage_banner">
+    //         <AppBanner2/>
+    //         </div>
+    //         <div>
+    //             <InfiniteScroll
+    //                 pageStart={0}
+    //                 // loadMore={loadFunc}
+    //                 hasMore={true || false}
+    //                 loader={<div className="loader" key={0}>Loading ...</div>}
+    //                 useWindow={false}
+    //                 getScrollParent={() => this.scrollParentRef}
+    //             >
+    //             {work}
+    //             </InfiniteScroll>
+    //         </div>
+    //         <div>
+    //             <Copyright2/>
+    //         </div>
+    //     </div>)
 }
 
 export default ViewScreen;

@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import api from '../api';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import useParams from 'react-router-dom'
+import {useParams} from 'react-router-dom';
 
 export default function ResetPassword() {
     const {auth} = useContext(AuthContext);

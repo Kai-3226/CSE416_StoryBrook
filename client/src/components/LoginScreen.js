@@ -87,7 +87,7 @@ export default function LogInScreen() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/forgetPassword" variant="body2">
+                  <Link href="/requestPasswordReset/" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
