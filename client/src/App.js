@@ -43,7 +43,7 @@ const App = () => {
                     <AppBanner />
                     <Switch>
                         <Route path="/" exact component={SplashScreen} />
-                        <Route path="/home/" exact component = {HomeScreen2} />
+                        <Route path="/home/" exact component = {HomeScreen} />
                         <Route path="/view/" exact component = {ViewScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
                         <Route path="/register/" exact component={RegisterScreen} />
@@ -54,8 +54,7 @@ const App = () => {
                         <Route path="/requestPasswordReset/" exact component={ForgetPassword}/>
                         <Route path="/passwordReset/:token/:id" exact component={ResetPassword}/>
                         <Route path="/profile/" exact component={ProfileScreen}/>
-                        
-                        
+                                            
                     </Switch>
                     
                 </GlobalStoreContextProvider>

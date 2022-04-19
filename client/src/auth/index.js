@@ -191,6 +191,8 @@ function AuthContextProvider(props) {
             console.log("error of sent reset email");
         }
     }
+
+    
     return (
         <AuthContext.Provider value={{
             auth
