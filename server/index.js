@@ -1,18 +1,18 @@
 // THESE ARE NODE APIs WE WISH TO USE
 const express = require('express')
 const cors = require('cors')
-const dotenv = require('dotenv')
+// const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
-
+const aws = require('aws-sdk');
 // CREATE OUR SERVER
-dotenv.config();
+// dotenv.config();
 const PORT = process.env.PORT || 4000;
 const app = express()
 
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    origin: ["https://sbrook.herokuapp.com/"],        //http://localhost:3000
+    origin: ["https://sbrook.herokuapp.com"],        //http://localhost:3000
     credentials: true
 }))
 app.use(express.json())
