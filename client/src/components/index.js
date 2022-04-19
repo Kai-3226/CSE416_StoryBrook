@@ -20,7 +20,6 @@ export {
     RegisterScreen,
     SplashScreen, 
     CreateScreen,
-    HomeScreen2,
     ViewScreen,
     ForgetPassword,
     ResetPassword

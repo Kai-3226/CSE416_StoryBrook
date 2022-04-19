@@ -52,8 +52,7 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to='/changepassword/'>Change Password</Link></MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to='/profilescreen/'>Profile</Link></MenuItem>
+
         </Menu>
     );
 
@@ -73,7 +72,9 @@ export default function AppBanner() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
+            <MenuItem onClick={handleMenuClose}><Link to='/profilescreen/'>Profile</Link></MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to='/profile/'>Profile</Link></MenuItem>
         </Menu>        
 
     let editToolbar = "";
@@ -95,7 +96,7 @@ export default function AppBanner() {
         }
         return <AccountCircle />;
     }
-
+    console.log(auth.loggedIn);
     return (
         <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">

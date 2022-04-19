@@ -18,13 +18,13 @@
 }
 
 body {
-  background-color: #0cd43b;
+  background-color: #ffffff;
 }
 
 #root {
-  background-color: #e53636;
+  background-color: #ffffff;
   font-family: "Lexend Exa";
-  position: relative;
+  position: absolute;
   width: 100%;
   left: 0%;
   height: 100%;
@@ -55,7 +55,6 @@ body {
   border-radius: 10px;
 }
 #splash-screen {
-  background-image: url('1123.png');
   color: white;
   font-size: 5vw;
   border-color: black;
@@ -509,14 +508,14 @@ input {
 #profile-age{
   position:relative;
   top:10%;
-  left:33%;
+  left:3%;
   height:33%;
   width:33%;
 }
 #profile-gender{
   position:relative;
   top:10%;
-  left:66%;
+  left:10%;
   height:33%;
   width:33%;
 
@@ -552,7 +551,7 @@ input {
 #profile-cancel{
   position:relative;
   top:90%;
-  left:95%;
+  left:89%;
   height:5%;
   width:5%;
 }
