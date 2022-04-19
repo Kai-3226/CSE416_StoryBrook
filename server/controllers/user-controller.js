@@ -130,7 +130,10 @@ loginUser = async (req, res) => {
         }).send();
     } catch (err) {
         console.error(err);
-        res.status(500).send();
+        res.status(500).json({
+            success: false,
+            errorMessage:"Log in process is wrong"
+        }).send();
     }
 }
 
