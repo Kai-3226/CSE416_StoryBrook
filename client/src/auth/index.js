@@ -142,7 +142,7 @@ function AuthContextProvider(props) {
                 type: AuthActionType.ERROR,
                 payload:{
                     status:err.response.status,
-                    message:"cant log in"
+                    message:err.response.errorMessage
                 }
             })
             console.log(err);
