@@ -27,9 +27,9 @@ const HomeScreen = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const [input,setInput] = useState("");
-    useEffect(() => {
-        store.loadIdNamePairs();
-    }, []);
+    // useEffect(() => {
+    //     store.loadIdNamePairs();
+    // }, []);
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };

@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken")
 getLoggedIn = async (req, res) => {
     auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
-        return res.status(200).json({
+        res.status(200).json({
             loggedIn: true,
             user: {
                 firstName: loggedInUser.firstName,

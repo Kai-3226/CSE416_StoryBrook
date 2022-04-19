@@ -12,7 +12,7 @@ const app = express()
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    origin: ["*"],        //http://localhost:3000
+    origin: ["http://localhost:3000"],        //http://localhost:3000
     credentials: true
 }))
 app.use(express.json())
@@ -30,6 +30,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
 // Heroku Deploy
-if (process.env.NODE_ENV === 'production') 
+//console.log(process.env);
+// if (process.env.NODE_ENV === 'production') 
     app.use(express.static('client/build'));
 
