@@ -138,13 +138,14 @@ function AuthContextProvider(props) {
             }
         }
         catch(err){
-            authReducer({
-                type: AuthActionType.ERROR,
-                payload:{
-                    status:err.response.status,
-                    message:err.response.data.errorMessage
-                }
-            })
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.data.errorMessage
+            //     }
+            // })
+            console.log(err);
         }
         
     }
