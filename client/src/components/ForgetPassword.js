@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import AuthContext from '../auth';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -22,7 +22,6 @@ export default function ForgetPassword() {
     const [email, setEmail] = useState('')
     const handleSubmit = (event)=>{
         event.preventDefault();
-        e.preventDefault()
         auth.forgetPassword(email);
     }
 
