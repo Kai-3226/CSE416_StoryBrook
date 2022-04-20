@@ -1,17 +1,17 @@
 // THESE ARE NODE APIs WE WISH TO USE
 const express = require('express')
 const cors = require('cors')
-// const dotenv = require('dotenv')
+const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 // CREATE OUR SERVER
-// dotenv.config();
+dotenv.config();
 const PORT = process.env.PORT || 4000;
 const app = express()
 
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    origin: ["https://storybrook.herokuapp.com"],        //http://localhost:3000
+    origin: ["https://storybrook.herokuapp.com", "http://localhost:3000"],        //http://localhost:3000
     credentials: true
 }))
 app.use(express.json())
@@ -19,7 +19,9 @@ app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const storybrookRouter = require('./routes/storybrook-router')
-app.get('/*',(req,res)=>{res.sendFile('index.html', {root: path.join(_dirname, '../build')})}) 
+var path = require('path');
+app.get('/*',(req,res)=>{res.sendFile('index.html', {root: path.join(__dirname, '../client/build')})}) 
+console.log(path.join(__dirname, '../client/build'))
 app.use('/api', storybrookRouter)
 
 
