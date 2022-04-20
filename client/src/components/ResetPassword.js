@@ -21,6 +21,7 @@ export default function ResetPassword() {
     const handleSubmit = async (event)=>{
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
+        console.log(formData.get('password'));
         if(formData.get('password') == formData.get('passwordVerify')){
             auth.resetPassword(token,id,formData.get('password'));
         } else{

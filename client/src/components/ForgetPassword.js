@@ -19,11 +19,11 @@ const theme = createTheme();
 
 export default function ForgetPassword() {
     const {auth} = useContext(AuthContext);
-
+    const [email, setEmail] = useState('')
     const handleSubmit = (event)=>{
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        auth.forgetPassword(formData.get('email'));
+        e.preventDefault()
+        auth.forgetPassword(email);
     }
 
     return( 
@@ -57,6 +57,8 @@ export default function ForgetPassword() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
                             />
                         </Grid>
                     
