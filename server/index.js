@@ -19,7 +19,9 @@ app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const storybrookRouter = require('./routes/storybrook-router')
+app.get('/',(req,res)=>{res.send('Hello World!')}) 
 app.use('/api', storybrookRouter)
+
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
