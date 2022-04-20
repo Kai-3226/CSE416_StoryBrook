@@ -15,6 +15,12 @@ getLoggedIn = async (req, res) => {
                 lastName: loggedInUser.lastName,
                 email: loggedInUser.email
             }
+        }).catch(error => {
+            console.log("FAILURE: " + JSON.stringify(error));
+            return res.status(404).json({
+                error,
+                message: 'cant log in',
+            })
         }).send();
     })
 }
