@@ -22,6 +22,7 @@ export default function ForgetPassword() {
     const [email, setEmail] = useState('')
     const handleSubmit = (event)=>{
         event.preventDefault();
+        console.log(email);
         auth.forgetPassword(email);
     }
 
