@@ -151,7 +151,7 @@ function AuthContextProvider(props) {
     }
     auth.forgetPassword= async function(email){
         try{
-            const response = await api.sendUserEmail({"email":email});
+            const response = await api.sendUserEmail({useremail:email});
             if(response.status===200){
                 // authReducer({
                 //     type: AuthActionType.LOGIN_USER,
@@ -175,7 +175,7 @@ function AuthContextProvider(props) {
     auth.resetPassword= async function(token,id,newPass){
         try{
             
-            const response = await api.resetPassword(token,id,{"newPass":newPass});
+            const response = await api.resetPassword(token,id,{newpassword:newPass});
            if(response.status===200){
                 history.push('/login')
             }

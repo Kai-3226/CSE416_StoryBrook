@@ -216,9 +216,9 @@ updateUser =async (req,res) => {
 
 sendUserEmail = async (req, res) => {
     try {
-        const email = req.body.email;
-        console.log(email);
-        const existingUser=await User.findOne({ email: email });
+        const useremail = req.body.useremail;
+        console.log(useremail);
+        const existingUser=await User.findOne({ email: useremail });
        
         if (!existingUser) {          
            console.log("An account with this email address does not exist.") ;
