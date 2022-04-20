@@ -50,7 +50,6 @@ const apis = {
     registerUser,
     loginUser,
     logoutUser,
-    requestPasswordReset,
     resetPassword,
     sendUserEmail
 }
