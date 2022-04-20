@@ -217,7 +217,7 @@ updateUser =async (req,res) => {
 sendUserEmail = async (req, res) => {
     try {
         const email = req.body.email;
-      
+        console.log(email);
         const existingUser=await User.findOne({ email: email });
        
         if (!existingUser) {          

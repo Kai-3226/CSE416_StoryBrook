@@ -169,7 +169,7 @@ function AuthContextProvider(props) {
             //         message:err.response.data.errorMessage
             //     }
             // })
-            console.log("error of sent reset email");
+            console.log(err);
         }
     }
     auth.resetPassword= async function(token,id,newPass){
