@@ -151,7 +151,7 @@ function AuthContextProvider(props) {
     }
     auth.forgetPassword= async function(email){
         try{
-            const response = await api.sendUserEmail({useremail:email});
+            const response = await api.sendUserEmail(email);
             if(response.status===200){
                 // authReducer({
                 //     type: AuthActionType.LOGIN_USER,
