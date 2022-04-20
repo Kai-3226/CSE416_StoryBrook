@@ -235,7 +235,7 @@ sendUserEmail = async (req, res) => {
                     })
     }
 
-        clientURL='localhost:3000';
+        clientURL="sbrook.herokuapp.com";
         const link = `${clientURL}/passwordReset/${token}/${existingUser._id}`;
         sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
         console.log("email sent sucessfully");
