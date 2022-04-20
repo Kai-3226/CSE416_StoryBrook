@@ -19,7 +19,7 @@ app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const storybrookRouter = require('./routes/storybrook-router')
-app.get('/',(req,res)=>{res.send('Hello World!')}) 
+app.get('/*',(req,res)=>{app.use(express.static('client/build'))}) 
 app.use('/api', storybrookRouter)
 
 
