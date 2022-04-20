@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ErrorModal from './ErrorModal';
 import Copyright from './Copyright'
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 const theme = createTheme();
@@ -21,13 +21,13 @@ export default function SplashScreen() {
                     <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
                         <Button style={{ width: "50vw", height: "50vh", backgroundImage:`url(${Comics})`, 
                         backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
-                        <Link to='/comicScreen/'> </Link>
+                        {/* <Link to='/comicScreen/'> </Link> */}
                         </Button>
                     </div>
                     <div style={{display:"flex", alignItems:"center", flexDirection:"column"}} >
                     <Button style={{ width: "50vw", height: "50vh", backgroundImage:`url(${storytelling})`, 
                         backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
-                        <Link to='/tellingScreen/'> </Link>
+                        {/* <Link to='/tellingScreen/'> </Link> */}
                         </Button>
                     </div>
             </div>
