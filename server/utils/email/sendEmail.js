@@ -36,7 +36,8 @@ const sendEmail = async (email, subject, payload, template) => {
     transporter.sendMail(options(), (err, info) => {
         if (err) {
             console.log('Error occurred. ' + err.message);
-            return process.exit(1);
+            console.log(process.env.EMAIL_USERNAME);
+            return false;
         }
 
         // Preview only available when sending through an Ethereal account
