@@ -237,8 +237,8 @@ sendUserEmail = async (req, res) => {
 
         clientURL="sbrook.herokuapp.com";
         const link = `${clientURL}/passwordReset/${token}/${existingUser._id}`;
-        await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
-        
+        let result=await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
+        if(!result) { return res.status(400) .json({success: false,errorMessage: "email can't be send"}) }
         return res
         .status(200)
         .json({
@@ -252,7 +252,7 @@ sendUserEmail = async (req, res) => {
         .status(400)
         .json({
             success: false,
-            errorMessage: "err"
+            errorMessage: "email can't be send"
         })
         
     }
