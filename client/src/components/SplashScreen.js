@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ErrorModal from './ErrorModal';
 import Copyright from './Copyright'
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 const theme = createTheme();
