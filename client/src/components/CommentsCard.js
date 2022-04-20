@@ -22,7 +22,7 @@ function CommentCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { idNamePair } = props;
+    const { } = props;
     const [anchorEl, setAnchorEl] = useState(false);
     const isOpen = Boolean(anchorEl);
     const { auth } = useContext(AuthContext);

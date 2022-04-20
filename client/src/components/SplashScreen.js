@@ -21,13 +21,13 @@ export default function SplashScreen() {
                     <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
                         <Button style={{ width: "50vw", height: "50vh", backgroundImage:`url(${Comics})`, 
                         backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
-                        <Link to='/comicScreen/'> </Link>
+                        {/* <Link to='/comicScreen/'> </Link> */}
                         </Button>
                     </div>
                     <div style={{display:"flex", alignItems:"center", flexDirection:"column"}} >
                     <Button style={{ width: "50vw", height: "50vh", backgroundImage:`url(${storytelling})`, 
                         backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
-                        <Link to='/tellingScreen/'> </Link>
+                        {/* <Link to='/tellingScreen/'> </Link> */}
                         </Button>
                     </div>
             </div>

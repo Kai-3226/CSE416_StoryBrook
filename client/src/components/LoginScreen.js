@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,7 +16,7 @@ import { GlobalStoreContext } from '../store';
 import AuthContext from '../auth';
 import ErrorModal from './ErrorModal';
 import Container from '@mui/material/Container';
-import Copyright from './Copyright'
+import Copyright from './Copyright';
 
 const theme = createTheme();
 

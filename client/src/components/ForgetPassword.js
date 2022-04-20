@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -71,7 +71,7 @@ export default function ForgetPassword() {
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="/login" variant="body2">
+                            <Link to="/login/" variant="body2">
                                 Remember your password? Sign in
                             </Link>
                         </Grid>

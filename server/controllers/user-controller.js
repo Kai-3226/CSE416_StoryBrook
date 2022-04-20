@@ -6,7 +6,7 @@ const sendEmail = require("../utils/email/sendEmail");
 const jwt = require("jsonwebtoken")
 
 getLoggedIn = async (req, res) => {
-    auth.verify(req, res, async function () {
+    try {auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
         res.status(200).json({
             loggedIn: true,
@@ -16,7 +16,12 @@ getLoggedIn = async (req, res) => {
                 email: loggedInUser.email
             }
         }).send();
-    })
+    })}catch (err) {
+        console.error(err);
+        res.status(500).send();
+    }
+
+
 }
 
 registerUser = async (req, res) => {
