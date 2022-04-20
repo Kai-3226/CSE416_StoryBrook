@@ -96,7 +96,7 @@ export default function AppBanner() {
         }
         return <AccountCircle />;
     }
-    console.log(auth.loggedIn);
+   
     return (
         <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">

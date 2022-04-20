@@ -54,8 +54,7 @@ const App = () => {
                         <Route path="/requestPasswordReset/" exact component={ForgetPassword}/>
                         <Route path="/passwordReset/:token/:id" exact component={ResetPassword}/>
                         <Route path="/profile/" exact component={ProfileScreen}/>
-                        
-                        
+                                            
                     </Switch>
                     
                 </GlobalStoreContextProvider>

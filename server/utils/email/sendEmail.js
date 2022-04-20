@@ -7,7 +7,7 @@ const path = require("path");
 const sendEmail = async (email, subject, payload, template) => {
  
     // Create a SMTP transporter object
-    let transporter = nodemailer.createTransport({
+    try{let transporter = nodemailer.createTransport({
         host: "outlook.com",
         port: 587,
         secure: false,
@@ -36,12 +36,15 @@ const sendEmail = async (email, subject, payload, template) => {
     transporter.sendMail(options(), (err, info) => {
         if (err) {
             console.log('Error occurred. ' + err.message);
-            return process.exit(1);
+            console.log(process.env.EMAIL_USERNAME);
+            return false;
         }
-
+        else return true;
         // Preview only available when sending through an Ethereal account
        
-    });
+    })}catch(error){return false}
+
+
 };
 
 

@@ -22,9 +22,9 @@ function AuthContextProvider(props) {
     });
     const history = useHistory();
 
-    useEffect(() => {
-        auth.getLoggedIn();
-    }, []);
+    // useEffect(() => {
+    //     auth.getLoggedIn();
+    // }, []);
 
     const authReducer = (action) => {
         const { type, payload } = action;
@@ -138,13 +138,13 @@ function AuthContextProvider(props) {
             }
         }
         catch(err){
-            // authReducer({
-            //     type: AuthActionType.ERROR,
-            //     payload:{
-            //         status:err.response.status,
-            //         message:err.response.data.errorMessage
-            //     }
-            // })
+            authReducer({
+                type: AuthActionType.ERROR,
+                payload:{
+                    status:err.response.status,
+                    message:err.response.errorMessage
+                }
+            })
             console.log(err);
         }
         
@@ -192,6 +192,8 @@ function AuthContextProvider(props) {
             console.log("error of sent reset email");
         }
     }
+
+    
     return (
         <AuthContext.Provider value={{
             auth

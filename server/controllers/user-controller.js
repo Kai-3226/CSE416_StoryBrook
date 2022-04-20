@@ -6,9 +6,9 @@ const sendEmail = require("../utils/email/sendEmail");
 const jwt = require("jsonwebtoken")
 
 getLoggedIn = async (req, res) => {
-    auth.verify(req, res, async function () {
+    try {auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
-        return res.status(200).json({
+        res.status(200).json({
             loggedIn: true,
             user: {
                 firstName: loggedInUser.firstName,
@@ -16,7 +16,12 @@ getLoggedIn = async (req, res) => {
                 email: loggedInUser.email
             }
         }).send();
-    })
+    })}catch (err) {
+        console.error(err);
+        res.status(500).send();
+    }
+
+
 }
 
 registerUser = async (req, res) => {
@@ -88,7 +93,8 @@ loginUser = async (req, res) => {
         if (!email || !password) {
             return res
                 .status(400)
-                .json({ errorMessage: "Please enter all required fields." });
+                .json({ success: false,
+                    errorMessage: "Please enter all required fields." })
         }
        
         const existingUser = await User.findOne({ email: email });
@@ -130,7 +136,10 @@ loginUser = async (req, res) => {
         }).send();
     } catch (err) {
         console.error(err);
-        res.status(500).send();
+        res.status(500).json({
+            success: false,
+            errorMessage:"Log in process is wrong"
+        }).send();
     }
 }
 
@@ -231,16 +240,15 @@ sendUserEmail = async (req, res) => {
                     })
     }
 
-        clientURL='storybrook.herokuapp.com/';
+        clientURL="sbrook.herokuapp.com";
         const link = `${clientURL}/passwordReset/${token}/${existingUser._id}`;
-        sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
-        console.log("email sent sucessfully");
-        
+        let result=await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
+        if(!result) { return res.status(400) .json({success: false,errorMessage: "email can't be send"}) }
         return res
         .status(200)
         .json({
             success: true,
-            message: 'the reset email sent sucessfully!',
+            message: 'the reset email sent sucessfully!'
         })
         
     } catch (error) {
@@ -249,7 +257,7 @@ sendUserEmail = async (req, res) => {
         .status(400)
         .json({
             success: false,
-            errorMessage: "err"
+            errorMessage: "email can't be send"
         })
         
     }

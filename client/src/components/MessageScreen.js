@@ -12,6 +12,7 @@ import { IconButton } from '@mui/material';
 import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 import FriendCard from './FriendCard'
 import MessageCard from './MessageCard';
+import Container from '@mui/material/Container';
 
 const MessageScreen = () => {
     const { store } = useContext(GlobalStoreContext);
@@ -34,7 +35,7 @@ const MessageScreen = () => {
         //     </Box>
         // )
     return (
-       
+        <Container component="main" maxWidth="xs">
        <Box id="messagePage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="messagePage_sideBar" >
                     <Box id="messagePage_sideBar_banner">
@@ -45,9 +46,7 @@ const MessageScreen = () => {
                         <FriendCard/>
                       
                     </Box>
-                </Box> 
-                
-      
+                </Box>                    
                 <Box id="messagePage_workPlace">
                     <MessageCard isyou={true} />
                     <MessageCard isyou={false}/>
@@ -60,7 +59,7 @@ const MessageScreen = () => {
                 </Box>  
             
         </Box>
-       
+        </Container>
     );
 }
 
