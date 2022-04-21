@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 // const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
+const path=require('path')
 // CREATE OUR SERVER
 // dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -34,6 +35,7 @@ if (process.env.NODE_ENV === 'production')
     {
     app.use(express.static('client/build'));
     app.get('*', (req, res) => { 
-        res.sendFile('client/build/index.html'); })
+        res.sendFile(path.join(__dirname, './client/build/index.html'));
+        })
     }
 
