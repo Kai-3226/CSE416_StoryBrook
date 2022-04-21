@@ -36,6 +36,8 @@ export const logoutUser = () => api.get(`/logout/`)
 //export const requestPasswordReset = (payload) => api.get(`/requestPasswordReset/`, payload)
 export const resetPassword = (token,id,payload) => api.put(`/resetPassword/${token}/${id}`, payload)
 export const sendUserEmail = (payload) => api.post(`/requestPasswordReset/`, payload)
+export const verifyEmail = (payload) => api.post(`/verifyEmail/`, payload)
+export const changePassword = (payload)=> api.put('/changePassword/',payload)
 
 
 const apis = {
@@ -51,7 +53,9 @@ const apis = {
     loginUser,
     logoutUser,
     resetPassword,
-    sendUserEmail
+    sendUserEmail,
+    verifyEmail,
+    changePassword
 }
 
 export default apis

@@ -5,11 +5,12 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useContext, useState } from 'react';
 import { GlobalStoreContext } from '../store';
 import AuthContext from '../auth';
+import { changePassword } from '../api';
 
 export default function Profile(){
     const store=useContext(GlobalStoreContext);
     const [ editActive, setEditActive ] = useState(false);
-    const [ text, setText ] = useState("");
+    const [ password, setPassword ] = useState("");
     const { auth } = useContext(AuthContext);
 
     function getAccountMenu(loggedIn) {
@@ -25,6 +26,11 @@ export default function Profile(){
         }
         return <AccountCircle />;
     }
+    const changePassword=(event)=>{
+        event.preventDefault();
+        auth.changePassword(password);
+    }
+
     return (
         <div>
             <Box id="profilePage">
@@ -51,7 +57,7 @@ export default function Profile(){
                         <Box>{auth.user.email}</Box>
                     </Box> 
                     <Box>ChangePassword
-                        <Box><Textfield></Textfield><Button sx={{backgroundColor: '#c4c4c4',
+                        <Box><Textfield></Textfield><Button onsubmit={changePassword} sx={{backgroundColor: '#c4c4c4',
                         borderColor: '#c4c4c4',color:"black"}}>Edit</Button></Box>
                     </Box> 
                 </Box>

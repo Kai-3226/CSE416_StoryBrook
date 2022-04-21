@@ -330,6 +330,36 @@ changePassword = async (req, res) => {
         console.log(error, "error to reset");
     }
 }
+verifyEmail = async (req, res) => {
+    try {
+        const {code,useremail} = req.body;
+        console.log(req.body);
+        console.log(code);
+        console.log(useremail);
+
+       
+      
+        await sendEmail(existingUser.email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars");
+      
+        return res
+        .status(200)
+        .json({
+            success: true,
+            message: 'the reset email sent sucessfully!'
+        })
+      
+        
+    } catch (error) {
+        console.log(error, "email not sent");
+        return res
+        .status(400)
+        .json({
+            success: false,
+            errorMessage: "email can't be send"
+        })
+        
+    }
+}
 
 
 module.exports = {
@@ -340,5 +370,7 @@ module.exports = {
     getUserData,
     updateUser,
     sendUserEmail,
-    resetPassword
+    resetPassword,
+    changePassword,
+    verifyEmail
 }

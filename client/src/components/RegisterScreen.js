@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import AuthContext from '../auth'
 import Copyright from './Copyright'
 import Avatar from '@mui/material/Avatar';
@@ -13,10 +13,26 @@ import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { GlobalStoreContext } from '../store';
 import ErrorModal from './ErrorModal';
+import ReactInputVerificationCode from "react-input-verification-code";
 
 export default function RegisterScreen() {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext)
+
+    // const code=10000;
+    // const [value, setValue] = useState("");
+    // const [useremail, setEmail] = useState("");
+   
+    // const verifyEmail=(event)=>{
+    //   if(useremail!="")
+    //   {var val = Math.floor(1000 + Math.random() * 9000);
+    //   console.log(val);
+    //   code=val;
+    //   event.preventDefault();
+    //   auth.verifEmail(code,useremail);}
+    //   else(alert("input a valid email"))
+    // }
+    // const clearValue = () => setValue("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -79,8 +95,12 @@ export default function RegisterScreen() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    
                                 />
                             </Grid>
+                            {/* <Button onSubmit={verifyEmail} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> Verif Email</Button>
+                            <Box display="flex"> <ReactInputVerificationCode onChange={setValue} value={value} />
+                            <Button onClick={clearValue}>Clear</Button> </Box> */}
                             <Grid item xs={12}>
                                 <TextField
                                     required
