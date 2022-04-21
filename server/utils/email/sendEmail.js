@@ -7,19 +7,19 @@ const path = require("path");
 const sendEmail = async (email, subject, payload, template) => {
  
     // Create a SMTP transporter object
-    let transporter = nodemailer.createTransport("",{
-        host: "hotmail",
-        port: 587,
-        secure: false,
-        tls: {
-          ciphers:'SSLv3'
-          },
-        requireTLS:true,
-        auth: {
-            user: process.env.EMAIL_USERNAME,
-            pass: process.env.EMAIL_PASSWORD
-        }
-    });
+    let transporter = nodemailer.createTransport({
+      host: "hotmail.com",
+      port: 587,
+      secure: false,
+      tls: {
+        ciphers:'SSLv3'
+        },
+      requireTLS:true,//this parameter solved problem for me
+      auth: {
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD
+      }
+  });
   
     ////Message object
     const source = fs.readFileSync(path.join(__dirname, template), "utf8");
