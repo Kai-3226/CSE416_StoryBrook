@@ -268,6 +268,9 @@ resetPassword = async (req, res) => {
     try {
         const {newPass}= req.body.newPass;
         const {token,id}=req.params;
+        console.log(newPass);
+        console.log(token);
+        console.log(id);
             
         const verified = jwt.verify(token, process.env.JWT_SECRET)
         if(verified.userId==id) {console.log("find the account need to be reset;")}
