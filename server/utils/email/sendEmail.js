@@ -8,10 +8,9 @@ const sendEmail = async (email, subject, payload, template) => {
  
    // Create a SMTP transporter object
    let transporter = nodemailer.createTransport({
-    host: 'Gmail',
-    port: 587,
-    secure: false,
-    requireTLS:true,//this parameter solved problem for me
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // use SSL
     auth: {
         user: 'story88brook@gmail.com',
         pass: 'story888brook+++'
