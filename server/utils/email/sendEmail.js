@@ -15,8 +15,8 @@ try{
     },
     requireTLS:true,//this parameter solved problem for me
     auth: {
-    user: process.env.EMAIL_USERNAME,
-    pass: process.env.EMAIL_USERNAME
+    user: process.env.EMAIL_USERNAME2,
+    pass: process.env.EMAIL_USERNAME2
     }});
 ////Message object
 const source = fs.readFileSync(path.join(__dirname, template), "utf8");
@@ -39,7 +39,7 @@ transporter.sendMail(options(), (err, info) => {
   
     // Preview only available when sending through an Ethereal account
    
-})}catch(error){ console.log(error)}
+})}catch(error){ console.log(error);process.exit(0);}
 
 };
 
