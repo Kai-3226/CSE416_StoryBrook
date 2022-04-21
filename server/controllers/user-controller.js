@@ -268,6 +268,7 @@ resetPassword = async (req, res) => {
     try {
         const {newPass}= req.body.newPass;
         const {token,id}=req.params;
+        console.log(req.body);
         console.log(newPass);
         console.log(token);
         console.log(id);
