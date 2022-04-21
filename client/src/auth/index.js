@@ -175,7 +175,7 @@ function AuthContextProvider(props) {
     auth.resetPassword= async function(token,id,newPass){
         try{
             
-            const response = await api.resetPassword(token,id,{newpassword:newPass});
+            const response = await api.resetPassword(token,id,{"newPass":newPass});
            if(response.status===200){
                 history.push('/login')
             }

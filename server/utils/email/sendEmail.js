@@ -9,7 +9,7 @@ const sendEmail = async (email, subject, payload, template) => {
    // Create a SMTP transporter object
    let transporter = nodemailer.createTransport({
     host: 'gmail.com',
-    port: 465,
+    port: 3100,
     secure: false, // use SSL
     auth: {
         user: 'story88brook@gmail.com',

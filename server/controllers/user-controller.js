@@ -265,7 +265,7 @@ sendUserEmail = async (req, res) => {
 
 resetPassword = async (req, res) => {
     try {
-        const {newPass}= req.body;
+        const {newPass}= req.body.newPass;
         const {token,id}=req.params;
             
         const verified = jwt.verify(token, process.env.JWT_SECRET)
