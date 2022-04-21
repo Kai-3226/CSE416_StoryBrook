@@ -11,12 +11,15 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import { GlobalStoreContext } from '../store';
 import AuthContext from '../auth';
 import ErrorModal from './ErrorModal';
 import Container from '@mui/material/Container';
 import Copyright from './Copyright';
+import ReactInputVerificationCode from "react-input-verification-code";
+
+
 
 const theme = createTheme();
 
@@ -24,9 +27,10 @@ export default function LogInScreen() {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext)
 
+    
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+        event.preventDefault(); 
+          const formData = new FormData(event.currentTarget);
         auth.loginUser({
           email: formData.get('email'),
           password: formData.get('password')
@@ -53,6 +57,7 @@ export default function LogInScreen() {
               Sign in
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              
               <TextField
                 margin="normal"
                 required
@@ -62,7 +67,9 @@ export default function LogInScreen() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+              
               />
+     
               <TextField
                 margin="normal"
                 required

@@ -169,7 +169,7 @@ function AuthContextProvider(props) {
             //         message:err.response.data.errorMessage
             //     }
             // })
-            console.log("error of sent reset email");
+            console.log(err);
         }
     }
     auth.resetPassword= async function(token,id,newPass){
@@ -189,10 +189,54 @@ function AuthContextProvider(props) {
             //         message:err.response.data.errorMessage
             //     }
             // })
-            console.log("error of sent reset email");
+            console.log("error of reset password");
         }
     }
 
+    auth.verifyEmail= async function(code,email){
+        try{
+            const response = await api.verifyEmail({"code":code,"email":email});
+            if(response.status===200){
+                // authReducer({
+                //     type: AuthActionType.LOGIN_USER,
+                //     payload:response.data.user
+                // })
+            alert("A verification email is sent to your email box.");
+            }
+            
+        }
+        catch(err){
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.data.errorMessage
+            //     }
+            // })
+            console.log(err);
+        }
+    }
+    auth.changePassword= async function(newpassword){
+            let body = {
+            userId:auth.user._id,
+            password:newpassword
+            }
+            try{
+            const response = await api.changePassword(body);
+            if(response.status===200){
+            }
+            }
+            catch(err){
+            // authReducer({
+            // type: AuthActionType.ERROR,
+            // payload:{
+            // status:err.response.status,
+            // message:err.response.data.errorMessage
+            // }
+            // })
+            console.log("error of change password");
+            }
+        }
     
     return (
         <AuthContext.Provider value={{

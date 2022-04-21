@@ -216,9 +216,9 @@ updateUser =async (req,res) => {
 
 sendUserEmail = async (req, res) => {
     try {
-        const email = req.body.email;
-      
-        const existingUser=await User.findOne({ email: email });
+        const useremail = req.body.email;
+        console.log(useremail);
+        const existingUser=await User.findOne({ email: useremail });
        
         if (!existingUser) {          
            console.log("An account with this email address does not exist.") ;
@@ -241,15 +241,16 @@ sendUserEmail = async (req, res) => {
     }
 
         clientURL="sbrook.herokuapp.com";
-        const link = `${clientURL}/passwordReset/${token}/${existingUser._id}`;
-        let result=await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
-        if(!result) { return res.status(400) .json({success: false,errorMessage: "email can't be send"}) }
+        const link = `${clientURL}/passwordReset/${token}/${existingUser._id}/`;
+        await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
+      
         return res
         .status(200)
         .json({
             success: true,
             message: 'the reset email sent sucessfully!'
         })
+      
         
     } catch (error) {
         console.log(error, "email not sent");
@@ -265,7 +266,7 @@ sendUserEmail = async (req, res) => {
 
 resetPassword = async (req, res) => {
     try {
-        const {newPass}= req.body;
+        const newPass= req.body.newPass;
         const {token,id}=req.params;
             
         const verified = jwt.verify(token, process.env.JWT_SECRET)
@@ -320,13 +321,43 @@ changePassword = async (req, res) => {
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
 
-        await User.updateOne(
+        await User.updateOne( 
         { _id: userId },
         { $set: { password: passwordHash } },
         { new: true }
         );
     } catch (error) {
         console.log(error, "error to reset");
+    }
+}
+verifyEmail = async (req, res) => {
+    try {
+        const {code,useremail} = req.body;
+        console.log(req.body);
+        console.log(code);
+        console.log(useremail);
+
+       
+      
+        await sendEmail(existingUser.email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars");
+      
+        return res
+        .status(200)
+        .json({
+            success: true,
+            message: 'the reset email sent sucessfully!'
+        })
+      
+        
+    } catch (error) {
+        console.log(error, "email not sent");
+        return res
+        .status(400)
+        .json({
+            success: false,
+            errorMessage: "email can't be send"
+        })
+        
     }
 }
 
@@ -339,5 +370,7 @@ module.exports = {
     getUserData,
     updateUser,
     sendUserEmail,
-    resetPassword
+    resetPassword,
+    changePassword,
+    verifyEmail
 }

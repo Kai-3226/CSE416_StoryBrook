@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import AuthContext from '../auth';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -19,11 +19,10 @@ const theme = createTheme();
 
 export default function ForgetPassword() {
     const {auth} = useContext(AuthContext);
-
+    const [email, setEmail] = useState('')
     const handleSubmit = (event)=>{
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        auth.forgetPassword(formData.get('email'));
+        auth.forgetPassword(email);
     }
 
     return( 
@@ -57,6 +56,8 @@ export default function ForgetPassword() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
                             />
                         </Grid>
                     

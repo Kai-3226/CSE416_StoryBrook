@@ -33,9 +33,11 @@ export const getLoggedIn = () => api.get(`/loggedIn/`);
 export const registerUser = (payload) => api.post(`/register/`, payload)
 export const loginUser = (payload) => api.post(`/login/`, payload)
 export const logoutUser = () => api.get(`/logout/`)
-export const requestPasswordReset = (payload) => api.post(`/requestPasswordReset/`, payload)
-export const resetPassword = (token,id,payload) => api.post(`/resetPassword/${token}/${id}`, payload)
-export const sendUserEmail = (payload) => api.post(`/sendEmail/`, payload)
+//export const requestPasswordReset = (payload) => api.get(`/requestPasswordReset/`, payload)
+export const resetPassword = (token,id,payload) => api.put(`/resetPassword/${token}/${id}`, payload)
+export const sendUserEmail = (payload) => api.post(`/requestPasswordReset/`, payload)
+export const verifyEmail = (payload) => api.post(`/verifyEmail/`, payload)
+export const changePassword = (payload)=> api.put('/changePassword/',payload)
 
 
 const apis = {
@@ -50,9 +52,10 @@ const apis = {
     registerUser,
     loginUser,
     logoutUser,
-    requestPasswordReset,
     resetPassword,
-    sendUserEmail
+    sendUserEmail,
+    verifyEmail,
+    changePassword
 }
 
 export default apis

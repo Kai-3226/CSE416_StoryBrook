@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 // const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
+const path=require('path')
 // CREATE OUR SERVER
 // dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -28,8 +29,12 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 // PUT THE SERVER IN LISTENING MODE
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
-// Heroku Deploy
-console.log(process.env.MONGODB_URI);
-// if (process.env.NODE_ENV === 'production') 
+// Heroku Dep
+if (process.env.NODE_ENV === 'production') 
+    {
     app.use(express.static('client/build'));
+    app.get('*', (req, res) => { 
+        res.sendFile('/app/client/build/index.html');
+        })
+    }
 
