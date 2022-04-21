@@ -48,7 +48,7 @@ export default function Profile(){
                     </Box>
                     </Box>
                     <Box id="profile-email" sx={{paddingTop:'5%'}}>User Email
-                        <Box defaultValue={auth.user.email}>user email will be displyaed here.</Box>
+                        <Box>{auth.user.email}</Box>
                     </Box> 
                     <Box>ChangePassword
                         <Box><Textfield></Textfield><Button sx={{backgroundColor: '#c4c4c4',

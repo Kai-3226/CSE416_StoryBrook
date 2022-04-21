@@ -321,7 +321,7 @@ changePassword = async (req, res) => {
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
 
-        await User.updateOne(
+        await User.updateOne( 
         { _id: userId },
         { $set: { password: passwordHash } },
         { new: true }
