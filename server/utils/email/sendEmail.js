@@ -8,12 +8,12 @@ const sendEmail = async (email, subject, payload, template) => {
 try{
    // Create a SMTP transporter object
    let transporter = nodemailer.createTransport({
-    host: 'gmail.com',
+    host: 'hotmail.com',
     port: 3100,
     secure: false, // use SSL
     auth: {
-        user: 'story88brook@gmail.com',
-        pass: 'story888brook+++'
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
     }
 });
 
