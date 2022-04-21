@@ -17,6 +17,7 @@ import AuthContext from '../auth';
 import ErrorModal from './ErrorModal';
 import Container from '@mui/material/Container';
 import Copyright from './Copyright';
+import ReactInputVerificationCode from "react-input-verification-code";
 
 const theme = createTheme();
 
