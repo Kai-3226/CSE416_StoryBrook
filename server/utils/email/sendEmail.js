@@ -6,17 +6,18 @@ const path = require("path");
 
 const sendEmail = async (email, subject, payload, template) => {
 try{
-   // Create a SMTP transporter object
-   let transporter = nodemailer.createTransport({
-    host: 'hotmail.com',
-    port: 3100,
-    secure: false, // use SSL
+  var transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com", // hostname
+    secureConnection: false, // TLS requires secureConnection to be false
+    port: 587, // port for secure SMTP
+    tls: {
+    ciphers:'SSLv3'
+    },
+    requireTLS:true,//this parameter solved problem for me
     auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-    }
-});
-
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_USERNAME
+    }});
 ////Message object
 const source = fs.readFileSync(path.join(__dirname, template), "utf8");
 const compiledTemplate = handlebars.compile(source);
@@ -28,7 +29,7 @@ const options = () => {
     html: compiledTemplate(payload),
   };
 };
-
+console.log("sending email");
 transporter.sendMail(options(), (err, info) => {
     if (err) {
         console.log('Error occurred. ' + err.message);
