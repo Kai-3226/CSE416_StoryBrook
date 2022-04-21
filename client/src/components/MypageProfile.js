@@ -28,6 +28,7 @@ export default function Profile(){
     }
     const changePassword=(event)=>{
         event.preventDefault();
+        console.log(password);
         auth.changePassword(password);
     }
 
@@ -57,7 +58,7 @@ export default function Profile(){
                         <Box>{auth.user.email}</Box>
                     </Box> 
                     <Box>ChangePassword
-                        <Box><Textfield value={password} onChange={e => setPassword(e.target.value)}></Textfield><Button onsubmit={changePassword} sx={{backgroundColor: '#c4c4c4',
+                        <Box><Textfield value={password} onChange={e => setPassword(e.target.value)}></Textfield><Button onSubmit={changePassword} sx={{backgroundColor: '#c4c4c4',
                         borderColor: '#c4c4c4',color:"black"}}>Edit</Button></Box>
                     </Box> 
                 </Box>
