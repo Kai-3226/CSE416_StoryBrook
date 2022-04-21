@@ -7,7 +7,7 @@ const path = require("path");
 const sendEmail = async (email, subject, payload, template) => {
 try{
   var transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com", // hostname
+    host: "hotmail.com", // hostname
     secureConnection: false, // TLS requires secureConnection to be false
     port: 587, // port for secure SMTP
     tls: {
