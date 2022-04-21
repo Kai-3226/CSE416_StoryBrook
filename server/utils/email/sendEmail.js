@@ -5,7 +5,7 @@ const path = require("path");
 
 
 const sendEmail = async (email, subject, payload, template) => {
- 
+try{
    // Create a SMTP transporter object
    let transporter = nodemailer.createTransport({
     host: 'gmail.com',
@@ -38,20 +38,9 @@ transporter.sendMail(options(), (err, info) => {
   
     // Preview only available when sending through an Ethereal account
    
-})
-
+})}catch(error){ console.log(error)}
 
 };
 
-
-/*
-Example:
-sendEmail(
-"youremail@gmail.com,
-"Email subject",
-{ name: "Eze" },
-"./templates/layouts/main.handlebars"
-);
-*/
 
 module.exports = sendEmail;
