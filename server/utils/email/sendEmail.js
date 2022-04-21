@@ -33,9 +33,9 @@ transporter.sendMail(options(), (err, info) => {
     if (err) {
         console.log('Error occurred. ' + err.message);
         console.log(process.env.EMAIL_USERNAME);
-        return false;
+        return process.exit(1);
     }
-    else return true;
+  
     // Preview only available when sending through an Ethereal account
    
 })
