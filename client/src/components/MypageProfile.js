@@ -13,7 +13,7 @@ export default function Profile(){
             <Box id="profilePage">
                 <Box id="profile-head" >
                     <AccountCircle id="profile=ac"></AccountCircle>
-                    <Box id="profile-mg">You can uploadyour image here</Box>
+                    <Box id="profile-mg">You can upload your image here</Box>
                     <Box id="profile-upload"><Button sx={{color: 'black',backgroundColor:"#c7ca3d"}}>upload image</Button></Box>
                 </Box>
                 <Box id="profile-setting">
