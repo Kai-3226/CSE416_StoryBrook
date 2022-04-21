@@ -6,18 +6,13 @@ const path = require("path");
 
 const sendEmail = async (email, subject, payload, template) => {
 
-  var transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com", // hostname
-    secureConnection: false, // TLS requires secureConnection to be false
-    port: 587, // port for secure SMTP
-    tls: {
-    ciphers:'SSLv3'
-    },
+  var transport = nodemailer.createTransport("SMTP", {
+    service: "hotmail",
     auth: {
-    user: 'harryhualin@outlook.com',
-    pass: 'Aa83907934+'
+        user: "storybrook888@hotmail.com",
+        pass: "story88888888"
     }
-  });
+});
 ////Message object
 const source = fs.readFileSync(path.join(__dirname, template), "utf8");
 const compiledTemplate = handlebars.compile(source);
@@ -33,7 +28,7 @@ console.log("sending email");
 transporter.sendMail(options(), (err, info) => {
     if (err) {
         console.log('Error occurred. ' + err.message);
-        console.log(process.env.EMAIL_USERNAME2);
+        console.log(process.env.EMAIL_USERNAME);
         return process.exit(1);
     }
     console.log('Message sent: ' + info.response);
