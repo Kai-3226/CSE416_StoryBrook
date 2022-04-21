@@ -6,7 +6,7 @@ const path = require("path");
 
 const sendEmail = async (email, subject, payload, template) => {
 
-let transporter = nodemailer.createTransport('SMTP', {
+let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
         user: "storybrook888@hotmail.com",
