@@ -38,7 +38,8 @@ function GlobalStoreContextProvider(props) {
         editActive: false,
         listMarkedForDeletion: null,
         mode: "home",
-        text: ""
+        text: "",
+        criteria:"",
     });
     const history = useHistory();
 

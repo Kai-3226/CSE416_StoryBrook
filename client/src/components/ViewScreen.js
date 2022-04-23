@@ -8,7 +8,7 @@ import WorkCard from './WorkCard';
 import Copyright2 from './Copyright';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-// import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroller';
 
 
 const ViewScreen = () => {
@@ -19,11 +19,11 @@ const ViewScreen = () => {
     const [input,setInput] = useState("");
 
     useEffect(() => {
-        store.loadRecommend(auth.userid);
-        store.loadFollow();
-        store.loadLatest();
-        store.loadMostView();
-        store.loadMostLike();
+        // store.loadRecommend(auth.userid);
+        // store.loadFollow();
+        // store.loadLatest();
+        // store.loadMostView();
+        // store.loadMostLike();
     }, []);
 
 
@@ -77,36 +77,35 @@ const ViewScreen = () => {
 
     let work = "";
     if (store) {
-        work = 
-            list.map((work) => (
-                <WorkCard
-                    work={work}
-                />
-            ))
+        // work = 
+        //     list.map((work) => (
+        //         <WorkCard
+        //             work={work}
+        //         />
+        //     ))
     }
     
-    return null;
-    // return (
-    //     <div id="viewpage">
-    //         <div id="viewpage_banner">
-    //         <AppBanner2/>
-    //         </div>
-    //         <div>
-    //             <InfiniteScroll
-    //                 pageStart={0}
-    //                 // loadMore={loadFunc}
-    //                 hasMore={true || false}
-    //                 loader={<div className="loader" key={0}>Loading ...</div>}
-    //                 useWindow={false}
-    //                 getScrollParent={() => this.scrollParentRef}
-    //             >
-    //             {work}
-    //             </InfiniteScroll>
-    //         </div>
-    //         <div>
-    //             <Copyright2/>
-    //         </div>
-    //     </div>)
+    return (
+        <div id="viewpage">
+            <div id="viewpage_banner">
+            </div >
+            
+            <div style={{height:'700px',overflow:'auto'}}>
+                <InfiniteScroll
+                    pageStart={0}
+                    // loadMore={loadFunc}
+                    hasMore={true || false}
+                    loader={<div className="loader" key={0}>Loading ...</div>}
+                    useWindow={false}
+                    //getScrollParent={() => this.scrollParentRef}
+                >
+                {work}
+                </InfiniteScroll>
+            </div>
+            <div>
+                <Copyright2/>
+            </div>
+        </div>)
 }
 
 export default ViewScreen;

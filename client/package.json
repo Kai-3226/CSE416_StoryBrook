@@ -15,6 +15,8 @@
     "axios": "^0.22.0",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
+    "localforage": "^1.10.0",
+    "polotno": "^0.42.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-horizontal-scrolling-menu": "^2.7.1",
