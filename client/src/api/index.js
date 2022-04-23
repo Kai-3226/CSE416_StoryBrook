@@ -13,9 +13,9 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: 'https://storybrook.herokuapp.com/api',    
+    baseURL: 'http://localhost:4000/api', 
 })
-
+//'https://storybrook.herokuapp.com/api' 'http://localhost:4000/api'
 // THESE ARE ALL THE REQUESTS WE`LL BE MAKING, ALL REQUESTS HAVE A
 // REQUEST METHOD (like get) AND PATH (like /top5list). SOME ALSO
 // REQUIRE AN id SO THAT THE SERVER KNOWS ON WHICH LIST TO DO ITS

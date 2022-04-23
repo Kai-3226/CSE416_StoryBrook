@@ -66,6 +66,11 @@ function NotificationModal() {
             </Box> */}
             <NotificationCard/>
             <NotificationCard/>
+            <NotificationCard/>
+            <NotificationCard/>
+            <NotificationCard/>
+            <NotificationCard/>
+
 
                 
         </Box>

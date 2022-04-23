@@ -14,6 +14,7 @@ import NotificationModal from './NotificationModal';
 import FriendModal from './FriendModal';
 import { useHistory } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
+import CreatePageBanner from './CreatePageBanner';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -114,8 +115,10 @@ export default function AppBanner() {
         return <AccountCircle />;
     }
    
-    return (
-        <Box sx={{ flexGrow: 1 }} >
+    let banner="";
+
+   if(store)
+    banner= <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">
                 <Toolbar sx={{bgcolor:"#e0e0e0"}}>
                     <Typography                        
@@ -150,5 +153,7 @@ export default function AppBanner() {
             <FriendModal/>
 
         </Box>
-    );
+
+
+    return (banner);
 }
