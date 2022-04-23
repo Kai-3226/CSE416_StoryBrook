@@ -154,7 +154,7 @@ function AuthContextProvider(props) {
     return (
         <AuthContext.Provider value={{
             auth
-        }}>
+        }}>git 
             {props.children}
         </AuthContext.Provider>
     );

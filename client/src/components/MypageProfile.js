@@ -16,6 +16,12 @@ export default function Profile(){
                     <Box id="profile-name">User Name
                         <Box><Textfield></Textfield></Box>
                     </Box>
+                    <Box id="profile-password">User Name
+                        <Box>
+                            <Textfield></Textfield>
+                            <Button id="edit">Edit</Button>
+                        </Box>
+                    </Box>
                     <Box id="profile-age">Age
                         <Box><Textfield></Textfield></Box>
                     </Box>
