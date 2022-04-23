@@ -36,6 +36,12 @@ export default function AppBanner() {
     const handleCreate = () => {
         store.createWork([]);
     }
+    const handleSave = () => {
+        store.updateWork(store.currentWork);
+    }
+    const handlePublish = () => {
+        store.publish(store.currentWork._id);
+    }
     const menuId = 'primary-search-account-menu';
     const loggedOutMenu = (
         <Menu
@@ -85,6 +91,13 @@ export default function AppBanner() {
         menu = loggedInMenu;
         editToolbar=
         <Button size = "small" color ="primary" variant="contained" onClick={handleCreate}>Create</Button>
+    }
+    if (store.editActive){
+        editToolbar=
+        <Box>
+            <Button size = "small" color ="primary" variant="contained" onClick={handleSave}>Save</Button>
+            <Button size = "small" color ="primary" variant="contained" onClick={handlePublish}>Publish</Button>
+        </Box>
     }
     
     function getAccountMenu(loggedIn) {
