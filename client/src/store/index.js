@@ -62,7 +62,7 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status    // 0 for story  1 for comic
                 })
             }
             // CREATE A NEW LIST

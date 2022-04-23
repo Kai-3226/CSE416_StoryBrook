@@ -22,7 +22,8 @@ const useHeight = () => {
   return height;
 };
 
-const App = ({ store }) => {
+const App = ({ workstore }) => {
+  console.info(workstore);
   const handleDrop = (ev) => {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
@@ -34,7 +35,7 @@ const App = ({ store }) => {
     }
     // Use DataTransfer interface to access the file(s)
     for (let i = 0; i < ev.dataTransfer.files.length; i++) {
-      loadFile(ev.dataTransfer.files[i], store);
+      loadFile(ev.dataTransfer.files[i], workstore);
     }
   };
 
@@ -43,23 +44,24 @@ const App = ({ store }) => {
   return (
     <div
       style={{
-        width: '100vw',
+        width: '100%',
         height: height + 'px',
         display: 'flex',
         flexDirection: 'column',
       }}
       onDrop={handleDrop}
     >
-      <Topbar store={store} />
+      <Topbar store={workstore} />
       <div style={{ height: 'calc(100% - 50px)' }}>
         <PolotnoContainer className="polotno-app-container">
           <SidePanelWrap>
-            <SidePanel store={store} sections={DEFAULT_SECTIONS} />
+            <SidePanel store={workstore} sections={DEFAULT_SECTIONS} />
           </SidePanelWrap>
           <WorkspaceWrap>
-            <Toolbar store={store} />
-            <Workspace store={store} />
-            <ZoomButtons store={store} />
+            
+            <Toolbar store={workstore} />
+            <Workspace store={workstore} />
+            <ZoomButtons store={workstore} />
           </WorkspaceWrap>
         </PolotnoContainer>
       </div>

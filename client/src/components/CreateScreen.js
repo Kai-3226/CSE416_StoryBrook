@@ -56,49 +56,51 @@ const CreateScreen = () => {
 
     return (
        
-       <Box id="createPage_screen" sx={{bgcolor:'white'} } component="form" > 
-                {/* <Box id="createPage_sideBar" name="createPage_sideBar">
-                    <Box id="createPage_sideBar_banner" >
-                        <Typography fontSize='30px'>Page</Typography>
-                    </Box>
+//    <Box id="createPage_screen" sx={{bgcolor:'white'} } > 
+//                 <Box id="createPage_sideBar" name="createPage_sideBar">
+//                     <Box id="createPage_sideBar_banner" >
+//                         <Typography fontSize='30px'>Page</Typography>
+//                     </Box>
                     
-                        <Button 
-                        color="primary" 
-                        aria-label="add"
+//                         <Button 
+//                         color="primary" 
+//                         aria-label="add"
                        
-                        sx={{position:'relative',left:"10%"}}
-                        >   
-                        <AddIcon />
-                        Add New Page
-                        </Button>
-                    <Box id='ThumbnailLister' sx={{height:'80%',overflowY:'auto'}}>
-                        <ThumbnailCard/>
-                        <ThumbnailCard/>
-                    </Box>
+//                         sx={{position:'relative',left:"10%"}}
+//                         >   
+//                         <AddIcon />
+//                         Add New Page
+//                         </Button>
+//                     <Box id='ThumbnailLister' sx={{height:'80%',overflowY:'auto'}}>
+//                         <ThumbnailCard/>
+//                         <ThumbnailCard/>
+//                     </Box>
 
-                </Box> 
-                <Box id="createPage_sideBar_selector">
-                    <Button id="createPage_icon_page"  sx={{alignText: 'center',position:'relative',height:'20%',width:'80%',top:'2%',borderTop:'1px solid black',borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0.3cm', }}> 
-                        page
-                    </Button>
-                    <Button id="createPage_icon_page" sx={{position:'relative',height:'20%',width:'80%',top:'2%',borderTop:'1px solid black',borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0.3cm', }}> 
-                       layer             
-                    </Button> 
-                    <Button id="createPage_icon_page" sx={{position:'relative',height:'20%',width:'80%',top:'2%',borderTop:'1px solid black',borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0.3cm', }}> 
-                    Library             
-                    </Button>
+//                 </Box> 
+//                 <Box id="createPage_sideBar_selector">
+//                     <Button id="createPage_icon_page"  sx={{alignText: 'center',position:'relative',height:'20%',width:'80%',top:'2%',borderTop:'1px solid black',borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0.3cm', }}> 
+//                         page
+//                     </Button>
+//                     <Button id="createPage_icon_page" sx={{position:'relative',height:'20%',width:'80%',top:'2%',borderTop:'1px solid black',borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0.3cm', }}> 
+//                        layer             
+//                     </Button> 
+//                     <Button id="createPage_icon_page" sx={{position:'relative',height:'20%',width:'80%',top:'2%',borderTop:'1px solid black',borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0.3cm', }}> 
+//                     Library             
+//                     </Button>
 
-                </Box>
+//                 </Box>
 
                 
-                <Box id="createPage_workPlace"/>
+//                 <Box id="createPage_workPlace"/>
                 
-                <Box id= "createPage_toolBar">
-                    </Box>   */}
-            
-            <App store={workstore} />
-                    <NotificationModal/>
-        </Box>
+//                 <Box id= "createPage_toolBar">
+//                     </Box>  
+            <Box>
+            <App workstore={workstore} />
+            </Box>
+        //          <NotificationModal/> 
+
+        // </Box>
        
     );
 }

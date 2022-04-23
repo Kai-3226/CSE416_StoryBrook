@@ -1,36 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import localforage from 'localforage';
-import { createStore } from 'polotno/model/store';
-import { unstable_setRemoveBackgroundEnabled } from 'polotno/config';
+// not use in this project, old index js file
 
-import './index.css';
-import App from './App';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import localforage from 'localforage';
+// import { createStore } from 'polotno/model/store';
+// import { unstable_setRemoveBackgroundEnabled } from 'polotno/config';
 
-unstable_setRemoveBackgroundEnabled(true);
+// import './index.css';
+// import App from './App';
 
-const store = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
-window.store = store;
+// unstable_setRemoveBackgroundEnabled(true);
 
-localforage.getItem('polotno-state', function (err, json) {
-  if (json) {
-    store.loadJSON(json);
-  }
-  if (!store.pages.length) {
-    store.addPage();
-  }
-});
+// const store = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
+// window.store = store;
 
-store.on('change', () => {
-  try {
-    const json = store.toJSON();
-    localforage.setItem('polotno-state', json);
-  } catch (e) {}
-});
+// localforage.getItem('polotno-state', function (err, json) {
+//   if (json) {
+//     store.loadJSON(json);
+//   }
+//   if (!store.pages.length) {
+//     store.addPage();
+//   }
+// });
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App store={store} />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// store.on('change', () => {
+//   try {
+//     const json = store.toJSON();
+//     localforage.setItem('polotno-state', json);
+//   } catch (e) {}
+// });
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App store={store} />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
