@@ -13,7 +13,9 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: 'http://localhost:4000/api', 
+    //baseURL: 'http://localhost:4000/api',
+    baseURL: 'https://storybrook.herokuapp.com/api',    
+
 })
 //'https://storybrook.herokuapp.com/api' 'http://localhost:4000/api'
 // THESE ARE ALL THE REQUESTS WE`LL BE MAKING, ALL REQUESTS HAVE A
@@ -38,6 +40,7 @@ export const resetPassword = (token,id,payload) => api.put(`/resetPassword/${tok
 export const sendUserEmail = (payload) => api.post(`/requestPasswordReset/`, payload)
 export const verifyEmail = (payload) => api.post(`/verifyEmail/`, payload)
 export const changePassword = (payload)=> api.put('/changePassword/',payload)
+export const updateUser = (payload)=> api.put('/updateUser/',payload)
 
 
 const apis = {

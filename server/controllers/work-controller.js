@@ -72,43 +72,6 @@ updateWork = async (req, res) => {
                 message: 'Work not found!',
             })
         }
-        if (body.action=="edit"){
-            work.name = body.payload.name;
-            work.contnet = body.payload.content;
-        }
-        else if (body.action=="publish"){
-            work.published = {publish:true,date: new Date()};
-        }
-        else if (body.action=="like"){
-            if(work.dislikes.indcludes(body.payload.user)){
-                work.dislikes.splice(work.dislikes.indexOf(body.payload.user),1);
-                work.likes.push(body.payload.user);
-            }
-            else if (!work.likes.includes(body.payload.user)){
-                work.likes.push(body.payload.user);
-            }
-            else{
-                work.likes.splice(work.likes.indexOf(body.payload.user),1);
-            }
-        }
-        else if (body.action=="dislike"){
-            if(work.likes.indcludes(body.payload.user)){
-                work.likes.splice(work.likes.indexOf(body.payload.user),1);
-                work.dislikes.push(body.payload.user);
-            }
-            else if (!work.dislikes.includes(body.payload.user)){
-                work.dislikes.push(body.payload.user);
-            }
-            else{
-                work.dislikes.splice(work.dislikes.indexOf(body.payload.user),1);
-            }
-        }
-        else if (body.payload="comment"){
-            work.comments={userId:body.payload.user,content:body.payload.comment,response:body.payload.response}
-        }
-        else if (body.payload="view"){
-            work.view=body.payload.view+1;
-        }
         work.workType = body.workType;
         work.author = body.author;
         work

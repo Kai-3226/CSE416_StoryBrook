@@ -103,7 +103,6 @@ function AuthContextProvider(props) {
                     }
                 })
                 history.push("/home");
-                store.loadIdNamePairs();
             }
         }
         catch(err){
