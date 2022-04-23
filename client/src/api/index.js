@@ -13,8 +13,8 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: 'http://localhost:4000/api',
-    //baseURL: 'https://storybrook.herokuapp.com/api',    
+    //baseURL: 'http://localhost:4000/api',
+    baseURL: 'https://storybrook.herokuapp.com/api',    
 })
 
 // THESE ARE ALL THE REQUESTS WE`LL BE MAKING, ALL REQUESTS HAVE A
