@@ -27,6 +27,8 @@ router.get('/library/:id', auth.verify, LibraryController.getLibraryById)
 router.get('/library', auth.verify,LibraryController.getAllLibrary)
 router.get('/library/:name', auth.verify,LibraryController.getLibrariesByName)
 
-router.post('/sendEmail/', UserController.sendUserEmail)
-router.post('/resetPassword/:token/:id', auth.verify, UserController.resetPassword)
+router.post('/requestPasswordReset', UserController.sendUserEmail)
+router.put('/resetPassword/:token/:id',  UserController.resetPassword)
+router.post('/verifyEmail',UserController.verifyEmail)
+router.put('/changePassword',auth.verify,UserController.changePassword)
 module.exports = router

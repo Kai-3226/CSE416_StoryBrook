@@ -2,11 +2,6 @@
   "name": "storybrook",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
   "main": "./server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +10,6 @@
     "heroku-postbuild": "  npm run install-client&& npm run build",
     "start": "node ./server/index.js",
     "client": "cd client && npm start"
->>>>>>> d0f8119882d5376f0e194915558f19087b664ef5
   },
   "repository": {
     "type": "git",
@@ -26,13 +20,8 @@
   "bugs": {
     "url": "https://github.com/Kai-3226/CSE416_StoryBrook/issues"
   },
-<<<<<<< HEAD
-  "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme"
-}
-=======
   "homepage": "https://github.com/Kai-3226/CSE416_StoryBrook#readme",
   "dependencies": {
-    "react-horizontal-scroll-menu": "^0.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -43,7 +32,7 @@
     "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.5",
-    "nodemailer": "^6.7.3"
+    "nodemailer": "^6.7.3",
+    "react-horizontal-scroll-menu": "^0.0.3"
   }
 }
->>>>>>> d0f8119882d5376f0e194915558f19087b664ef5

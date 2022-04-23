@@ -6,9 +6,9 @@ const sendEmail = require("../utils/email/sendEmail");
 const jwt = require("jsonwebtoken")
 
 getLoggedIn = async (req, res) => {
-    auth.verify(req, res, async function () {
+    try {auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
-        return res.status(200).json({
+        res.status(200).json({
             loggedIn: true,
             user: {
                 firstName: loggedInUser.firstName,
@@ -16,7 +16,12 @@ getLoggedIn = async (req, res) => {
                 email: loggedInUser.email
             }
         }).send();
-    })
+    })}catch (err) {
+        console.error(err);
+        res.status(500).send();
+    }
+
+
 }
 
 registerUser = async (req, res) => {
@@ -83,12 +88,13 @@ registerUser = async (req, res) => {
 }
 
 loginUser = async (req, res) => {
-   
+    try{
         const { email, password} = req.body;
         if (!email || !password) {
             return res
                 .status(400)
-                .json({ errorMessage: "Please enter all required fields." });
+                .json({ success: false,
+                    errorMessage: "Please enter all required fields." })
         }
        
         const existingUser = await User.findOne({ email: email });
@@ -128,7 +134,13 @@ loginUser = async (req, res) => {
                 email: existingUser.email
             }
         }).send();
-    
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            success: false,
+            errorMessage:"Log in process is wrong"
+        }).send();
+    }
 }
 
 logoutUser= async (req, res) => {
@@ -204,9 +216,9 @@ updateUser =async (req,res) => {
 
 sendUserEmail = async (req, res) => {
     try {
-        const email = req.body.email;
-      
-        const existingUser=await User.findOne({ email: email });
+        const useremail = req.body.email;
+        console.log(useremail);
+        const existingUser=await User.findOne({ email: useremail });
        
         if (!existingUser) {          
            console.log("An account with this email address does not exist.") ;
@@ -217,20 +229,6 @@ sendUserEmail = async (req, res) => {
                     errorMessage: "An account with this email address does not exist."
                 })
         }
-       
-        // let token = await Token.findOne({ user: existingUser._id });
-        // if (token) await token.deleteOne();
-        // let resetToken = crypto.randomBytes(32).toString("hex");
-
-        // const saltRounds = 10;
-        // const salt = await bcrypt.genSalt(saltRounds);
-        // const passwordHash = await bcrypt.hash(resetToken, salt);
-      
-        // await new Token({
-        //   userId: existingUser._id,
-        //   token: passwordHash,
-        //   createdAt: Date.now(),
-        // }).save();
       
         const token = auth.signToken(existingUser);
         if(!token){console.log("cant create token");
@@ -242,17 +240,17 @@ sendUserEmail = async (req, res) => {
                     })
     }
 
-        clientURL='storybrook.herokuapp.com/';
-        const link = `${clientURL}/passwordReset/${token}/${existingUser._id}`;
-        sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
-        console.log("email sent sucessfully");
-        
+        clientURL="sbrook.herokuapp.com";
+        const link = `${clientURL}/passwordReset/${token}/${existingUser._id}/`;
+        await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
+      
         return res
         .status(200)
         .json({
             success: true,
-            message: 'the reset email sent sucessfully!',
+            message: 'the reset email sent sucessfully!'
         })
+      
         
     } catch (error) {
         console.log(error, "email not sent");
@@ -260,7 +258,7 @@ sendUserEmail = async (req, res) => {
         .status(400)
         .json({
             success: false,
-            errorMessage: "err"
+            errorMessage: "email can't be send"
         })
         
     }
@@ -268,7 +266,7 @@ sendUserEmail = async (req, res) => {
 
 resetPassword = async (req, res) => {
     try {
-        const {newPass}= req.body;
+        const newPass= req.body.newPass;
         const {token,id}=req.params;
             
         const verified = jwt.verify(token, process.env.JWT_SECRET)
@@ -323,13 +321,43 @@ changePassword = async (req, res) => {
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
 
-        await User.updateOne(
+        await User.updateOne( 
         { _id: userId },
         { $set: { password: passwordHash } },
         { new: true }
         );
     } catch (error) {
         console.log(error, "error to reset");
+    }
+}
+verifyEmail = async (req, res) => {
+    try {
+        const {code,useremail} = req.body;
+        console.log(req.body);
+        console.log(code);
+        console.log(useremail);
+
+       
+      
+        await sendEmail(existingUser.email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars");
+      
+        return res
+        .status(200)
+        .json({
+            success: true,
+            message: 'the reset email sent sucessfully!'
+        })
+      
+        
+    } catch (error) {
+        console.log(error, "email not sent");
+        return res
+        .status(400)
+        .json({
+            success: false,
+            errorMessage: "email can't be send"
+        })
+        
     }
 }
 
@@ -342,5 +370,7 @@ module.exports = {
     getUserData,
     updateUser,
     sendUserEmail,
-    resetPassword
+    resetPassword,
+    changePassword,
+    verifyEmail
 }
