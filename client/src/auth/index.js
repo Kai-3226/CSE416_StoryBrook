@@ -216,16 +216,19 @@ function AuthContextProvider(props) {
         }
     }
     auth.changePassword= async function(newpassword){
-            let body = {
+        console.log("newpassword");
+        let body = {
             userId:auth.user._id,
-            password:newpassword
-            }
-            try{
+            password:newpassword}
+        
+        try{
             const response = await api.changePassword(body);
             if(response.status===200){
+                console.log("done change password");
+                history.push('/');
             }
-            }
-            catch(err){
+        }
+        catch(err){
             // authReducer({
             // type: AuthActionType.ERROR,
             // payload:{

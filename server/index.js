@@ -1,7 +1,7 @@
 // THESE ARE NODE APIs WE WISH TO USE
 const express = require('express')
 const cors = require('cors')
-// const dotenv = require('dotenv')
+const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 const path=require('path')
 // CREATE OUR SERVER
@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors({
     //origin: ["http://localhost:3000"],
     origin: [https://storybrook.herokuapp.com],
+
     credentials: true
 }))
 app.use(express.json())

@@ -316,16 +316,24 @@ resetPassword = async (req, res) => {
 changePassword = async (req, res) => {
     try {
         const { userId, password} = req.body;
-       
+       console.log(password);
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
-
+        console.log("change pass word");
         await User.updateOne( 
         { _id: userId },
         { $set: { password: passwordHash } },
-        { new: true }
+        { new: true }  
         );
+
+    return res
+        .status(200)
+        .json({
+            success: true,
+            message: 'the password reset successful!',
+        })
+
     } catch (error) {
         console.log(error, "error to reset");
     }
