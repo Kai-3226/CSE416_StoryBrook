@@ -1,5 +1,10 @@
 # No modules
 node_modules
+<<<<<<< HEAD
+./client/node_modules
+./server/node_modules
+=======
 .env
 ./client/build
 ./client/node_modules
+>>>>>>> 09643b1bf95f3f7ab020f07ae53b5492f4796290
