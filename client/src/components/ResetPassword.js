@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+
 import Copyright from './Copyright'
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -21,6 +21,9 @@ export default function ResetPassword() {
     const handleSubmit = async (event)=>{
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
+        console.log(token);
+        console.log(id);
+        console.log(formData.get('password'));
         if(formData.get('password') == formData.get('passwordVerify')){
             auth.resetPassword(token,id,formData.get('password'));
         } else{

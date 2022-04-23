@@ -5,54 +5,37 @@ const path = require("path");
 
 
 const sendEmail = async (email, subject, payload, template) => {
- 
-    // Create a SMTP transporter object
-    let transporter = nodemailer.createTransport({
-        host: "outlook.com",
-        port: 587,
-        secure: false,
-        tls: {
-          ciphers:'SSLv3'
-          },
-        requireTLS:true,//this parameter solved problem for me
-        auth: {
-            user: process.env.EMAIL_USERNAME,
-            pass: process.env.EMAIL_PASSWORD
-        }
-    });
-  
-    ////Message object
-    const source = fs.readFileSync(path.join(__dirname, template), "utf8");
-    const compiledTemplate = handlebars.compile(source);
-    const options = () => {
-      return {
-        from: process.env.EMAIL_USERNAME,
-        to: email,
-        subject: subject,
-        html: compiledTemplate(payload),
-      };
-    };
 
-    transporter.sendMail(options(), (err, info) => {
-        if (err) {
-            console.log('Error occurred. ' + err.message);
-            return process.exit(1);
-        }
-
-        // Preview only available when sending through an Ethereal account
-       
-    });
+let transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+        user: "storybrook888@hotmail.com",
+        pass: "story88888888"
+    }
+});
+////Message object
+const source = fs.readFileSync(path.join(__dirname, template), "utf8");
+const compiledTemplate = handlebars.compile(source);
+const options = () => {
+  return {
+    from: process.env.EMAIL_USERNAME,
+    to: email,
+    subject: subject,
+    html: compiledTemplate(payload),
+  };
+};
+console.log("sending email");
+transporter.sendMail(options(), (err, info) => {
+    if (err) {
+        console.log('Error occurred. ' + err.message);
+        console.log(process.env.EMAIL_USERNAME);
+        return process.exit(1);
+    }
+    console.log('Message sent: ' + info.response);
+    // Preview only available when sending through an Ethereal account
+   
+})
 };
 
-
-/*
-Example:
-sendEmail(
-  "youremail@gmail.com,
-  "Email subject",
-  { name: "Eze" },
-  "./templates/layouts/main.handlebars"
-);
-*/
 
 module.exports = sendEmail;

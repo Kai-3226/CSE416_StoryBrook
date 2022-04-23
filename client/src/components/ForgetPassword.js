@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import AuthContext from '../auth';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -6,26 +6,28 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import api from '../api';
 import ErrorModal from './ErrorModal';
 import Copyright from './Copyright'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const theme = createTheme();
 
 export default function ForgetPassword() {
     const {auth} = useContext(AuthContext);
-
-    const handleSubmit = async (event)=>{
+    const [email, setEmail] = useState('')
+    const handleSubmit = (event)=>{
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        auth.forgetPassword(formData.get('email'));
+        auth.forgetPassword(email);
     }
 
     return( 
-        <Container component="main" maxWidth="xxl" style={{ background: "rgba(209, 247, 255, 1)", height: "100vh"}}>
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
             <CssBaseline />
             <ErrorModal/>
             <Box
@@ -36,17 +38,15 @@ export default function ForgetPassword() {
                     alignItems: 'center',
                 }}
             >
-                <Avatar variant='square' >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     <LockOutlinedIcon />
                 </Avatar>
                 
                 <Typography component="h1" variant="h5">
                     Forgot Password
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        
-                    
                         <Grid item xs={12}>
                             <TextField
                                 style={{background:"white"}}
@@ -56,6 +56,8 @@ export default function ForgetPassword() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
                             />
                         </Grid>
                     
@@ -70,8 +72,8 @@ export default function ForgetPassword() {
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="/login" variant="body2">
-                                Already have an account? Sign in
+                            <Link to="/login/" variant="body2">
+                                Remember your password? Sign in
                             </Link>
                         </Grid>
                     </Grid>
@@ -79,6 +81,8 @@ export default function ForgetPassword() {
             </Box>
             <Copyright sx={{ mt: 5 }} />
         </Container>
+        </ThemeProvider>
+        
     );
 
 }

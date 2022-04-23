@@ -76,7 +76,7 @@ export default function AppBanner() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to='/profile/'>Profile</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
         </Menu>        
 
     let editToolbar = "";
@@ -100,7 +100,7 @@ export default function AppBanner() {
         }
         return <AccountCircle />;
     }
-    console.log(auth.loggedIn);
+   
     return (
         <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">

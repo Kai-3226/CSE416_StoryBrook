@@ -27,9 +27,9 @@ const HomeScreen = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const [input,setInput] = useState("");
-    useEffect(() => {
-        store.loadIdNamePairs();
-    }, []);
+    // useEffect(() => {
+    //     store.loadIdNamePairs();
+    // }, []);
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -75,15 +75,15 @@ const HomeScreen = () => {
     );
     let WorkCard = "";
     if (store) {
-        WorkCard = 
-                store.idNamePairs.map((pair) => (
-                    <WorkCard
-                        key={pair._id}
-                        idNamePair={pair}
-                        selected={false}
-                        sx={{padding:'5px'}}
-                    />
-                ))
+        // WorkCard = 
+        //         store.idNamePairs.map((pair) => (
+        //             <WorkCard
+        //                 key={pair._id}
+        //                 idNamePair={pair}
+        //                 selected={false}
+        //                 sx={{padding:'5px'}}
+        //             />
+        //         ))
     }
     if (store.editActive){
         WorkCard=
@@ -91,7 +91,7 @@ const HomeScreen = () => {
     }
     return (
         <div id="top5-list-selector">
-            <div id="list-selector-heading">
+            {/* <div id="list-selector-heading">
             <AppBar position="static">
                 <Toolbar sx={{bgcolor:"#c4c4c4", justifyContent:'space-between' }}>
                     <Box sx={{ display: { xs: 'none', md: 'flex'},width:1000 }}>
@@ -131,7 +131,7 @@ const HomeScreen = () => {
                     WorkCard
                 }
                 <DeleteModal />
-            </div>
+            </div> */}
         </div>)
 }
 
