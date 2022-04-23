@@ -30,7 +30,6 @@ export default function Profile(){
         event.preventDefault();
         auth.changePassword(password);
     }
-
     return (
         <div>
             <Box id="profilePage">

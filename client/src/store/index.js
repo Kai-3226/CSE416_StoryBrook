@@ -16,7 +16,7 @@ export const GlobalStoreContext = createContext({});
 // DATA STORE STATE THAT CAN BE PROCESSED
 export const GlobalStoreActionType = {
     CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
-    CREATE_NEW_LIST: "CREATE_NEW_LIST",
+    CREATE_NEW_WORK: "CREATE_NEW_WORK",
     LOAD_ID_NAME_PAIRS: "LOAD_ID_NAME_PAIRS",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
@@ -37,8 +37,9 @@ function GlobalStoreContextProvider(props) {
         currentList: null,
         editActive: false,
         listMarkedForDeletion: null,
-        mode: "home",
-        text: ""
+        mode: null,
+        text: "",
+        
     });
     const history = useHistory();
 
@@ -62,7 +63,7 @@ function GlobalStoreContextProvider(props) {
                 })
             }
             // CREATE A NEW LIST
-            case GlobalStoreActionType.CREATE_NEW_LIST: {
+            case GlobalStoreActionType.CREATE_NEW_WORK: {
                 return setStore({
                     idNamePairs: store.idNamePairs,
                     currentList: payload,
@@ -179,13 +180,13 @@ function GlobalStoreContextProvider(props) {
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
-    store.editList = async function (id, newName, newItems) {
-        let response = await api.getTop5ListById(id);
+    store.editList = async function (id, newName, newContent) {
+        let response = await api.getWorkById(id);
         if (response.data.success) {
-            let top5List = response.data.top5List;
-            top5List.name = newName;
-            top5List.items = newItems;
-            store.updateList(top5List);
+            let work = response.data.work;
+            work.name = newName;
+            work.content = newContent;
+            store.updateWork(work);
         }
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
@@ -201,26 +202,25 @@ function GlobalStoreContextProvider(props) {
     }
 
     // THIS FUNCTION CREATES A NEW LIST
-    store.createNewList = async function () {
-        let newListName = ""
+    store.createWork = async function (json) {
         let payload = {
-            name: newListName,
-            items: ["","","","",""],
-            ownerEmail: auth.user.email,
-            published:{published:false,time:Date()},
+            name: "Untitled",
+            content: json,
+            workType: 0,
+            author: auth.user.email,
+            published:{publish:false,date:Date()},
             view:0,
             likes:[],
             dislikes:[],
             comment:[],
-            author: auth.user.lastName+" "+auth.user.firstName
         };
-        const response = await api.createTop5List(payload);
+        const response = await api.createWork(payload);
         if (response.data.success) {
-            let newList = response.data.top5List;
+            let newWork = response.data.work;
             console.log(store.idNamePairs);
             storeReducer({
-                type: GlobalStoreActionType.CREATE_NEW_LIST,
-                payload: newList
+                type: GlobalStoreActionType.CREATE_NEW_WORK,
+                payload: newWork
             }
             );
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
@@ -234,38 +234,38 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
     store.loadIdNamePairs = async function () {
-        const response = await api.getTop5ListPairs();
-        if (response.data.success) {
-            let pairsArray = response.data.idNamePairs;
-            let listOwned=[];
-            for(let key in pairsArray){
-                let list = pairsArray[key];
-                if(auth.loggedIn){
-                    if(auth.user.email===list.email){
-                        console.log(auth.user.email,list.email,list.published.published)
-                        listOwned.push(list);
-                    }
-                    else if(list.published.published){
-                        console.log(auth.user.email,list.email,list.published.published)
-                        listOwned.push(list);
-                    }
-                }
-                else{
-                    if(list.published.published){
-                        listOwned.push(list);
-                        console.log(listOwned);
-                    } 
-                }
+        // const response = await api.getWorkPairs();
+        // if (response.data.success) {
+        //     let pairsArray = response.data.idNamePairs;
+        //     let listOwned=[];
+        //     for(let key in pairsArray){
+        //         let list = pairsArray[key];
+        //         if(auth.loggedIn){
+        //             if(auth.user.email===list.email){
+        //                 console.log(auth.user.email,list.email,list.published.published)
+        //                 listOwned.push(list);
+        //             }
+        //             else if(list.published.published){
+        //                 console.log(auth.user.email,list.email,list.published.published)
+        //                 listOwned.push(list);
+        //             }
+        //         }
+        //         else{
+        //             if(list.published.published){
+        //                 listOwned.push(list);
+        //                 console.log(listOwned);
+        //             } 
+        //         }
                 
-            }
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
-                payload: listOwned
-            });
-        }
-        else {
-            console.log("API FAILED TO GET THE LIST PAIRS");
-        }
+        //     }
+        //     storeReducer({
+        //         type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+        //         payload: listOwned
+        //     });
+        // }
+        // else {
+        //     console.log("API FAILED TO GET THE LIST PAIRS");
+        // }
     }
 
 
@@ -275,7 +275,7 @@ function GlobalStoreContextProvider(props) {
     // showDeleteListModal, and hideDeleteListModal
     store.markListForDeletion = async function (id) {
         // GET THE LIST
-        let response = await api.getTop5ListById(id);
+        let response = await api.getWorkById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
             storeReducer({
@@ -286,7 +286,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.deleteList = async function (listToDelete) {
-        let response = await api.deleteTop5ListById(listToDelete._id);
+        let response = await api.deleteWorkById(listToDelete._id);
         if (response.data.success) {
             store.loadIdNamePairs();
         }
@@ -308,7 +308,7 @@ function GlobalStoreContextProvider(props) {
     // FUNCTIONS ARE setCurrentList, addMoveItemTransaction, addUpdateItemTransaction,
     // moveItem, updateItem, updateCurrentList, undo, and redo
     store.setCurrentList = async function (id, input) {
-        let response = await api.getTop5ListById(id);
+        let response = await api.getWorkById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
             storeReducer({
@@ -318,12 +318,12 @@ function GlobalStoreContextProvider(props) {
         }
     }
     store.updateList = async function (newList) {
-        if(newList.ownerEmail===auth.user.email){
+        if(newList.ownerEmail==auth.user.email){
             async function updateList(newList) {
-                let response = await api.updateTop5ListById(newList._id, newList);
+                let response = await api.updateWorkById(newList._id, newList);
                 if (response.data.success) {
                     async function getListPairs(newList) {
-                        let response = await api.getTop5ListPairs();
+                        let response = await api.getWorkPairs();
                         if (response.data.success) {
                             let pairsArray = response.data.idNamePairs;
                             let listOwned=[];
@@ -347,36 +347,9 @@ function GlobalStoreContextProvider(props) {
         }
         store.loadIdNamePairs();
     }
-    store.updateList2 = async function (newList) {
-        async function updateList(newList) {
-            let response = await api.updateTop5ListById(newList._id, newList);
-            if (response.data.success) {
-                async function getListPairs(newList) {
-                    let response = await api.getTop5ListPairs();
-                        if (response.data.success) {
-                        let pairsArray = response.data.idNamePairs;
-                        let listOwned=[];
-                        for(let key in pairsArray){
-                            let list = pairsArray[key];
-                            listOwned.push(list);
-                        }
-                        storeReducer({
-                            type: GlobalStoreActionType.UPDATE_LIST,
-                            payload: {
-                                idNamePairs: listOwned,
-                                top5List: newList
-                            }
-                        });
-                    }
-                }
-                getListPairs(newList);
-            }
-        }
-        updateList(newList);
-    }
 
     store.updateCurrentList = async function () {
-        const response = await api.updateTop5ListById(store.currentList._id, store.currentList);
+        const response = await api.updateWorkById(store.currentList._id, store.currentList);
         if (response.data.success) {
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_LIST,
@@ -392,7 +365,7 @@ function GlobalStoreContextProvider(props) {
         });
     }
     store.publish = async function (id) {
-        let response = await api.getTop5ListById(id);
+        let response = await api.getWorkById(id);
         if (response.data.success) {
             let list=response.data.top5List;
             let date = new Date();
@@ -401,7 +374,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
     store.searchLists = async function (payload) {
-        const response = await api.getTop5ListPairs();
+        const response = await api.getWorkPairs();
         let lists= response.data.idNamePairs;
         console.log(lists);
         let filter =[];
@@ -440,10 +413,9 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.MODE,
             payload:input
         });
-        console.log(store.mode);
     }
     store.like = async function (id) {
-        let response = await api.getTop5ListById(id);
+        let response = await api.getWorkById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
             if(top5List.dislikes.includes(auth.user.email)){
@@ -460,7 +432,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
     store.dislike = async function (id) {
-        let response = await api.getTop5ListById(id);
+        let response = await api.getWorkById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
             if(top5List.likes.includes(auth.user.email)){
@@ -477,7 +449,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
     store.comment = async function (input,id) {
-        let response = await api.getTop5ListById(id);
+        let response = await api.getWorkById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
             let author=auth.user.firstName+" "+auth.user.lastName;
