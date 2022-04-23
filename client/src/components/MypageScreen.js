@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
-    const user = auth.searchUser(auth.user)
+    //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
     if (store.mode=="works"){
@@ -66,7 +66,7 @@ export default function MyPage () {
             <MypageSidebar></MypageSidebar>
             <div id="content">
                 <div id="mypage-search">
-                    <Textfield fullWidth></Textfield>
+                    <Textfield fullWidth ></Textfield>
                 </div>
                 <div id="mypage-list">
                     {selectbar}

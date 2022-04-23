@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import {useState } from 'react';
 import { GlobalStoreContext } from '../store'
-import ListCard from './ListCard.js'
+import WorkCard from './WorkCard.js'
 import List from '@mui/material/List';
 import DeleteModal from './DeleteModal';
 import Box from '@mui/material/Box';
@@ -17,7 +17,6 @@ import Person from '@mui/icons-material/PersonOutline';
 import Sigma from '@mui/icons-material/FunctionsOutlined';
 import Sort from '@mui/icons-material/Sort';
 import Create from './CreateScreen';
-import Work from './WorkspaceScreen';
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -74,11 +73,11 @@ const HomeScreen = () => {
             <MenuItem onClick={(event) => {handleSort(5)}}>Dislikes</MenuItem>
         </Menu>
     );
-    let listCard = "";
+    let WorkCard = "";
     if (store) {
-        listCard = 
+        WorkCard = 
                 store.idNamePairs.map((pair) => (
-                    <ListCard
+                    <WorkCard
                         key={pair._id}
                         idNamePair={pair}
                         selected={false}
@@ -87,7 +86,7 @@ const HomeScreen = () => {
                 ))
     }
     if (store.editActive){
-        listCard=
+        WorkCard=
             <Create></Create>
     }
     return (
@@ -129,7 +128,7 @@ const HomeScreen = () => {
             </div>
             <div id="list-selector-list">
                 {
-                    listCard
+                    WorkCard
                 }
                 <DeleteModal />
             </div>
