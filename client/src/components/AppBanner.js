@@ -38,6 +38,7 @@ export default function AppBanner() {
         store.createWork([]);
     }
     const handleSave = () => {
+        if(store.status!=null)
         store.updateWork(store.currentWork);
     }
     const handlePublish = () => {

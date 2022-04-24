@@ -133,7 +133,7 @@ function AuthContextProvider(props) {
                     type: AuthActionType.LOGIN_USER,
                     payload:response.data.user
                 })
-                history.push("/home");
+                history.push("/");
             }
         }
         catch(err){
