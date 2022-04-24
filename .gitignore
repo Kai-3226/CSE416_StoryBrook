@@ -1,5 +1,10 @@
 # No modules
 node_modules
+
+./client/node_modules
+./server/node_modules
 .env
 ./client/build
-./client/node_modules
+./node_modules
+
+

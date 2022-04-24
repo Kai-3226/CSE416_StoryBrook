@@ -19,8 +19,8 @@ import App from './polotno/App';
 
 unstable_setRemoveBackgroundEnabled(true);
 
-const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
-window.store = workstore;
+
+// window.store = workstore;
 
 
 // localforage.getItem('polotno-state', function (err, json) {
@@ -32,28 +32,41 @@ window.store = workstore;
 //   }
 // });
 
-workstore.on('change', () => {
-  try {
-    const json = workstore.toJSON();
-    //localforage.setItem('polotno-state', json);
-  } catch (e) {}
-});
+
 
 const CreateScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-    function handleSave (event) {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        let newName=formData.get('listName');
-        let newitems=[formData.get('item2'),formData.get('item3'),formData.get('item4'),formData.get('item5'),formData.get('item6')];
-        store.editList(store.currentList._id,newName,newitems);
-    };
-    function handlePublish(event){
-        store.publish(store.currentList._id);
-    }
-    let i = 1;
-
-
+    // function handleSave (event) {
+    //     event.preventDefault();
+    //     const formData = new FormData(event.currentTarget);
+    //     let newName=formData.get('listName');
+    //     let newitems=[formData.get('item2'),formData.get('item3'),formData.get('item4'),formData.get('item5'),formData.get('item6')];
+    //     store.editList(store.currentList._id,newName,newitems);
+    // };
+    // function handlePublish(event){
+    //     store.publish(store.currentWork._id);
+    // }
+    //let i = 1;
+    
+    const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
+    const json=workstore.toJSON();
+    window.store = workstore;
+        if(store.currentWork&&store.currentWork.content==null)
+        {  
+        store.currentWork.content=json;
+        }
+        else
+        {
+            workstore.loadJSON(store.currentWork.content);
+        }
+    
+    workstore.on('change', () => {
+        try {
+          json = workstore.toJSON();
+          //console.info(json);
+          //localforage.setItem('polotno-state', json);
+        } catch (e) {}
+      });
     return (
        
 //    <Box id="createPage_screen" sx={{bgcolor:'white'} } > 
