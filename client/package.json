@@ -18,6 +18,7 @@
     "localforage": "^1.10.0",
     "polotno": "^0.42.6",
     "react": "^17.0.2",
+    "react-comic-viewer": "^0.3.5",
     "react-dom": "^17.0.2",
     "react-horizontal-scrolling-menu": "^2.7.1",
     "react-icons": "^4.3.1",

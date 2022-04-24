@@ -23,7 +23,6 @@ const useHeight = () => {
 };
 
 const App = ({ workstore }) => {
-  console.info(workstore);
   const handleDrop = (ev) => {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
@@ -51,7 +50,7 @@ const App = ({ workstore }) => {
       }}
       onDrop={handleDrop}
     >
-      <Topbar store={workstore} />
+      <Topbar workstore={workstore} />
       <div style={{ height: 'calc(100% - 50px)' }}>
         <PolotnoContainer className="polotno-app-container">
           <SidePanelWrap>

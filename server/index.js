@@ -3,26 +3,16 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
-const path=require('path')
 // CREATE OUR SERVER
 dotenv.config();
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/harryUI
 const PORT = process.env.PORT || 4000;
 const app = express()
 
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-<<<<<<< HEAD
-    origin: ["http://localhost:3000"],
-    // origin: [https://storybrook.herokuapp.com],
-=======
 
     origin: ["https://storybrook.herokuapp.com","http://localhost:3000"],        //http://localhost:3000
->>>>>>> refs/remotes/origin/harryUI
 
     credentials: true
 }))
@@ -31,9 +21,7 @@ app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const storybrookRouter = require('./routes/storybrook-router')
-var path = require('path');
-app.get('/*',(req,res)=>{res.sendFile('index.html', {root: path.join(__dirname, '../client/build')})}) 
-console.log(path.join(__dirname, '../client/build'))
+
 app.use('/api', storybrookRouter)
 
 

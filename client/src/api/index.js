@@ -58,7 +58,8 @@ const apis = {
     resetPassword,
     sendUserEmail,
     verifyEmail,
-    changePassword
+    changePassword,
+    updateUser
 }
 
 export default apis

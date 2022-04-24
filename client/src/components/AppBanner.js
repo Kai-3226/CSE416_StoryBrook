@@ -35,15 +35,9 @@ export default function AppBanner() {
         auth.logoutUser();
     }
     const handleCreate = () => {
-        store.createWork([]);
+        store.createWork();
     }
-    const handleSave = () => {
-        if(store.status!=null)
-        store.updateWork(store.currentWork);
-    }
-    const handlePublish = () => {
-        store.publish(store.currentWork._id);
-    }
+   
     const menuId = 'primary-search-account-menu';
     const loggedOutMenu = (
         <Menu
@@ -84,6 +78,7 @@ export default function AppBanner() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to='/myPage'>my page</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
         </Menu>        
 
@@ -94,13 +89,13 @@ export default function AppBanner() {
         editToolbar=
         <Button size = "small" color ="primary" variant="contained" onClick={handleCreate}>Create</Button>
     }
-    if (store.editActive){
-        editToolbar=
-        <Box>
-            <Button size = "small" color ="primary" variant="contained" onClick={handleSave}>Save</Button>
-            <Button size = "small" color ="primary" variant="contained" onClick={handlePublish}>Publish</Button>
-        </Box>
-    }
+    // if (store.editActive){
+    //     editToolbar=
+    //     <Box>
+    //         <Button size = "small" color ="primary" variant="contained" onClick={handleSave}>Save</Button>
+    //         <Button size = "small" color ="primary" variant="contained" onClick={handlePublish}>Publish</Button>
+    //     </Box>
+    // }
     
     function getAccountMenu(loggedIn) {
         if(loggedIn){
