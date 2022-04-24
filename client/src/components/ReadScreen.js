@@ -13,21 +13,18 @@ import Share from '@mui/icons-material/Share';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CommentCard from './CommentsCard';
 import ComicViewer from "react-comic-viewer";
-
+import { Workspace } from 'polotno/canvas/workspace';
+import { createStore } from 'polotno/model/store';
+import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-    function handleSave (event) {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        let newName=formData.get('listName');
-        let newitems=[formData.get('item2'),formData.get('item3'),formData.get('item4'),formData.get('item5'),formData.get('item6')];
-        store.editList(store.currentList._id,newName,newitems);
-    };
-    function handlePublish(event){
-        store.publish(store.currentList._id);
-    }
-    let i = 1;
+    
+    const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
+    workstore.loadJSON(store.currentWork.content);
+    
+   
+   
     //let add=
         // store.currentList.items.map((item)=>
         //     <Box sx={{justifyContent:'space-evenly',flexDirection:'row', bgcolor:'#d4af36',margin:2, fontSize:36, flexWrap:'wrap',justifyContent:'center'}}>
@@ -73,9 +70,9 @@ const ReadScreen = () => {
                          width='80%'></img>         
                                           
                     </Box>  */}
-                     <ComicViewer pages={['../Images/Comics.png', '../Images/Comics.png']} />
-
-
+                     {/* <ComicViewer pages={['../Images/Comics.png', '../Images/Comics.png']} /> */}
+                     <Workspace store={workstore} />
+                     <ZoomButtons store={workstore} />
 
                  </Box>
                  </Box>
