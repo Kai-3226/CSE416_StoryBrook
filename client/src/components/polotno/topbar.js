@@ -107,6 +107,13 @@ export default observer(({  workstore }) => {
   const [title,setTitle]=React.useState("");
   const history = useHistory();
  
+  function handleDelete(){
+    const json = workstore.toJSON();
+    store.currentWork.content=json;
+    store.deleteList(store.currentWork);
+    history.push("/mypage");
+
+  }
   function handleSave(){
     const json = workstore.toJSON();
     store.currentWork.content=json;
@@ -215,6 +222,7 @@ export default observer(({  workstore }) => {
                         height='32'
                     ></img>
                     <Button id="saveButton" bgcolor='blue' variant="contained" onClick={handleSave}> save</Button>
+                    <Button id="saveButton" bgcolor='blue' variant="contained" onClick={handleDelete}> delete</Button>
                     <Box marginLeft='0% '> 
                                           
                         <IconButton variant="outlined" onClick={handlePublish}>
