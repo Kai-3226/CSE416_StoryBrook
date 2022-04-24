@@ -5,15 +5,15 @@ const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 const path=require('path')
 // CREATE OUR SERVER
- //dotenv.config();
+dotenv.config();
 const PORT = process.env.PORT || 4000;
 const app = express()
 
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    //origin: ["http://localhost:3000"],
-    origin: [https://storybrook.herokuapp.com],
+    origin: ["http://localhost:3000"],
+    //origin: [https://storybrook.herokuapp.com],
 
     credentials: true
 }))
