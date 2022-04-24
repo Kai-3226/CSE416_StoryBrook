@@ -12,7 +12,7 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
 
-    origin: ["https://storybrook.herokuapp.com","http://localhost:3000"],        //http://localhost:3000
+    origin: ["https://sbrook.herokuapp.com","http://localhost:3000"],        //http://localhost:3000
 
     credentials: true
 }))
