@@ -12,7 +12,6 @@ import ThumbsDown from '@mui/icons-material/ThumbDownOutlined';
 import Share from '@mui/icons-material/Share';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CommentCard from './CommentsCard';
-import ComicViewer from "react-comic-viewer";
 import { Workspace } from 'polotno/canvas/workspace';
 import { createStore } from 'polotno/model/store';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
