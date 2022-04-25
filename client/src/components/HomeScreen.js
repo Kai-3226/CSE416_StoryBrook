@@ -52,29 +52,29 @@ const HomeScreen = () => {
     function handleSort(criteria){
         store.sortBy(criteria);
     }
-    const menu = (
-        <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        open={isMenuOpen}
-        onClose={handleMenuClose}>
-            <MenuItem onClick={(event) => {handleSort(2)}}>Published Date (Newest)</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(1)}}>Published Date (Oldest)</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(3)}}>Views</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(4)}}>Likes</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(5)}}>Dislikes</MenuItem>
-        </Menu>
-    );
-    let WorkCard = "";
-    if (store) {
+    // const menu = (
+    //     <Menu
+    //     anchorEl={anchorEl}
+    //     anchorOrigin={{
+    //         vertical: 'top',
+    //         horizontal: 'right',
+    //     }}
+    //     keepMounted
+    //     transformOrigin={{
+    //         vertical: 'top',
+    //         horizontal: 'right',
+    //     }}
+    //     open={isMenuOpen}
+    //     onClose={handleMenuClose}>
+    //         <MenuItem onClick={(event) => {handleSort(2)}}>Published Date (Newest)</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(1)}}>Published Date (Oldest)</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(3)}}>Views</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(4)}}>Likes</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(5)}}>Dislikes</MenuItem>
+    //     </Menu>
+    // );
+    // let WorkCard = "";
+    // if (store) {
         // WorkCard = 
         //         store.idNamePairs.map((pair) => (
         //             <WorkCard
