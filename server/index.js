@@ -3,9 +3,8 @@ const express = require('express')
 const cors = require('cors')
 //const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
-//const path=require('path')
 // CREATE OUR SERVER
- //dotenv.config();
+dotenv.config();
 const PORT = process.env.PORT || 4000;
 const app = express()
 
@@ -22,7 +21,9 @@ app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const storybrookRouter = require('./routes/storybrook-router')
+
 app.use('/api', storybrookRouter)
+
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
