@@ -49,7 +49,7 @@ const App = () => {
                         <Route path="/register/" exact component={RegisterScreen} />
                         <Route path="/create/" exact component={CreateScreen} />
                         <Route path="/message/" exact component={MessageScreen} />
-                        <Route path="/read/" exact component={ReadScreen} />
+                        <Route path="/read/:id" exact component={ReadScreen} />
                         <Route path="/myPage/" exact component={MypageScreen}/>
                         <Route path="/requestPasswordReset/" exact component={ForgetPassword}/>
                         <Route path="/passwordReset/:token/:id" exact component={ResetPassword}/>

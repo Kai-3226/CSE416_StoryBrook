@@ -130,54 +130,55 @@ getWorks = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Works not found` })
         }
-        const body = req.body;
+        // const body = req.body;
         
-        if (body.query="mostlike"){
-            for(let i=0;i<works.length-1;i++){
-                for(let j=0;j<works.length-i-1;j++){
-                    if (works[j].likes.length < works[j+1].likes.length){
-                        swap(works,j,j+1);
-                    }   
-                }
-            }
-        }
-        else if (body,query="mostview"){
-            for(let i=0;i<works.length-1;i++){
-                for(let j=0;j<works.length-i-1;j++){
-                    if (works[j].view < works[j+1].view){
-                        swap(works,j,j+1);
-                    }   
-                }
-            }
-        }
-        else if (body.query="followingWorks"){
-            for(work in works){
-                if(!body.payload.includes(works[work].author)){
-                    works.splice(work,1);
-                }
-            }
-        }
-        else if (body.query="myWork"){
-            for(work in works){
-                if(works[work].author!==body.payload){
-                    works.splice(work,1);
-                }
-            }
-        }
-        else if (body.query="latest"){
-            for(let i=0;i<works.length-1;i++){
-                for(let j=0;j<works.length-i-1;j++){
-                    if (works[j].published.time < works[j+1].published.time){
-                        swap(works,j,j+1);
-                    }   
-                }
-            }
-        }
-        else{
-            return res
-                .status(404)
-                .json({ success: false, error: `Not valid query` })
-        }
+        // if (body.query="mostlike"){
+        //     for(let i=0;i<works.length-1;i++){
+        //         for(let j=0;j<works.length-i-1;j++){
+        //             if (works[j].likes.length < works[j+1].likes.length){
+        //                 swap(works,j,j+1);
+        //             }   
+        //         }
+        //     }
+        // }
+        // else if (body,query="mostview"){
+        //     for(let i=0;i<works.length-1;i++){
+        //         for(let j=0;j<works.length-i-1;j++){
+        //             if (works[j].view < works[j+1].view){
+        //                 swap(works,j,j+1);
+        //             }   
+        //         }
+        //     }
+        // }
+        // else if (body.query="followingWorks"){
+        //     for(work in works){
+        //         if(!body.payload.includes(works[work].author)){
+        //             works.splice(work,1);
+        //         }
+        //     }
+        // }
+        // else if (body.query="myWork"){
+        //     for(work in works){
+        //         if(works[work].author!==body.payload){
+        //             works.splice(work,1);
+        //         }
+        //     }
+        // }
+        // else if (body.query="latest"){
+        //     for(let i=0;i<works.length-1;i++){
+        //         for(let j=0;j<works.length-i-1;j++){
+        //             if (works[j].published.time < works[j+1].published.time){
+        //                 swap(works,j,j+1);
+        //             }   
+        //         }
+        //     }
+        // }
+        // else{
+        //     return res
+        //         .status(404)
+        //         .json({ success: false, error: `Not valid query` })
+        // }
+        console.log(works);
         return res.status(200).json({ success: true, data: works })
     }).catch(err => console.log(err))
 }

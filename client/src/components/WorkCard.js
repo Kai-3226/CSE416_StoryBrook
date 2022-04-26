@@ -19,9 +19,10 @@ function WorkCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { work } = props;
 
-    function handleOpen(id){
+    function handleOpen(event, id){
+        event.stopPropagation();
+        // console.log(id);
         store.setCurrentWork(id);
-        console.log(store.currentList);
     }
 
     async function handleDeleteWork(event, id) {
@@ -35,21 +36,22 @@ function WorkCard(props) {
         }} aria-label='delete'>
         <DeleteIcon/>
     </IconButton>;
+    
     if(auth.user===null){
         deletebutton="";
     }
-    else if(auth.user.userid!==work.userid){
+    else if(auth.user.id!==work.author || store.mode!=="user"){
         deletebutton=
         "";
     }
 
     let workElement =
-        <Card id={work.id} hoverable sx={{ maxWidth: 345 }} onClick={handleOpen}>
+        <Card id={work._id} hoverable sx={{ maxWidth: 345 }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"
                 height="140"
-                image= {work.frontpage}
+                // image= {work.pages[0]}
                 alt= {work.name}
             />
             <CardContent>
