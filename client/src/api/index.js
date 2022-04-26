@@ -14,7 +14,7 @@ import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
     baseURL: 'http://localhost:4000/api',
-    // baseURL: 'https://storybrook.herokuapp.com/api',    
+    //baseURL: 'https://storybrook.herokuapp.com/api',    
 
 })
 //'https://storybrook.herokuapp.com/api' 'http://localhost:4000/api'
@@ -58,7 +58,8 @@ const apis = {
     resetPassword,
     sendUserEmail,
     verifyEmail,
-    changePassword
+    changePassword,
+    updateUser
 }
 
 export default apis

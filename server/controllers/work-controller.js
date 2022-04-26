@@ -10,7 +10,6 @@ createWork = (req, res) => {
     }
 
     const work = new Work(body);
-    console.log("creating work: " + JSON.stringify(work));
     if (!work) {
         return res.status(400).json({ success: false, error: err })
     }
@@ -56,7 +55,6 @@ createWork = (req, res) => {
 
 updateWork = async (req, res) => {
     const body = req.body
-    console.log("updateWork: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
             success: false,
@@ -65,7 +63,6 @@ updateWork = async (req, res) => {
     }
 
     Work.findOne({ _id: req.params.id }, (err, work) => {
-        console.log("Work found: " + JSON.stringify(work));
         if (err) {
             return res.status(404).json({
                 err,
@@ -74,10 +71,12 @@ updateWork = async (req, res) => {
         }
         work.workType = body.workType;
         work.author = body.author;
+        work.content =body.content;
+        work.published=body.published;
+        
         work
             .save()
             .then(() => {
-                console.log("SUCCESS!!!");
                 return res.status(200).json({
                     success: true,
                     id: work._id,

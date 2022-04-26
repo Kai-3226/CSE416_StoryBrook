@@ -251,10 +251,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     // THIS FUNCTION CREATES A NEW LIST
-    store.createWork = async function (json) {
+    store.createWork = async function () {
         let payload = {
             name: "Untitled",
-            content: json,
+            content: null,
             workType: store.status,
             author: auth.user.email,
             published:{publish:false,date:Date()},
@@ -266,18 +266,21 @@ function GlobalStoreContextProvider(props) {
         const response = await api.createWork(payload);
         if (response.data.success) {
             let newWork = response.data.work;
-            console.log(newWork);
             storeReducer({
                 type: GlobalStoreActionType.CREATE_NEW_WORK,
                 payload: newWork
             }
             );
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
+            // console.log(this.currentWork.id);
+            // auth.user.works.push(this.currentWork.id);
+            //auth.updateUser();
         }
-        
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
         }
+ 
+
         history.push("/create/")
         
     }
@@ -374,8 +377,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.updateWork = async function (newWork) {
-        if(newWork.author===auth.user.email){
-            async function updateWork(newWork) {
+        if(newWork.author==auth.user.email){    
                 let response = await api.updateWorkById(newWork._id, newWork);
                 if (response.data.success) {
                     storeReducer({
@@ -383,19 +385,18 @@ function GlobalStoreContextProvider(props) {
                         payload: null
                     });
                 }
-            }
-            updateWork(newWork);
+        
+          
             console.log("work updated succesfully");
         }
-        history.push("/home")
-        console.log(store)
+        history.push("/view")
     }
 
-    store.updateCurrentList = async function () {
+    store.updateCurrentWork = async function () {
         const response = await api.updateWorkById(store.currentWork._id, store.currentWork);
         if (response.data.success) {
             storeReducer({
-                type: GlobalStoreActionType.SET_CURRENT_LIST,
+                type: GlobalStoreActionType.SET_CURRENT_WORK,
                 payload: store.currentWork
             });
         }

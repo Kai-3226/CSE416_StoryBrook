@@ -59,7 +59,7 @@ registerUser = async (req, res) => {
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
-   
+        
 
         const newUser = new User({
             firstName, lastName, email, passwordHash
@@ -78,7 +78,21 @@ registerUser = async (req, res) => {
             user: {
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
-                email: savedUser.email
+                email: savedUser.email,
+                friends: [],
+                following: [],
+                follower: [],
+                message: [],      
+                works: [],
+                comicLibrary:[],
+                like: [],
+                dislike: [],
+                alarm: [],
+                profile: {"age": 0,
+                                "gender": null,
+                                "userName": savedUser.firstName,
+                                "myStatement": "",
+                                "icon": null}
             }
         }).send();
     } catch (err) {
@@ -131,7 +145,17 @@ loginUser = async (req, res) => {
             user: {
                 firstName: existingUser.firstName,
                 lastName: existingUser.lastName,
-                email: existingUser.email
+                email: existingUser.email,
+                friends:  existingUser.friends,
+                following: existingUser.following,
+                follower:  existingUser.follower,
+                message:  existingUser.message,      
+                works:  existingUser.works,
+                comicLibrary: existingUser.comicLibrary,
+                like:  existingUser.like,
+                dislike:  existingUser.dislike,
+                alarm: existingUser.alarm,
+                profile:  existingUser.profile
             }
         }).send();
     } catch (err) {
@@ -175,14 +199,12 @@ updateUser =async (req,res) => {
         console.log("user found: " + JSON.stringify(user));
         if (err) {
             return res.status(404).json({
-                err,
-                message: 'User not found!',
+                success: false,
+                errMessage: 'User not found!'
             })
         }
         user.firstName = body.firstName;
         user.lastName = body.lastName;
-        user.passwordHash=body.passwordHash;
-        user.email = body.email;
         user.friends = body.friends;
         user.following = body.following;
         user.follower = body.follower;
@@ -207,8 +229,8 @@ updateUser =async (req,res) => {
             .catch(error => {
                 console.log("FAILURE: " + JSON.stringify(error));
                 return res.status(404).json({
-                    error,
-                    message: 'User data not updated!',
+                    success: false,
+                    message: 'User data not updated!'
                 })
             })
     })

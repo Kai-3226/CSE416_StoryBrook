@@ -64,6 +64,7 @@ function AuthContextProvider(props) {
                     error:payload
                 })
             }
+            
             default:
                 return setAuth({
                     user:null,
@@ -102,7 +103,7 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
-                history.push("/home");
+                history.push("/");
             }
         }
         catch(err){
@@ -133,7 +134,7 @@ function AuthContextProvider(props) {
                     type: AuthActionType.LOGIN_USER,
                     payload:response.data.user
                 })
-                history.push("/home");
+                history.push("/");
             }
         }
         catch(err){
@@ -216,7 +217,7 @@ function AuthContextProvider(props) {
         }
     }
     auth.changePassword= async function(newpassword){
-        console.log("newpassword");
+
         let body = {
             userId:auth.user._id,
             password:newpassword}
@@ -239,6 +240,29 @@ function AuthContextProvider(props) {
             console.log("error of change password");
             }
         }
+    auth.updateUser=async function(){
+        try{
+            console.log(auth.user);
+            const response = await api.updateUser(auth.user);
+            if(response.status===200){
+                authReducer({
+                    type: AuthActionType.LOGIN_USER,
+                    payload:response.data.user
+                })
+            }
+        }
+        catch(err){
+            authReducer({
+                type: AuthActionType.ERROR,
+                payload:{
+                    status:err.response.status,
+                    message:err.response.errorMessage
+                }
+            })
+            console.log(err);
+        }
+    }
+    
     
     return (
         <AuthContext.Provider value={{
