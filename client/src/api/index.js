@@ -26,7 +26,7 @@ const api = axios.create({
 // CUSTOM FILTERS FOR QUERIES
 export const createWork = (payload) => api.post(`/work/`, payload)
 export const getAllWorks = () => api.get(`/works/`)
-//export const getWorkPairs = () => api.get(`/workpairs/`)
+export const getWorkList = () => api.get(`/works/`)
 export const updateWorkById = (id, payload) => api.put(`/work/${id}`, payload)
 export const deleteWorkById = (id) => api.delete(`/work/${id}`)
 export const getWorkById = (id) => api.get(`/work/${id}`)
@@ -50,7 +50,7 @@ const apis = {
     updateWorkById,
     deleteWorkById,
     getWorkById,
-
+    getWorkList,
     getLoggedIn,
     registerUser,
     loginUser,

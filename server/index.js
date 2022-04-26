@@ -12,10 +12,12 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 
 app.use(cors({
-    origin: ["http://localhost:3000"],     
+    origin: ["https://sbrook.herokuapp.com"],
+    //origin: ["http://localhost:3000"],
+    //origin: [https://storybrook.herokuapp.com],
     credentials: true
 }))
-//origin: ["https://sbrook.herokuapp.com"],
+//
 app.use(express.json())
 app.use(cookieParser())
 

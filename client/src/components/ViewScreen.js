@@ -9,7 +9,7 @@ import Copyright2 from './Copyright';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import InfiniteScroll from 'react-infinite-scroller';
-
+import Box from '@mui/material/Box';
 
 const ViewScreen = () => {
     const { store } = useContext(GlobalStoreContext);
@@ -19,39 +19,20 @@ const ViewScreen = () => {
     const [input,setInput] = useState("");
 
     useEffect(() => {
-        // store.loadRecommend(auth.userid);
-        // store.loadFollow();
-        // store.loadLatest();
-        // store.loadMostView();
-        // store.loadMostLike();
+        store.loadWorkList();
+        // store.view(1);
+        console.log("abc");
     }, []);
 
+    let list = [];
 
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
 
-    function handleUpdateText(event) {
-        setInput(event.target.value);
-    }
-
-    function handleKeyPress(event) {
-        if(event.code === "Enter") {
-            store.searchWork(input.toLowerCase());
-        }
-    }
-    async function handleClick(event,button) {
-        event.stopPropagation();
-        store.setMode(button);
-    }
-    
-    let list = store.recommend;
-
     function handleSort(criteria){
-        if (criteria === 1) list = store.recommend;
-        else if (criteria === 2) list = store.latest;
-        else if (criteria === 3) list = store.topView;
-        else if (criteria === 4) list = store.topLike;
+        store.view(criteria);
+        list = store.view;
     }
 
     const menu = (
@@ -68,21 +49,35 @@ const ViewScreen = () => {
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-            <MenuItem onClick={(event) => {handleSort(1)}}>Follow</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(2)}}>Latest</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(3)}}>Most View</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(4)}}>Most Like</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(0)}}>Follow</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(1)}}>Latest</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(2)}}>Most View</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(3)}}>Most Like</MenuItem>
         </Menu>
     );
 
     let work = "";
-    if (store) {
-        // work = 
-        //     list.map((work) => (
-        //         <WorkCard
-        //             work={work}
-        //         />
-        //     ))
+    if (store && store.workList) {
+        // list = store.workList;
+        console.log(store.workList);
+        // const rows = list.reduce(function (rows, key, index) { 
+        //     return (index % 4 == 0 ? rows.push([key]) 
+        //       : rows[rows.length-1].push(key)) && rows;
+        //   }, []);
+        // console.log(rows);
+
+
+        let rows = [];
+        for (var i = 0, end = store.workList.length / 4; i < end; ++i){
+            rows.push(store.workList.slice(i * 4, (i + 1) * 4));
+        }
+        console.log(rows);
+        work = 
+            rows.map((row) => (
+                <Box sx = {{display:'flex',position:'relative'}}>
+                    {row.map((item) =>(<WorkCard work={item}/>))}
+                </Box>
+            ));
     }
     
     return (
