@@ -35,7 +35,8 @@ export default function AppBanner() {
         auth.logoutUser();
     }
     const handleCreate = () => {
-        store.createWork();
+        if(store.status)
+        {store.createWork();}
     }
    
     const menuId = 'primary-search-account-menu';

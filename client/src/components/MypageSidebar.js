@@ -10,6 +10,7 @@ export default function Sidebar () {
         store.setMode(input);
         console.log(store.mode);
     }
+    
     let friend ="unselected-menu";
     let follow ="unselected-menu";
     let work ="unselected-menu";
@@ -22,6 +23,8 @@ export default function Sidebar () {
         follow="selected-menu"
     }
     if(store.mode=="works"){
+      
+        store.loadWorkList();
         work="selected-menu"
     }
     if(store.mode=="library"){
@@ -35,11 +38,11 @@ export default function Sidebar () {
             
             <div id="sidebar">
                 <div id="sidebar-menu">
-                <Box class={friend} onClick={(event) => {handleClick(event,"friends")}}>Friends</Box>
-                <Box class={follow} onClick={(event) => {handleClick(event,"followings")}}>Followings</Box>
-                <Box class={work} onClick={(event) => {handleClick(event,"works")}}>Works</Box>
-                <Box class={library} onClick={(event) => {handleClick(event,"library")}}>Library</Box>
-                <Box class={like} onClick={(event) => {handleClick(event,"likes")}}>Your Likes</Box>
+                <Box className={friend} onClick={(event) => {handleClick(event,"friends")}}>Friends</Box>
+                <Box className={follow} onClick={(event) => {handleClick(event,"followings")}}>Followings</Box>
+                <Box className={work} onClick={(event) => {handleClick(event,"works")}}>Works</Box>
+                <Box className={library} onClick={(event) => {handleClick(event,"library")}}>Library</Box>
+                <Box className={like} onClick={(event) => {handleClick(event,"likes")}}>Your Likes</Box>
                 </div>
             </div>
         );

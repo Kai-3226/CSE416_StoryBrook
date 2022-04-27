@@ -291,10 +291,10 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let workArray = response.data.data;
             let viewable=[];
-            console.log(workArray);
+            //console.log(workArray);
             for(let key in workArray){
                 let work = workArray[key];
-                console.log(work);
+                //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.id===work.author){
                         // console.log(auth.user.email,list.email,list.published.published)
@@ -313,14 +313,14 @@ function GlobalStoreContextProvider(props) {
                 }
                 
             }
-            console.log(viewable);
+            //console.log(viewable);
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
                 payload: viewable
             });
         }
         else {
-            // console.log("API FAILED TO GET THE LIST PAIRS");
+            console.log("API FAILED TO GET THE works list");
         }
     }
 

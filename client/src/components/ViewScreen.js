@@ -21,7 +21,7 @@ const ViewScreen = () => {
     useEffect(() => {
         store.loadWorkList();
         // store.view(1);
-        console.log("abc");
+        //console.log("abc");
     }, []);
 
     let list = [];
@@ -58,8 +58,9 @@ const ViewScreen = () => {
 
     let work = "";
     if (store && store.workList) {
+        work = "";
         // list = store.workList;
-        console.log(store.workList);
+        //console.log(store.workList);
         // const rows = list.reduce(function (rows, key, index) { 
         //     return (index % 4 == 0 ? rows.push([key]) 
         //       : rows[rows.length-1].push(key)) && rows;
@@ -71,7 +72,7 @@ const ViewScreen = () => {
         for (var i = 0, end = store.workList.length / 4; i < end; ++i){
             rows.push(store.workList.slice(i * 4, (i + 1) * 4));
         }
-        console.log(rows);
+        // console.log(rows);
         work = 
             rows.map((row) => (
                 <Box sx = {{display:'flex',position:'relative'}}>
@@ -87,7 +88,7 @@ const ViewScreen = () => {
             
             <div style={{height:'700px',overflow:'auto'}}>
                 <InfiniteScroll
-                    pageStart={0}
+                    //pageStart={0}
                     // loadMore={loadFunc}
                     hasMore={true || false}
                     loader={<div className="loader" key={0}>Loading ...</div>}

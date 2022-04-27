@@ -14,7 +14,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 
-function WorkCard(props) {
+function MypageWorkCard(props) {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const { work } = props;
@@ -46,7 +46,7 @@ function WorkCard(props) {
     }
 
     let workElement =
-        <Card id={work.id} hoverable sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Card id={work.id} hoverable sx={{ position:"relative",width:"35%",height:"100%",marginLeft:"8%",marginTop:"5%",marginBottom:"5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"
@@ -75,4 +75,4 @@ function WorkCard(props) {
     );
 }
 
-export default WorkCard;
+export default MypageWorkCard;

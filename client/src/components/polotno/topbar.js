@@ -120,9 +120,35 @@ export default observer(({  workstore }) => {
     store.updateCurrentWork();
 
   }
-  function handlePublish(){
-    const json = workstore.toJSON();
-    store.currentWork.content=json;
+  async function saveAsImage(){
+    return workstore.pages.forEach((page, index) => {
+     // do not add index if we have just one page
+     const indexString =
+        workstore.pages.length > 1 ? '-' + (index + 1) : '';
+      workstore.saveAsImage({
+       pageId: page.id,
+       fileName: getName() + indexString + '.png',
+     });
+   });
+ }
+
+ const getName = () => {
+  const texts = [];
+   workstore.pages.forEach((p) => {
+    p.children.forEach((c) => {
+      if (c.type === 'text') {
+        texts.push(c.text);
+      }
+    });
+  });
+  const allWords = texts.join(' ').split(' ');
+  const words = allWords.slice(0, 6);
+  return words.join(' ').replace(/\s/g, '-').toLowerCase() || 'polotno';
+};
+
+   function handlePublish(){
+    // const json = workstore.toJSON();
+    store.currentWork.content=saveAsImage();
     store.currentWork.published={publish:true,date:Date()};
     store.updateCurrentWork();
     history.push("/read");

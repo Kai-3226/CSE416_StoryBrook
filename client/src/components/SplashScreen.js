@@ -21,7 +21,7 @@ export default function SplashScreen() {
     function handleClick(status){
         store.stat(status);
         store.loadWorkList();
-        console.log(store.workList);
+        //console.log(store.workList);
     }
 
     return (
