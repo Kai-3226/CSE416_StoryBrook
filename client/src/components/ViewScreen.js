@@ -21,7 +21,7 @@ const ViewScreen = () => {
     useEffect(() => {
         store.loadWorkList();
         // store.view(1);
-        console.log("abc");
+        //console.log("abc");
     }, []);
 
     let list = [];
@@ -57,6 +57,7 @@ const ViewScreen = () => {
     );
 
     let work = "";
+
     if (store && store.workList) {
         list = store.workList;
         console.log(list);
@@ -87,16 +88,16 @@ const ViewScreen = () => {
             </div >
             
             <div style={{height:'700px',overflow:'auto'}}>
-                <InfiniteScroll
-                    pageStart={0}
+                {/* <InfiniteScroll
+                    //pageStart={0}
                     // loadMore={loadFunc}
                     hasMore={true || false}
                     loader={<div className="loader" key={0}>Loading ...</div>}
                     useWindow={false}
                     //getScrollParent={() => this.scrollParentRef}
-                >
+                > */}
                 {work}
-                </InfiniteScroll>
+                {/* </InfiniteScroll> */}
             </div>
             <div>
                 <Copyright2/>

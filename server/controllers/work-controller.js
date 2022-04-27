@@ -178,7 +178,6 @@ getWorks = async (req, res) => {
         //         .status(404)
         //         .json({ success: false, error: `Not valid query` })
         // }
-        console.log(works);
         return res.status(200).json({ success: true, data: works })
     }).catch(err => console.log(err))
 }
@@ -201,7 +200,7 @@ getWorkPairs = async (req, res) => {
                 let pair = {
                     _id: work._id,
                     name: work.name,
-                    content: work.content,
+                    frontPage: work.content.pages[0],
                     workType: work.workType,
                     likes: work.likes,
                     dislikes: work.dislikes,

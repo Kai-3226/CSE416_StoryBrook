@@ -15,6 +15,7 @@ import FriendModal from './FriendModal';
 import { useHistory } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import CreatePageBanner from './CreatePageBanner';
+import DeleteModal from './DeleteModal';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -35,7 +36,8 @@ export default function AppBanner() {
         auth.logoutUser();
     }
     const handleCreate = () => {
-        store.createWork();
+        if(store.status)
+        {store.createWork();}
     }
    
     const menuId = 'primary-search-account-menu';
@@ -147,7 +149,7 @@ export default function AppBanner() {
             }
             <NotificationModal/>
             <FriendModal/>
-
+            <DeleteModal/>
         </Box>
 
 

@@ -30,65 +30,65 @@ const HomeScreen = () => {
     // useEffect(() => {
     //     store.loadIdNamePairs();
     // }, []);
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    // const handleProfileMenuOpen = (event) => {
+    //     setAnchorEl(event.currentTarget);
+    // };
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-    function handleUpdateText(event) {
-        setInput(event.target.value);
-    }
-    function handleKeyPress(event) {
-        if(event.code === "Enter") {
-            store.searchLists(input.toLowerCase());
-        }
-    }
-    async function handleClick(event,button) {
-        event.stopPropagation();
-        store.setMode(button);
-    }
-    function handleSort(criteria){
-        store.sortBy(criteria);
-    }
-    const menu = (
-        <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        open={isMenuOpen}
-        onClose={handleMenuClose}>
-            <MenuItem onClick={(event) => {handleSort(2)}}>Published Date (Newest)</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(1)}}>Published Date (Oldest)</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(3)}}>Views</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(4)}}>Likes</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(5)}}>Dislikes</MenuItem>
-        </Menu>
-    );
-    let WorkCard = "";
-    if (store) {
-        // WorkCard = 
-        //         store.idNamePairs.map((pair) => (
-        //             <WorkCard
-        //                 key={pair._id}
-        //                 idNamePair={pair}
-        //                 selected={false}
-        //                 sx={{padding:'5px'}}
-        //             />
-        //         ))
-    }
-    if (store.editActive){
-        WorkCard=
-            <Create></Create>
-    }
+    // const handleMenuClose = () => {
+    //     setAnchorEl(null);
+    // };
+    // function handleUpdateText(event) {
+    //     setInput(event.target.value);
+    // }
+    // function handleKeyPress(event) {
+    //     if(event.code === "Enter") {
+    //         store.searchLists(input.toLowerCase());
+    //     }
+    // }
+    // async function handleClick(event,button) {
+    //     event.stopPropagation();
+    //     store.setMode(button);
+    // }
+    // function handleSort(criteria){
+    //     store.sortBy(criteria);
+    // }
+    // const menu = (
+    //     <Menu
+    //     anchorEl={anchorEl}
+    //     anchorOrigin={{
+    //         vertical: 'top',
+    //         horizontal: 'right',
+    //     }}
+    //     keepMounted
+    //     transformOrigin={{
+    //         vertical: 'top',
+    //         horizontal: 'right',
+    //     }}
+    //     open={isMenuOpen}
+    //     onClose={handleMenuClose}>
+    //         {/* <MenuItem onClick={(event) => {handleSort(2)}}>Published Date (Newest)</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(1)}}>Published Date (Oldest)</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(3)}}>Views</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(4)}}>Likes</MenuItem>
+    //         <MenuItem onClick={(event) => {handleSort(5)}}>Dislikes</MenuItem> */}
+    //     </Menu>
+    // );
+    // let WorkCard = "";
+    // if (store) {
+    //     // WorkCard = 
+    //     //         store.idNamePairs.map((pair) => (
+    //     //             <WorkCard
+    //     //                 key={pair._id}
+    //     //                 idNamePair={pair}
+    //     //                 selected={false}
+    //     //                 sx={{padding:'5px'}}
+    //     //             />
+    //     //         ))
+    // }
+    // if (store.editActive){
+    //     WorkCard=
+    //         <Create></Create>
+    // }
     return (
         <div id="top5-list-selector">
             {/* <div id="list-selector-heading">
