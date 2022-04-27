@@ -21,7 +21,7 @@ function WorkCard(props) {
 
     function handleOpen(event, id){
         event.stopPropagation();
-        // console.log(id);
+        console.log(id);
         store.setCurrentWork(id);
     }
 
@@ -46,7 +46,7 @@ function WorkCard(props) {
     }
 
     let workElement =
-        <Card id={work.id} hoverable sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"

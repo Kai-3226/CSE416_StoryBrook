@@ -87,16 +87,16 @@ const ViewScreen = () => {
             </div >
             
             <div style={{height:'700px',overflow:'auto'}}>
-                <InfiniteScroll
+                {/* <InfiniteScroll
                     //pageStart={0}
                     // loadMore={loadFunc}
                     hasMore={true || false}
                     loader={<div className="loader" key={0}>Loading ...</div>}
                     useWindow={false}
                     //getScrollParent={() => this.scrollParentRef}
-                >
+                > */}
                 {work}
-                </InfiniteScroll>
+                {/* </InfiniteScroll> */}
             </div>
             <div>
                 <Copyright2/>

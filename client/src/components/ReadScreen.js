@@ -37,7 +37,7 @@ const ReadScreen = () => {
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>
                     <Box id="readPage_workTitle" sx={{textAlign:'center',position:'relative',paddingTop:'2%',width:'60%'}}>
                         <Typography component="h1" variant="h3" >
-                       comic title
+                        {store.currentWork.name}
                         </Typography> 
                     </Box>
                     <Box id='readPage_author' display='flex' sx={{position:'relative',paddingLeft:'15%',height:'100%',width:'40%'}}> 

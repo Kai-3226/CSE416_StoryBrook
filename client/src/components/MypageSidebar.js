@@ -7,8 +7,12 @@ export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
     function handleClick(event,input){
         event.stopPropagation();
+        event.preventDefault();
         store.setMode(input);
-        console.log(store.mode);
+        console.log(store.mode);    
+        if(store.mode=="work")
+        {store.loadWorkList();}
+        
     }
     
     let friend ="unselected-menu";
@@ -17,21 +21,40 @@ export default function Sidebar () {
     let library ="unselected-menu";
     let like ="unselected-menu";
     if(store.mode=="friends"){
-        friend="selected-menu"
+        friend="selected-menu";
+        follow ="unselected-menu";
+        work ="unselected-menu";
+        library ="unselected-menu";
+        like ="unselected-menu";
     }
     if(store.mode=="followings"){
-        follow="selected-menu"
+        follow="selected-menu";
+        friend ="unselected-menu";
+        work ="unselected-menu";
+        library ="unselected-menu";
+        like ="unselected-menu";
     }
     if(store.mode=="works"){
-      
-        store.loadWorkList();
+        
         work="selected-menu"
+        friend ="unselected-menu";
+        follow ="unselected-menu";
+        library ="unselected-menu";
+        like ="unselected-menu";
     }
     if(store.mode=="library"){
         library="selected-menu"
+        friend ="unselected-menu";
+        follow ="unselected-menu";
+        work ="unselected-menu";
+        like ="unselected-menu";
     }
     if(store.mode=="likes"){
         like="selected-menu"
+        friend ="unselected-menu";
+        follow ="unselected-menu";
+        work ="unselected-menu";
+        library ="unselected-menu";
     }
 
         return (

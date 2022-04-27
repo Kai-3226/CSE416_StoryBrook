@@ -25,29 +25,32 @@ function MypageWorkCard(props) {
         store.setCurrentWork(id);
     }
 
-    async function handleDeleteWork(event, id) {
+    function handleDeleteWork(event, id) {
         event.stopPropagation();
+        console.log("adf");
         store.markWorkForDeletion(id);
     }
     
-    let deletebutton=
-    <IconButton  onClick={(event) => {
-        handleDeleteWork(event, work._id)
-        }} aria-label='delete'>
-        <DeleteIcon/>
-    </IconButton>;
+    let deletebutton=''
+ 
     
     if(auth.user===null){
         deletebutton="";
     }
-    else if(auth.user._id!==work.author || store.mode!=="user"){
-        deletebutton=
-        "";
+    else if(auth.user.email==work.author){
+        deletebutton= 
+                <IconButton  onClick={(event) => {
+                    handleDeleteWork(event, work._id)
+                    }} aria-label='delete'>
+                    <DeleteIcon/>
+                </IconButton>;;
     }
 
     let workElement =
-        <Card id={work.id} hoverable sx={{ position:"relative",width:"35%",height:"100%",marginLeft:"8%",marginTop:"5%",marginBottom:"5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Box sx={{ position:"relative",width:"35%",height:"100%",marginLeft:"8%",marginTop:"5%",marginBottom:"5%" }}> 
             {deletebutton}
+        <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"100%",height:"100%"}} onClick={(event) => {handleOpen(event, work._id)}}>
+           
             <CardMedia
                 component="img"
                 height="140"
@@ -70,6 +73,7 @@ function MypageWorkCard(props) {
                 <Avatar alt={work.author} src={work.avatar} />
                 </Box>
         </Card>
+        </Box>
     return (
         workElement
     );
