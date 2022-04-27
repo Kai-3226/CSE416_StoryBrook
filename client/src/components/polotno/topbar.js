@@ -53,7 +53,7 @@ const DownloadButton = ({ workstore }) => {
       });
     });
     const allWords = texts.join(' ').split(' ');
-    const words = allWords.slice(0, 6);
+    const words = allWords.slice(0, 6); 
     return words.join(' ').replace(/\s/g, '-').toLowerCase() || 'polotno';
   };
   return (

@@ -280,10 +280,6 @@ function GlobalStoreContextProvider(props) {
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
         }
- 
-
-        
-        
     }
 
     // THIS FUNCTION LOADS ALL WORKS THAT VIEWABLE BY CURRENT AUTH
