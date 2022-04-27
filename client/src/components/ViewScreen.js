@@ -59,6 +59,7 @@ const ViewScreen = () => {
     let work = "";
 
     if (store && store.workList) {
+<<<<<<< HEAD
         work = "";
         list = store.workList;
         //console.log(store.workList);
@@ -67,11 +68,22 @@ const ViewScreen = () => {
         //       : rows[rows.length-1].push(key)) && rows;
         //   }, []);
         // console.log(rows);
+=======
+        list = store.workList;
+        console.log(list);
+        list = list.filter(item => item.published["publish"] === true);
+        const rows = list.reduce(function (rows, key, index) { 
+            return (index % 4 == 0 ? rows.push([key]) 
+              : rows[rows.length-1].push(key)) && rows;
+          }, []);
+        console.log(rows);
 
-        let rows = [];
-        for (var i = 0, end = store.workList.length / 4; i < end; ++i){
-            rows.push(store.workList.slice(i * 4, (i + 1) * 4));
-        }
+>>>>>>> e2103d133cbc8d870b1a097fa5f9abdc1df12c12
+
+        // let rows = [];
+        // for (var i = 0, end = store.workList.length / 4; i < end; ++i){
+        //     rows.push(store.workList.slice(i * 4, (i + 1) * 4));
+        // }
         // console.log(rows);
         work = 
             rows.map((row) => (

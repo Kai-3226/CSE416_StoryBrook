@@ -348,7 +348,6 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-
     store.unmarkWorkForDeletion = function () {
         storeReducer({
             type: GlobalStoreActionType.UNMARK_WORK_FOR_DELETION,
