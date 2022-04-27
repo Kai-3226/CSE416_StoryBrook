@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Avatar from '@mui/material/Avatar';
-
+import Box from '@mui/material/Box';
 
 function WorkCard(props) {
     const { auth } = useContext(AuthContext);
@@ -21,7 +21,7 @@ function WorkCard(props) {
 
     function handleOpen(event, id){
         event.stopPropagation();
-        // console.log(id);
+        console.log(id);
         store.setCurrentWork(id);
     }
 
@@ -40,34 +40,35 @@ function WorkCard(props) {
     if(auth.user===null){
         deletebutton="";
     }
-    else if(auth.user.id!==work.author || store.mode!=="user"){
+    else if(auth.user._id!==work.author || store.mode!=="user"){
         deletebutton=
         "";
     }
 
     let workElement =
-        <Card id={work._id} hoverable sx={{ maxWidth: 345 }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"
                 height="140"
-                // image= {work.pages[0]}
+                image= {work}
                 alt= {work.name}
             />
-            <CardContent>
-                <Typography>
+           
+                <Box display="flex" sx={{bgcolor:"lightgreen",position:"relative",width:"100%",height:"20%"}}> 
+                <Typography paddingRight="20%" >
                     {work.name}
                 </Typography>
                 <RemoveRedEyeIcon></RemoveRedEyeIcon>
-                <Typography>
+                <Typography >
                     {work.view}
                 </Typography>
-                <ThumbUpIcon></ThumbUpIcon>
+                <ThumbUpIcon size='20%'></ThumbUpIcon>
                 <Typography>
-                    {work.like}
+                    {work.likes.length}
                 </Typography>
                 <Avatar alt={work.author} src={work.avatar} />
-            </CardContent>
+                </Box>
         </Card>
     return (
         workElement

@@ -55,7 +55,7 @@ const CreateScreen = () => {
         {  
         store.currentWork.content=json;
         }
-        else
+        else 
         {
             workstore.loadJSON(store.currentWork.content);
         }

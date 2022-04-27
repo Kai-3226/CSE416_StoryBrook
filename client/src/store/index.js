@@ -15,11 +15,11 @@ export const GlobalStoreContext = createContext({});
 // THESE ARE ALL THE TYPES OF UPDATES TO OUR GLOBAL
 // DATA STORE STATE THAT CAN BE PROCESSED
 export const GlobalStoreActionType = {
-    CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
+    CLOSE_CURRENT_WORK: "CLOSE_CURRENT_LIST",
     CREATE_NEW_WORK: "CREATE_NEW_WORK",
     LOAD_WORK_LIST: "LOAD_WORK_LIST",
-    MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
-    UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
+    MARK_WORK_FOR_DELETION: "MARK_LIST_FOR_DELETION",
+    UNMARK_WORK_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_WORK: "SET_CURRENT_WORK",
     EDIT_WORK: "EDIT_WORK",
     UPDATE_WORK: "UPDATE_WORK",
@@ -38,7 +38,7 @@ function GlobalStoreContextProvider(props) {
         workList: [],
         currentWork: null,
         editActive: false,
-        listMarkedForDeletion: null,
+        workMarkedForDeletion: null,
         mode: null,
         text: "",
         status: null,
@@ -55,12 +55,12 @@ function GlobalStoreContextProvider(props) {
         const { type, payload } = action;
         switch (type) {
             // STOP EDITING THE CURRENT LIST
-            case GlobalStoreActionType.CLOSE_CURRENT_LIST: {
+            case GlobalStoreActionType.CLOSE_CURRENT_WORK: {
                 return setStore({
                     workList: store.workList,
                     currentWork: null,
                     eidtActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,    // 0 for story  1 for comic
@@ -73,7 +73,7 @@ function GlobalStoreContextProvider(props) {
                     workList: store.workList,
                     currentWork: payload,
                     editActive: true,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -87,7 +87,7 @@ function GlobalStoreContextProvider(props) {
                     workList: payload,
                     currentWork: null,
                     editActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -95,12 +95,12 @@ function GlobalStoreContextProvider(props) {
                 });
             }
             // PREPARE TO DELETE A LIST
-            case GlobalStoreActionType.MARK_LIST_FOR_DELETION: {
+            case GlobalStoreActionType.MARK_WORK_FOR_DELETION: {
                 return setStore({
                     workList: store.workList,
                     currentWork: null,
                     editActive: false,
-                    listMarkedForDeletion: payload,
+                    workMarkedForDeletion: payload,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -108,12 +108,12 @@ function GlobalStoreContextProvider(props) {
                 });
             }
             // PREPARE TO DELETE A LIST
-            case GlobalStoreActionType.UNMARK_LIST_FOR_DELETION: {
+            case GlobalStoreActionType.UNMARK_WORK_FOR_DELETION: {
                 return setStore({
                     workList: store.workList,
                     currentWork: null,
                     editActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -126,7 +126,7 @@ function GlobalStoreContextProvider(props) {
                     workList: store.workList,
                     currentWork: payload,
                     editActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -139,7 +139,7 @@ function GlobalStoreContextProvider(props) {
                     workList: store.workList,
                     currentWork: payload,
                     editActive: true,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -151,7 +151,7 @@ function GlobalStoreContextProvider(props) {
                     workList: store.workList,
                     currentWork: null,
                     editActive:false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -164,7 +164,7 @@ function GlobalStoreContextProvider(props) {
                     workList:payload,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: store.mode,
                     text: "",
                     status: store.status,
@@ -176,7 +176,7 @@ function GlobalStoreContextProvider(props) {
                     workList:store.workList,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: payload,
                     text: store.text,
                     status: store.status,
@@ -188,7 +188,7 @@ function GlobalStoreContextProvider(props) {
                     workList:payload,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -200,7 +200,7 @@ function GlobalStoreContextProvider(props) {
                     workList:payload,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: store.mode,
                     text: store.text,
                     status: payload,
@@ -212,7 +212,7 @@ function GlobalStoreContextProvider(props) {
                     workList:store.workList,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -239,12 +239,12 @@ function GlobalStoreContextProvider(props) {
         }
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
-    store.closeCurrentList = function () {
-        let list=store.currentWork;
-        list.view++;
-        store.updateList2(list);
+    store.closeCurrentWork = function () {
+        let work=store.currentWork;
+        //list.view++;
+        //store.updateList2(list);
         storeReducer({
-            type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
+            type: GlobalStoreActionType.CLOSE_CURRENT_WORK,
             payload: {}
         });
         store.loadworkList();    
@@ -291,10 +291,10 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let workArray = response.data.data;
             let viewable=[];
-            console.log(workArray);
+            //console.log(workArray);
             for(let key in workArray){
                 let work = workArray[key];
-                console.log(work);
+                //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.id===work.author){
                         // console.log(auth.user.email,list.email,list.published.published)
@@ -314,13 +314,14 @@ function GlobalStoreContextProvider(props) {
                 
             }
             console.log(viewable);
+
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
                 payload: viewable
             });
         }
         else {
-            // console.log("API FAILED TO GET THE LIST PAIRS");
+            console.log("API FAILED TO GET THE works list");
         }
     }
 
@@ -329,32 +330,35 @@ function GlobalStoreContextProvider(props) {
     // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE
     // FUNCTIONS ARE markListForDeletion, deleteList, deleteMarkedList,
     // showDeleteListModal, and hideDeleteListModal
-    store.markListForDeletion = async function (id) {
+    store.markWorkForDeletion = async function (id) {
         // GET THE LIST
         let response = await api.getWorkById(id);
+     
         if (response.data.success) {
-            let top5List = response.data.top5List;
+            let work = response.data.work;
+           console.log(work);
             storeReducer({
-                type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
-                payload: top5List
+                type: GlobalStoreActionType.MARK_WORK_FOR_DELETION,
+                payload: work
             });
         }
     }
 
-    store.deleteList = async function (listToDelete) {
-        let response = await api.deleteWorkById(listToDelete._id);
+    store.deleteWork = async function (WorkToDelete) {
+        let response = await api.deleteWorkById(WorkToDelete._id);
         if (response.data.success) {
-            store.loadworkList();
+        
+            store.closeCurrentWork();
         }
     }
 
-    store.deleteMarkedList = function () {
-        store.deleteList(store.listMarkedForDeletion);
+    store.deleteMarkedWork = function () {
+        store.deleteWork(store.WorkMarkedForDeletion);
     }
 
-    store.unmarkListForDeletion = function () {
+    store.unmarkWorkForDeletion = function () {
         storeReducer({
-            type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
+            type: GlobalStoreActionType.UNMARK_WORK_FOR_DELETION,
             payload: null
         });
     }
@@ -371,9 +375,21 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
                 payload: work                      //{list: work,edit: input}
             });
+        console.log(this.currentWork);  
+        console.log(work);    
+
+        if(this.currentWork)
+        {
+            if(this.currentWork.published['publish']==true)
+            {history.push(`/read/${id}`);}
+            else if (this.currentWork.published['publish']==false)
+            {history.push(`/create/`);}
+            }
+        
         }
-        history.push(`/read/${id}`);
-        // console.log(store.currentWork);
+        
+        
+       
     }
 
     store.updateWork = async function (newWork) {
