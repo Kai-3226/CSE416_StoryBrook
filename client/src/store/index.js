@@ -15,18 +15,19 @@ export const GlobalStoreContext = createContext({});
 // THESE ARE ALL THE TYPES OF UPDATES TO OUR GLOBAL
 // DATA STORE STATE THAT CAN BE PROCESSED
 export const GlobalStoreActionType = {
-    CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
+    CLOSE_CURRENT_WORK: "CLOSE_CURRENT_LIST",
     CREATE_NEW_WORK: "CREATE_NEW_WORK",
-    LOAD_ID_NAME_PAIRS: "LOAD_ID_NAME_PAIRS",
-    MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
-    UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
-    SET_CURRENT_LIST: "SET_CURRENT_LIST",
+    LOAD_WORK_LIST: "LOAD_WORK_LIST",
+    MARK_WORK_FOR_DELETION: "MARK_LIST_FOR_DELETION",
+    UNMARK_WORK_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
+    SET_CURRENT_WORK: "SET_CURRENT_WORK",
     EDIT_WORK: "EDIT_WORK",
     UPDATE_WORK: "UPDATE_WORK",
     SEARCH: "SEARCH",
     MODE: "MODE",
     SORT: "SORT",
-    STATUS: "STATUS"
+    STATUS: "STATUS",
+    VIEW: "VIEW"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -34,14 +35,14 @@ export const GlobalStoreActionType = {
 function GlobalStoreContextProvider(props) {
     // THESE ARE ALL THE THINGS OUR DATA STORE WILL MANAGE
     const [store, setStore] = useState({
-        idNamePairs: [],
+        workList: [],
         currentWork: null,
         editActive: false,
-        listMarkedForDeletion: null,
+        workMarkedForDeletion: null,
         mode: null,
         text: "",
-        status: null
-        
+        status: null,
+        view: [] 
     });
     const history = useHistory();
 
@@ -54,144 +55,168 @@ function GlobalStoreContextProvider(props) {
         const { type, payload } = action;
         switch (type) {
             // STOP EDITING THE CURRENT LIST
-            case GlobalStoreActionType.CLOSE_CURRENT_LIST: {
+            case GlobalStoreActionType.CLOSE_CURRENT_WORK: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    workList: store.workList,
                     currentWork: null,
                     eidtActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status    // 0 for story  1 for comic
+                    status: store.status,    // 0 for story  1 for comic
+                    view: store.view
                 })
             }
             // CREATE A NEW LIST
             case GlobalStoreActionType.CREATE_NEW_WORK: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    workList: store.workList,
                     currentWork: payload,
                     editActive: true,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
-            case GlobalStoreActionType.LOAD_ID_NAME_PAIRS: {
+            case GlobalStoreActionType.LOAD_WORK_LIST: {
                 console.log("loading");
                 return setStore({
-                    idNamePairs: payload,
+                    workList: payload,
                     currentWork: null,
                     editActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             // PREPARE TO DELETE A LIST
-            case GlobalStoreActionType.MARK_LIST_FOR_DELETION: {
+            case GlobalStoreActionType.MARK_WORK_FOR_DELETION: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    workList: store.workList,
                     currentWork: null,
                     editActive: false,
-                    listMarkedForDeletion: payload,
+                    workMarkedForDeletion: payload,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             // PREPARE TO DELETE A LIST
-            case GlobalStoreActionType.UNMARK_LIST_FOR_DELETION: {
+            case GlobalStoreActionType.UNMARK_WORK_FOR_DELETION: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    workList: store.workList,
                     currentWork: null,
                     editActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             // UPDATE A LIST
-            case GlobalStoreActionType.SET_CURRENT_LIST: {
+            case GlobalStoreActionType.SET_CURRENT_WORK: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentWork: payload.list,
-                    editActive: payload.edit,
-                    listMarkedForDeletion: null,
+                    workList: store.workList,
+                    currentWork: payload,
+                    editActive: false,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             // START EDITING A LIST NAME
             case GlobalStoreActionType.EDIT_WORK: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    workList: store.workList,
                     currentWork: payload,
                     editActive: true,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             case GlobalStoreActionType.UPDATE_WORK: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    workList: store.workList,
                     currentWork: null,
                     editActive:false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             case GlobalStoreActionType.SEARCH: {
                 console.log("search");
                 return setStore({
-                    idNamePairs:payload,
+                    workList:payload,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: store.mode,
                     text: "",
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             case GlobalStoreActionType.MODE: {
                 return setStore({
-                    idNamePairs:store.idNamePairs,
+                    workList:store.workList,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: payload,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 });
             }
             case GlobalStoreActionType.SORT: {
                 return setStore({
-                    idNamePairs:payload,
+                    workList:payload,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: store.mode,
                     text: store.text,
-                    status: store.status
+                    status: store.status,
+                    view: store.view
                 })
             }
             case GlobalStoreActionType.STATUS: {
                 return setStore({
-                    idNamePairs:payload,
+                    workList:payload,
                     currentWork:null,
                     editActive:false,
-                    listMarkedForDeletion:null,
+                    workMarkedForDeletion:null,
                     mode: store.mode,
                     text: store.text,
-                    status: payload
+                    status: payload,
+                    view: store.view
+                })
+            }
+            case GlobalStoreActionType.VIEW: {
+                return setStore({
+                    workList:store.workList,
+                    currentWork:null,
+                    editActive:false,
+                    workMarkedForDeletion:null,
+                    mode: store.mode,
+                    text: store.text,
+                    status: store.status,
+                    view: payload
                 })
             }
             default:
@@ -214,15 +239,15 @@ function GlobalStoreContextProvider(props) {
         }
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
-    store.closeCurrentList = function () {
-        let list=store.currentWork;
-        list.view++;
-        store.updateList2(list);
+    store.closeCurrentWork = function () {
+        let work=store.currentWork;
+        //list.view++;
+        //store.updateList2(list);
         storeReducer({
-            type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
+            type: GlobalStoreActionType.CLOSE_CURRENT_WORK,
             payload: {}
         });
-        store.loadIdNamePairs();    
+        store.loadworkList();    
     }
 
     // THIS FUNCTION CREATES A NEW LIST
@@ -260,40 +285,44 @@ function GlobalStoreContextProvider(props) {
         
     }
 
-    // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
-    store.loadIdNamePairs = async function () {
-        // const response = await api.getWorkPairs();
-        // if (response.data.success) {
-        //     let pairsArray = response.data.idNamePairs;
-        //     let listOwned=[];
-        //     for(let key in pairsArray){
-        //         let list = pairsArray[key];
-        //         if(auth.loggedIn){
-        //             if(auth.user.email===list.email){
-        //                 console.log(auth.user.email,list.email,list.published.published)
-        //                 listOwned.push(list);
-        //             }
-        //             else if(list.published.published){
-        //                 console.log(auth.user.email,list.email,list.published.published)
-        //                 listOwned.push(list);
-        //             }
-        //         }
-        //         else{
-        //             if(list.published.published){
-        //                 listOwned.push(list);
-        //                 console.log(listOwned);
-        //             } 
-        //         }
+    // THIS FUNCTION LOADS ALL WORKS THAT VIEWABLE BY CURRENT AUTH
+    store.loadWorkList = async function () {
+        const response = await api.getWorkList();
+        if (response.data.success) {
+            let workArray = response.data.data;
+            let viewable=[];
+            //console.log(workArray);
+            for(let key in workArray){
+                let work = workArray[key];
+                //console.log(work);
+                if(auth.loggedIn){
+                    if(auth.user.id===work.author){
+                        // console.log(auth.user.email,list.email,list.published.published)
+                        viewable.push(work);
+                    }
+                    else if(work.published.publish===true){
+                        // console.log(auth.user.email,list.email,list.published.published)
+                        viewable.push(work);
+                    }
+                }
+                else{
+                    if(work.published.publish===true){
+                        viewable.push(work);
+                        // console.log(listOwned);
+                    } 
+                }
                 
-        //     }
-        //     storeReducer({
-        //         type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
-        //         payload: listOwned
-        //     });
-        // }
-        // else {
-        //     console.log("API FAILED TO GET THE LIST PAIRS");
-        // }
+            }
+            console.log(viewable);
+
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK_LIST,
+                payload: viewable
+            });
+        }
+        else {
+            console.log("API FAILED TO GET THE works list");
+        }
     }
 
 
@@ -301,32 +330,35 @@ function GlobalStoreContextProvider(props) {
     // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE
     // FUNCTIONS ARE markListForDeletion, deleteList, deleteMarkedList,
     // showDeleteListModal, and hideDeleteListModal
-    store.markListForDeletion = async function (id) {
+    store.markWorkForDeletion = async function (id) {
         // GET THE LIST
         let response = await api.getWorkById(id);
+     
         if (response.data.success) {
-            let top5List = response.data.top5List;
+            let work = response.data.work;
+           console.log(work);
             storeReducer({
-                type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
-                payload: top5List
+                type: GlobalStoreActionType.MARK_WORK_FOR_DELETION,
+                payload: work
             });
         }
     }
 
-    store.deleteList = async function (listToDelete) {
-        let response = await api.deleteWorkById(listToDelete._id);
+    store.deleteWork = async function (WorkToDelete) {
+        let response = await api.deleteWorkById(WorkToDelete._id);
         if (response.data.success) {
-            store.loadIdNamePairs();
+        
+            store.closeCurrentWork();
         }
     }
 
-    store.deleteMarkedList = function () {
-        store.deleteList(store.listMarkedForDeletion);
+    store.deleteMarkedWork = function () {
+        store.deleteWork(store.WorkMarkedForDeletion);
     }
 
-    store.unmarkListForDeletion = function () {
+    store.unmarkWorkForDeletion = function () {
         storeReducer({
-            type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
+            type: GlobalStoreActionType.UNMARK_WORK_FOR_DELETION,
             payload: null
         });
     }
@@ -335,16 +367,31 @@ function GlobalStoreContextProvider(props) {
     // OF A LIST, WHICH INCLUDES DEALING WITH THE TRANSACTION STACK. THE
     // FUNCTIONS ARE setCurrentList, addMoveItemTransaction, addUpdateItemTransaction,
     // moveItem, updateItem, updateCurrentList, undo, and redo
-    store.setCurrentList = async function (id, input) {
+    store.setCurrentWork = async function (id) {        //, input
         let response = await api.getWorkById(id);
         if (response.data.success) {
-            let top5List = response.data.top5List;
+            let work = response.data.work;
             storeReducer({
-                type: GlobalStoreActionType.SET_CURRENT_LIST,
-                payload: {list: top5List,edit: input}
+                type: GlobalStoreActionType.SET_CURRENT_WORK,
+                payload: work                      //{list: work,edit: input}
             });
+        console.log(this.currentWork);  
+        console.log(work);    
+
+        if(this.currentWork)
+        {
+            if(this.currentWork.published['publish']==true)
+            {history.push(`/read/${id}`);}
+            else if (this.currentWork.published['publish']==false)
+            {history.push(`/create/`);}
+            }
+        
         }
+        
+        
+       
     }
+
     store.updateWork = async function (newWork) {
         if(newWork.author==auth.user.email){    
                 let response = await api.updateWorkById(newWork._id, newWork);
@@ -388,7 +435,7 @@ function GlobalStoreContextProvider(props) {
     }
     store.searchLists = async function (payload) {
         const response = await api.getWorkPairs();
-        let lists= response.data.idNamePairs;
+        let lists= response.data.workList;
         console.log(lists);
         let filter =[];
         for(let key in lists){
@@ -480,48 +527,103 @@ function GlobalStoreContextProvider(props) {
 // An optimized version of Bubble Sort
     store.sortBy = function(criteria) {
         let i, j;
-        let lists=store.idNamePairs;
-        for (i = 0; i < lists.length-1; i++) {
-            for (j = 0; j < lists.length-i-1; j++) {
+        let list=store.workList;
+        for (i = 0; i < list.length-1; i++) {
+            for (j = 0; j < list.length-i-1; j++) {
                 if(criteria===1){
-                    if (lists[j].published.time > lists[j+1].published.time){
-                        swap(lists,j,j+1);
+                    if (list[j].published.date > list[j+1].published.data){
+                        swap(list,j,j+1);
                     }
                 }
                 else if(criteria===2){
-                    if (lists[j].published.time < lists[j+1].published.time){
-                        swap(lists,j,j+1);
+                    if (list[j].view < list[j+1].view){
+                        swap(list,j,j+1);
                     }
                 }
                 else if(criteria===3){
-                    if (lists[j].view < lists[j+1].view){
-                        swap(lists,j,j+1);
-                    }
-                }
-                else if(criteria===4){
-                    if (lists[j].likes.length < lists[j+1].likes.length){
-                        swap(lists,j,j+1);
-                    }
-                }
-                else {
-                    if (lists[j].dislikes.length < lists[j+1].dislikes.length){
-                        swap(lists,j,j+1);
+                    if (list[j].likes < list[j+1].likes){
+                        swap(list,j,j+1);
                     }
                 }
             }
         }
         storeReducer({
             type: GlobalStoreActionType.SORT,
-            payload: lists
+            payload: list
         });
     }
+
+// Generate view list in view screem
+    store.view = function(criteria){
+        let list=[];
+        if (criteria===0 || criteria===4){
+            let i, j;
+            let all=store.workList;
+            for (i = 0; i < all.length-1; i++) {
+                for (j = 0; j < list.length-i-1; j++) {
+                    if (list[j].published.date > list[j+1].published.data){
+                        swap(list,j,j+1);
+                    }
+                }
+            }
+            if (criteria===0){    //follow
+                for(let work in all){
+                    let authorId = work.author;
+                    for (let author in auth.user.following){
+                        if(authorId === author){
+                            list.push(work);
+                            // console.log(listOwned);
+                        }   
+                    }
+                }
+            }
+            else if (criteria===4){          //search
+                for(let work in all){
+                    if(work.name.includes(store.text)){
+                        list.push(work);
+                        // console.log(listOwned);
+                    }
+                }
+            }
+        }
+        else{
+            let i, j;
+            let list=store.workList;
+            for (i = 0; i < list.length-1; i++) {
+                for (j = 0; j < list.length-i-1; j++) {
+                    if(criteria===1){       //latest
+                        if (list[j].published.date > list[j+1].published.data){
+                            swap(list,j,j+1);
+                        }
+                    }
+                    else if(criteria===2){         //view
+                        if (list[j].view < list[j+1].view){
+                            swap(list,j,j+1);
+                        }
+                    }
+                    else if(criteria===3){           //like
+                        if (list[j].likes < list[j+1].likes){
+                            swap(list,j,j+1);
+                        }
+                    }
+                }
+            }
+        }
+        storeReducer({
+            type: GlobalStoreActionType.VIEW,
+            payload: list
+        });
+    }
+
+
+
     store.stat = function (status){
         storeReducer({
             type: GlobalStoreActionType.STATUS,
             payload: status
         });
         console.log(store.status);
-        history.push("/home/");
+        history.push("/view/");
     }
     store.myPage = function() {
         history.push("/mypage/");
