@@ -60,7 +60,7 @@ const ViewScreen = () => {
 
     if (store && store.workList) {
         work = "";
-        // list = store.workList;
+        list = store.workList;
         //console.log(store.workList);
         // const rows = list.reduce(function (rows, key, index) { 
         //     return (index % 4 == 0 ? rows.push([key]) 

@@ -271,6 +271,7 @@ function GlobalStoreContextProvider(props) {
                 payload: newWork
             }
             );
+            history.push("/create/")
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
             // console.log(this.currentWork.id);
             // auth.user.works.push(this.currentWork.id);
@@ -281,7 +282,7 @@ function GlobalStoreContextProvider(props) {
         }
  
 
-        history.push("/create/")
+        
         
     }
 
