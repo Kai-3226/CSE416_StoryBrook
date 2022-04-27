@@ -57,6 +57,7 @@ const ViewScreen = () => {
     );
 
     let work = "";
+
     if (store && store.workList) {
         work = "";
         // list = store.workList;
@@ -66,7 +67,6 @@ const ViewScreen = () => {
         //       : rows[rows.length-1].push(key)) && rows;
         //   }, []);
         // console.log(rows);
-
 
         let rows = [];
         for (var i = 0, end = store.workList.length / 4; i < end; ++i){

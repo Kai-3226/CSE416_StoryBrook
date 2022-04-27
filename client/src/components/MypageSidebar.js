@@ -7,14 +7,12 @@ export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
     function handleClick(event,input){
         event.stopPropagation();
-        event.preventDefault();
         store.setMode(input);
         console.log(store.mode);    
-        if(store.mode=="work")
+        if(store.mode=="works")
         {store.loadWorkList();}
         
-    }
-    
+    }  
     let friend ="unselected-menu";
     let follow ="unselected-menu";
     let work ="unselected-menu";

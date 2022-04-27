@@ -38,7 +38,7 @@ function GlobalStoreContextProvider(props) {
         workList: [],
         currentWork: null,
         editActive: false,
-        listMarkedForDeletion: null,
+        workMarkedForDeletion: null,
         mode: null,
         text: "",
         status: null,
@@ -60,7 +60,7 @@ function GlobalStoreContextProvider(props) {
                     workList: store.workList,
                     currentWork: null,
                     eidtActive: false,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,    // 0 for story  1 for comic
@@ -73,7 +73,7 @@ function GlobalStoreContextProvider(props) {
                     workList: store.workList,
                     currentWork: payload,
                     editActive: true,
-                    listMarkedForDeletion: null,
+                    workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
                     status: store.status,
@@ -313,7 +313,8 @@ function GlobalStoreContextProvider(props) {
                 }
                 
             }
-            //console.log(viewable);
+            console.log(viewable);
+
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
                 payload: viewable
@@ -332,10 +333,12 @@ function GlobalStoreContextProvider(props) {
     store.markWorkForDeletion = async function (id) {
         // GET THE LIST
         let response = await api.getWorkById(id);
+     
         if (response.data.success) {
             let work = response.data.work;
+           console.log(work);
             storeReducer({
-                type: GlobalStoreActionType.MARK_WORL_FOR_DELETION,
+                type: GlobalStoreActionType.MARK_WORK_FOR_DELETION,
                 payload: work
             });
         }
@@ -377,9 +380,9 @@ function GlobalStoreContextProvider(props) {
 
         if(this.currentWork)
         {
-            if(this.currentWork.published['publish']==false)
+            if(this.currentWork.published['publish']==true)
             {history.push(`/read/${id}`);}
-            else if (this.currentWork.published['publish']==true)
+            else if (this.currentWork.published['publish']==false)
             {history.push(`/create/`);}
             }
         
