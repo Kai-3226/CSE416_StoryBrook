@@ -7,6 +7,7 @@ export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
     function handleClick(event,input){
         event.stopPropagation();
+        console.log(input);  
         store.setMode(input);
         console.log(store.mode);    
         if(store.mode=="works")
