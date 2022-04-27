@@ -16,17 +16,43 @@ export default function MyPage () {
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
+    let mylist = [];
+
+    function handleClick(status){
+        mylist = store.workList.filter(item => item.author === auth.user.id);
+        if(status === 1){
+            mylist = mylist.filter(item => item.published["publish"] === true);
+        } else{
+            mylist = mylist.filter(item => item.published["publish"] === false);
+        }
+        if (store && store.workList) {
+            list = "";  
+            let rows = [];
+            for (var i = 0, end = mylist.length / 2; i < end; ++i){
+                rows.push(mylist.slice(i * 2, (i + 1) * 2));
+            }
+            // console.log(rows);
+            list = 
+                rows.map((row) => (
+                    <Box sx = {{display:'flex',position:'relative'}}>
+                        {row.map((item) =>(<MypageWorkCard work={item}/>))}
+                    </Box>
+                ));
+        }
+    }
+
     if (store.mode=="works"){
         selectbar=
         <Box>
-            <Button id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
-            <Button id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
+            <Button onClick={(event) => {handleClick(1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
+            <Button onClick={(event) => {handleClick(2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
         </Box>
-         if (store && store.workList) {
+        if (store && store.workList) {
+            mylist = store.workList.filter(item => item.author === auth.user.id);
             list = "";  
             let rows = [];
-            for (var i = 0, end = store.workList.length / 2; i < end; ++i){
-                rows.push(store.workList.slice(i * 2, (i + 1) * 2));
+            for (var i = 0, end = mylist.length / 2; i < end; ++i){
+                rows.push(mylist.slice(i * 2, (i + 1) * 2));
             }
             // console.log(rows);
             list = 
