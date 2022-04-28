@@ -68,7 +68,7 @@ const DownloadButton = ({ workstore }) => {
                 // do not add index if we have just one page
                 const indexString =
                    workstore.pages.length > 1 ? '-' + (index + 1) : '';
-                 workst23ore.saveAsImage({
+                 workstore.saveAsImage({
                   pageId: page.id,
                   fileName: getName() + indexString + '.png',
                 });
