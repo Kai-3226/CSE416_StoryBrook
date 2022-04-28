@@ -5,13 +5,17 @@ import { GlobalStoreContext } from '../store';
 
 export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
+    const [mode,setMode]=useState("");
     function handleClick(event,input){
         event.stopPropagation();
-        console.log(input);  
-        store.setMode(input);
-        console.log(store.mode);    
+        setMode(input);
+        if(mode=="works") {store.loadWorkList();}
+        console.log(input); 
+        console.log(mode); 
+
         
     }  
+
     let friend ="unselected-menu";
     let follow ="unselected-menu";
     let work ="unselected-menu";
@@ -53,6 +57,7 @@ export default function Sidebar () {
         work ="unselected-menu";
         library ="unselected-menu";
     }
+
 
         return (
             

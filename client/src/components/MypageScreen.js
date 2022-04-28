@@ -13,7 +13,7 @@ export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
     const [text,setText]=useState("");
-    const{stat,setStatus}=useState(0);
+    const[stat,setStatus]=useState(0);
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
