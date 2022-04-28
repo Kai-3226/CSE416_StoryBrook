@@ -39,7 +39,7 @@ function GlobalStoreContextProvider(props) {
         currentWork: null,
         editActive: false,
         workMarkedForDeletion: null,
-        mode: null,
+        mode: "",
         text: "",
         status: 1,
         view: [] 
