@@ -104,12 +104,12 @@ export default observer(({  workstore }) => {
   const inputRef = React.useRef();
   const {  store } = React.useContext(GlobalStoreContext);
   const [faqOpened, toggleFaq] = React.useState(false);
-  const [title,setTitle]=React.useState(store.currentWork.name);
+  const [title,setTitle]=React.useState(store.currentWork.title);
   const history = useHistory();
 
   function handleSave(){
     const json = workstore.toJSON();
-    store.currentWork.name=title;
+    store.currentWork.title=title;
     store.currentWork.content=json;
     store.updateCurrentWork();
 
@@ -144,11 +144,11 @@ export default observer(({  workstore }) => {
     // const json = workstore.toJSON();
     //store.currentWork.content=saveAsImage();
     const json = workstore.toJSON();
-    store.currentWork.name=title;
+    store.currentWork.title=title;
     store.currentWork.content=json;
     store.currentWork.published={publish:true,date:Date()};
     store.updateCurrentWork();
-    history.push(`/read/${store.currentWork._id}`);
+    history.push(`/read/${store.currentWork.id}`);
     alert("Work is published");
   };
 

@@ -36,7 +36,7 @@ export default function AppBanner() {
         auth.logoutUser();
     }
     const handleCreate = () => {
-        if(store.status)
+        if(store.status&&(store.currentWork==null))
         {  
             store.createWork();
         }

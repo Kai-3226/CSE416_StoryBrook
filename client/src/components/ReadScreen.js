@@ -70,7 +70,7 @@ const ReadScreen = () => {
                                           
                     </Box>  */}
                      {/* <ComicViewer pages={['../Images/Comics.png', '../Images/Comics.png']} /> */}
-                     <Workspace store={workstore} />
+                     <Workspace store={workstore} pageControlsEnabled={false}/>
                      <ZoomButtons store={workstore} />
 
                  </Box>
