@@ -626,7 +626,6 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.STATUS,
             payload: status
         });
-        console.log(store.status);
         history.push("/view/");
     }
     store.myPage = function() {

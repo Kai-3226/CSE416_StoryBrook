@@ -36,6 +36,7 @@
     "framer-motion": "^4.1.17",
     "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
+    "konva": "^8.3.6",
     "mongoose": "^5.7.5",
     "nodemailer": "^6.7.3",
     "react-horizontal-scroll-menu": "^0.0.3",

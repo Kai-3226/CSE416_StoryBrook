@@ -13,6 +13,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { createStore } from 'polotno/model/store';
+
 
 function WorkCard(props) {
     const { auth } = useContext(AuthContext);
@@ -30,6 +32,8 @@ function WorkCard(props) {
         store.markWorkForDeletion(id);
     }
     
+    
+    
     let deletebutton=
     <IconButton  onClick={(event) => {
         handleDeleteWork(event, work._id)
@@ -44,14 +48,35 @@ function WorkCard(props) {
         deletebutton=
         "";
     }
+    const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
+    var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
+    // import data
+    var json=work.content;
+    workstore.loadJSON(json);
+    // wait for loading
+    workstore.waitLoading();
+    // do export
+    let response=url;
+    try{
+        response=workstore.toDataURL();
+    }catch{response=url};
 
+
+    // if(work.content!=null&&work.content.pages!=null&&work.content.pages.length!=0)
+    //  {  const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
+    //     workstore.loadJSON(work.content);
+    //     image.src=workstore.toDataURL({pageId: workstore.pages[0].id});
+    
+    // }
+  
+    
     let workElement =
-        <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"
                 height="140"
-                image= {work}
+                image= {response}
                 alt= {work.name}
             />
            

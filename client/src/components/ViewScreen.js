@@ -74,8 +74,8 @@ const ViewScreen = () => {
         }
         // console.log(rows);
         work = 
-            rows.map((row) => (
-                <Box sx = {{display:'flex',position:'relative'}}>
+            rows.map((row,i) => (
+                <Box key={"box"+i.toString}  id={"box"+i.toString} sx = {{display:'flex',position:'relative'}}>
                     {row.map((item) =>(<WorkCard work={item}/>))}
                 </Box>
             ));
@@ -98,9 +98,8 @@ const ViewScreen = () => {
                 {work}
                 {/* </InfiniteScroll> */}
             </div>
-            <div>
                 <Copyright2/>
-            </div>
+           
         </div>)
 }
 
