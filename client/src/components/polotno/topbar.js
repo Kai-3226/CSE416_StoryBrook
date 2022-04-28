@@ -104,12 +104,12 @@ export default observer(({  workstore }) => {
   const inputRef = React.useRef();
   const {  store } = React.useContext(GlobalStoreContext);
   const [faqOpened, toggleFaq] = React.useState(false);
-  const [title,setTitle]=React.useState(store.currentWork.title);
+  const [title,setTitle]=React.useState(store.currentWork.name);
   const history = useHistory();
 
   function handleSave(){
     const json = workstore.toJSON();
-    store.currentWork.title=title;
+    store.currentWork.name=title;
     store.currentWork.content=json;
     store.updateCurrentWork();
 
