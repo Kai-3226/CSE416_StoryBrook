@@ -10,8 +10,6 @@ export default function Sidebar () {
         console.log(input);  
         store.setMode(input);
         console.log(store.mode);    
-        if(input=="works")
-        {store.loadWorkList();}
         
     }  
     let friend ="unselected-menu";
@@ -34,7 +32,7 @@ export default function Sidebar () {
         like ="unselected-menu";
     }
     if(store.mode=="works"){
-        
+        store.loadWorkList();
         work="selected-menu"
         friend ="unselected-menu";
         follow ="unselected-menu";
