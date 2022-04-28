@@ -24,31 +24,7 @@ const ViewScreen = () => {
         //console.log("abc");
     }, []);
 
-    let list = [];
-    let work = "";
-    if (store && store.workList.length!=0) {   
-        list = store.workList;
-        // console.log(list);
-        // list = 
-        const rows = list.filter(item => item.published["publish"] === true).reduce(function (rows, key, index) { 
-            return (index % 4 == 0 ? rows.push([key]) 
-              : rows[rows.length-1].push(key)) && rows;
-          }, []);
-        console.log(rows);
-
-
-        // let rows = [];
-        // for (var i = 0, end = store.workList.length / 4; i < end; ++i){
-        //     rows.push(store.workList.slice(i * 4, (i + 1) * 4));
-        // }
-        // console.log(rows);
-        work = 
-            rows.map((row,i) => (
-                <Box key={"box"+i.toString}  id={"box"+i.toString} sx = {{display:'flex',position:'relative'}}>
-                    {row.map((item) =>(<WorkCard work={item}/>))}
-                </Box>
-            ));
-    }
+    
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -79,8 +55,34 @@ const ViewScreen = () => {
             <MenuItem onClick={(event) => {handleSort(3)}}>Most Like</MenuItem>
         </Menu>
     );
-
+        
     
+    let list = [];
+    let work = "";
+    if (store && store.workList) {   
+        list = store.workList;
+        // console.log(list);
+        // list = 
+        const rows = list.filter(item => item.published["publish"] === true).reduce(function (rows, key, index) { 
+            return (index % 4 == 0 ? rows.push([key]) 
+            : rows[rows.length-1].push(key)) && rows;
+        }, []);
+        console.log(rows);
+
+
+        // let rows = [];
+        // for (var i = 0, end = store.workList.length / 4; i < end; ++i){
+        //     rows.push(store.workList.slice(i * 4, (i + 1) * 4));
+        // }
+        // console.log(rows);
+        work = 
+        rows.map((row) => (
+            <Box sx = {{display:'flex',position:'relative'}}>
+                {row.map((item) =>(<WorkCard work={item}/>))}
+            </Box>
+        ));
+    }
+        
     
     return (
         <div id="viewpage">
@@ -99,8 +101,7 @@ const ViewScreen = () => {
                 {work}
                 {/* </InfiniteScroll> */}
             </div>
-                <Copyright2/>
-           
+                <Copyright2/>     
         </div>)
 }
 

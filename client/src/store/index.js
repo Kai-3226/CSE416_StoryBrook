@@ -41,7 +41,7 @@ function GlobalStoreContextProvider(props) {
         workMarkedForDeletion: null,
         mode: null,
         text: "",
-        status: null,
+        status: 1,
         view: [] 
     });
     const history = useHistory();
