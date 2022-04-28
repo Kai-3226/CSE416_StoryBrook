@@ -38,7 +38,8 @@ export default function AppBanner() {
     const handleCreate = () => {
         if(store.status&&(store.currentWork==null))
         {  
-            store.createWork();}
+            store.createWork();
+        }
     }
    
     const menuId = 'primary-search-account-menu';
@@ -80,9 +81,10 @@ export default function AppBanner() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            
             <MenuItem onClick={handleMenuClose}><Link to='/myPage'>my page</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>        
 
     let editToolbar = "";

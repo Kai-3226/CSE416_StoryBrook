@@ -19,7 +19,7 @@ export const GlobalStoreActionType = {
     CREATE_NEW_WORK: "CREATE_NEW_WORK",
     LOAD_WORK_LIST: "LOAD_WORK_LIST",
     MARK_WORK_FOR_DELETION: "MARK_WORK_FOR_DELETION",
-    UNMARK_WORK_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
+    UNMARK_WORK_FOR_DELETION: "UNMARK_WORK_FOR_DELETION",
     SET_CURRENT_WORK: "SET_CURRENT_WORK",
     EDIT_WORK: "EDIT_WORK",
     UPDATE_WORK: "UPDATE_WORK",
@@ -99,7 +99,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.MARK_WORK_FOR_DELETION: {
                 return setStore({
                     workList: store.workList,
-                    currentWork: null,
+                    currentWork: payload,
                     editActive: false,
                     workMarkedForDeletion: payload,
                     mode: store.mode,
@@ -248,7 +248,7 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.CLOSE_CURRENT_WORK,
             payload: {}
         });
-        store.loadworkList();    
+        store.loadWorkList();   
     }
 
     // THIS FUNCTION CREATES A NEW LIST
@@ -283,10 +283,6 @@ function GlobalStoreContextProvider(props) {
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
         }
- 
-
-        
-        
     }
 
     // THIS FUNCTION LOADS ALL WORKS THAT VIEWABLE BY CURRENT AUTH
@@ -349,15 +345,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.deleteWork = async function (WorkToDelete) {
-        let response = await api.deleteWorkById(WorkToDelete._id);
+        let response = await api.deleteWorkById(WorkToDelete);
         if (response.data.success) {
-        
             store.closeCurrentWork();
         }
-    }
-
-    store.deleteMarkedWork = function () {
-        store.deleteWork(store.WorkMarkedForDeletion);
     }
 
     store.unmarkWorkForDeletion = function () {

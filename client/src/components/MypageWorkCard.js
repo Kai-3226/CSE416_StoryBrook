@@ -21,13 +21,11 @@ function MypageWorkCard(props) {
 
     function handleOpen(event, id){
         event.stopPropagation();
-        // console.log(id);
         store.setCurrentWork(id);
     }
 
     function handleDeleteWork(event, id) {
         event.stopPropagation();
-        console.log("adf");
         store.markWorkForDeletion(id);
     }
     

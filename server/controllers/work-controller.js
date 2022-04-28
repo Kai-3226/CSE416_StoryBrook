@@ -93,7 +93,7 @@ updateWork = async (req, res) => {
     })
 }
 
-deleteWork = async (req, res) => {
+deleteWorkById = async (req, res) => {
     Work.findById({ _id: req.params.id }, (err, work) => {
         if (err) {
             return res.status(404).json({
@@ -219,7 +219,7 @@ getWorkPairs = async (req, res) => {
 module.exports = {
     createWork,
     updateWork,
-    deleteWork,
+    deleteWorkById,
     getWorks,
     getWorkPairs,
     getWorkById

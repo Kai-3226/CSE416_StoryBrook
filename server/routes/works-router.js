@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post('/work', auth.verify, WorkController.createWork)
 router.put('/work/:id', auth.verify, WorkController.updateWork)
-router.delete('/work/:id', auth.verify, WorkController.deleteWork)
+router.delete('/work/:id', auth.verify, WorkController.deleteWorkById)
 router.get('/work/:id', WorkController.getWorkById)
 router.get('/works', WorkController.getWorks)
 router.get('/workpairs', WorkController.getWorks)

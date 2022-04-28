@@ -28,13 +28,13 @@ export default function SplashScreen() {
         <div style={{backgroundImage: `url(${splashScreen})`, backgroundRepeat: "no-repeat",backgroundPosition: "center",backgroundSize: "cover"}}>
             <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", flexDirection:"row", width: "100vw", height: "100vh"}}>
                     <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
-                        <Button onClick={(event) => {handleClick(1)}} style={{ width: "50vw", height: "50vh", backgroundImage:`url(${Comics})`, 
+                        <Button onClick={(event) => {event.stopPropagation(); handleClick(1)}} style={{ width: "50vw", height: "50vh", backgroundImage:`url(${Comics})`, 
                         backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
                         {/* <Link to='/comicScreen/'> </Link> */}
                         </Button>
                     </div>
                     <div style={{display:"flex", alignItems:"center", flexDirection:"column"}} >
-                    <Button onClick={(event) => {handleClick(0)}} style={{ width: "50vw", height: "50vh", backgroundImage:`url(${storytelling})`, 
+                    <Button onClick={(event) => {event.stopPropagation(); handleClick(0)}} style={{ width: "50vw", height: "50vh", backgroundImage:`url(${storytelling})`, 
                         backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
                         {/* <Link to='/tellingScreen/'> </Link> */}
                         </Button>
