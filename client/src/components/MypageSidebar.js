@@ -10,7 +10,7 @@ export default function Sidebar () {
         console.log(input);  
         store.setMode(input);
         console.log(store.mode);    
-        if(store.mode=="works")
+        if(input=="works")
         {store.loadWorkList();}
         
     }  
