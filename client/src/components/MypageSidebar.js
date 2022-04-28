@@ -1,6 +1,6 @@
 import React from "react";
 import Box from '@mui/material/Box';
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import { GlobalStoreContext } from '../store';
 
 export default function Sidebar () {
