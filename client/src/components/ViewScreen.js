@@ -58,11 +58,11 @@ const ViewScreen = () => {
 
     let work = "";
 
-    if (store && store.workList.length!=0) {
-        // list = store.workList;
+    if (store && store.workList.length!=0) {   
+        list = store.workList;
         // console.log(list);
         // list = 
-        const rows = store.workList.filter(item => item.published["publish"] === true).reduce(function (rows, key, index) { 
+        const rows = list.filter(item => item.published["publish"] === true).reduce(function (rows, key, index) { 
             return (index % 4 == 0 ? rows.push([key]) 
               : rows[rows.length-1].push(key)) && rows;
           }, []);

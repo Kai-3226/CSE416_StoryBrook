@@ -57,9 +57,9 @@ function WorkCard(props) {
     workstore.waitLoading();
     // do export
     let response=url;
-    try{
-        response=workstore.toDataURL();
-    }catch{response=url};
+    // try{
+    //     response=workstore.toDataURL();
+    // }catch{response=url};
 
 
     // if(work.content!=null&&work.content.pages!=null&&work.content.pages.length!=0)
