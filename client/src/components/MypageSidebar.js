@@ -1,64 +1,60 @@
 import React from "react";
 import Box from '@mui/material/Box';
-import { useContext,useState } from 'react';
+import { useContext } from 'react';
 import { GlobalStoreContext } from '../store';
 
 export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
-    const [mode,setMode]=useState("");
     function handleClick(event,input){
         event.stopPropagation();
-        setMode(input);
+        console.log(input);  
         store.setMode(input);
-        if(mode=="works") {store.loadWorkList();}
-        console.log(input); 
-        console.log(mode); 
-
+        console.log(store.mode);    
+        if(store.mode=="works")
+        {store.loadWorkList();}
         
     }  
-
     let friend ="unselected-menu";
     let follow ="unselected-menu";
     let work ="unselected-menu";
     let library ="unselected-menu";
     let like ="unselected-menu";
-    if(mode=="friends"){
+    if(store.mode=="friends"){
         friend="selected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(mode=="followings"){
+    if(store.mode=="followings"){
         follow="selected-menu";
         friend ="unselected-menu";
         work ="unselected-menu";
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(mode=="works"){
-        store.loadWorkList();
+    if(store.mode=="works"){
+        
         work="selected-menu"
         friend ="unselected-menu";
         follow ="unselected-menu";
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(mode=="library"){
+    if(store.mode=="library"){
         library="selected-menu"
         friend ="unselected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
         like ="unselected-menu";
     }
-    if(mode=="likes"){
+    if(store.mode=="likes"){
         like="selected-menu"
         friend ="unselected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
         library ="unselected-menu";
     }
-
 
         return (
             
