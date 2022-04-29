@@ -9,6 +9,7 @@ export default function Sidebar () {
     function handleClick(event,input){
         event.stopPropagation();
         setMode(input);
+        store.setMode(input);
         if(mode=="works") {store.loadWorkList();}
         console.log(input); 
         console.log(mode); 
@@ -21,21 +22,21 @@ export default function Sidebar () {
     let work ="unselected-menu";
     let library ="unselected-menu";
     let like ="unselected-menu";
-    if(store.mode=="friends"){
+    if(mode=="friends"){
         friend="selected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="followings"){
+    if(mode=="followings"){
         follow="selected-menu";
         friend ="unselected-menu";
         work ="unselected-menu";
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="works"){
+    if(mode=="works"){
         store.loadWorkList();
         work="selected-menu"
         friend ="unselected-menu";
@@ -43,14 +44,14 @@ export default function Sidebar () {
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="library"){
+    if(mode=="library"){
         library="selected-menu"
         friend ="unselected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="likes"){
+    if(mode=="likes"){
         like="selected-menu"
         friend ="unselected-menu";
         follow ="unselected-menu";
