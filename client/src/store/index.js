@@ -198,12 +198,12 @@ function GlobalStoreContextProvider(props) {
             }
             case GlobalStoreActionType.STATUS: {
                 return setStore({
-                    workList:payload,
+                    workList:null,
                     currentWork:null,
                     editActive:false,
                     workMarkedForDeletion:null,
-                    mode: store.mode,
-                    text: store.text,
+                    mode: null,
+                    text: null,
                     status: payload,
                     view: store.view
                 })
@@ -273,8 +273,11 @@ function GlobalStoreContextProvider(props) {
                 payload: newWork
             }
             );
-        
-            history.push("/create/");
+            console.log(store.status)
+            if (store.status == 1 )
+                history.push("/create/")
+            else if (store.status == 0)
+                history.push("/createStory/")
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
             // console.log(this.currentWork.id);
             // auth.user.works.push(this.currentWork.id);
@@ -549,7 +552,7 @@ function GlobalStoreContextProvider(props) {
     }
 
 // Generate view list in view screem
-    store.view = function(criteria){
+    store.viewlist = function(criteria){
         let list=[];
         if (criteria===0 || criteria===4){
             let i, j;
@@ -613,12 +616,15 @@ function GlobalStoreContextProvider(props) {
 
 
     store.stat = function (status){
+        console.log(status)
         storeReducer({
             type: GlobalStoreActionType.STATUS,
             payload: status
         });
         history.push("/view/");
     }
+
+
     store.myPage = function() {
         history.push("/mypage/");
     }

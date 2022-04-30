@@ -31,7 +31,7 @@ const ViewScreen = () => {
     };
 
     function handleSort(criteria){
-        store.view(criteria);
+        store.viewlist(criteria);
         list = store.view;
     }
 
@@ -70,6 +70,12 @@ const ViewScreen = () => {
         }, []);
         console.log(rows);
 
+
+        // let rows = [];
+        // for (var i = 0, end = store.workList.length / 4; i < end; ++i){
+        //     rows.push(store.workList.slice(i * 4, (i + 1) * 4));
+        // }
+        // console.log(rows);
         work = 
         rows.map((row) => (
             <Box sx = {{display:'flex',position:'relative'}}>
