@@ -24,7 +24,7 @@ const ViewScreen = () => {
         //console.log("abc");
     }, []);
 
-    let list = [];
+    
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -55,17 +55,19 @@ const ViewScreen = () => {
             <MenuItem onClick={(event) => {handleSort(3)}}>Most Like</MenuItem>
         </Menu>
     );
-
+        
+    
+    let list = [];
     let work = "";
 
     if (store && store.workList) {
         list = store.workList;
         console.log(list);
         list = list.filter(item => item.published["publish"] === true);
-        const rows = list.reduce(function (rows, key, index) { 
+        const rows = list.reduce(function (rows, key, index) {
             return (index % 4 == 0 ? rows.push([key]) 
-              : rows[rows.length-1].push(key)) && rows;
-          }, []);
+            : rows[rows.length-1].push(key)) && rows;
+        }, []);
         console.log(rows);
 
 
@@ -75,12 +77,13 @@ const ViewScreen = () => {
         // }
         // console.log(rows);
         work = 
-            rows.map((row) => (
-                <Box sx = {{display:'flex',position:'relative'}}>
-                    {row.map((item) =>(<WorkCard work={item}/>))}
-                </Box>
-            ));
+        rows.map((row) => (
+            <Box sx = {{display:'flex',position:'relative'}}>
+                {row.map((item) =>(<WorkCard work={item}/>))}
+            </Box>
+        ));
     }
+        
     
     return (
         <div id="viewpage">
@@ -99,9 +102,7 @@ const ViewScreen = () => {
                 {work}
                 {/* </InfiniteScroll> */}
             </div>
-            <div>
-                <Copyright2/>
-            </div>
+                <Copyright2/>     
         </div>)
 }
 

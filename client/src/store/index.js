@@ -15,7 +15,7 @@ export const GlobalStoreContext = createContext({});
 // THESE ARE ALL THE TYPES OF UPDATES TO OUR GLOBAL
 // DATA STORE STATE THAT CAN BE PROCESSED
 export const GlobalStoreActionType = {
-    CLOSE_CURRENT_WORK: "CLOSE_CURRENT_LIST",
+    CLOSE_CURRENT_WORK: "CLOSE_CURRENT_WORK",
     CREATE_NEW_WORK: "CREATE_NEW_WORK",
     LOAD_WORK_LIST: "LOAD_WORK_LIST",
     MARK_WORK_FOR_DELETION: "MARK_WORK_FOR_DELETION",
@@ -39,9 +39,9 @@ function GlobalStoreContextProvider(props) {
         currentWork: null,
         editActive: false,
         workMarkedForDeletion: null,
-        mode: null,
+        mode: "",
         text: "",
-        status: null,
+        status: 1,
         view: [] 
     });
     const history = useHistory();
@@ -69,10 +69,11 @@ function GlobalStoreContextProvider(props) {
             }
             // CREATE A NEW LIST
             case GlobalStoreActionType.CREATE_NEW_WORK: {
+                console.log("create");
                 return setStore({
                     workList: store.workList,
                     currentWork: payload,
-                    editActive: true,
+                    editActive: false,
                     workMarkedForDeletion: null,
                     mode: store.mode,
                     text: store.text,
@@ -265,6 +266,7 @@ function GlobalStoreContextProvider(props) {
         };
         const response = await api.createWork(payload);
         if (response.data.success) {
+            console.log("create new work");
             let newWork = response.data.work;
             storeReducer({
                 type: GlobalStoreActionType.CREATE_NEW_WORK,
@@ -297,7 +299,7 @@ function GlobalStoreContextProvider(props) {
                 let work = workArray[key];
                 //console.log(work);
                 if(auth.loggedIn){
-                    if(auth.user.id===work.author){
+                    if(auth.user.email===work.author){
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
@@ -371,8 +373,8 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
                 payload: work                      //{list: work,edit: input}
             });
-        console.log(this.currentWork);  
-        console.log(work);    
+        // console.log(this.currentWork);  
+        // console.log(work);    
 
         if(this.currentWork)
         {
@@ -619,7 +621,6 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.STATUS,
             payload: status
         });
-        console.log(store.status);
         history.push("/view/");
     }
 

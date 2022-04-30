@@ -115,6 +115,7 @@ export default function AppBanner() {
         else if (targetPage === 'profile') {
             history.push('/profile')
         }
+        else{console.log("can't create")}
     }
    
     const menuId = 'primary-search-account-menu';

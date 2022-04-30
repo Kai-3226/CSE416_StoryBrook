@@ -13,16 +13,19 @@ export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
     const [text,setText]=useState("");
+    const[stat,setStatus]=useState(0);
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
     let mylist = [];
 
-    function handleClick(status){
-        mylist = store.workList.filter(item => item.author === auth.user.id);
-        if(status === 1){
+    function handleClick(status) {
+        setStatus(status);
+        mylist = store.workList.filter(item => item.author === auth.user.email);
+        if(stat == 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
-        } else{
+        } else if(stat == 2)
+        {
             mylist = mylist.filter(item => item.published["publish"] === false);
         }
         if (store && store.workList) {
@@ -47,8 +50,9 @@ export default function MyPage () {
             <Button onClick={(event) => {handleClick(1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
             <Button onClick={(event) => {handleClick(2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
         </Box>
-        if (store && store.workList) {
-            mylist = store.workList.filter(item => item.author === auth.user.id);
+        
+        if (store && store.workList&&stat==0) {
+            mylist = store.workList.filter(item => item.author === auth.user.email);
             list = "";  
             let rows = [];
             for (var i = 0, end = mylist.length / 2; i < end; ++i){
