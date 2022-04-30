@@ -25,6 +25,7 @@ import ReadScreen from './components/ReadScreen';
 import CreatePageBanner from './components/CreatePageBanner' ;
 import MypageScreen from './components/MypageScreen';
 import ProfileScreen from './components/MypageProfile'
+import ReadStory from './components/ReadStory';
 /*
     This is our application's top-level component.
     
@@ -51,6 +52,7 @@ const App = () => {
                         <Route path="/create/" exact component={CreateScreen} />
                         <Route path="/message/" exact component={MessageScreen} />
                         <Route path="/read/:id" exact component={ReadScreen} />
+                        <Route path="/readStory/:id" exact component={ReadStory} />
                         <Route path="/myPage/" exact component={MypageScreen}/>
                         <Route path="/requestPasswordReset/" exact component={ForgetPassword}/>
                         <Route path="/passwordReset/:token/:id" exact component={ResetPassword}/>

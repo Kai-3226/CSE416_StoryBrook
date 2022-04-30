@@ -26,8 +26,7 @@ export default function StoryCreate() {
             store.currentWork.content=editorRef.current.getContent();
             store.currentWork.published={publish:true,date:Date()};
             store.updateCurrentWork();
-            //history.push('/mypage')
-            history.push(`/read/${store.currentWork._id}`);
+            history.push(`/readStory/${store.currentWork._id}`);
             alert("Work is published");
         }
     };
