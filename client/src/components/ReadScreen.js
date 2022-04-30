@@ -15,12 +15,13 @@ import CommentCard from './CommentsCard';
 import { Workspace } from 'polotno/canvas/workspace';
 import { createStore } from 'polotno/model/store';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
+import { Markup } from 'interweave';
 
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     
-    const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
-    workstore.loadJSON(store.currentWork.content);
+    // const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
+    // workstore.loadJSON(store.currentWork.content);
     
    
    
@@ -70,8 +71,9 @@ const ReadScreen = () => {
                                           
                     </Box>  */}
                      {/* <ComicViewer pages={['../Images/Comics.png', '../Images/Comics.png']} /> */}
-                     <Workspace store={workstore} />
-                     <ZoomButtons store={workstore} />
+                     {/* <Workspace store={workstore} /> */}
+                     {/* <ZoomButtons store={workstore} /> */}
+                     <Markup content={store.currentWork.content} />
 
                  </Box>
                  </Box>
@@ -91,16 +93,7 @@ const ReadScreen = () => {
                 
                 
                 <CommentCard/>
-                  
-
-                </Box>    
-                   
-
-
-                
-
-                
-           
+                </Box>   
         </Box>
        
     );

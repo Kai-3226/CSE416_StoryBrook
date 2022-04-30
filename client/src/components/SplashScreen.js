@@ -19,9 +19,8 @@ export default function SplashScreen() {
     const {store}=useContext(GlobalStoreContext);
     
     function handleClick(status){
+        console.log(status)
         store.stat(status);
-        //store.loadWorkList();
-        //console.log(store.workList);
     }
 
     return (

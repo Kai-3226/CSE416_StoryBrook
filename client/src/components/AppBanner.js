@@ -14,8 +14,9 @@ import NotificationModal from './NotificationModal';
 import FriendModal from './FriendModal';
 import { useHistory } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
-import CreatePageBanner from './CreatePageBanner';
+import { TextField } from '@mui/material';
 import DeleteModal from './DeleteModal';
+import CreatePageBanner from './CreatePageBanner';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -36,8 +37,9 @@ export default function AppBanner() {
         auth.logoutUser();
     }
     const handleCreate = () => {
-        if(store.status)
+        if(store.status == 0 || store.status == 1)
         {  
+            console.log(store.status)
             store.createWork();
         }
     }
@@ -85,22 +87,20 @@ export default function AppBanner() {
             <MenuItem onClick={handleMenuClose}><Link to='/myPage'>my page</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </Menu>        
+        </Menu>            
 
     let editToolbar = "";
     let menu = loggedOutMenu;
     if (auth.loggedIn){
-        menu = loggedInMenu;
-        editToolbar=
-        <Button size = "small" color ="primary" variant="contained" onClick={handleCreate}>Create</Button>
+            menu = loggedInMenu;
+            console.log(store.currentWork)
+            if (store.currentWork && store.currentWork.published.publish == false){
+                editToolbar= <CreatePageBanner/>
+            } else {
+                editToolbar=
+                <Button size = "small" color ="primary" variant="contained" onClick={handleCreate}>Create</Button>
+            }
     }
-    // if (store.editActive){
-    //     editToolbar=
-    //     <Box>
-    //         <Button size = "small" color ="primary" variant="contained" onClick={handleSave}>Save</Button>
-    //         <Button size = "small" color ="primary" variant="contained" onClick={handlePublish}>Publish</Button>
-    //     </Box>
-    // }
     
     function getAccountMenu(loggedIn) {
         if(loggedIn){
@@ -130,9 +130,8 @@ export default function AppBanner() {
                     >
                         <Link style={{ textDecoration: 'none', color: '#d4b038' }} to='/'>StoryBrook</Link>
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }}></Box>
+                    <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        {editToolbar}
                         <IconButton
                             size="large"
                             edge="end"
@@ -150,10 +149,8 @@ export default function AppBanner() {
             {
                 menu
             }
-            <NotificationModal/>
-            <FriendModal/>
-            <DeleteModal/>
         </Box>
+        
 
 
     return (banner);

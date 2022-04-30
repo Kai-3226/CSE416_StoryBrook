@@ -15,7 +15,8 @@ import {
     HomeScreen,
     ViewScreen,
     HomeScreen2,
-    ResetPassword
+    ResetPassword,
+    StoryCreate
 } from './components'
 import LoginScreen from './components/LoginScreen'
 import CreateScreen from './components/CreateScreen'
@@ -54,9 +55,8 @@ const App = () => {
                         <Route path="/requestPasswordReset/" exact component={ForgetPassword}/>
                         <Route path="/passwordReset/:token/:id" exact component={ResetPassword}/>
                         <Route path="/profile/" exact component={ProfileScreen}/>
-                                            
+                        <Route path="/createStory/" exact component={StoryCreate} />               
                     </Switch>
-                    
                 </GlobalStoreContextProvider>
             </AuthContextProvider>
         </BrowserRouter>

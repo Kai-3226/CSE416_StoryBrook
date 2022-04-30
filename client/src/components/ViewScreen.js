@@ -31,7 +31,7 @@ const ViewScreen = () => {
     };
 
     function handleSort(criteria){
-        store.view(criteria);
+        store.viewlist(criteria);
         list = store.view;
     }
 
@@ -59,16 +59,6 @@ const ViewScreen = () => {
     let work = "";
 
     if (store && store.workList) {
-<<<<<<< HEAD
-        work = "";
-        list = store.workList;
-        //console.log(store.workList);
-        // const rows = list.reduce(function (rows, key, index) { 
-        //     return (index % 4 == 0 ? rows.push([key]) 
-        //       : rows[rows.length-1].push(key)) && rows;
-        //   }, []);
-        // console.log(rows);
-=======
         list = store.workList;
         console.log(list);
         list = list.filter(item => item.published["publish"] === true);
@@ -78,7 +68,6 @@ const ViewScreen = () => {
           }, []);
         console.log(rows);
 
->>>>>>> e2103d133cbc8d870b1a097fa5f9abdc1df12c12
 
         // let rows = [];
         // for (var i = 0, end = store.workList.length / 4; i < end; ++i){
