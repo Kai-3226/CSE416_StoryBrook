@@ -23,6 +23,7 @@ export default function SplashScreen() {
         store.loadWorkList();
         //console.log(store.workList);
     }
+    
 
     return (
         <div style={{backgroundImage: `url(${splashScreen})`, backgroundRepeat: "no-repeat",backgroundPosition: "center",backgroundSize: "cover"}}>

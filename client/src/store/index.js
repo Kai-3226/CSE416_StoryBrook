@@ -39,9 +39,9 @@ function GlobalStoreContextProvider(props) {
         currentWork: null,
         editActive: false,
         workMarkedForDeletion: null,
-        mode: null,
+        mode: "",
         text: "",
-        status: null,
+        status: 1,
         view: [] 
     });
     const history = useHistory();

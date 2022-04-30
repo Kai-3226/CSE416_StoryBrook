@@ -40,6 +40,7 @@ export default function AppBanner() {
         {  
             store.createWork();
         }
+        else{console.log("can't create")}
     }
    
     const menuId = 'primary-search-account-menu';
