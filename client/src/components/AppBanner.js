@@ -12,18 +12,25 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationModal from './NotificationModal';
 import FriendModal from './FriendModal';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import { TextField } from '@mui/material';
 import DeleteModal from './DeleteModal';
 import CreatePageBanner from './CreatePageBanner';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import Dialog from '@mui/material/Dialog';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const history = useHistory();
+    const location = useLocation();
     const { store } = useContext(GlobalStoreContext);
+    const [popUp, setpopUp] = useState(false);
+    const [targetPage, setTargetPage] = useState("Creating");
+
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -32,15 +39,81 @@ export default function AppBanner() {
         setAnchorEl(null);
     };
 
-    const handleLogout = () => {
-        handleMenuClose();
-        auth.logoutUser();
+    const handleSplashScreen = () => {
+        if(location.pathname.includes("create")){
+            setpopUp(true);
+            setTargetPage("splash");
+        }
+        else{
+            history.push('/')
+        }
     }
+
+    const handleLogout = () => {
+        if(location.pathname.includes("create")){
+            setpopUp(true);
+            setTargetPage("logout")
+        }
+        else {
+            handleMenuClose();
+            auth.logoutUser();
+        }
+            
+    }
+
+    const handleMyPage = () => {
+        if(location.pathname.includes("create")){
+            setpopUp(true);
+            setTargetPage("mypage")
+        }
+        else {
+            handleMenuClose();
+            history.push('/mypage')
+        }
+            
+    }
+
+    const handleProfile = () => {
+        if(location.pathname.includes("create")){
+            setpopUp(true);
+            setTargetPage("profile")
+        }
+        else {
+            handleMenuClose();
+            history.push('/profile')
+        }
+            
+    }
+
     const handleCreate = () => {
         if(store.status == 0 || store.status == 1)
         {  
+            editToolbar= <CreatePageBanner/>
             console.log(store.status)
             store.createWork();
+            setTargetPage("Creating");
+        }
+    }
+
+    function handleCheckClose (event){
+        event.stopPropagation();
+        setpopUp(false);
+        setTargetPage("Creating");
+    };
+
+    const direction = async(event)=>{
+        event.preventDefault();
+        setpopUp(false);
+        if(targetPage === 'logout'){
+            auth.logoutUser();
+        }
+        else if(targetPage === 'splash'){
+            history.push('/')
+        } else if (targetPage === 'myPage') {
+            history.push('/myPage')
+        } 
+        else if (targetPage === 'profile') {
+            history.push('/profile')
         }
     }
    
@@ -83,9 +156,8 @@ export default function AppBanner() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            
-            <MenuItem onClick={handleMenuClose}><Link to='/myPage'>my page</Link></MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
+            <MenuItem onClick={handleMyPage}>My Page</MenuItem>
+            <MenuItem onClick={handleProfile}>Profile</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>            
 
@@ -94,8 +166,8 @@ export default function AppBanner() {
     if (auth.loggedIn){
             menu = loggedInMenu;
             console.log(store.currentWork)
-            if (store.currentWork && store.currentWork.published.publish == false){
-                editToolbar= <CreatePageBanner/>
+            if (store.currentWork && store.currentWork.published.publish == false && targetPage == "Creating"){
+                editToolbar = <CreatePageBanner/>
             } else {
                 editToolbar=
                 <Button size = "small" color ="primary" variant="contained" onClick={handleCreate}>Create</Button>
@@ -126,9 +198,10 @@ export default function AppBanner() {
                         variant="h4"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}                        
+                        sx={{ display: { xs: 'none', sm: 'block' } }}      
+                        onClick={()=>{handleSplashScreen()}}                  
                     >
-                        <Link style={{ textDecoration: 'none', color: '#d4b038' }} to='/'>StoryBrook</Link>
+                        <b style={{ textDecoration: 'none', color: '#d4b038' }}>StoryBrook</b>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -146,12 +219,24 @@ export default function AppBanner() {
                     </Box>
                 </Toolbar>
             </AppBar>
+            <Dialog
+                    id = "saveCheck"
+                    maxWidth='sm'
+                    open= {popUp}
+                    onClose={(event)=>{handleCheckClose(event);}}
+                >
+                <DialogTitle>
+                    Did you save your project?
+                <DialogActions>
+                        <Button onClick={(event)=>{direction(event);}}>Confirm</Button>
+                        <Button onClick={(event)=>{handleCheckClose(event);}}>No</Button>
+                    </DialogActions>
+                </DialogTitle>
+            </Dialog>
             {
                 menu
             }
         </Box>
         
-
-
     return (banner);
 }
