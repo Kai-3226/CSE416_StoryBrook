@@ -51,10 +51,10 @@ function WorkCard(props) {
     const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
     var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
     // import data
-    var json=work.content;
-    workstore.loadJSON(json);
+    //var json=work.content;
+    //workstore.loadJSON(json);
     // wait for loading
-    workstore.waitLoading();
+    //workstore.waitLoading();
     // do export
     let response=url;
     // try{
