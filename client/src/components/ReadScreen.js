@@ -91,16 +91,7 @@ const ReadScreen = () => {
                 
                 
                 <CommentCard/>
-                  
-
-                </Box>    
-                   
-
-
-                
-
-                
-           
+                </Box>   
         </Box>
        
     );
