@@ -33,14 +33,17 @@ function DeleteModal() {
     const { store } = useContext(GlobalStoreContext);
     let name = "";
     if (store.workMarkedForDeletion) {
-        name = store.workMarkedForDeletion.name;
+        name = store.currentWork.name;
         open=true;
     }
     function handleDeleteList(event) {
-        store.deleteMarkedWork();
+      console.log(store.currentWork)
+      event.stopPropagation();
+        store.deleteWork(store.currentWork._id);
         handleClose();
     }
     function handleClose(event){
+      event.stopPropagation();
         store.unmarkWorkForDeletion();
         open=false;
     }

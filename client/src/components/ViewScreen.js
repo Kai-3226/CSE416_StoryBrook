@@ -31,7 +31,7 @@ const ViewScreen = () => {
     };
 
     function handleSort(criteria){
-        store.view(criteria);
+        store.viewlist(criteria);
         list = store.view;
     }
 

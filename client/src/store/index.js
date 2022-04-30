@@ -18,8 +18,8 @@ export const GlobalStoreActionType = {
     CLOSE_CURRENT_WORK: "CLOSE_CURRENT_LIST",
     CREATE_NEW_WORK: "CREATE_NEW_WORK",
     LOAD_WORK_LIST: "LOAD_WORK_LIST",
-    MARK_WORK_FOR_DELETION: "MARK_LIST_FOR_DELETION",
-    UNMARK_WORK_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
+    MARK_WORK_FOR_DELETION: "MARK_WORK_FOR_DELETION",
+    UNMARK_WORK_FOR_DELETION: "UNMARK_WORK_FOR_DELETION",
     SET_CURRENT_WORK: "SET_CURRENT_WORK",
     EDIT_WORK: "EDIT_WORK",
     UPDATE_WORK: "UPDATE_WORK",
@@ -98,7 +98,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.MARK_WORK_FOR_DELETION: {
                 return setStore({
                     workList: store.workList,
-                    currentWork: null,
+                    currentWork: payload,
                     editActive: false,
                     workMarkedForDeletion: payload,
                     mode: store.mode,
@@ -197,12 +197,12 @@ function GlobalStoreContextProvider(props) {
             }
             case GlobalStoreActionType.STATUS: {
                 return setStore({
-                    workList:payload,
+                    workList:null,
                     currentWork:null,
                     editActive:false,
                     workMarkedForDeletion:null,
-                    mode: store.mode,
-                    text: store.text,
+                    mode: null,
+                    text: null,
                     status: payload,
                     view: store.view
                 })
@@ -247,7 +247,7 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.CLOSE_CURRENT_WORK,
             payload: {}
         });
-        store.loadworkList();    
+        store.loadWorkList();   
     }
 
     // THIS FUNCTION CREATES A NEW LIST
@@ -271,6 +271,11 @@ function GlobalStoreContextProvider(props) {
                 payload: newWork
             }
             );
+            console.log(store.status)
+            if (store.status == 1 )
+                history.push("/create/")
+            else if (store.status == 0)
+                history.push("/createStory/")
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
             // console.log(this.currentWork.id);
             // auth.user.works.push(this.currentWork.id);
@@ -279,10 +284,6 @@ function GlobalStoreContextProvider(props) {
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
         }
- 
-
-        history.push("/create/")
-        
     }
 
     // THIS FUNCTION LOADS ALL WORKS THAT VIEWABLE BY CURRENT AUTH
@@ -345,15 +346,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.deleteWork = async function (WorkToDelete) {
-        let response = await api.deleteWorkById(WorkToDelete._id);
+        let response = await api.deleteWorkById(WorkToDelete);
         if (response.data.success) {
-        
             store.closeCurrentWork();
         }
-    }
-
-    store.deleteMarkedWork = function () {
-        store.deleteWork(store.WorkMarkedForDeletion);
     }
 
     store.unmarkWorkForDeletion = function () {
@@ -554,7 +550,7 @@ function GlobalStoreContextProvider(props) {
     }
 
 // Generate view list in view screem
-    store.view = function(criteria){
+    store.viewlist = function(criteria){
         let list=[];
         if (criteria===0 || criteria===4){
             let i, j;
@@ -618,6 +614,7 @@ function GlobalStoreContextProvider(props) {
 
 
     store.stat = function (status){
+        console.log(status)
         storeReducer({
             type: GlobalStoreActionType.STATUS,
             payload: status
@@ -625,6 +622,8 @@ function GlobalStoreContextProvider(props) {
         console.log(store.status);
         history.push("/view/");
     }
+
+
     store.myPage = function() {
         history.push("/mypage/");
     }
