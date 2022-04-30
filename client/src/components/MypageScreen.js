@@ -19,12 +19,12 @@ export default function MyPage () {
     let selectbar="";
     let mylist = [];
 
-    function handleClick(status){
+    function handleClick(status) {
         setStatus(status);
         mylist = store.workList.filter(item => item.author === auth.user.email);
-        if(stat === 1){
+        if(stat == 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
-        } else if(stat === 2)
+        } else if(stat == 2)
         {
             mylist = mylist.filter(item => item.published["publish"] === false);
         }
@@ -48,7 +48,7 @@ export default function MyPage () {
         selectbar=
         <Box>
             <Button onClick={(event) => {handleClick(1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
-            <Button onClick={(event) => {handleClick(2)}} id="work-editing" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
+            <Button onClick={(event) => {handleClick(2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
         </Box>
         
         if (store && store.workList&&stat==0) {
