@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
 import Button from '@mui/material/Button';
@@ -15,6 +15,7 @@ import FriendModal from './FriendModal';
 import { useHistory } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import CreatePageBanner from './CreatePageBanner';
+import DeleteModal from './DeleteModal';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -35,7 +36,10 @@ export default function AppBanner() {
         auth.logoutUser();
     }
     const handleCreate = () => {
-        store.createWork();
+        if(store.status&&(store.currentWork==null))
+        {  
+            store.createWork();
+        }
     }
    
     const menuId = 'primary-search-account-menu';
@@ -77,9 +81,10 @@ export default function AppBanner() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            
             <MenuItem onClick={handleMenuClose}><Link to='/myPage'>my page</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>        
 
     let editToolbar = "";
@@ -147,7 +152,7 @@ export default function AppBanner() {
             }
             <NotificationModal/>
             <FriendModal/>
-
+            <DeleteModal/>
         </Box>
 
 

@@ -378,9 +378,9 @@ input {
 #sidebar {
   position:relative;
   left: 0%;
-  top: 20%;
+  top: 2%;
   width: 20%;
-  height: 70%;
+  height: 95%;
   background: #f3f3f3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -395,13 +395,14 @@ input {
   flex-direction: column;  
 }
 #content {
-  position: absolute;
-  left: 20%;
-  top: 10%;
+  position: relative;
+  left: 0%;
+  top: 0%;
   width: 80%;
-  height: 80%;
+  height: 100%;
   flex-direction: column;
   padding: 5px;
+  background-color: #C7CA3D;
 }
 #mypage-search {
   border-radius: 5px;
@@ -417,7 +418,7 @@ input {
   left:0%;
   height:90%;
   width:100%;
-  background-color: #C7CA3D;
+  background-color: #ca6e3d;
 }
 #work-published{
   position:relative;
@@ -429,14 +430,14 @@ input {
 #work-following{
   position:relative;
   top:15%;
-  left:50%;
+  left:10%;
   height:5%;
   width:40%;
 }
-.selected-menu, .unselected-menu {
-  font-size: 18pt;
+.unselected-menu {
+  font-size: 15pt;
   margin: 10px;
-  padding: 20px;
+  padding: 15px;
   border-radius: 25px;
   background:#c4c4c4
 }
@@ -447,17 +448,15 @@ input {
   color:white;
 }
 
-.selected-menu {
-  background-color: #c4c4c4;
-  color: white;
+.selected-menu{
+  font-size: 15pt;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 25px;
+  background:#dddc84
 }
-.selected-menu:hover {
-  background-color: #c4c4c4;
-  color: white;
-}
-.unselected-menu {
-  background-color: var(#C4c4c4);
-}
+
+
 
 .list-card-button {
   float:right;

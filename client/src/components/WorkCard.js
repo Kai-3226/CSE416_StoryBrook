@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import { createStore } from 'polotno/model/store';
 
 
 function WorkCard(props) {
@@ -19,9 +21,10 @@ function WorkCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { work } = props;
 
-    function handleOpen(id){
+    function handleOpen(event, id){
+        event.stopPropagation();
+        console.log(id);
         store.setCurrentWork(id);
-        console.log(store.currentList);
     }
 
     async function handleDeleteWork(event, id) {
@@ -29,43 +32,68 @@ function WorkCard(props) {
         store.markWorkForDeletion(id);
     }
     
+    
+    
     let deletebutton=
     <IconButton  onClick={(event) => {
         handleDeleteWork(event, work._id)
         }} aria-label='delete'>
         <DeleteIcon/>
     </IconButton>;
+    
     if(auth.user===null){
         deletebutton="";
     }
-    else if(auth.user.userid!==work.userid){
+    else if(auth.user._id!==work.author || store.mode!=="user"){
         deletebutton=
         "";
     }
+    const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
+    var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
+    // import data
+    var json=work.content;
+    workstore.loadJSON(json);
+    // wait for loading
+    workstore.waitLoading();
+    // do export
+    let response=url;
+    // try{
+    //     response=workstore.toDataURL();
+    // }catch{response=url};
 
+
+    // if(work.content!=null&&work.content.pages!=null&&work.content.pages.length!=0)
+    //  {  const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
+    //     workstore.loadJSON(work.content);
+    //     image.src=workstore.toDataURL({pageId: workstore.pages[0].id});
+    
+    // }
+  
+    
     let workElement =
-        <Card id={work.id} hoverable sx={{ maxWidth: 345 }} onClick={handleOpen}>
+        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"
                 height="140"
-                image= {work.frontpage}
+                image= {response}
                 alt= {work.name}
             />
-            <CardContent>
-                <Typography>
+           
+                <Box display="flex" sx={{bgcolor:"lightgreen",position:"relative",width:"100%",height:"20%"}}> 
+                <Typography paddingRight="20%" >
                     {work.name}
                 </Typography>
                 <RemoveRedEyeIcon></RemoveRedEyeIcon>
-                <Typography>
+                <Typography >
                     {work.view}
                 </Typography>
-                <ThumbUpIcon></ThumbUpIcon>
+                <ThumbUpIcon size='20%'></ThumbUpIcon>
                 <Typography>
-                    {work.like}
+                    {work.likes.length}
                 </Typography>
                 <Avatar alt={work.author} src={work.avatar} />
-            </CardContent>
+                </Box>
         </Card>
     return (
         workElement
