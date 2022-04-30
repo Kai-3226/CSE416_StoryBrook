@@ -19,7 +19,7 @@ export default function MyPage () {
     let mylist = [];
 
     function handleClick(status){
-        mylist = store.workList.filter(item => item.author === auth.user.id);
+        mylist = store.workList.filter(item => item.author === auth.user.email);
         if(status === 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
         } else{
@@ -48,7 +48,7 @@ export default function MyPage () {
             <Button onClick={(event) => {handleClick(2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
         </Box>
         if (store && store.workList) {
-            mylist = store.workList.filter(item => item.author === auth.user.id);
+            mylist = store.workList.filter(item => item.author === auth.user.email);
             list = "";  
             let rows = [];
             for (var i = 0, end = mylist.length / 2; i < end; ++i){
