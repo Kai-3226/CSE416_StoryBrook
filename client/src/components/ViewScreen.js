@@ -90,7 +90,7 @@ const ViewScreen = () => {
             <div id="viewpage_banner">
             </div >
             
-            <div style={{height:'700px',overflow:'auto'}}>
+            <div style={{height:'500px',overflow:'auto'}}>
                 {/* <InfiniteScroll
                     //pageStart={0}
                     // loadMore={loadFunc}

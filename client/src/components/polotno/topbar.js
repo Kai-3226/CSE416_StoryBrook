@@ -144,7 +144,7 @@ export default observer(({  workstore }) => {
     // const json = workstore.toJSON();
     //store.currentWork.content=saveAsImage();
     const json = workstore.toJSON();
-    store.currentWork.title=title;
+    store.currentWork.name=title;
     store.currentWork.content=json;
     store.currentWork.published={publish:true,date:Date()};
     store.updateCurrentWork();

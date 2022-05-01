@@ -64,11 +64,11 @@ export default function AppBanner() {
     const handleMyPage = () => {
         if(location.pathname.includes("create")){
             setpopUp(true);
-            setTargetPage("mypage")
+            setTargetPage("myPage")
         }
         else {
             handleMenuClose();
-            history.push('/mypage')
+            history.push('/myPage')
         }
             
     }
@@ -88,7 +88,7 @@ export default function AppBanner() {
     const handleCreate = () => {
         if(store.status == 0 || store.status == 1)
         {  
-            editToolbar= <CreatePageBanner/>
+            //editToolbar= <CreatePageBanner/>
             console.log(store.status)
             store.createWork();
             setTargetPage("Creating");
@@ -109,7 +109,8 @@ export default function AppBanner() {
         }
         else if(targetPage === 'splash'){
             history.push('/')
-        } else if (targetPage === 'myPage') {
+        } 
+        else if (targetPage === 'myPage') {
             history.push('/myPage')
         } 
         else if (targetPage === 'profile') {
@@ -166,10 +167,11 @@ export default function AppBanner() {
     let menu = loggedOutMenu;
     if (auth.loggedIn){
             menu = loggedInMenu;
-            console.log(store.currentWork)
-            if (store.currentWork && store.currentWork.published.publish == false && targetPage == "Creating"){
-                editToolbar = <CreatePageBanner/>
-            } else {
+
+            // if (store.currentWork && store.currentWork.published.publish == false && targetPage == "Creating"){
+            //     editToolbar = <CreatePageBanner/>
+            // } else 
+            if((store.status==0||store.status==1)){
                 editToolbar=
                 <Button size = "small" color ="primary" variant="contained" onClick={handleCreate}>Create</Button>
             }
@@ -204,8 +206,9 @@ export default function AppBanner() {
                     >
                         <b style={{ textDecoration: 'none', color: '#d4b038' }}>StoryBrook</b>
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
+                    <Box sx={{ flexGrow: 1 }}></Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        {editToolbar}
                         <IconButton
                             size="large"
                             edge="end"

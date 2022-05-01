@@ -41,7 +41,7 @@ function GlobalStoreContextProvider(props) {
         workMarkedForDeletion: null,
         mode: "",
         text: "",
-        status: 1,
+        status: null,
         view: [] 
     });
     const history = useHistory();
@@ -373,21 +373,24 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
                 payload: work                      //{list: work,edit: input}
             });
-        // console.log(this.currentWork);  
-        // console.log(work);    
+            // console.log(this.currentWork);  
+            // console.log(work);    
 
-        if(this.currentWork)
-        {
-            if(this.currentWork.published['publish']==true)
-            {history.push(`/read/${id}`);}
-            else if (this.currentWork.published['publish']==false)
-            {history.push(`/create/`);}
+            if(this.currentWork)
+            {
+                if(this.currentWork.published['publish']==true)
+                {   if(this.currentWork.workType==1)  history.push(`/read/${id}`);
+                    else if (this.currentWork.workType==0) history.push(`/readStory/${id}`); }
+                else if (this.currentWork.published['publish']==false)
+                {   if(this.currentWork.workType==1)  history.push(`/create/`);
+                    else if (this.currentWork.workType==0) history.push(`/createStory/`);
+                }
+                
             }
         
         }
         
-        
-       
+              
     }
 
     store.updateWork = async function (newWork) {
