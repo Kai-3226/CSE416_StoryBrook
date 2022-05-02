@@ -13,6 +13,7 @@ export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
     const [text,setText]=useState("");
+    const[stat,setStatus]=useState(0);
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
@@ -22,7 +23,8 @@ export default function MyPage () {
         mylist = store.workList.filter(item => item.author === auth.user.email);
         if(status === 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
-        } else{
+        } else if(stat == 2)
+        {
             mylist = mylist.filter(item => item.published["publish"] === false);
         }
         if (store && store.workList) {

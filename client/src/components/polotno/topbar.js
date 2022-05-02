@@ -148,7 +148,7 @@ export default observer(({  workstore }) => {
     store.currentWork.content=json;
     store.currentWork.published={publish:true,date:Date()};
     store.updateCurrentWork();
-    history.push(`/read/${store.currentWork._id}`);
+    history.push(`/read/${store.currentWork.id}`);
     alert("Work is published");
   };
 
