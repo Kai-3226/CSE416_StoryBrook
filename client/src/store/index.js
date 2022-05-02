@@ -296,23 +296,24 @@ function GlobalStoreContextProvider(props) {
             for(let key in workArray){
                 let work = workArray[key];
                 //console.log(work);
-                if(auth.loggedIn){
-                    if(auth.user.id===work.author){
-                        // console.log(auth.user.email,list.email,list.published.published)
-                        viewable.push(work);
+                if (work.workTyp === store.status){
+                    if(auth.loggedIn){
+                        if(auth.user.id===work.author){
+                            // console.log(auth.user.email,list.email,list.published.published)
+                            viewable.push(work);
+                        }
+                        else if(work.published.publish===true){
+                            // console.log(auth.user.email,list.email,list.published.published)
+                            viewable.push(work);
+                        }
                     }
-                    else if(work.published.publish===true){
-                        // console.log(auth.user.email,list.email,list.published.published)
-                        viewable.push(work);
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
                     }
                 }
-                else{
-                    if(work.published.publish===true){
-                        viewable.push(work);
-                        // console.log(listOwned);
-                    } 
-                }
-                
             }
             console.log(viewable);
 
