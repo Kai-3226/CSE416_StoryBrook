@@ -303,18 +303,13 @@ function GlobalStoreContextProvider(props) {
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
-                    else if(work.published.publish===true){
-                        // console.log(auth.user.email,list.email,list.published.published)
-                        viewable.push(work);
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
                     }
                 }
-                else{
-                    if(work.published.publish===true){
-                        viewable.push(work);
-                        // console.log(listOwned);
-                    } 
-                }
-                
             }
             console.log(viewable);
 

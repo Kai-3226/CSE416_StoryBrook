@@ -16,10 +16,63 @@ import Box from '@mui/material/Box';
 import { createStore } from 'polotno/model/store';
 
 
+let image = null;
+
+// const fs = require('fs');
+// const { createInstance } = require('polotno-node');
+
+// async function run() {
+//   const instance = await createInstance({
+//     key: 'nFA5H9elEytDyPyvKL7T',
+//   });
+
+//   const json = JSON.parse(fs.readFileSync(work.content.pages[0]));
+
+//   const imageBase64 = await instance.jsonToImageBase64(json); // by default it will be png image
+//   // write image into local file
+//   fs.writeFileSync('out.png', imageBase64, 'base64');
+
+//   // also we can export design into lower size
+//   // and change image type
+//   const jpegImage = await instance.jsonToImageBase64(json, {
+//     pixelRatio: 0.5, // make image twice smaller
+//     mimeType: 'image/jpeg',
+//   });
+//   fs.writeFileSync('out.jpg', jpegImage, 'base64');
+
+//   // close instance
+//   instance.close();
+// }
+
+
+
+
 function WorkCard(props) {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const { work } = props;
+
+    // let image = null;
+    
+    // // const { createInstance } = require('polotno-node');
+    // // const fs = require('fs');
+
+    // function run() {
+    //     console.log("kkkkkkkkkkkkk");
+    //     // const { createInstance } = require('polotno-node');
+    //     // const instance = createInstance({
+    //     //     key: 'nFA5H9elEytDyPyvKL7T',
+    //     // });
+
+    //     // const json = JSON.parse(fs.readFileSync(work.content.pages[0]));
+
+    //     // console.log(json);
+    //     // image = instance.jsonToImageBase64(json);
+    //     // instance.close();
+    // }
+
+    // run();
+
 
     function handleOpen(event, id){
         event.stopPropagation();

@@ -61,6 +61,7 @@ const ViewScreen = () => {
     let work = "";
 
     if (store && store.workList) {
+        console.log(store.workList);
         list = store.workList;
         console.log(list);
         list = list.filter(item => item.published["publish"] === true);
