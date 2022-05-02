@@ -41,8 +41,8 @@
     "mongoose": "^5.7.5",
     "nodemailer": "^6.7.3",
     "react-horizontal-scroll-menu": "^0.0.3",
-    "tinymce": "^6.0.2",
     "tiny-invariant": "^1.2.0",
+    "tinymce": "^6.0.2",
     "typescript": "^4.6.3"
   }
 }
