@@ -12,6 +12,7 @@ export const AuthActionType = {
     LOGOUT_USER: "LOGOUT_USER",
     LOGIN_USER: "LOGIN_USER",
     ERROR: "ERROR",
+    UPDATE_USER: "UPDATE_USER",
 }
 
 function AuthContextProvider(props) {
@@ -62,6 +63,12 @@ function AuthContextProvider(props) {
                     user:null,
                     loggedIn:false,
                     error:payload
+                })
+            }case AuthActionType.UPDATE_USER: {
+                return setAuth({
+                    user:payload,
+                    loggedIn:true,
+                    error:false
                 })
             }
             
@@ -135,7 +142,7 @@ function AuthContextProvider(props) {
                     payload:response.data.user
                 })
                 history.push("/");
-                console.log(response.data.user)
+               
             }
         }
         catch(err){
@@ -217,6 +224,26 @@ function AuthContextProvider(props) {
             console.log(err);
         }
     }
+
+    auth.searchUser = async function (id){
+        try{
+            const response = await api.getUserData(id);
+           if(response.status===200){
+               console.log(response.data.user)
+                return response.data.user       }
+            }
+            catch(err){
+                // authReducer({
+                //     type: AuthActionType.ERROR,
+                //     payload:{
+                //         status:err.response.status,
+                //         message:err.response.data.errorMessage
+                //     }
+                // })
+                console.log("error of reset password");
+            }
+        }
+        
     auth.changePassword= async function(newpassword){
 
 
@@ -238,6 +265,38 @@ function AuthContextProvider(props) {
             }
         }
         catch(err){
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.data.errorMessage
+            //     }
+            // })
+            console.log("error of reset password");
+        }
+    }
+    // auth.updateUser = async function (email,payload) {
+    //     const response = await api.updateUser(email,payload);
+    //     if(response.status === 200){
+    //         authReducer({
+    //             type: AuthActionType.UPDATE_USER,
+    //             paylaod:null
+    //         })
+    //     }
+    //     console.log(response);
+    //     return response.data.user;
+    // }
+    auth.changePassword= async function(newpassword){
+            let body = {
+            userId:auth.user._id,
+            password:newpassword
+            }
+            try{
+            const response = await api.changePassword(body);
+            if(response.status===200){
+            }
+            }
+            catch(err){
             // authReducer({
             // type: AuthActionType.ERROR,
             // payload:{

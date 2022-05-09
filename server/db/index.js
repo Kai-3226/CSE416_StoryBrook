@@ -1,7 +1,12 @@
 
 const mongoose = require('mongoose')
+<<<<<<< HEAD
+ const dotenv = require('dotenv')
+ dotenv.config();
+=======
 const dotenv = require('dotenv')
 dotenv.config();
+>>>>>>> harry
 
 
 //mongodb+srv://CSE416:StoryBrook@cse416.r919d.mongodb.net/CSE416?retryWrites=true&w=majority

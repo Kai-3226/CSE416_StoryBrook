@@ -13,6 +13,34 @@ import App from './polotno/App';
 
 unstable_setRemoveBackgroundEnabled(true);
 
+<<<<<<< HEAD
+const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
+window.store = workstore;
+
+
+// localforage.getItem('polotno-state', function (err, json) {
+//   if (json) {
+//     workstore.loadJSON(json);
+//   }
+//   if (!workstore.pages.length) {
+//     workstore.addPage();
+//   }
+// });
+
+workstore.on('change', () => {
+  try {
+    const json = workstore.toJSON();
+    const { store } = useContext(GlobalStoreContext);
+    store.editWork(JSON.stringify(json));
+    //localforage.setItem('polotno-state', json);
+  } catch (e) {}
+});
+
+const CreateScreen = () => {
+    const { store } = useContext(GlobalStoreContext);
+    function handlePublish(event){
+        store.publish(store.currentList._id);
+=======
 const CreateScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     
@@ -22,6 +50,7 @@ const CreateScreen = () => {
     if(store.currentWork&&store.currentWork.content==null)
     {  
         store.currentWork.content=json;
+>>>>>>> harry
     }
     else 
     {
