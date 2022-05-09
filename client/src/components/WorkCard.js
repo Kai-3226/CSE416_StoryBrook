@@ -52,26 +52,9 @@ function WorkCard(props) {
     const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
     var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
     var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
-    // import data
-    //var json=work.content;
-    //workstore.loadJSON(json);
-    // wait for loading
-    //workstore.waitLoading();
-    // do export
     
     let response=url;
     if(work.workType==0) {response=bookUrl};
-    // try{
-    //     response=workstore.toDataURL();
-    // }catch{response=url};
-
-
-    // if(work.content!=null&&work.content.pages!=null&&work.content.pages.length!=0)
-    //  {  const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
-    //     workstore.loadJSON(work.content);
-    //     image.src=workstore.toDataURL({pageId: workstore.pages[0].id});
-    
-    // }
   
     
     let workElement =
