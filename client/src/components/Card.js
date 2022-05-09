@@ -12,6 +12,8 @@ import WorkCard from './WorkCard'
 export default function Card(props) {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext)
+    const user = auth.searchUser(props);
+    console.log(user);
     function handleMessage(){
 
     }
@@ -20,7 +22,6 @@ export default function Card(props) {
     }
     let cardElement =""
     if(store.mode=="friends"){
-        const user = auth.searchUser(props);
         console.log(user);
         cardElement =
             <ListItem>
@@ -40,7 +41,6 @@ export default function Card(props) {
             </ListItem>
         }
     else if (store.mode=="followings"){
-        const user = auth.searchUser(props);
         console.log(user);
         cardElement =
             <ListItem>
@@ -61,14 +61,16 @@ export default function Card(props) {
             </ListItem>
     }
     else if (store.mode=="library"){
-        <ListItem>
-            <WorkCard></WorkCard>
-        </ListItem>
+        cardElement=
+            <ListItem>
+                <WorkCard></WorkCard>
+            </ListItem>
     }
     else if (store.mode=="likes"){
-        <ListItem>
-          <WorkCard></WorkCard>
-        </ListItem>
+        cardElement=
+            <ListItem>
+                <WorkCard></WorkCard>
+            </ListItem>
     }
     else{
         cardElement="";
