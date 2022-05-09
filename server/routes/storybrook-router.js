@@ -17,13 +17,8 @@ router.post('/register', UserController.registerUser)
 router.post('/login',UserController.loginUser)
 router.get('/logout',UserController.logoutUser)
 router.get('/loggedIn', UserController.getLoggedIn)
-<<<<<<< HEAD
-router.get('/getUserData',UserController.getUserData)
-router.put('/updateUser/',auth.verify,UserController.updateUser)
-=======
 router.get('/getUserData/:id',auth.verify,UserController.getUserData)
 router.put('/updateUser',auth.verify,UserController.updateUser)
->>>>>>> harry
 
 router.post('/library', auth.verify, LibraryController.createLibrary)
 router.put('/library/:id', auth.verify, LibraryController.updateLibrary)

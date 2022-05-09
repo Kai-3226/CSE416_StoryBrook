@@ -41,6 +41,7 @@ export const sendUserEmail = (payload) => api.post(`/requestPasswordReset/`, pay
 export const verifyEmail = (payload) => api.post(`/verifyEmail/`, payload)
 export const changePassword = (payload)=> api.put('/changePassword/',payload)
 export const updateUser = (payload)=> api.put('/updateUser/',payload)
+
 export const getUserbyId=(id)=>api.get(`/getUserData/${id}`)
 export const getOneUser =(email)=>api.get(`/getOneUser/${email}`)
 
