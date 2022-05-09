@@ -35,6 +35,7 @@ export const getLoggedIn = () => api.get(`/loggedIn/`);
 export const registerUser = (payload) => api.post(`/register/`, payload)
 export const loginUser = (payload) => api.post(`/login/`, payload)
 export const logoutUser = () => api.get(`/logout/`)
+export const getUserData = (id) => api.get(`/getUserData/`,id)
 //export const requestPasswordReset = (payload) => api.get(`/requestPasswordReset/`, payload)
 export const resetPassword = (token,id,payload) => api.put(`/resetPassword/${token}/${id}`, payload)
 export const sendUserEmail = (payload) => api.post(`/requestPasswordReset/`, payload)
@@ -50,6 +51,7 @@ const apis = {
     updateWorkById,
     deleteWorkById,
     getWorkById,
+    getUserData,
 
     getLoggedIn,
     registerUser,

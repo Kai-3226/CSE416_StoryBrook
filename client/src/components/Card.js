@@ -20,7 +20,8 @@ export default function Card(props) {
     }
     let cardElement =""
     if(store.mode=="friends"){
-        const user = auth.searchUser(props)
+        const user = auth.searchUser(props);
+        console.log(user);
         cardElement =
             <ListItem>
                 <Box sx={{ p: 1, flexGrow: 1 }}>{user.firstName+" "+user.lastName}</Box>
@@ -39,7 +40,8 @@ export default function Card(props) {
             </ListItem>
         }
     else if (store.mode=="followings"){
-        const user = auth.searchUser(props)
+        const user = auth.searchUser(props);
+        console.log(user);
         cardElement =
             <ListItem>
                     <Box sx={{ p: 1, flexGrow: 1 }}>{user.firstName+" "+user.lastName}</Box>

@@ -189,7 +189,7 @@ logoutUser= async (req, res) => {
 
 
 getUserData = async(req,res) =>{
-    await User.findById({ _id: req.params.id }, (err, user) => {
+    await User.findOne({ id: req.params.id }, (err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }

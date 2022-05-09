@@ -222,6 +222,26 @@ function AuthContextProvider(props) {
             console.log(err);
         }
     }
+
+    auth.searchUser = async function (id){
+        try{
+            const response = await api.getUserData(id);
+           if(response.status===200){
+               console.log(response.data.user)
+                return response.data.user
+            }
+        }
+        catch(err){
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.data.errorMessage
+            //     }
+            // })
+            console.log("error of reset password");
+        }
+    }
     auth.updateUser = async function (email,payload) {
         const response = await api.updateUser(email,payload);
         if(response.status === 200){
@@ -229,8 +249,9 @@ function AuthContextProvider(props) {
                 type: AuthActionType.UPDATE_USER,
                 paylaod:null
             })
-
         }
+        console.log(response);
+        return response.data.user;
     }
     auth.changePassword= async function(newpassword){
             let body = {
