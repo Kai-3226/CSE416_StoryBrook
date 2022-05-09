@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
-const path=require('path')
 // CREATE OUR SERVER
 dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -11,18 +10,27 @@ const app = express()
 
 // SETUP THE MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
+
 app.use(cors({
+<<<<<<< HEAD
     origin: ["http://localhost:3000"],
     //origin: ["https://storybrook.herokuapp.com"],
+=======
+
+    origin: ["https://storybrook.herokuapp.com","http://localhost:3000","https://sbrook.herokuapp.com"],        //http://localhost:3000
+>>>>>>> harry
 
     credentials: true
 }))
+//
 app.use(express.json())
 app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const storybrookRouter = require('./routes/storybrook-router')
+
 app.use('/api', storybrookRouter)
+
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')

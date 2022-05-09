@@ -13,8 +13,8 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: 'http://localhost:4000/api',
-    //baseURL: 'https://storybrook.herokuapp.com/api',    
+    //baseURL: 'http://localhost:4000/api',
+    baseURL: 'https://sbrook.herokuapp.com/api',    
 
 })
 //'https://storybrook.herokuapp.com/api' 'http://localhost:4000/api'
@@ -26,7 +26,7 @@ const api = axios.create({
 // CUSTOM FILTERS FOR QUERIES
 export const createWork = (payload) => api.post(`/work/`, payload)
 export const getAllWorks = () => api.get(`/works/`)
-//export const getWorkPairs = () => api.get(`/workpairs/`)
+export const getWorkList = () => api.get(`/works/`)
 export const updateWorkById = (id, payload) => api.put(`/work/${id}`, payload)
 export const deleteWorkById = (id) => api.delete(`/work/${id}`)
 export const getWorkById = (id) => api.get(`/work/${id}`)
@@ -43,6 +43,8 @@ export const verifyEmail = (payload) => api.post(`/verifyEmail/`, payload)
 export const changePassword = (payload)=> api.put('/changePassword/',payload)
 export const updateUser = (email,payload)=> api.put(`/updateUser/${email}`,payload)
 
+export const getUserbyId=(id)=>api.get(`/getUserData/${id}`)
+export const getOneUser =(email)=>api.get(`/getOneUser/${email}`)
 
 const apis = {
     createWork,
@@ -51,8 +53,8 @@ const apis = {
     updateWorkById,
     deleteWorkById,
     getWorkById,
-    getUserData,
 
+    getWorkList,
     getLoggedIn,
     registerUser,
     loginUser,
@@ -61,7 +63,9 @@ const apis = {
     sendUserEmail,
     verifyEmail,
     changePassword,
-    updateUser
+    updateUser,
+    getUserbyId,
+    getOneUser
 }
 
 export default apis

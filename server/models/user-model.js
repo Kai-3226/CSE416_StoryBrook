@@ -16,8 +16,8 @@ const UserSchema = new Schema(
                             "content": [{"isYou": Boolean,   
                                     "message": String}]
                                     }]},      
-        works: { type: [{"workId": String}]},
-        comicLibrary: { type: [{"libraryId": String}]},
+        works: { type: [String]},
+        comicLibrary: { type: [String]},
         like: { type: [String]},
         dislike: { type: [String]},
         alarm: { type: [Object]},
@@ -25,7 +25,7 @@ const UserSchema = new Schema(
                         "gender": Number,
                         "userName":String ,
                         "myStatement": String,
-                        "icon": Object}
+                        "icon": String}
                       }
     },
     

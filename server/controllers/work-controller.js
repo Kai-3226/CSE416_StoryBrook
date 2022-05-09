@@ -10,7 +10,6 @@ createWork = (req, res) => {
     }
 
     const work = new Work(body);
-    console.log("creating work: " + JSON.stringify(work));
     if (!work) {
         return res.status(400).json({ success: false, error: err })
     }
@@ -56,7 +55,6 @@ createWork = (req, res) => {
 
 updateWork = async (req, res) => {
     const body = req.body
-    console.log("updateWork: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
             success: false,
@@ -65,7 +63,6 @@ updateWork = async (req, res) => {
     }
 
     Work.findOne({ _id: req.params.id }, (err, work) => {
-        console.log("Work found: " + JSON.stringify(work));
         if (err) {
             return res.status(404).json({
                 err,
@@ -73,19 +70,29 @@ updateWork = async (req, res) => {
             })
         }
         work.workType = body.workType;
-        work.author = body.author;
+        work.content =body.content;
+        work.published=body.published;
+        work.name=body.name;
+        
+        work.view=body.view;
+        work.comments=body.comments;
+        work.likes=body.likes;
+        work.dislikes=body.dislikes;
+        work.author=body.author;
+        work.authorName=body.authorName;
+        work.authorId=body.authorId;
         work
             .save()
             .then(() => {
-                console.log("SUCCESS!!!");
                 return res.status(200).json({
                     success: true,
                     id: work._id,
+                    work:work,
                     message: 'Work updated!',
                 })
             })
             .catch(error => {
-                console.log("FAILURE: " + JSON.stringify(error));
+                console.log("FAILURE: updatework failed\n" + JSON.stringify(error));
                 return res.status(404).json({
                     error,
                     message: 'Work not updated!',
@@ -94,7 +101,7 @@ updateWork = async (req, res) => {
     })
 }
 
-deleteWork = async (req, res) => {
+deleteWorkById = async (req, res) => {
     Work.findById({ _id: req.params.id }, (err, work) => {
         if (err) {
             return res.status(404).json({
@@ -131,54 +138,6 @@ getWorks = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Works not found` })
         }
-        const body = req.body;
-        
-        if (body.query="mostlike"){
-            for(let i=0;i<works.length-1;i++){
-                for(let j=0;j<works.length-i-1;j++){
-                    if (works[j].likes.length < works[j+1].likes.length){
-                        swap(works,j,j+1);
-                    }   
-                }
-            }
-        }
-        else if (body,query="mostview"){
-            for(let i=0;i<works.length-1;i++){
-                for(let j=0;j<works.length-i-1;j++){
-                    if (works[j].view < works[j+1].view){
-                        swap(works,j,j+1);
-                    }   
-                }
-            }
-        }
-        else if (body.query="followingWorks"){
-            for(work in works){
-                if(!body.payload.includes(works[work].author)){
-                    works.splice(work,1);
-                }
-            }
-        }
-        else if (body.query="myWork"){
-            for(work in works){
-                if(works[work].author!==body.payload){
-                    works.splice(work,1);
-                }
-            }
-        }
-        else if (body.query="latest"){
-            for(let i=0;i<works.length-1;i++){
-                for(let j=0;j<works.length-i-1;j++){
-                    if (works[j].published.time < works[j+1].published.time){
-                        swap(works,j,j+1);
-                    }   
-                }
-            }
-        }
-        else{
-            return res
-                .status(404)
-                .json({ success: false, error: `Not valid query` })
-        }
         return res.status(200).json({ success: true, data: works })
     }).catch(err => console.log(err))
 }
@@ -201,14 +160,16 @@ getWorkPairs = async (req, res) => {
                 let pair = {
                     _id: work._id,
                     name: work.name,
-                    content: work.content,
+                    frontPage: work.content.pages[0],
                     workType: work.workType,
                     likes: work.likes,
                     dislikes: work.dislikes,
                     author: work.author,
                     published: work.published,
                     view: work.view,
-                    comments: work.comments
+                    comments: work.comments,
+                    authorName:work.authorName,
+                    authorId:work.authorId
                 };
                 pairs.push(pair);
             }
@@ -220,7 +181,7 @@ getWorkPairs = async (req, res) => {
 module.exports = {
     createWork,
     updateWork,
-    deleteWork,
+    deleteWorkById,
     getWorks,
     getWorkPairs,
     getWorkById

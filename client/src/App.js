@@ -15,7 +15,9 @@ import {
     HomeScreen,
     ViewScreen,
     HomeScreen2,
-    ResetPassword
+    ResetPassword,
+    StoryCreate,
+    ChangePassword
 } from './components'
 import LoginScreen from './components/LoginScreen'
 import CreateScreen from './components/CreateScreen'
@@ -24,6 +26,7 @@ import ReadScreen from './components/ReadScreen';
 import CreatePageBanner from './components/CreatePageBanner' ;
 import MypageScreen from './components/MypageScreen';
 import ProfileScreen from './components/MypageProfile'
+import ReadStory from './components/ReadStory';
 /*
     This is our application's top-level component.
     
@@ -46,17 +49,18 @@ const App = () => {
                         <Route path="/home/" exact component = {HomeScreen} />
                         <Route path="/view/" exact component = {ViewScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
+                        <Route path="/changePassword/" exact component={ChangePassword} />
                         <Route path="/register/" exact component={RegisterScreen} />
                         <Route path="/create/" exact component={CreateScreen} />
                         <Route path="/message/" exact component={MessageScreen} />
-                        <Route path="/read/" exact component={ReadScreen} />
+                        <Route path="/read/:id" exact component={ReadScreen} />
+                        <Route path="/readStory/:id" exact component={ReadStory} />
                         <Route path="/myPage/" exact component={MypageScreen}/>
                         <Route path="/requestPasswordReset/" exact component={ForgetPassword}/>
                         <Route path="/passwordReset/:token/:id" exact component={ResetPassword}/>
                         <Route path="/profile/" exact component={ProfileScreen}/>
-                                            
+                        <Route path="/createStory/" exact component={StoryCreate} />               
                     </Switch>
-                    
                 </GlobalStoreContextProvider>
             </AuthContextProvider>
         </BrowserRouter>
