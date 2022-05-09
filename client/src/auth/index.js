@@ -135,6 +135,7 @@ function AuthContextProvider(props) {
                     payload:response.data.user
                 })
                 history.push("/");
+                console.log(response.data.user)
             }
         }
         catch(err){
@@ -218,14 +219,21 @@ function AuthContextProvider(props) {
     }
     auth.changePassword= async function(newpassword){
 
+
         let body = {
-            userId:auth.user._id,
-            password:newpassword}
+            email:auth.user.email,
+            password:newpassword
+        }
         
         try{
             const response = await api.changePassword(body);
+            console.log("done")
             if(response.status===200){
                 console.log("done change password");
+                authReducer({
+                    type: AuthActionType.LOGIN_USER,
+                    payload:response.data.user
+                })
                 history.push('/');
             }
         }
@@ -240,11 +248,13 @@ function AuthContextProvider(props) {
             console.log("error of change password");
             }
         }
+
     //update current user
     auth.updateUser=async function(){
         try{
             //console.log(auth.user);
             const response = await api.updateUser(auth.user);
+            console.log(response)
             if(response.status===200){
                 authReducer({
                     type: AuthActionType.LOGIN_USER,
@@ -253,13 +263,13 @@ function AuthContextProvider(props) {
             }
         }
         catch(err){
-            authReducer({
-                type: AuthActionType.ERROR,
-                payload:{
-                    status:err.response.status,
-                    message:err.response.errorMessage
-                }
-            })
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.errorMessage
+            //     }
+            // })
             console.log(err);
         }
     }

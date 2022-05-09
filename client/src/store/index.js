@@ -623,7 +623,7 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.STATUS,
             payload: status
         });
-        history.push("/view/");
+        history.push("/home/");
     }
 
 

@@ -70,7 +70,6 @@ registerUser = async (req, res) => {
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
-        
 
         const newUser = new User({
             firstName, lastName, email, passwordHash
@@ -86,10 +85,11 @@ registerUser = async (req, res) => {
         newUser.dislike= [],
         newUser.alarm= [],
         newUser.profile= {"age": 0,
-                        "gender": null,
+                        "gender": "N/A",
                         "userName": newUser.firstName,
-                        "myStatement": "",
-                        "icon": null}
+                        "myStatement":"Stay Hungry, Stay Foolish",
+                        "icon": newUser.firstName.substring(0,1).toUpperCase()+newUser.lastName.substring(0,1).toUpperCase()
+                    }
     
         const savedUser = await newUser.save();
 
@@ -246,6 +246,7 @@ updateUser =async (req,res) => {
                 errMessage: 'User not found!'
             })
         }
+
         user.firstName = body.firstName;
         user.lastName = body.lastName;
         user.friends = body.friends;
@@ -259,8 +260,7 @@ updateUser =async (req,res) => {
         user.notification=body.notification;
         user.profile=body.profile;
         
-        user
-            .save()
+        user.save()
             .then(() => {
                 console.log("SUCCESS!!!");
                 return res.status(200).json({
@@ -296,14 +296,15 @@ sendUserEmail = async (req, res) => {
         }
       
         const token = auth.signToken(existingUser);
-        if(!token){console.log("cant create token");
-                    return res
-                    .status(400)
-                    .json({
-                        success: false,
-                        errorMessage: "cant create token"
-                    })
-    }
+        if(!token){
+            console.log("cant create token");
+            return res
+            .status(400)
+            .json({
+                success: false,
+                errorMessage: "cant create token"
+            })
+        }
 
         clientURL="sbrook.herokuapp.com";
         const link = `${clientURL}/passwordReset/${token}/${existingUser._id}/`;
@@ -380,24 +381,27 @@ resetPassword = async (req, res) => {
 
 changePassword = async (req, res) => {
     try {
-        const { userId, password} = req.body;
+        const { email, password} = req.body;
        console.log(password);
+        console.log(email);
+        
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
-        console.log("change pass word");
-        await User.updateOne( 
-        { _id: userId },
-        { $set: { password: passwordHash } },
-        { new: true }  
-        );
 
-    return res
-        .status(200)
-        .json({
-            success: true,
-            message: 'the password reset successful!',
-        })
+        
+        const existingUser = await User.findOne({email: email});
+        console.log(existingUser)
+        existingUser.passwordHash=passwordHash;  
+        const savedUser = await existingUser.save();
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                user: savedUser,
+                message: 'the password reset successful!',
+            })
 
     } catch (error) {
         console.log(error, "error to reset");

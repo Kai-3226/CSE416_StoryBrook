@@ -25,7 +25,7 @@ const UserSchema = new Schema(
                         "gender": Number,
                         "userName":String ,
                         "myStatement": String,
-                        "icon": Object}
+                        "icon": String}
                       }
     },
     
