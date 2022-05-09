@@ -366,6 +366,7 @@ function AuthContextProvider(props) {
                     const response = await api.getUserbyId(auth.user._id);
                     if(response.data.success){
                         let newUser=response.data.user;
+                        console.log("369"+ auth.user._id);
                         newUser.following.push(authorId);
                         const respon=await api.updateUser(newUser);
                         if(respon.data.success){
