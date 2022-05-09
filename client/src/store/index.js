@@ -242,7 +242,6 @@ function GlobalStoreContextProvider(props) {
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentWork = function () {
-        let work=store.currentWork;
         //list.view++;
         //store.updateList2(list);
         storeReducer({

@@ -184,7 +184,6 @@ loginUser = async (req, res) => {
             }
         }).send();
     } catch (err) {
-        console.error(err);
         res.status(500).json({
             success: false,
             errorMessage:"Log in process is wrong"
@@ -231,7 +230,7 @@ getOneUser = async(req,res) =>{
 
 updateUser =async (req,res) => {
     const body = req.body
-    console.log("updateUser: " + JSON.stringify(body));
+    // console.log("updateUser: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
             success: false,
@@ -267,6 +266,7 @@ updateUser =async (req,res) => {
                 return res.status(200).json({
                     success: true,
                     id: user._id,
+                    user:user,
                     message: 'User data updated!',
                 })
             })

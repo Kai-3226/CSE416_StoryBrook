@@ -8,8 +8,9 @@ const WorkSchema = new Schema(
         // work type is 0:story 1:comic
         workType: { type: Number , required: true },  
         comments: { type: [ {"userId" : String, 
-                                         "content": String,                                                     
-                                         "response": Object}],
+                             "userName": String,
+                                "content": String,                                                     
+                                "response": Object}],
                              required: true },
         published: { type: {"publish": Boolean,
                                      "date": Date},

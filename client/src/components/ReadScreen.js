@@ -18,6 +18,7 @@ import AuthContext from '../auth';
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
+    const [comment,setComment]=useState("Any Comment?");
     const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
     workstore.loadJSON(store.currentWork.content);
     
@@ -123,13 +124,13 @@ const ReadScreen = () => {
     const handleFollow = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(!user.following.includes(work.authorId)) //haven't followed yet so follow it
+        if(!user.following.includes(work.authorId) &&user._id!==work.authorId) //haven't followed yet so follow it
            {followOption="unfollow";
             followButtonColor="success";
             auth.followAuthor(work.authorId);
             
         }
-        else if (user.following.includes(work.authorId))//have followed yet so unfollow it
+        else if (user.following.includes(work.authorId)&&user._id!==work.authorId)//have followed yet so unfollow it
         {   followOption="follow";
             followButtonColor="primary";
             auth.unfollowAuthor(work.authorId);
@@ -142,14 +143,31 @@ const ReadScreen = () => {
     };
     const handleComment = (event) => {
         event.preventDefault();
-
+        event.stopPropagation();
+        let newComment={"userId" : user._id, 
+                        "userName": user.profile.userName,
+                        "content": comment,                                                     
+                        "response": null}
+        work.comments.push(newComment);
+        store.interactWork(work);
+        setComment("Any Comment?");
     };
     const handleReply= (event) => {
         event.preventDefault();
 
     };
    
-   
+    let comments = "";
+    if(store.currentWork){
+        console.log(work)      
+        if(work.comments.length>0){  
+            comments= work.comments.map((element) => (   
+                      <CommentCard comment={element}/>
+                ));
+            }
+        
+    }
+            
     //let add=
         // store.currentList.items.map((item)=>
         //     <Box sx={{justifyContent:'space-evenly',flexDirection:'row', bgcolor:'#d4af36',margin:2, fontSize:36, flexWrap:'wrap',justifyContent:'center'}}>
@@ -213,10 +231,15 @@ const ReadScreen = () => {
                     </Box> 
                 </Box>
                 <Box id="readPage_comments_wrapper"  bgcolor='white' sx={{paddingTop:'1%',paddingLeft:'5%',minHeight:'40%',width:'95%'}}>
-                    <Typography component="h1" variant="h4"  color='red'>Comments</Typography> 
+                <Box id="comment_banner" bgcolor='primary' display='flex'> 
+                    <Typography component="h1" variant="h4" marginTop='1%' color='red'>Comments</Typography> 
+                    
+                    <TextField sx={{width:'60%',height:'0%',bgcolor:'lightgrey',marginTop:'1%'}} defaultValue={comment} autocomplete="off" value={comment} onChange={(e)=>setComment(e.target.value)} ></TextField>
+                    <Button disable={buttonDisable} onClick={handleComment} variant="outlined" id='readPage_author_follow' sx={{position:'relative',margin:'1%',}}>submit</Button>
                 
-                
-                <CommentCard/>
+                </Box>
+                    
+               {comments}
                 </Box>   
         </Box>
        
