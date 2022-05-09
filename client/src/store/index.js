@@ -312,8 +312,13 @@ function GlobalStoreContextProvider(props) {
                         } 
                     }
                 }
+                else{
+                    if(work.published.publish===true){
+                        viewable.push(work);
+                        // console.log(listOwned);
+                    } 
+                }
             }
-            console.log(viewable);
 
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
