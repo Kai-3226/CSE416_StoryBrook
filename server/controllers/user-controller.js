@@ -10,10 +10,21 @@ getLoggedIn = async (req, res) => {
         const loggedInUser = await User.findOne({ _id: req.userId });
         res.status(200).json({
             loggedIn: true,
-            user: {
+            user: { 
+                _id:loggedInUser._id,
                 firstName: loggedInUser.firstName,
                 lastName: loggedInUser.lastName,
-                email: loggedInUser.email
+                email: loggedInUser.email,
+                friends: loggedInUser.friends,
+                following: loggedInUser.following,
+                follower: loggedInUser.follower,
+                message: loggedInUser.message,      
+                works: loggedInUser.works,
+                comicLibrary:loggedInUser.comicLibrary,
+                like: loggedInUser.like,
+                dislike: loggedInUser.dislike,
+                alarm: loggedInUser.alarm,
+                profile: loggedInUser.profile
             }
         }).send();
     })}catch (err) {
@@ -92,7 +103,7 @@ registerUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
-                id:saveUser._id,
+                _id: savedUser._id,
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
                 email: savedUser.email,
@@ -156,7 +167,7 @@ loginUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
-                id:existingUser._id,
+                _id:   existingUser._id,
                 firstName: existingUser.firstName,
                 lastName: existingUser.lastName,
                 email: existingUser.email,
@@ -195,6 +206,7 @@ getUserData = async(req,res) =>{
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
+      
         return res.status(200).json({ success: true, user: user })
     }).catch(err => console.log(err))
 }
@@ -227,7 +239,7 @@ updateUser =async (req,res) => {
         })
     }
 
-    User.findOne({ _id: req.params.id }, (err, user) => {
+    User.findOne({ _id: body._id }, (err, user) => {
         console.log("user found: " + JSON.stringify(user));
         if (err) {
             return res.status(404).json({

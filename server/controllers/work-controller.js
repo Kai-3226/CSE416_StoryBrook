@@ -70,7 +70,6 @@ updateWork = async (req, res) => {
             })
         }
         work.workType = body.workType;
-        work.author = body.author;
         work.content =body.content;
         work.published=body.published;
         work.name=body.name;

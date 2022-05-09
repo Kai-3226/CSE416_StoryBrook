@@ -15,13 +15,21 @@ import AuthContext from '../auth';
 const ReadStory = () => {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
+    
     let work="";
-    if(store&&store.currentWork){work=store.currentWork;}
+    if(store&&store.currentWork){
+        work=store.currentWork;
+      
+    }
+    let user="";
+    if(auth&&auth.loggedIn){
+        user=auth.user;
+      
+    }
     useEffect(() => {
         if(store&&store.currentWork){
         work.view++;
-        store.interactWork(work); 
-       
+        store.interactWork(work);  
         }
     }, []);
 
@@ -31,34 +39,44 @@ const ReadStory = () => {
 
     let likeButtonColor="default";
     let dislikeButtonColor="default";
-    if(auth.loggedIn && work.likes.includes(auth.user.id)) {likeButtonColor="success";}
-    if(auth.loggedIn && work.dislikes.includes(auth.user.id)) {dislikeButtonColor="success";} 
-    
+    if(auth.loggedIn && work.likes.includes(auth.user._id)) {likeButtonColor="success";}
+    if(auth.loggedIn && work.dislikes.includes(auth.user._id)) {dislikeButtonColor="success";} 
+
+    let followOption="follow";
+    let followButtonColor="primary";
+    if(user.following.includes(work.authorId)) 
+        {followOption="unfollow";followButtonColor="success";}
+
+
+
     const handleLikes = (event) => {
         event.preventDefault();
         event.stopPropagation(); 
-        console.log(work.likes.includes(auth.user.id));
-        if(!work.likes.includes(auth.user.id)) //haven't like yet
+
+        if(!work.likes.includes(auth.user._id)) //haven't like yet
             {
-           
-            work.likes.push(auth.user.id);
-            console.log(work);
+            work.likes.push(auth.user._id);
             likeButtonColor="success"; 
             store.interactWork(work); 
+            user.like.push(work._id);
+            auth.interact(user);
             }
-        else if(work.likes.includes(auth.user.id)) //like yet so unlike it
+        else if(work.likes.includes(auth.user._id)) //like yet so unlike it
             {
                
             for (let i = 0; i < work.likes.length; i++) {
-                    console.log(work.likes[i]);
-                    if(work.likes[i]==auth.user.id) {
-                        //remove the element from like array     
-                        console.log(work.likes[i]);
-                        console.log(auth.user.id);
-                        
+                    if(work.likes[i]==auth.user._id) {
                         work.likes.splice(i,1);
                         likeButtonColor="default";
                         store.interactWork(work); 
+                        for (let s = 0; s < user.like.length; s++) {
+                            if(user.like[s]==work._id) {
+                                user.like.splice(s,1);
+                                auth.interact(user);
+                            }
+                        }
+                        
+
                    } 
                 }            
             }    
@@ -67,19 +85,27 @@ const ReadStory = () => {
     const handleDislikes = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(!work.dislikes.includes(auth.user.id)) //haven't dislike yet so like it
-            {work.dislikes.push(auth.user.id);
+        if(!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
+            {work.dislikes.push(auth.user._id);
             dislikeButtonColor="success";
             store.interactWork(work); 
+            user.dislike.push(work._id);
+            auth.interact(user);
             }
-        else if(work.dislikes.includes(auth.user.id)) //dislike yet so undislike it
+        else if(work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
             {
             for (let i = 0; i < work.dislikes.length; i++) {
-                   if(work.dislikes[i]===auth.user.id) {
+                   if(work.dislikes[i]===auth.user._id) {
                         //remove the element from like array
                         work.dislikes.splice(i,1);
                         dislikeButtonColor="default";
                         store.interactWork(work); 
+                        for (let s = 0; s < user.dislike.length; s++) {
+                            if(user.dislike[s]==work._id) {
+                                user.dislike.splice(s,1);
+                                auth.interact(user);
+                            }
+                        }
                    } 
                 }            
             }
@@ -87,10 +113,20 @@ const ReadStory = () => {
     };
     const handleFollow = (event) => {
         event.preventDefault();
-        auth.followAuthor(work.author);
-
-
+        event.stopPropagation();
+        if(!user.following.includes(work.authorId)) //haven't followed yet so follow it
+           {auth.followAuthor(work.authorId);
+            followOption="unfollow";
+            followButtonColor="success";
+        }
+        else if (user.following.includes(work.authorId))//have followed yet so unfollow it
+        {
+            auth.unfollowAuthor(work.authorId);
+            followOption="follow";
+            followButtonColor="primary";
+        }
     };
+
     const handleShare = (event) => {
         event.preventDefault();
 
@@ -103,7 +139,6 @@ const ReadStory = () => {
         event.preventDefault();
 
     };
-
     
 
 
@@ -127,7 +162,7 @@ const ReadStory = () => {
                                 {work.authorName}
                                 </Typography> 
                             </Box>
-                            <Button disable={buttonDisable} id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%',bgcolor:'#E95B5B'}}>follow</Button>
+                            <Button color={followButtonColor} disable={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>
                         </Box>
                     </Box>
                 </Box>
@@ -142,7 +177,7 @@ const ReadStory = () => {
 
                  <Box id="readPage_community" display="flex"  bgcolor='white' sx={{height:'10%',width:'100%',paddingTop:'1%'}}>    
                     <Box id="ViewCount"  sx={{postion:'relative',height:'100%',width:'50%',paddingLeft:'5%'}}>
-                        <Typography component="h1" variant="h4" >View:  100</Typography> 
+                        <Typography component="h1" variant="h4" >View:  {work.view}</Typography> 
                     </Box>
                     <Box id="readPage_Toolbar"  display='flex' sx={{postion:'relative',height:'100%',width:'50%',paddingLeft:'20%'}}>
                     <IconButton disable={buttonDisable} color={likeButtonColor} onClick={handleLikes}><ThumbsUp style={{ fontSize:'25pt'}} />{work.likes.length}</IconButton>

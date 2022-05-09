@@ -22,8 +22,14 @@ const ReadScreen = () => {
     workstore.loadJSON(store.currentWork.content);
     
     let work="";
-    if(store&&store.currentWork){work=store.currentWork;
-        workstore.loadJSON(work.content);
+    if(store&&store.currentWork){
+        work=store.currentWork;
+      
+    }
+    let user="";
+    if(auth&&auth.loggedIn){
+        user=auth.user;
+      
     }
     useEffect(() => {
         if(store&&store.currentWork){
@@ -38,33 +44,46 @@ const ReadScreen = () => {
 
     let likeButtonColor="default";
     let dislikeButtonColor="default";
-    if(auth.loggedIn && work.likes.includes(auth.user.id)) {likeButtonColor="success";}
-    if(auth.loggedIn && work.dislikes.includes(auth.user.id)) {dislikeButtonColor="success";} 
-    
+    if(auth.loggedIn && work.likes.includes(auth.user._id)) {likeButtonColor="success";}
+    if(auth.loggedIn && work.dislikes.includes(auth.user._id)) {dislikeButtonColor="success";} 
+
+    let followOption="follow";
+    let followButtonColor="primary";
+    if(auth.loggedIn&&user.following.includes(work.authorId)) 
+        {followOption="unfollow";followButtonColor="success";}
+
+
+
     const handleLikes = (event) => {
         event.preventDefault();
         event.stopPropagation(); 
 
-        if(!work.likes.includes(auth.user.id)) //haven't like yet
+        if(!work.likes.includes(auth.user._id)) //haven't like yet
             {
-            work.likes.push(auth.user.id);
-            // console.log(work);
+            work.likes.push(auth.user._id);
             likeButtonColor="success"; 
             store.interactWork(work); 
+         
+            user.like.push(work._id);
+            auth.interact(user);
             }
-        else if(work.likes.includes(auth.user.id)) //like yet so unlike it
+        else if(work.likes.includes(auth.user._id)) //like yet so unlike it
             {
                
             for (let i = 0; i < work.likes.length; i++) {
-                    // console.log(work.likes[i]);
-                    if(work.likes[i]==auth.user.id) {
-                        //remove the element from like array     
-                        // console.log(work.likes[i]);
-                        // console.log(auth.user.id);
-                        
+                    if(work.likes[i]==auth.user._id) {
                         work.likes.splice(i,1);
                         likeButtonColor="default";
                         store.interactWork(work); 
+                   
+                        for (let s = 0; s < user.like.length; s++) {
+                            if(user.like[s]==work._id) {
+                                user.like.splice(s,1);
+                                auth.interact(user);
+                            }
+                        }
+                        
+
                    } 
                 }            
             }    
@@ -73,19 +92,29 @@ const ReadScreen = () => {
     const handleDislikes = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(!work.dislikes.includes(auth.user.id)) //haven't dislike yet so like it
-            {work.dislikes.push(auth.user.id);
+        if(!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
+            {work.dislikes.push(auth.user._id);
             dislikeButtonColor="success";
             store.interactWork(work); 
+     
+            user.dislike.push(work._id);
+            auth.interact(user);
             }
-        else if(work.dislikes.includes(auth.user.id)) //dislike yet so undislike it
+        else if(work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
             {
             for (let i = 0; i < work.dislikes.length; i++) {
-                   if(work.dislikes[i]===auth.user.id) {
+                   if(work.dislikes[i]===auth.user._id) {
                         //remove the element from like array
                         work.dislikes.splice(i,1);
                         dislikeButtonColor="default";
                         store.interactWork(work); 
+                       
+                        for (let s = 0; s < user.dislike.length; s++) {
+                            if(user.dislike[s]==work._id) {
+                                user.dislike.splice(s,1);
+                                auth.interact(user);
+                            }
+                        }
                    } 
                 }            
             }
@@ -93,7 +122,19 @@ const ReadScreen = () => {
     };
     const handleFollow = (event) => {
         event.preventDefault();
-        auth.followAuthor(work.authorId);
+        event.stopPropagation();
+        if(!user.following.includes(work.authorId)) //haven't followed yet so follow it
+           {followOption="unfollow";
+            followButtonColor="success";
+            auth.followAuthor(work.authorId);
+            
+        }
+        else if (user.following.includes(work.authorId))//have followed yet so unfollow it
+        {   followOption="follow";
+            followButtonColor="primary";
+            auth.unfollowAuthor(work.authorId);
+           
+        }
     };
     const handleShare = (event) => {
         event.preventDefault();
@@ -136,7 +177,7 @@ const ReadScreen = () => {
                                 {work.authorName}
                                 </Typography> 
                             </Box>
-                            <Button disable={buttonDisable} onClick={handleFollow} id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%',bgcolor:'#E95B5B'}}>follow</Button>
+                            <Button color={followButtonColor} disable={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>
                         </Box>
                     </Box>
                 </Box>

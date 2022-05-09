@@ -240,6 +240,7 @@ function AuthContextProvider(props) {
             console.log("error of change password");
             }
         }
+    //update current user
     auth.updateUser=async function(){
         try{
             //console.log(auth.user);
@@ -278,51 +279,106 @@ function AuthContextProvider(props) {
             }
         }
         catch(err){
-            authReducer({
-                type: AuthActionType.ERROR,
-                payload:{
-                    status:err.response.status,
-                    message:err.response.error
-                }
-            })
+           
             console.log(err);
         }
     }
     auth.followAuthor=async function(authorId){
         try{       
             // get follewing user data
+         
             const response = await api.getUserbyId(authorId);
             if(response.data.success){
-                console.log(response.data.user);
                 let user=response.data.user;
-                user.follower.push(auth.user.id);
+                user.follower.push(auth.user._id);
                 const res=await api.updateUser(user);
-                if(response.data.success){
-                    let newUser=auth.user;
-                    newUser.following.push(authorId);
-                    const respon=await api.updateUser(newUser);
-                    if(respon.data.success){
-                        console.log("following successfully");
-                        authReducer({
-                            type: AuthActionType.LOGIN_USER,
-                            payload:newUser
-                        })
+                if(res.data.success){
+                    console.log(auth.user._id);
+                    const response = await api.getUserbyId(auth.user._id);
+                    if(response.data.success){
+                        let newUser=response.data.user;
+                        newUser.following.push(authorId);
+                        const respon=await api.updateUser(newUser);
+                        if(respon.data.success){
+                            console.log("following successfully");
+                            authReducer({
+                                type: AuthActionType.LOGIN_USER,
+                                payload:newUser
+                            })
+                        }
                     }
-
                 }
             }
         }
         catch(err){
-            authReducer({
-                type: AuthActionType.ERROR,
-                payload:{
-                    status:err.response.status,
-                    message:err.response.error
-                }
-            })
-            console.log(err);
+            console.log("follow error");
         }
 
+    }
+    auth.unfollowAuthor=async function(authorId){
+        try{       
+            // get follewing user data
+            console.log(authorId);
+          
+            const response = await api.getUserbyId(authorId);
+            if(response.data.success){
+                let user=response.data.user;
+                console.log(user);
+                for (let s = 0; s < user.follower.length; s++) {
+                    if(user.follower[s]==auth.user._id) {
+                        user.follower.splice(s,1);
+                    }
+                }
+                const res=await api.updateUser(user);
+                if(res.data.success){  
+                    console.log(auth.user._id);
+                    const response = await api.getUserbyId(auth.user._id);
+                    if(response.data.success){
+                        let newUser=response.data.user;
+                        for (let i = 0; i < newUser.following.length; i++) {
+                            if(newUser.following[i]==authorId) {
+                                newUser.following.splice(i,1);
+                            }
+                        }
+                        const respon=await api.updateUser(newUser);
+                        if(respon.data.success){
+                            console.log("unfollowing successfully");
+                            console.log(newUser);
+                            authReducer({
+                                type: AuthActionType.LOGIN_USER,
+                                payload:newUser
+                            })
+                        }
+                    }
+                }
+            }
+        }
+        catch(err){
+        
+            console.log("unfollow error");
+        }
+
+    }
+
+    auth.interact=async function(newUser){
+        try{
+            //console.log(auth.user);
+            const response = await api.getUserbyId(newUser._id);
+            if(response.data.success){
+                let updatedUser=response.data.user;
+
+               const res = await api.updateUser(updatedUser);
+                if(res.data.success){
+                    authReducer({
+                        type: AuthActionType.LOGIN_USER,
+                        payload:newUser
+                    })
+                }
+            }
+        }
+        catch(err){
+            console.log("interact fail");
+        }
     }
     
     

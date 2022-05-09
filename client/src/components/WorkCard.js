@@ -78,6 +78,7 @@ function WorkCard(props) {
         event.stopPropagation();
         console.log(id);
         store.setCurrentWork(id);
+       
     }
 
     async function handleDeleteWork(event, id) {

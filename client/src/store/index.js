@@ -1,3 +1,4 @@
+import { FormControlUnstyledContext } from '@mui/base';
 import { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../api'
@@ -150,7 +151,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.UPDATE_WORK: {
                 return setStore({
                     workList: store.workList,
-                    currentWork: null,
+                    currentWork: store.currentWork,
                     editActive:false,
                     workMarkedForDeletion: null,
                     mode: store.mode,
@@ -259,7 +260,7 @@ function GlobalStoreContextProvider(props) {
             workType: store.status,
             author: auth.user.email,
             authorName:auth.user.profile.userName,
-            authorId: auth.user.id,
+            authorId: auth.user._id,
             published:{publish:false,date:Date()},
             view:0,
             likes:[],
@@ -407,8 +408,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.updateCurrentWork = async function () {
+       
         const response = await api.updateWorkById(store.currentWork._id, store.currentWork);
         if (response.data.success) {
+            console.log(response.data.work);
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
                 payload: store.currentWork
