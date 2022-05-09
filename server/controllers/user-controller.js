@@ -103,7 +103,6 @@ registerUser = async (req, res) => {
                 alarm: savedUser.alarm,
                 profile: savedUser.profile,
                 _id:savedUser._id
-
             }
         }).send();
     } catch (err) {

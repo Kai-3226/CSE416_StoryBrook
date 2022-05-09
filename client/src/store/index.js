@@ -357,7 +357,7 @@ function GlobalStoreContextProvider(props) {
                 }
             }
             console.log(newAuth);
-            updateWork(newAuth);
+            updateWork(newWork);
             console.log("work updated succesfully");
         }
         history.push("/home")  
