@@ -231,14 +231,15 @@ function GlobalStoreContextProvider(props) {
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
-    store.editList = async function (id, newName, newContent) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let work = response.data.work;
-            work.name = newName;
-            work.content = newContent;
-            store.updateWork(work);
-        }
+    store.editWork = async function (newName, newContent) {
+        let work = store.currentWork;
+        work.content=newContent;
+        work.name=newName;
+        storeReducer({
+            type: GlobalStoreActionType.EDIT_WORK,
+            payload: work
+        });
+        console.log(work);
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentWork = function () {
@@ -312,8 +313,13 @@ function GlobalStoreContextProvider(props) {
                         } 
                     }
                 }
+                else{
+                    if(work.published.publish===true){
+                        viewable.push(work);
+                        // console.log(listOwned);
+                    } 
+                }
             }
-            console.log(viewable);
 
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
@@ -393,6 +399,7 @@ function GlobalStoreContextProvider(props) {
     store.updateWork = async function (newWork) {
         if(newWork.author==auth.user.email){    
                 let response = await api.updateWorkById(newWork._id, newWork);
+                // newAuth.works.push(response.data.work._id);
                 if (response.data.success) {
                     storeReducer({
                         type: GlobalStoreActionType.UPDATE_WORK,

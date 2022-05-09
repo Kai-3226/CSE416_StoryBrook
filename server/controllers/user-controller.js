@@ -72,7 +72,20 @@ registerUser = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt);
 
         const newUser = new User({
-            firstName, lastName, email, passwordHash
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                friends: [],
+                follwoing: [],
+                follower: [],
+                message: [],
+                works: [],
+                comicLibrary: [],
+                like: [],
+                dislike: [],
+                alarm: [],
+                profile: {},
+                passwordHash: passwordHash
         });
 
         newUser.friends= [],
@@ -201,7 +214,7 @@ logoutUser= async (req, res) => {
 
 
 getUserData = async(req,res) =>{
-    await User.findById({ _id: req.params.id }, (err, user) => {
+    await User.findOne({ id: req.params.id }, (err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
@@ -240,6 +253,7 @@ updateUser =async (req,res) => {
 
     User.findOne({ _id: body._id }, (err, user) => {
         console.log("user found: " + JSON.stringify(user));
+        console.log(body);
         if (err) {
             return res.status(404).json({
                 success: false,

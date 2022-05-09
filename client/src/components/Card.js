@@ -7,11 +7,13 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import MessageIcon from '@mui/icons-material/MessageOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
-//import WorkCard from './WorkCard'
+import WorkCard from './WorkCard'
 
 export default function Card(props) {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext)
+    const user = auth.searchUser(props);
+    console.log(user);
     function handleMessage(){
 
     }
@@ -20,7 +22,7 @@ export default function Card(props) {
     }
     let cardElement =""
     if(store.mode=="friends"){
-        const user = auth.searchUser(props)
+        console.log(user);
         cardElement =
             <ListItem>
                 <Box sx={{ p: 1, flexGrow: 1 }}>{user.firstName+" "+user.lastName}</Box>
@@ -39,7 +41,7 @@ export default function Card(props) {
             </ListItem>
         }
     else if (store.mode=="followings"){
-        const user = auth.searchUser(props)
+        console.log(user);
         cardElement =
             <ListItem>
                     <Box sx={{ p: 1, flexGrow: 1 }}>{user.firstName+" "+user.lastName}</Box>
@@ -55,17 +57,19 @@ export default function Card(props) {
     else if (store.mode=="works"){
         cardElement=
             <ListItem>
-            
+                <WorkCard></WorkCard>
             </ListItem>
     }
     else if (store.mode=="library"){
-        <ListItem>
-                
+        cardElement=
+            <ListItem>
+                <WorkCard></WorkCard>
             </ListItem>
     }
     else if (store.mode=="likes"){
-        <ListItem>
-              
+        cardElement=
+            <ListItem>
+                <WorkCard></WorkCard>
             </ListItem>
     }
     else{
