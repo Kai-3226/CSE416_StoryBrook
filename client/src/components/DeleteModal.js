@@ -37,13 +37,13 @@ function DeleteModal() {
         open=true;
     }
     function handleDeleteList(event) {
-      console.log(store.currentWork)
+      //console.log(store.currentWork)
       event.stopPropagation();
         store.deleteWork(store.currentWork._id);
         handleClose();
     }
     function handleClose(event){
-      event.stopPropagation();
+      //event.stopPropagation();
         store.unmarkWorkForDeletion();
         open=false;
     }

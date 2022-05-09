@@ -2,73 +2,144 @@ import Box from '@mui/material/Box';
 import Textfield from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useContext, useState } from 'react';
-import { GlobalStoreContext } from '../store';
+import { useContext, useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../auth';
-import { changePassword } from '../api';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Container from '@mui/material/Container';
+import Copyright from './Copyright'
+import { Link } from 'react-router-dom'
 
 export default function Profile(){
-    const store=useContext(GlobalStoreContext);
-    const [ editActive, setEditActive ] = useState(false);
-    const [ password, setPassword ] = useState("");
     const { auth } = useContext(AuthContext);
+    const history = useHistory();
+    //const fileUploaderRef = useRef();
 
-    function getAccountMenu(loggedIn) {
-        if(loggedIn){
-            let lastname=auth.user.lastName.substring(0,1).toUpperCase();
-            let firstname=auth.user.firstName.substring(0,1).toUpperCase();
-            return(
-                <Button sx={{color:"e0e0e0"}}
-                variant="outlined">
-                    {firstname+lastname}
-                </Button>
-            );
-        }
-        return <AccountCircle />;
+    const fileUploadOnClick = async ()=>{
+        // console.log("Hello")
+        // const formData = new FormData();
+        // formData.append("imgFile",
+        // this.state.selectedFile);
+        // auth.updateUser(formData);
     }
-    const changePassword=(event)=>{
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(password);
-        auth.changePassword(password);
-    }
+        const formData = new FormData(event.currentTarget);
+        auth.user.profile.age = formData.get('age')
+        auth.user.profile.gender=formData.get('gender')
+        auth.user.profile.userName=formData.get('userName')
+        auth.user.profile.myStatement=formData.get('myStatement')
+        auth.updateUser();
+        history.push("/")
+    };
+
     return (
-        <div>
-            <Box id="profilePage">
-                <Box id="profile-head" >
-                    {/* <AccountCircle id="profile=ac"></AccountCircle> */}
-                    { getAccountMenu(auth.loggedIn) }
-                    {/* <Box id="profile-mg">You can upload your image here</Box>
-                    <Box id="profile-upload"><Button sx={{color: 'black',backgroundColor:"#c7ca3d"}}>upload image</Button></Box> */}
+        <>
+        <div style={{display:"flex", width:"100%" ,alignItems:"center", background:"rgba(209, 247, 255, 1)"}}>
+            <Container component="main" maxWidth="xl" >
+                <Box id="profilePage" 
+                sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}>
+                    <Box style={{width: "40vw", float:"right", marginTop: "10vh", display:"flex", flexDirection:"column", alignItems:"center"}}>
+                        {/* <img alt="Avatar" src={auth.user.icon} style={{width:"50%", height:"auto", borderRadius:"50%"}}>
+                        </img>
+                            <input type="file" ref={fileUploaderRef} accept="image/*"/>
+                            <button onClick={fileUploadOnClick}>
+                            Upload!
+                            </button> */}
+                    </Box>
+                    <Box id="profile-setting">
+                        <Box>Main Settings</Box>
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="userName"
+                                        label="User Name"
+                                        name="userName"
+                                        defaultValue={auth.user.profile.userName}
+                                        autoFocus
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="age"
+                                        label="Age"
+                                        name="age"
+                                        defaultValue={auth.user.profile.age}
+                                        autoFocus
+                                        type="number"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="gender"
+                                        label="Gender"
+                                        name="gender"
+                                        defaultValue={auth.user.profile.gender}
+                                        autoFocus
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        fullWidth
+                                        id="userEmail"
+                                        defaultValue={auth.user.email}
+                                        label="Email"
+                                        autoFocus
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                    />
+                                </Grid>
+                                
+                                <Grid item xs={12}>
+                                    <TextField
+                                        label="My Statement"
+                                        name="myStatement"
+                                        defaultValue={auth.user.profile.myStatement}
+                                        required
+                                        fullWidth
+                                        id="myStatement"
+                                        autoFocus
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Button 
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Save
+                            </Button>
+                            <Grid container justifyContent="flex-end">
+                                    <Link to="/changePassword/" variant="h6">
+                                        Want to change password?
+                                    </Link>
+                            </Grid>
+                        </Box>
+                    </Box>
                 </Box>
-                <Box id="profile-setting">
-                    <Box>Main Settings</Box>
-                    <Box display="flex" sx={{paddingTop:'5%'}}>
-                    <Box id="profile-name">User Name
-                        <Box><Textfield defaultValue={auth.user.firstName+auth.user.lastName}></Textfield></Box>
-                    </Box>
-                    <Box id="profile-age">Age
-                        <Box><Textfield defaultValue={auth.user.age}></Textfield></Box>
-                    </Box>
-                    <Box id="profile-gender">Gender
-                        <Box><Textfield defaultValue={auth.user.gender}></Textfield></Box>
-                    </Box>
-                    </Box>
-                    <Box id="profile-email" sx={{paddingTop:'5%'}}>User Email
-                        <Box>{auth.user.email}</Box>
-                    </Box> 
-                    <Box>ChangePassword
-                        <Box><Textfield value={password} onChange={e => setPassword(e.target.value)}></Textfield><Button onClick={changePassword} sx={{backgroundColor: '#c4c4c4',
-                        borderColor: '#c4c4c4',color:"black"}}>Edit</Button></Box>
-                    </Box> 
-                </Box>
-                <Box id="profile-button"></Box>
-                    <Box>
-                        <Button id="profile-save" variant="outlined" sx={{backgroundColor: '#c4c4c4',
-  borderColor: '#c4c4c4',color:"black"}}>Save</Button>
-                        <Button id="profile-cancel" variant="outlined" sx={{backgroundColor: '#c4c4c4',
-  borderColor: '#c4c4c4',color:"black"}}>Cancel</Button>
-                    </Box>
-            </Box>
+            </Container>
+        
         </div>
+        <Copyright/>
+        </>
     );
 }

@@ -16,7 +16,8 @@ import {
     ViewScreen,
     HomeScreen2,
     ResetPassword,
-    StoryCreate
+    StoryCreate,
+    ChangePassword
 } from './components'
 import LoginScreen from './components/LoginScreen'
 import CreateScreen from './components/CreateScreen'
@@ -48,6 +49,7 @@ const App = () => {
                         <Route path="/home/" exact component = {HomeScreen} />
                         <Route path="/view/" exact component = {ViewScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
+                        <Route path="/changePassword/" exact component={ChangePassword} />
                         <Route path="/register/" exact component={RegisterScreen} />
                         <Route path="/create/" exact component={CreateScreen} />
                         <Route path="/message/" exact component={MessageScreen} />
