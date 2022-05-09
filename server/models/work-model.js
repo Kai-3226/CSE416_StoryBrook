@@ -17,7 +17,10 @@ const WorkSchema = new Schema(
         view: { type: Number, required: true },
         likes: { type: [String], required: true },
         dislikes: { type: [String], required: true },
-        author: {type:String, required:true}
+        author: {type:String, required:true},//author email
+        authorName: {type:String, required:true},
+        authorId: {type:String, required:true}
+
     },
     { timestamps: true },
 )

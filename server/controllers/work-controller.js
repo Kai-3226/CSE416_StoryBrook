@@ -75,17 +75,25 @@ updateWork = async (req, res) => {
         work.published=body.published;
         work.name=body.name;
         
+        work.view=body.view;
+        work.comments=body.comments;
+        work.likes=body.likes;
+        work.dislikes=body.dislikes;
+        work.author=body.author;
+        work.authorName=body.authorName;
+        work.authorId=body.authorId;
         work
             .save()
             .then(() => {
                 return res.status(200).json({
                     success: true,
                     id: work._id,
+                    work:work,
                     message: 'Work updated!',
                 })
             })
             .catch(error => {
-                console.log("FAILURE: " + JSON.stringify(error));
+                console.log("FAILURE: updatework failed\n" + JSON.stringify(error));
                 return res.status(404).json({
                     error,
                     message: 'Work not updated!',
@@ -208,7 +216,9 @@ getWorkPairs = async (req, res) => {
                     author: work.author,
                     published: work.published,
                     view: work.view,
-                    comments: work.comments
+                    comments: work.comments,
+                    authorName:work.authorName,
+                    authorId:work.authorId
                 };
                 pairs.push(pair);
             }

@@ -242,7 +242,7 @@ function AuthContextProvider(props) {
         }
     auth.updateUser=async function(){
         try{
-            console.log(auth.user);
+            //console.log(auth.user);
             const response = await api.updateUser(auth.user);
             if(response.status===200){
                 authReducer({
@@ -261,6 +261,68 @@ function AuthContextProvider(props) {
             })
             console.log(err);
         }
+    }
+    //find user by email 
+    auth.setTargetUser=async function(author){
+        try{
+           
+            // let body={"email":author}; console.log(body);
+            const response = await api.getOneUser(author);
+            if(response.data.success){
+                console.log(response.data.user);
+                // authReducer({
+                //     type: AuthActionType.SET_TARGET_USER,
+                //     payload:response.data.user
+                // })
+
+            }
+        }
+        catch(err){
+            authReducer({
+                type: AuthActionType.ERROR,
+                payload:{
+                    status:err.response.status,
+                    message:err.response.error
+                }
+            })
+            console.log(err);
+        }
+    }
+    auth.followAuthor=async function(authorId){
+        try{       
+            // get follewing user data
+            const response = await api.getUserbyId(authorId);
+            if(response.data.success){
+                console.log(response.data.user);
+                let user=response.data.user;
+                user.follower.push(auth.user.id);
+                const res=await api.updateUser(user);
+                if(response.data.success){
+                    let newUser=auth.user;
+                    newUser.following.push(authorId);
+                    const respon=await api.updateUser(newUser);
+                    if(respon.data.success){
+                        console.log("following successfully");
+                        authReducer({
+                            type: AuthActionType.LOGIN_USER,
+                            payload:newUser
+                        })
+                    }
+
+                }
+            }
+        }
+        catch(err){
+            authReducer({
+                type: AuthActionType.ERROR,
+                payload:{
+                    status:err.response.status,
+                    message:err.response.error
+                }
+            })
+            console.log(err);
+        }
+
     }
     
     

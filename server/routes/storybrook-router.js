@@ -17,7 +17,7 @@ router.post('/register', UserController.registerUser)
 router.post('/login',UserController.loginUser)
 router.get('/logout',UserController.logoutUser)
 router.get('/loggedIn', UserController.getLoggedIn)
-router.get('/getUserData',UserController.getUserData)
+router.get('/getUserData/:id',UserController.getUserData)
 router.put('/updateUser/:id',auth.verify,UserController.updateUser)
 
 router.post('/library', auth.verify, LibraryController.createLibrary)
@@ -31,4 +31,8 @@ router.post('/requestPasswordReset', UserController.sendUserEmail)
 router.put('/resetPassword/:token/:id',  UserController.resetPassword)
 router.post('/verifyEmail',UserController.verifyEmail)
 router.put('/changePassword',auth.verify,UserController.changePassword)
+router.put('/getOneUser/:email',UserController.getOneUser)
+
+
+
 module.exports = router

@@ -64,6 +64,22 @@ registerUser = async (req, res) => {
         const newUser = new User({
             firstName, lastName, email, passwordHash
         });
+
+        newUser.friends= [],
+        newUser.following= [],
+        newUser.follower= [],
+        newUser.message= [],      
+        newUser.works= [],      
+        newUser.comicLibrary=[],
+        newUser.like= [],
+        newUser.dislike= [],
+        newUser.alarm= [],
+        newUser.profile= {"age": 0,
+                        "gender": null,
+                        "userName": newUser.firstName,
+                        "myStatement": "",
+                        "icon": null}
+    
         const savedUser = await newUser.save();
 
         // LOGIN THE USER
@@ -76,23 +92,20 @@ registerUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
+                id:saveUser._id,
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
                 email: savedUser.email,
-                friends: [],
-                following: [],
-                follower: [],
-                message: [],      
-                works: [],
-                comicLibrary:[],
-                like: [],
-                dislike: [],
-                alarm: [],
-                profile: {"age": 0,
-                                "gender": null,
-                                "userName": savedUser.firstName,
-                                "myStatement": "",
-                                "icon": null}
+                friends: savedUser.friends,
+                following: savedUser.following,
+                follower: savedUser.follower,
+                message: savedUser.message,      
+                works: savedUser.works,
+                comicLibrary:savedUser.comicLibrary,
+                like: savedUser.like,
+                dislike: savedUser.dislike,
+                alarm: savedUser.alarm,
+                profile: savedUser.profile
             }
         }).send();
     } catch (err) {
@@ -143,6 +156,7 @@ loginUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
+                id:existingUser._id,
                 firstName: existingUser.firstName,
                 lastName: existingUser.lastName,
                 email: existingUser.email,
@@ -183,6 +197,24 @@ getUserData = async(req,res) =>{
         }
         return res.status(200).json({ success: true, user: user })
     }).catch(err => console.log(err))
+}
+//get a userdata by email
+getOneUser = async(req,res) =>{
+    // console.log(email);
+    await User.findOne({ email: req.params.email }, (err, user) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        res.status(200).json({ success: true, user: user }).send();
+    }).catch(
+        error => {
+            console.log("FAILURE: " + JSON.stringify(error));
+            return res.status(404).json({
+                success: false,
+                err: 'not found the user!'
+            })
+        }
+        )
 }
 
 updateUser =async (req,res) => {
@@ -239,7 +271,6 @@ updateUser =async (req,res) => {
 sendUserEmail = async (req, res) => {
     try {
         const useremail = req.body.email;
-        console.log(useremail);
         const existingUser=await User.findOne({ email: useremail });
        
         if (!existingUser) {          
@@ -363,10 +394,6 @@ changePassword = async (req, res) => {
 verifyEmail = async (req, res) => {
     try {
         const {code,useremail} = req.body;
-        console.log(req.body);
-        console.log(code);
-        console.log(useremail);
-
        
       
         await sendEmail(existingUser.email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars");
@@ -402,5 +429,6 @@ module.exports = {
     sendUserEmail,
     resetPassword,
     changePassword,
-    verifyEmail
+    verifyEmail,
+    getOneUser
 }

@@ -258,6 +258,8 @@ function GlobalStoreContextProvider(props) {
             content: null,
             workType: store.status,
             author: auth.user.email,
+            authorName:auth.user.profile.userName,
+            authorId: auth.user.id,
             published:{publish:false,date:Date()},
             view:0,
             likes:[],
@@ -626,6 +628,22 @@ function GlobalStoreContextProvider(props) {
     store.myPage = function() {
         history.push("/mypage/");
     }
+
+    // include view, like, dislike,comment(reply comment)
+    store.interactWork = async function (newWork) {
+    
+        let response = await api.updateWorkById(newWork._id, newWork);
+           if (response.data.success) {
+               storeReducer({
+                   type: GlobalStoreActionType.UPDATE_WORK,
+                   payload:null,
+               });   
+           console.log("work updated succesfully");
+           }
+           else{console.log("work update unsuccessfully")}     
+     
+    }
+
     return (
         <GlobalStoreContext.Provider value={{
             store
