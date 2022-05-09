@@ -202,7 +202,7 @@ const ReadStory = () => {
                     <Box id="readPage_Toolbar"  display='flex' sx={{postion:'relative',height:'100%',width:'50%',paddingLeft:'20%'}}>
                     <IconButton disable={buttonDisable} color={likeButtonColor} onClick={handleLikes}><ThumbsUp style={{ fontSize:'25pt'}} />{work.likes.length}</IconButton>
                         <IconButton disable={buttonDisable} color={dislikeButtonColor} onClick={handleDislikes}><ThumbsDown style={{fontSize:'25pt'}} />{work.dislikes.length}</IconButton>
-                        <IconButton disable={buttonDisable} onClick={handleShare}><Share style={{fontSize:'25pt'}} />Share</IconButton>
+                        {/* <IconButton disable={buttonDisable} onClick={handleShare}><Share style={{fontSize:'25pt'}} />Share</IconButton> */}
                     </Box> 
                 </Box>
                 <Box id="readPage_comments_wrapper"  bgcolor='white' sx={{paddingTop:'1%',paddingLeft:'5%',minHeight:'40%',width:'95%'}}>
