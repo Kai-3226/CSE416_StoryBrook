@@ -19,12 +19,12 @@ export default function MyPage () {
             <Button id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Following</Button>
         </div>
     }
-    /*
+
     if (store.mode=="friends"){
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.friends.map((friendId)=> (
+                auth.user.friends.map((friendId)=> (
                         <Card></Card>
                     ))
                 }
@@ -34,7 +34,7 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.following.map((authorId)=> (
+                auth.user.following.map((authorId)=> (
                         <Card></Card>
                     ))
                 }
@@ -44,7 +44,7 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.works.map((workId)=> (
+                auth.user.works.map((workId)=> (
                         <Card></Card>
                     ))
                 }
@@ -54,13 +54,12 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.like.map((workId)=> (
+                auth.user.like.map((workId)=> (
                         <Card></Card>
                     ))
                 }
             </List>
     }
-    */
     return(
         <div>
             <MypageSidebar></MypageSidebar>

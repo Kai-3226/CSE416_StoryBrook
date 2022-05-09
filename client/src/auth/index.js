@@ -12,6 +12,7 @@ export const AuthActionType = {
     LOGOUT_USER: "LOGOUT_USER",
     LOGIN_USER: "LOGIN_USER",
     ERROR: "ERROR",
+    UPDATE_USER: "UPDATE_USER",
 }
 
 function AuthContextProvider(props) {
@@ -62,6 +63,12 @@ function AuthContextProvider(props) {
                     user:null,
                     loggedIn:false,
                     error:payload
+                })
+            }case AuthActionType.UPDATE_USER: {
+                return setAuth({
+                    user:payload,
+                    loggedIn:true,
+                    error:false
                 })
             }
             default:
@@ -133,7 +140,7 @@ function AuthContextProvider(props) {
                     type: AuthActionType.LOGIN_USER,
                     payload:response.data.user
                 })
-                history.push("/home");
+                history.push("/");
             }
         }
         catch(err){
@@ -215,20 +222,27 @@ function AuthContextProvider(props) {
             console.log(err);
         }
     }
+    auth.updateUser = async function (email,payload) {
+        const response = await api.updateUser(email,payload);
+        if(response.status === 200){
+            authReducer({
+                type: AuthActionType.UPDATE_USER,
+                paylaod:null
+            })
+
+        }
+    }
     auth.changePassword= async function(newpassword){
-        console.log("newpassword");
-        let body = {
+            let body = {
             userId:auth.user._id,
-            password:newpassword}
-        
-        try{
+            password:newpassword
+            }
+            try{
             const response = await api.changePassword(body);
             if(response.status===200){
-                console.log("done change password");
-                history.push('/');
             }
-        }
-        catch(err){
+            }
+            catch(err){
             // authReducer({
             // type: AuthActionType.ERROR,
             // payload:{

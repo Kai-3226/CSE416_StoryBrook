@@ -35,19 +35,14 @@ window.store = workstore;
 workstore.on('change', () => {
   try {
     const json = workstore.toJSON();
+    const { store } = useContext(GlobalStoreContext);
+    store.editWork(JSON.stringify(json));
     //localforage.setItem('polotno-state', json);
   } catch (e) {}
 });
 
 const CreateScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-    function handleSave (event) {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        let newName=formData.get('listName');
-        let newitems=[formData.get('item2'),formData.get('item3'),formData.get('item4'),formData.get('item5'),formData.get('item6')];
-        store.editList(store.currentList._id,newName,newitems);
-    };
     function handlePublish(event){
         store.publish(store.currentList._id);
     }

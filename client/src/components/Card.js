@@ -7,7 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import MessageIcon from '@mui/icons-material/MessageOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
-//import WorkCard from './WorkCard'
+import WorkCard from './WorkCard'
 
 export default function Card(props) {
     const { store } = useContext(GlobalStoreContext);
@@ -55,18 +55,18 @@ export default function Card(props) {
     else if (store.mode=="works"){
         cardElement=
             <ListItem>
-            
+                <WorkCard></WorkCard>
             </ListItem>
     }
     else if (store.mode=="library"){
         <ListItem>
-                
-            </ListItem>
+            <WorkCard></WorkCard>
+        </ListItem>
     }
     else if (store.mode=="likes"){
         <ListItem>
-              
-            </ListItem>
+          <WorkCard></WorkCard>
+        </ListItem>
     }
     else{
         cardElement="";

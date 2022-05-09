@@ -204,14 +204,15 @@ function GlobalStoreContextProvider(props) {
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
-    store.editList = async function (id, newName, newContent) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let work = response.data.work;
-            work.name = newName;
-            work.content = newContent;
-            store.updateWork(work);
-        }
+    store.editWork = async function (newName, newContent) {
+        let work = store.currentWork;
+        work.content=newContent;
+        work.name=newName;
+        storeReducer({
+            type: GlobalStoreActionType.EDIT_WORK,
+            payload: work
+        });
+        console.log(work);
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentList = function () {
@@ -226,10 +227,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     // THIS FUNCTION CREATES A NEW LIST
-    store.createWork = async function (json) {
+    store.createWork = async function () {
         let payload = {
             name: "Untitled",
-            content: json,
+            content: [],
             workType: store.status,
             author: auth.user.email,
             published:{publish:false,date:Date()},
@@ -343,9 +344,11 @@ function GlobalStoreContextProvider(props) {
         }
     }
     store.updateWork = async function (newWork) {
+        let newAuth=auth.user;
         if(newWork.author==auth.user.email){
             async function updateWork(newWork) {
                 let response = await api.updateWorkById(newWork._id, newWork);
+                newAuth.works.push(response.data.work._id);
                 if (response.data.success) {
                     storeReducer({
                         type: GlobalStoreActionType.UPDATE_WORK,
@@ -353,10 +356,12 @@ function GlobalStoreContextProvider(props) {
                     });
                 }
             }
-            updateWork(newWork);
+            console.log(newAuth);
+            updateWork(newAuth);
             console.log("work updated succesfully");
         }
-        history.push("/home")
+        history.push("/home")  
+        auth.updateUser(auth.user.email,newAuth);
         console.log(store)
     }
 

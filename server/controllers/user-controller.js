@@ -62,7 +62,20 @@ registerUser = async (req, res) => {
    
 
         const newUser = new User({
-            firstName, lastName, email, passwordHash
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                friends: [],
+                follwoing: [],
+                follower: [],
+                message: [],
+                works: [],
+                comicLibrary: [],
+                like: [],
+                dislike: [],
+                alarm: [],
+                profile: {},
+                passwordHash: passwordHash
         });
         const savedUser = await newUser.save();
 
@@ -78,7 +91,19 @@ registerUser = async (req, res) => {
             user: {
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
-                email: savedUser.email
+                email: savedUser.email,
+                friends: savedUser.friends,
+                follwoing: savedUser.follwoing,
+                follower: savedUser.follower,
+                message: savedUser.message,
+                works: savedUser.works,
+                comicLibrary: savedUser.comicLibrary,
+                like: savedUser.like,
+                dislike: savedUser.dislike,
+                alarm: savedUser.alarm,
+                profile: savedUser.profile,
+                _id:savedUser._id
+
             }
         }).send();
     } catch (err) {
@@ -129,10 +154,21 @@ loginUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
-                firstName: existingUser.firstName,
-                lastName: existingUser.lastName,
-                email: existingUser.email
-            }
+                    firstName: existingUser.firstName,
+                    lastName: existingUser.lastName,
+                    email: existingUser.email,
+                    friends: existingUser.friends,
+                    following: existingUser.following,
+                    follower: existingUser.follower,
+                    message: existingUser.message,
+                    works: existingUser.works,
+                    comicLibrary: existingUser.comicLibrary,
+                    like: existingUser.like,
+                    dislike: existingUser.dislike,
+                    alarm: existingUser.alarm,
+                    profile: existingUser.profile,
+                    _id:existingUser._id
+                }
         }).send();
     } catch (err) {
         console.error(err);
@@ -170,9 +206,10 @@ updateUser =async (req,res) => {
             error: 'You must provide a body to update',
         })
     }
-
-    User.findOne({ _id: req.params.id }, (err, user) => {
+    
+    User.findOne({ email: body.email }, (err, user) => {
         console.log("user found: " + JSON.stringify(user));
+        console.log(body);
         if (err) {
             return res.status(404).json({
                 err,
@@ -193,14 +230,13 @@ updateUser =async (req,res) => {
         user.dislike=body.dislike;
         user.notification=body.notification;
         user.profile=body.profile;
-        
+        user._id = req.params._id;
         user
             .save()
             .then(() => {
                 console.log("SUCCESS!!!");
                 return res.status(200).json({
                     success: true,
-                    id: user._id,
                     message: 'User data updated!',
                 })
             })

@@ -35,7 +35,7 @@ export default function AppBanner() {
         auth.logoutUser();
     }
     const handleCreate = () => {
-        store.createWork([]);
+        store.createWork();
     }
     const handleSave = () => {
         store.updateWork(store.currentWork);
@@ -82,7 +82,8 @@ export default function AppBanner() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout} sx={{color:"blue"}}>Logout</MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link to='/myPage'>My Page</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
         </Menu>        
 
