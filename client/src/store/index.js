@@ -399,7 +399,7 @@ function GlobalStoreContextProvider(props) {
     store.updateWork = async function (newWork) {
         if(newWork.author==auth.user.email){    
                 let response = await api.updateWorkById(newWork._id, newWork);
-                newAuth.works.push(response.data.work._id);
+                // newAuth.works.push(response.data.work._id);
                 if (response.data.success) {
                     storeReducer({
                         type: GlobalStoreActionType.UPDATE_WORK,

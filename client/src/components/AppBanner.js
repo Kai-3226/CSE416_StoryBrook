@@ -86,9 +86,6 @@ export default function AppBanner() {
     }
 
     const handleCreate = () => {
-<<<<<<< HEAD
-        store.createWork();
-=======
         if(store.status == 0 || store.status == 1)
         {  
             //editToolbar= <CreatePageBanner/>
@@ -96,7 +93,6 @@ export default function AppBanner() {
             store.createWork();
             setTargetPage("Creating");
         }
->>>>>>> harry
     }
 
     function handleCheckClose (event){
@@ -162,17 +158,10 @@ export default function AppBanner() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-<<<<<<< HEAD
-            <MenuItem onClick={handleLogout} sx={{color:"blue"}}>Logout</MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to='/myPage'>My Page</Link></MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to='/profile'>Profile</Link></MenuItem>
-        </Menu>        
-=======
             <MenuItem onClick={handleMyPage}>My Page</MenuItem>
             <MenuItem onClick={handleProfile}>Profile</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>            
->>>>>>> harry
 
     let editToolbar = "";
     let menu = loggedOutMenu;
