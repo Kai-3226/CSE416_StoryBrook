@@ -1,3 +1,4 @@
+import { FormControlUnstyledContext } from '@mui/base';
 import { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../api'
@@ -150,7 +151,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.UPDATE_WORK: {
                 return setStore({
                     workList: store.workList,
-                    currentWork: null,
+                    currentWork: store.currentWork,
                     editActive:false,
                     workMarkedForDeletion: null,
                     mode: store.mode,
@@ -241,7 +242,6 @@ function GlobalStoreContextProvider(props) {
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentWork = function () {
-        let work=store.currentWork;
         //list.view++;
         //store.updateList2(list);
         storeReducer({
@@ -258,6 +258,8 @@ function GlobalStoreContextProvider(props) {
             content: null,
             workType: store.status,
             author: auth.user.email,
+            authorName:auth.user.profile.userName,
+            authorId: auth.user._id,
             published:{publish:false,date:Date()},
             view:0,
             likes:[],
@@ -303,18 +305,13 @@ function GlobalStoreContextProvider(props) {
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
-                    else if(work.published.publish===true){
-                        // console.log(auth.user.email,list.email,list.published.published)
-                        viewable.push(work);
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
                     }
                 }
-                else{
-                    if(work.published.publish===true){
-                        viewable.push(work);
-                        // console.log(listOwned);
-                    } 
-                }
-                
             }
             console.log(viewable);
 
@@ -410,8 +407,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.updateCurrentWork = async function () {
+       
         const response = await api.updateWorkById(store.currentWork._id, store.currentWork);
         if (response.data.success) {
+            console.log(response.data.work);
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
                 payload: store.currentWork
@@ -631,6 +630,22 @@ function GlobalStoreContextProvider(props) {
     store.myPage = function() {
         history.push("/mypage/");
     }
+
+    // include view, like, dislike,comment(reply comment)
+    store.interactWork = async function (newWork) {
+    
+        let response = await api.updateWorkById(newWork._id, newWork);
+           if (response.data.success) {
+               storeReducer({
+                   type: GlobalStoreActionType.UPDATE_WORK,
+                   payload:null,
+               });   
+           console.log("work updated succesfully");
+           }
+           else{console.log("work update unsuccessfully")}     
+     
+    }
+
     return (
         <GlobalStoreContext.Provider value={{
             store

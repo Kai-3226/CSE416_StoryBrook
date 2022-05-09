@@ -223,6 +223,7 @@ export default function AppBanner() {
                     </Box>
                 </Toolbar>
             </AppBar>
+           <DeleteModal/>
             <Dialog
                     id = "saveCheck"
                     maxWidth='sm'

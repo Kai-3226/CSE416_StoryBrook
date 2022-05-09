@@ -10,10 +10,21 @@ getLoggedIn = async (req, res) => {
         const loggedInUser = await User.findOne({ _id: req.userId });
         res.status(200).json({
             loggedIn: true,
-            user: {
+            user: { 
+                _id:loggedInUser._id,
                 firstName: loggedInUser.firstName,
                 lastName: loggedInUser.lastName,
-                email: loggedInUser.email
+                email: loggedInUser.email,
+                friends: loggedInUser.friends,
+                following: loggedInUser.following,
+                follower: loggedInUser.follower,
+                message: loggedInUser.message,      
+                works: loggedInUser.works,
+                comicLibrary:loggedInUser.comicLibrary,
+                like: loggedInUser.like,
+                dislike: loggedInUser.dislike,
+                alarm: loggedInUser.alarm,
+                profile: loggedInUser.profile
             }
         }).send();
     })}catch (err) {
@@ -64,12 +75,22 @@ registerUser = async (req, res) => {
             firstName, lastName, email, passwordHash
         });
 
-        newUser.profile={"age": 0,
-        "gender": "N/A",
-        "userName": newUser.firstName,
-        "myStatement": "Stay Hungry, Stay Foolish",
-        "icon": newUser.firstName.substring(0,1).toUpperCase()+newUser.lastName.substring(0,1).toUpperCase()};
-
+        newUser.friends= [],
+        newUser.following= [],
+        newUser.follower= [],
+        newUser.message= [],      
+        newUser.works= [],      
+        newUser.comicLibrary=[],
+        newUser.like= [],
+        newUser.dislike= [],
+        newUser.alarm= [],
+        newUser.profile= {"age": 0,
+                        "gender": "N/A",
+                        "userName": newUser.firstName,
+                        "myStatement":"Stay Hungry, Stay Foolish",
+                        "icon": newUser.firstName.substring(0,1).toUpperCase()+newUser.lastName.substring(0,1).toUpperCase()
+                    }
+    
         const savedUser = await newUser.save();
 
         // LOGIN THE USER
@@ -82,24 +103,20 @@ registerUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
+                _id: savedUser._id,
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
                 email: savedUser.email,
-                passwordHash: savedUser.passwordHash,
-                friends: [],
-                following: [],
-                follower: [],
-                message: [],      
-                works: [],
-                comicLibrary:[],
-                like: [],
-                dislike: [],
-                alarm: [],
-                profile: {"age": savedUser.age,
-                            "gender": savedUser.gender,
-                            "userName": savedUser.firstName,
-                            "myStatement": savedUser.myStatement,
-                            "icon": savedUser.icon}
+                friends: savedUser.friends,
+                following: savedUser.following,
+                follower: savedUser.follower,
+                message: savedUser.message,      
+                works: savedUser.works,
+                comicLibrary:savedUser.comicLibrary,
+                like: savedUser.like,
+                dislike: savedUser.dislike,
+                alarm: savedUser.alarm,
+                profile: savedUser.profile
             }
         }).send();
     } catch (err) {
@@ -150,6 +167,7 @@ loginUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
+                _id:   existingUser._id,
                 firstName: existingUser.firstName,
                 lastName: existingUser.lastName,
                 email: existingUser.email,
@@ -166,7 +184,6 @@ loginUser = async (req, res) => {
             }
         }).send();
     } catch (err) {
-        console.error(err);
         res.status(500).json({
             success: false,
             errorMessage:"Log in process is wrong"
@@ -188,13 +205,32 @@ getUserData = async(req,res) =>{
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
+      
         return res.status(200).json({ success: true, user: user })
     }).catch(err => console.log(err))
+}
+//get a userdata by email
+getOneUser = async(req,res) =>{
+    // console.log(email);
+    await User.findOne({ email: req.params.email }, (err, user) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        res.status(200).json({ success: true, user: user }).send();
+    }).catch(
+        error => {
+            console.log("FAILURE: " + JSON.stringify(error));
+            return res.status(404).json({
+                success: false,
+                err: 'not found the user!'
+            })
+        }
+        )
 }
 
 updateUser =async (req,res) => {
     const body = req.body
-    console.log("updateUser: " + JSON.stringify(body));
+    // console.log("updateUser: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
             success: false,
@@ -202,7 +238,7 @@ updateUser =async (req,res) => {
         })
     }
 
-    User.findOne({ email: body.email }, (err, user) => {
+    User.findOne({ _id: body._id }, (err, user) => {
         console.log("user found: " + JSON.stringify(user));
         if (err) {
             return res.status(404).json({
@@ -229,21 +265,8 @@ updateUser =async (req,res) => {
                 console.log("SUCCESS!!!");
                 return res.status(200).json({
                     success: true,
-                    user: {
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email,
-                        friends:  user.friends,
-                        following: user.following,
-                        follower:  user.follower,
-                        message:  user.message,      
-                        works:  user.works,
-                        comicLibrary: user.comicLibrary,
-                        like:  user.like,
-                        dislike:  user.dislike,
-                        alarm: user.alarm,
-                        profile:  user.profile
-                    },
+                    id: user._id,
+                    user:user,
                     message: 'User data updated!',
                 })
             })
@@ -260,7 +283,6 @@ updateUser =async (req,res) => {
 sendUserEmail = async (req, res) => {
     try {
         const useremail = req.body.email;
-        console.log(useremail);
         const existingUser=await User.findOne({ email: useremail });
        
         if (!existingUser) {          
@@ -388,10 +410,6 @@ changePassword = async (req, res) => {
 verifyEmail = async (req, res) => {
     try {
         const {code,useremail} = req.body;
-        console.log(req.body);
-        console.log(code);
-        console.log(useremail);
-
        
       
         await sendEmail(existingUser.email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars");
@@ -427,5 +445,6 @@ module.exports = {
     sendUserEmail,
     resetPassword,
     changePassword,
-    verifyEmail
+    verifyEmail,
+    getOneUser
 }
