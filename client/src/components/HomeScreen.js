@@ -16,7 +16,6 @@ import { useHistory } from 'react-router-dom'
     @author McKilla Gorilla
 */
 const HomeScreen = () => {
-    const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
     

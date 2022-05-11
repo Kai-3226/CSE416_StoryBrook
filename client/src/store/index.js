@@ -85,6 +85,7 @@ function GlobalStoreContextProvider(props) {
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_WORK_LIST: {
                 console.log("loading");
+                console.log(payload)
                 return setStore({
                     workList: payload,
                     currentWork: null,
@@ -304,6 +305,7 @@ function GlobalStoreContextProvider(props) {
                 //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.email===work.author){
+                        console.log("ASDASD")
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
@@ -374,26 +376,23 @@ function GlobalStoreContextProvider(props) {
             let work = response.data.work;
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
-                payload: work                      //{list: work,edit: input}
+                payload: work                      
             });
-            // console.log(this.currentWork);  
-            // console.log(work);    
+            console.log(work);    
 
-            if(this.currentWork)
+            if(work)
             {
-                if(this.currentWork.published['publish']==true)
-                {   if(this.currentWork.workType==1)  history.push(`/read/${id}`);
-                    else if (this.currentWork.workType==0) history.push(`/readStory/${id}`); }
-                else if (this.currentWork.published['publish']==false)
-                {   if(this.currentWork.workType==1)  history.push(`/create/`);
-                    else if (this.currentWork.workType==0) history.push(`/createStory/`);
+                if(work.published['publish']==true)
+                {   if(work.workType==1)  history.push(`/read/${id}`);
+                    else if (work.workType==0) history.push(`/readStory/${id}`); }
+                else if (work.published['publish']==false)
+                {   if(work.workType==1)  history.push(`/create/`);
+                    else if (work.workType==0) history.push(`/createStory/`);
                 }
                 
             }
         
         }
-        
-              
     }
 
     store.updateWork = async function (newWork) {
