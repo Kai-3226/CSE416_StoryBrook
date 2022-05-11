@@ -199,13 +199,13 @@ function GlobalStoreContextProvider(props) {
             }
             case GlobalStoreActionType.STATUS: {
                 return setStore({
-                    workList:null,
+                    workList:payload.workList,
                     currentWork:null,
                     editActive:false,
                     workMarkedForDeletion:null,
                     mode: null,
                     text: null,
-                    status: payload,
+                    status: payload.stat,
                     view: store.view
                 })
             }
@@ -320,7 +320,6 @@ function GlobalStoreContextProvider(props) {
                     } 
                 }
             }
-
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
                 payload: viewable
@@ -613,12 +612,45 @@ function GlobalStoreContextProvider(props) {
 
 
 
-    store.stat = function (status){
-        console.log(status)
-        storeReducer({
-            type: GlobalStoreActionType.STATUS,
-            payload: status
-        });
+    store.stat = async function (status){
+        const response = await api.getWorkList();
+        if (response.data.success) {
+            let workArray = response.data.data;
+            let viewable=[];
+            //console.log(workArray);
+            for(let key in workArray){
+                let work = workArray[key];
+                //console.log(work);
+                if(auth.loggedIn){
+                    if(auth.user.email===work.author){
+                        // console.log(auth.user.email,list.email,list.published.published)
+                        viewable.push(work);
+                    }
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
+                    }
+                }
+                else{
+                    if(work.published.publish===true){
+                        viewable.push(work);
+                        // console.log(listOwned);
+                    } 
+                }
+            }
+            storeReducer({
+                type: GlobalStoreActionType.STATUS,
+                payload: {workList:viewable,
+                        stat:status
+                }
+            });
+        }
+        else {
+            console.log("API FAILED TO SET STATUS AND GET THE works list");
+        }
+ 
         history.push("/home/");
     }
 

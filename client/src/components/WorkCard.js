@@ -112,7 +112,7 @@ function WorkCard(props) {
   
     
     let workElement =
-        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"static",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"
