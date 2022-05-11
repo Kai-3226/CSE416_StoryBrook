@@ -1,3 +1,4 @@
+import { FormControlUnstyledContext } from '@mui/base';
 import { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../api'
@@ -151,7 +152,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.UPDATE_WORK: {
                 return setStore({
                     workList: store.workList,
-                    currentWork: null,
+                    currentWork: store.currentWork,
                     editActive:false,
                     workMarkedForDeletion: null,
                     mode: store.mode,
@@ -199,13 +200,13 @@ function GlobalStoreContextProvider(props) {
             }
             case GlobalStoreActionType.STATUS: {
                 return setStore({
-                    workList:null,
+                    workList:payload.workList,
                     currentWork:null,
                     editActive:false,
                     workMarkedForDeletion:null,
                     mode: null,
                     text: null,
-                    status: payload,
+                    status: payload.stat,
                     view: store.view
                 })
             }
@@ -231,18 +232,18 @@ function GlobalStoreContextProvider(props) {
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
-    store.editList = async function (id, newName, newContent) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let work = response.data.work;
-            work.name = newName;
-            work.content = newContent;
-            store.updateWork(work);
-        }
+    store.editWork = async function (newName, newContent) {
+        let work = store.currentWork;
+        work.content=newContent;
+        work.name=newName;
+        storeReducer({
+            type: GlobalStoreActionType.EDIT_WORK,
+            payload: work
+        });
+        console.log(work);
     }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentWork = function () {
-        let work=store.currentWork;
         //list.view++;
         //store.updateList2(list);
         storeReducer({
@@ -259,6 +260,8 @@ function GlobalStoreContextProvider(props) {
             content: null,
             workType: store.status,
             author: auth.user.email,
+            authorName:auth.user.profile.userName,
+            authorId: auth.user._id,
             published:{publish:false,date:Date()},
             view:0,
             likes:[],
@@ -305,9 +308,11 @@ function GlobalStoreContextProvider(props) {
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
-                    else if(work.published.publish===true){
-                        // console.log(auth.user.email,list.email,list.published.published)
-                        viewable.push(work);
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
                     }
                 }
                 else{
@@ -316,11 +321,7 @@ function GlobalStoreContextProvider(props) {
                         // console.log(listOwned);
                     } 
                 }
-                
             }
-            console.log(viewable);
-            console.log(store.status)
-
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
                 payload: viewable
@@ -399,6 +400,7 @@ function GlobalStoreContextProvider(props) {
     store.updateWork = async function (newWork) {
         if(newWork.author==auth.user.email){    
                 let response = await api.updateWorkById(newWork._id, newWork);
+                // newAuth.works.push(response.data.work._id);
                 if (response.data.success) {
                     storeReducer({
                         type: GlobalStoreActionType.UPDATE_WORK,
@@ -413,8 +415,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.updateCurrentWork = async function () {
+       
         const response = await api.updateWorkById(store.currentWork._id, store.currentWork);
         if (response.data.success) {
+            console.log(response.data.work);
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
                 payload: store.currentWork
@@ -621,12 +625,45 @@ function GlobalStoreContextProvider(props) {
 
 
 
-    store.stat = function (status){
-        console.log(status)
-        storeReducer({
-            type: GlobalStoreActionType.STATUS,
-            payload: status
-        });
+    store.stat = async function (status){
+        const response = await api.getWorkList();
+        if (response.data.success) {
+            let workArray = response.data.data;
+            let viewable=[];
+            //console.log(workArray);
+            for(let key in workArray){
+                let work = workArray[key];
+                //console.log(work);
+                if(auth.loggedIn){
+                    if(auth.user.email===work.author){
+                        // console.log(auth.user.email,list.email,list.published.published)
+                        viewable.push(work);
+                    }
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
+                    }
+                }
+                else{
+                    if(work.published.publish===true){
+                        viewable.push(work);
+                        // console.log(listOwned);
+                    } 
+                }
+            }
+            storeReducer({
+                type: GlobalStoreActionType.STATUS,
+                payload: {workList:viewable,
+                        stat:status
+                }
+            });
+        }
+        else {
+            console.log("API FAILED TO SET STATUS AND GET THE works list");
+        }
+ 
         history.push("/home/");
     }
 
@@ -634,6 +671,22 @@ function GlobalStoreContextProvider(props) {
     store.myPage = function() {
         history.push("/mypage/");
     }
+
+    // include view, like, dislike,comment(reply comment)
+    store.interactWork = async function (newWork) {
+    
+        let response = await api.updateWorkById(newWork._id, newWork);
+           if (response.data.success) {
+               storeReducer({
+                   type: GlobalStoreActionType.UPDATE_WORK,
+                   payload:null,
+               });   
+           console.log("work updated succesfully");
+           }
+           else{console.log("work update unsuccessfully")}     
+     
+    }
+
     return (
         <GlobalStoreContext.Provider value={{
             store

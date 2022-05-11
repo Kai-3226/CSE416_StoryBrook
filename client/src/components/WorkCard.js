@@ -16,15 +16,69 @@ import Box from '@mui/material/Box';
 import { createStore } from 'polotno/model/store';
 
 
+let image = null;
+
+// const fs = require('fs');
+// const { createInstance } = require('polotno-node');
+
+// async function run() {
+//   const instance = await createInstance({
+//     key: 'nFA5H9elEytDyPyvKL7T',
+//   });
+
+//   const json = JSON.parse(fs.readFileSync(work.content.pages[0]));
+
+//   const imageBase64 = await instance.jsonToImageBase64(json); // by default it will be png image
+//   // write image into local file
+//   fs.writeFileSync('out.png', imageBase64, 'base64');
+
+//   // also we can export design into lower size
+//   // and change image type
+//   const jpegImage = await instance.jsonToImageBase64(json, {
+//     pixelRatio: 0.5, // make image twice smaller
+//     mimeType: 'image/jpeg',
+//   });
+//   fs.writeFileSync('out.jpg', jpegImage, 'base64');
+
+//   // close instance
+//   instance.close();
+// }
+
+
+
+
 function WorkCard(props) {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const { work } = props;
 
+    // let image = null;
+    
+    // // const { createInstance } = require('polotno-node');
+    // // const fs = require('fs');
+
+    // function run() {
+    //     console.log("kkkkkkkkkkkkk");
+    //     // const { createInstance } = require('polotno-node');
+    //     // const instance = createInstance({
+    //     //     key: 'nFA5H9elEytDyPyvKL7T',
+    //     // });
+
+    //     // const json = JSON.parse(fs.readFileSync(work.content.pages[0]));
+
+    //     // console.log(json);
+    //     // image = instance.jsonToImageBase64(json);
+    //     // instance.close();
+    // }
+
+    // run();
+
+
     function handleOpen(event, id){
         event.stopPropagation();
         console.log(id);
         store.setCurrentWork(id);
+       
     }
 
     var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
@@ -36,7 +90,8 @@ function WorkCard(props) {
   
     
     let workElement =
-        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"static",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+            {deletebutton}
             <CardMedia
                 component="img"
                 height="140"

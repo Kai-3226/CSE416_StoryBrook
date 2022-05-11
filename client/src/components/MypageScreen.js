@@ -19,10 +19,9 @@ export default function MyPage () {
     let selectbar="";
     let mylist = [];
 
-    function handleClick(status) {
-        setStatus(status);
+    function handleClick(status){
         mylist = store.workList.filter(item => item.author === auth.user.email);
-        if(stat == 1){
+        if(status === 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
         } else if(stat == 2)
         {
@@ -50,8 +49,7 @@ export default function MyPage () {
             <Button onClick={(event) => {handleClick(1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
             <Button onClick={(event) => {handleClick(2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
         </Box>
-        
-        if (store && store.workList&&stat==0) {
+        if (store && store.workList) {
             mylist = store.workList.filter(item => item.author === auth.user.email);
             list = "";  
             let rows = [];
@@ -68,12 +66,12 @@ export default function MyPage () {
         }
 
     }
-    /*
+
     if (store.mode=="friends"){
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.friends.map((friendId)=> (
+                auth.user.friends.map((friendId)=> (
                         <Card></Card>
                     ))
                 }
@@ -83,7 +81,7 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.following.map((authorId)=> (
+                auth.user.following.map((authorId)=> (
                         <Card></Card>
                     ))
                 }
@@ -93,7 +91,7 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.works.map((workId)=> (
+                auth.user.works.map((workId)=> (
                         <Card></Card>
                     ))
                 }
@@ -103,13 +101,12 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.like.map((workId)=> (
+                auth.user.like.map((workId)=> (
                         <Card></Card>
                     ))
                 }
             </List>
     }
-    */
     return(
         <Box bgcolor="lightgreen" display="flex" sx={{height:'85%',width:'100%'}}>
             <MypageSidebar></MypageSidebar>

@@ -13,8 +13,8 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: 'http://localhost:4000/api',
-    //baseURL: 'https://sbrook.herokuapp.com/api',    
+    //baseURL: 'http://localhost:4000/api',
+    baseURL: 'https://sbrook.herokuapp.com/api',    
 
 })
 //'https://storybrook.herokuapp.com/api' 'http://localhost:4000/api'
@@ -35,13 +35,16 @@ export const getLoggedIn = () => api.get(`/loggedIn/`);
 export const registerUser = (payload) => api.post(`/register/`, payload)
 export const loginUser = (payload) => api.post(`/login/`, payload)
 export const logoutUser = () => api.get(`/logout/`)
+export const getUserData = (id) => api.get(`/getUserData/`,id)
 //export const requestPasswordReset = (payload) => api.get(`/requestPasswordReset/`, payload)
 export const resetPassword = (token,id,payload) => api.put(`/resetPassword/${token}/${id}`, payload)
 export const sendUserEmail = (payload) => api.post(`/requestPasswordReset/`, payload)
 export const verifyEmail = (payload) => api.post(`/verifyEmail/`, payload)
 export const changePassword = (payload)=> api.put('/changePassword/',payload)
-export const updateUser = (payload)=> api.put('/updateUser/',payload)
+export const updateUser = (payload)=> api.put(`/updateUser/`,payload)
 
+export const getUserbyId=(id)=>api.get(`/getUserData/${id}`)
+export const getOneUser =(email)=>api.get(`/getOneUser/${email}`)
 
 const apis = {
     createWork,
@@ -50,6 +53,7 @@ const apis = {
     updateWorkById,
     deleteWorkById,
     getWorkById,
+
     getWorkList,
     getLoggedIn,
     registerUser,
@@ -59,7 +63,9 @@ const apis = {
     sendUserEmail,
     verifyEmail,
     changePassword,
-    updateUser
+    updateUser,
+    getUserbyId,
+    getOneUser
 }
 
 export default apis
