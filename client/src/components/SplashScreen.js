@@ -2,13 +2,8 @@ import { React } from "react";
 import Comics from '../Images/Comics.png'
 import splashScreen from '../Images/splashScreen.png'
 import storytelling from '../Images/storytelling.png'
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import ErrorModal from './ErrorModal';
 import Copyright from './Copyright'
-import Container from '@mui/material/Container';
-import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useContext,useState } from 'react';
 import { GlobalStoreContext } from '../store';

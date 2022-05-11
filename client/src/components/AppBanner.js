@@ -12,11 +12,8 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useHistory, useLocation } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
-<<<<<<< HEAD
-=======
 import { TextField } from '@mui/material';
 import DeleteModal from './DeleteModal';
->>>>>>> a550ad790058c478f1da073f9c31387c47aa515f
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';

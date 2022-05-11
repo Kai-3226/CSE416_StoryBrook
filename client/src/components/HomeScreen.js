@@ -18,12 +18,6 @@ import { useHistory } from 'react-router-dom'
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
-<<<<<<< HEAD
-
-    if (store) {
-        console.log(store.status)
-    }
-=======
     
     // let list = [];
     // let work = "";
@@ -45,7 +39,6 @@ const HomeScreen = () => {
     //         </Box>
     //     ));
     // }
->>>>>>> a550ad790058c478f1da073f9c31387c47aa515f
 
     return (
         <Box id="homeScreen">
