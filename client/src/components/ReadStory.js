@@ -60,7 +60,7 @@ const ReadStory = () => {
         event.preventDefault();
         event.stopPropagation(); 
 
-        if(!work.likes.includes(auth.user._id)) //haven't like yet
+        if(auth.loggedIn&&!work.likes.includes(auth.user._id)) //haven't like yet
             {
             work.likes.push(auth.user._id);
             likeButtonColor="success"; 
@@ -68,7 +68,7 @@ const ReadStory = () => {
             user.like.push(work._id);
             auth.interact(user);
             }
-        else if(work.likes.includes(auth.user._id)) //like yet so unlike it
+        else if(auth.loggedIn&&work.likes.includes(auth.user._id)) //like yet so unlike it
             {
                
             for (let i = 0; i < work.likes.length; i++) {
@@ -92,14 +92,14 @@ const ReadStory = () => {
     const handleDislikes = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
+        if(auth.loggedIn&&!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
             {work.dislikes.push(auth.user._id);
             dislikeButtonColor="success";
             store.interactWork(work); 
             user.dislike.push(work._id);
             auth.interact(user);
             }
-        else if(work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
+        else if(auth.loggedIn&&work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
             {
             for (let i = 0; i < work.dislikes.length; i++) {
                    if(work.dislikes[i]===auth.user._id) {
@@ -121,12 +121,12 @@ const ReadStory = () => {
     const handleFollow = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(!user.following.includes(work.authorId)&&user._id!==work.authorId) //haven't followed yet so follow it
+        if(auth.loggedIn&&!user.following.includes(work.authorId)&&user._id!==work.authorId) //haven't followed yet so follow it
            {followOption="unfollow";
             followButtonColor="success";
             auth.followAuthor(work.authorId);    
         }
-        else if (user.following.includes(work.authorId)&&user._id!==work.authorId)//have followed yet so unfollow it
+        else if (auth.loggedIn&&user.following.includes(work.authorId)&&user._id!==work.authorId)//have followed yet so unfollow it
         {   followOption="follow";
             followButtonColor="primary";
             auth.unfollowAuthor(work.authorId);
@@ -141,12 +141,14 @@ const ReadStory = () => {
     const handleComment = (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if(auth.loggedIn){
         let newComment={"userId" : user._id, 
                         "userName": user.profile.userName,
                         "content": comment,                                                     
                         "response": null}
         work.comments.push(newComment);
         store.interactWork(work);
+    }
         setComment("Any Comment?");
 
     };
