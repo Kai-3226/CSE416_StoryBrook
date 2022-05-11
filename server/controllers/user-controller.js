@@ -20,8 +20,6 @@ getLoggedIn = async (req, res) => {
         console.error(err);
         res.status(500).send();
     }
-
-
 }
 
 registerUser = async (req, res) => {

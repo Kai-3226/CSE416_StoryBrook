@@ -32,8 +32,8 @@ const style = {
   };
 
 function NotificationModal() {
-
-    let open=true;
+  const { auth } = useContext(AuthContext);
+  let open=true;
     // const { store } = useContext(GlobalStoreContext);
     // let name = "";
     // if (store.listMarkedForDeletion) {
@@ -48,6 +48,12 @@ function NotificationModal() {
     //     store.unmarkListForDeletion();
     //     open=false;
     // }
+
+  let notification = "";
+  if(auth.user !== null){
+    list = auth.user.notification;
+    notification = list.map((item) => (<NotificationCard infor={item}/>))
+  }
     
   return (
     <div>
@@ -64,15 +70,7 @@ function NotificationModal() {
             <Box  sx={{position:'relative',maxWidth:'100%',height:80,border:'1px solid #000'}}>
                 NotificationCard2
             </Box> */}
-            <NotificationCard/>
-            <NotificationCard/>
-            <NotificationCard/>
-            <NotificationCard/>
-            <NotificationCard/>
-            <NotificationCard/>
-
-
-                
+            {notification}
         </Box>
    
     </div>
