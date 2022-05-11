@@ -10,8 +10,6 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationModal from './NotificationModal';
-import FriendModal from './FriendModal';
 import { useHistory, useLocation } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import { TextField } from '@mui/material';
@@ -188,6 +186,7 @@ export default function AppBanner() {
     }
     
     function getAccountMenu(loggedIn) {
+        
         if(loggedIn){
             let lastname=auth.user.lastName.substring(0,1).toUpperCase();
             let firstname=auth.user.firstName.substring(0,1).toUpperCase();

@@ -85,6 +85,7 @@ function GlobalStoreContextProvider(props) {
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_WORK_LIST: {
                 console.log("loading");
+                console.log(payload)
                 return setStore({
                     workList: payload,
                     currentWork: null,
@@ -210,6 +211,7 @@ function GlobalStoreContextProvider(props) {
                 })
             }
             case GlobalStoreActionType.VIEW: {
+                console.log(payload);
                 return setStore({
                     workList:store.workList,
                     currentWork:null,
@@ -303,6 +305,7 @@ function GlobalStoreContextProvider(props) {
                 //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.email===work.author){
+                        console.log("ASDASD")
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
@@ -373,26 +376,23 @@ function GlobalStoreContextProvider(props) {
             let work = response.data.work;
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
-                payload: work                      //{list: work,edit: input}
+                payload: work                      
             });
-            // console.log(this.currentWork);  
-            // console.log(work);    
+            console.log(work);    
 
-            if(this.currentWork)
+            if(work)
             {
-                if(this.currentWork.published['publish']==true)
-                {   if(this.currentWork.workType==1)  history.push(`/read/${id}`);
-                    else if (this.currentWork.workType==0) history.push(`/readStory/${id}`); }
-                else if (this.currentWork.published['publish']==false)
-                {   if(this.currentWork.workType==1)  history.push(`/create/`);
-                    else if (this.currentWork.workType==0) history.push(`/createStory/`);
+                if(work.published['publish']==true)
+                {   if(work.workType==1)  history.push(`/read/${id}`);
+                    else if (work.workType==0) history.push(`/readStory/${id}`); }
+                else if (work.published['publish']==false)
+                {   if(work.workType==1)  history.push(`/create/`);
+                    else if (work.workType==0) history.push(`/createStory/`);
                 }
                 
             }
         
         }
-        
-              
     }
 
     store.updateWork = async function (newWork) {
@@ -561,60 +561,60 @@ function GlobalStoreContextProvider(props) {
 
 // Generate view list in view screem
     store.viewlist = function(criteria){
-        let list=[];
-        if (criteria===0 || criteria===4){
-            let i, j;
-            let all=store.workList;
-            for (i = 0; i < all.length-1; i++) {
-                for (j = 0; j < list.length-i-1; j++) {
+        let i, j;
+        let list=store.workList;
+        for (i = 0; i < list.length-1; i++) {
+            for (j = 0; j < list.length-i-1; j++) {
+                if(criteria===0){       //latest
                     if (list[j].published.date > list[j+1].published.data){
                         swap(list,j,j+1);
                     }
                 }
-            }
-            if (criteria===0){    //follow
-                for(let work in all){
-                    let authorId = work.author;
-                    for (let author in auth.user.following){
-                        if(authorId === author){
-                            list.push(work);
-                            // console.log(listOwned);
-                        }   
+                else if(criteria===1){         //view
+                    if (list[j].view < list[j+1].view){
+                        swap(list,j,j+1);
                     }
                 }
-            }
-            else if (criteria===4){          //search
-                for(let work in all){
-                    if(work.name.includes(store.text)){
-                        list.push(work);
-                        // console.log(listOwned);
+                else if(criteria===2){           //like
+                    if (list[j].likes < list[j+1].likes){
+                        swap(list,j,j+1);
                     }
                 }
             }
         }
-        else{
-            let i, j;
-            let list=store.workList;
-            for (i = 0; i < list.length-1; i++) {
-                for (j = 0; j < list.length-i-1; j++) {
-                    if(criteria===1){       //latest
-                        if (list[j].published.date > list[j+1].published.data){
-                            swap(list,j,j+1);
-                        }
-                    }
-                    else if(criteria===2){         //view
-                        if (list[j].view < list[j+1].view){
-                            swap(list,j,j+1);
-                        }
-                    }
-                    else if(criteria===3){           //like
-                        if (list[j].likes < list[j+1].likes){
-                            swap(list,j,j+1);
-                        }
-                    }
+        
+        storeReducer({
+            type: GlobalStoreActionType.VIEW,
+            payload: list
+        });
+    }
+
+    store.searchWork = function(criteria){
+        let list=[];
+        let i, j;
+        let all=store.workList;
+        for (i = 0; i < all.length-1; i++) {
+            for (j = 0; j < list.length-i-1; j++) {
+                if (list[j].published.date > list[j+1].published.data){
+                    swap(list,j,j+1);
                 }
             }
         }
+        console.log(criteria);
+        console.log("zzzzzzzzzz");
+        for(let i = 0; i < all.length; i++){
+            console.log(all[i]);
+            console.log(all[i].name);
+            // if(all[i].name !== undefined){
+            //     console.log(all[i].name.indexOf(criteria));
+            // }
+            if(all[i].name !== undefined && all[i].name.indexOf(criteria) !== -1){
+                console.log("zzzzzzzzzz");
+                list.push(all[i]);
+                console.log(all[i]);
+            }
+        }
+        console.log(list);
         storeReducer({
             type: GlobalStoreActionType.VIEW,
             payload: list

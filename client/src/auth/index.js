@@ -19,7 +19,8 @@ function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
         loggedIn: false,
-        error: false
+        error: false,
+        userList:[]
     });
     const history = useHistory();
 
@@ -454,7 +455,27 @@ function AuthContextProvider(props) {
             console.log("interact fail");
         }
     }
-    
+
+    auth.ignoreWork = async function(workId){
+        try{       
+            const response = await api.getUserbyId(auth.user._id);
+            if(response.data.success){
+                let user=response.data.user;
+                console.log(user);
+                for (let s = 0; s < user.notification.length; s++) {
+                    if(user.notification[s].type === 1 && user.notification[s].workId === workId) {
+                        user.notification.splice(s,1);
+                    }
+                }
+                const res=await api.updateUser(user);
+            }
+        }
+        catch(err){
+        
+            console.log("ignore work error");
+        }
+    }
+
     
     return (
         <AuthContext.Provider value={{

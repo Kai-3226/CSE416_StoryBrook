@@ -1,18 +1,14 @@
-
 import React, { useContext, useEffect } from "react";
 import { GlobalStoreContext } from '../store'
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import { Card } from "./cardFollow";
 
 import { LeftArrow, RightArrow } from "./arrows";
 import usePreventBodyScroll from "./usePreventBodyScroll";
-import Box from '@mui/material/Box';
-import WorkCard from './WorkCard';
 import "../App.css";
-    
     
 function onWheel(apiObj, ev) {
       const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
-    
       if (isThouchpad) {
         ev.stopPropagation();
         return;
@@ -27,27 +23,37 @@ function onWheel(apiObj, ev) {
     
 function HomeScreenFollow() {
     const { store } = useContext(GlobalStoreContext);
+
       const { disableScroll, enableScroll } = usePreventBodyScroll();
     
     //   useEffect(() => {
     //     store.loadWorkList();
     //   }, []);
 
-      let list = [];
+      let list = Array(20);
       let work = "";
-
     if (store && store.workList) {
         list = store.workList;
         list = list.filter(item => item.published["publish"] === true&&item.workType===store.status);
-        // const rows = list.reduce(function (rows, key, index) {
-        //     return (index % 4 == 0 ? rows.push([key]) 
-        //     : rows[rows.length-1].push(key)) && rows;
-        // }, []);
+        list=list.slice(0, 20);
+        console.log(list)
+        // // const rows = list.reduce(function (rows, key, index) {
+        // //     return (index % 4 == 0 ? rows.push([key]) 
+        // //     : rows[rows.length-1].push(key)) && rows;
+        // // }, []);
         
-        work = 
-            <Box bgcolor="lightblue" sx = {{display:'flex',width:'100%'}}>
-                {list.map((item) =>(<WorkCard work={item}/>))}
-            </Box>
+        work = list.map((item) => 
+        // console.log(item))
+        (
+          <Card
+          title={item.name}
+          like={item.likes.length} // NOTE: itemId is required for track items
+          view={item.view}
+          itemId={item._id}
+          workType={item.workType}
+          key={item.authorId}
+        />
+        ))
     }
 
     return (
@@ -67,4 +73,3 @@ function HomeScreenFollow() {
     );
 }
 export default HomeScreenFollow;
-

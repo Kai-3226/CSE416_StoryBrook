@@ -35,8 +35,6 @@ getLoggedIn = async (req, res) => {
             errorMessage: "Please enter a password of at least 8 characters."
         });
     }
-
-
 }
 
 registerUser = async (req, res) => {

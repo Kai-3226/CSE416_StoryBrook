@@ -60,10 +60,10 @@ export default function Sidebar () {
             
             <div id="sidebar">
                 <div id="sidebar-menu">
-                <Box className={friend} onClick={(event) => {handleClick(event,"friends")}}>Friends</Box>
+                {/* <Box className={friend} onClick={(event) => {handleClick(event,"friends")}}>Friends</Box> */}
                 <Box className={follow} onClick={(event) => {handleClick(event,"followings")}}>Followings</Box>
                 <Box className={work} onClick={(event) => {handleClick(event,"works")}}>Works</Box>
-                <Box className={library} onClick={(event) => {handleClick(event,"library")}}>Library</Box>
+                {/* <Box className={library} onClick={(event) => {handleClick(event,"library")}}>Library</Box> */}
                 <Box className={like} onClick={(event) => {handleClick(event,"likes")}}>Your Likes</Box>
                 </div>
             </div>
