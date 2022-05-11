@@ -182,10 +182,9 @@ export default function AppBanner() {
             let lastname=auth.user.lastName.substring(0,1).toUpperCase();
             let firstname=auth.user.firstName.substring(0,1).toUpperCase();
             return(
-                <Button sx={{color:"e0e0e0"}}
-                variant="outlined">
+                <Box position='relative' alignContent='center' sx={{height:'50px',width:'50px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
                     {firstname+lastname}
-                </Button>
+                </Box>
             );
         }
         return <AccountCircle />;
@@ -216,7 +215,8 @@ export default function AppBanner() {
                             aria-controls={menuId}
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
-                            color="inherit"
+                            //colorSecondary
+                            //color='red'
                         >
                             { getAccountMenu(auth.loggedIn) }
                         </IconButton>

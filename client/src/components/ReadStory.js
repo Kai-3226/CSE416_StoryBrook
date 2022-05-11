@@ -1,4 +1,4 @@
-import { useContext, useState,useEffect } from 'react'
+import { useContext, useState,useEffect} from 'react'
 import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,18 +11,23 @@ import CommentCard from './CommentsCard';
 import { Markup } from 'interweave';
 import AuthContext from '../auth';
 import TextField from '@mui/material/TextField';
+import {useParams} from 'react-router-dom';
 
 
 const ReadStory = () => {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
     const [comment,setComment]=useState("Any Comment?");
+    const {id}=useParams();
 
     let work="";
     if(store&&store.currentWork){
         work=store.currentWork;
-      
     }
+    else if(store){
+        store.setCurrentWork(id);
+    }
+
     let user="";
     if(auth&&auth.loggedIn){
         user=auth.user;
@@ -46,7 +51,7 @@ const ReadStory = () => {
 
     let followOption="follow";
     let followButtonColor="primary";
-    if(user.following.includes(work.authorId)) 
+    if(auth.loggedIn&&user.following.includes(work.authorId)) 
         {followOption="unfollow";followButtonColor="success";}
 
 
@@ -116,11 +121,10 @@ const ReadStory = () => {
     const handleFollow = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(!user.following.includes(work.authorId&&user._id!==work.authorId)) //haven't followed yet so follow it
+        if(!user.following.includes(work.authorId)&&user._id!==work.authorId) //haven't followed yet so follow it
            {followOption="unfollow";
             followButtonColor="success";
-            auth.followAuthor(work.authorId);
-            
+            auth.followAuthor(work.authorId);    
         }
         else if (user.following.includes(work.authorId)&&user._id!==work.authorId)//have followed yet so unfollow it
         {   followOption="follow";
@@ -151,8 +155,7 @@ const ReadStory = () => {
 
     };
     let comments = "";
-    if(store.currentWork){
-        console.log(work)      
+    if(store.currentWork){   
         if(work.comments.length>0){  
             comments= work.comments.map((element) => (   
                       <CommentCard comment={element}/>
@@ -161,9 +164,8 @@ const ReadStory = () => {
         
     }
 
-
-    return (
-       
+    if(store&&store.currentWork)
+    return (   
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>
                     <Box id="readPage_workTitle" sx={{textAlign:'center',position:'relative',paddingTop:'2%',width:'60%'}}>
@@ -219,6 +221,7 @@ const ReadStory = () => {
         </Box>
        
     );
+    else return <Box>no work found</Box>;
 }
 
 export default ReadStory;

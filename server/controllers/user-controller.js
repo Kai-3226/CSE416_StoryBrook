@@ -6,9 +6,10 @@ const sendEmail = require("../utils/email/sendEmail");
 const jwt = require("jsonwebtoken")
 
 getLoggedIn = async (req, res) => {
-    try {auth.verify(req, res, async function () {
+    try {
+        auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
-        res.status(200).json({
+        return res.status(200).json({
             loggedIn: true,
             user: { 
                 _id:loggedInUser._id,
@@ -26,10 +27,13 @@ getLoggedIn = async (req, res) => {
                 alarm: loggedInUser.alarm,
                 profile: loggedInUser.profile
             }
-        }).send();
+        });
     })}catch (err) {
-        console.error(err);
-        res.status(500).send();
+        console.log("loggin failed");
+        return res.status(500).json({
+            success:false,
+            errorMessage: "Please enter a password of at least 8 characters."
+        });
     }
 
 
@@ -214,13 +218,20 @@ logoutUser= async (req, res) => {
 
 
 getUserData = async(req,res) =>{
-    await User.findOne({ id: req.params.id }, (err, user) => {
+    
+    console.log("try to find user by id:"+ req.params.id);
+    await User.findOne({ _id: req.params.id }, (err, user) => {
         if (err) {
+            console.log("get user data error");
             return res.status(400).json({ success: false, error: err });
         }
-      
-        return res.status(200).json({ success: true, user: user })
-    }).catch(err => console.log(err))
+        console.log("find user: "+ user);
+
+        return res.status(200).json({ success: true, user: user });
+    }).catch(
+        err => {console.log("get user data error");
+        //console.log(err);
+            })
 }
 //get a userdata by email
 getOneUser = async(req,res) =>{
@@ -242,7 +253,8 @@ getOneUser = async(req,res) =>{
 }
 
 updateUser =async (req,res) => {
-    const body = req.body
+    const body = req.body;
+    console.log(body);
     // console.log("updateUser: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
@@ -253,7 +265,7 @@ updateUser =async (req,res) => {
 
     User.findOne({ _id: body._id }, (err, user) => {
         console.log("user found: " + JSON.stringify(user));
-        console.log(body);
+        
         if (err) {
             return res.status(404).json({
                 success: false,
@@ -276,7 +288,7 @@ updateUser =async (req,res) => {
         
         user.save()
             .then(() => {
-                console.log("SUCCESS!!!");
+                console.log(" updated user SUCCESS!!!");
                 return res.status(200).json({
                     success: true,
                     id: user._id,
@@ -285,7 +297,7 @@ updateUser =async (req,res) => {
                 })
             })
             .catch(error => {
-                console.log("FAILURE: " + JSON.stringify(error));
+                console.log("USER UPDATE FAILURE: " + JSON.stringify(error));
                 return res.status(404).json({
                     success: false,
                     message: 'User data not updated!'

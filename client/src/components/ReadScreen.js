@@ -1,4 +1,4 @@
-import { useContext, useState,useEffect } from 'react'
+import { useContext, useState,useEffect} from 'react'
 import { GlobalStoreContext } from '../store'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -14,24 +14,34 @@ import { Workspace } from 'polotno/canvas/workspace';
 import { createStore } from 'polotno/model/store';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import AuthContext from '../auth';
+import {useParams} from 'react-router-dom';
 
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
     const [comment,setComment]=useState("Any Comment?");
+    const {id}=useParams();
+
     const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
-    workstore.loadJSON(store.currentWork.content);
     
     let work="";
     if(store&&store.currentWork){
         work=store.currentWork;
-      
+        workstore.loadJSON(work.content);
     }
+    else if(store){
+        store.setCurrentWork(id);
+    }
+    // else {
+
+    // }
+    
     let user="";
     if(auth&&auth.loggedIn){
-        user=auth.user;
-      
+        user=auth.user;  
     }
+    
+   
     useEffect(() => {
         if(store&&store.currentWork){
         work.view++;
@@ -125,13 +135,15 @@ const ReadScreen = () => {
         event.preventDefault();
         event.stopPropagation();
         if(!user.following.includes(work.authorId) &&user._id!==work.authorId) //haven't followed yet so follow it
-           {followOption="unfollow";
+           {console.log("follow");
+            followOption="unfollow";
             followButtonColor="success";
             auth.followAuthor(work.authorId);
             
         }
         else if (user.following.includes(work.authorId)&&user._id!==work.authorId)//have followed yet so unfollow it
-        {   followOption="follow";
+        {   console.log("unfollow");
+            followOption="follow";
             followButtonColor="primary";
             auth.unfollowAuthor(work.authorId);
            
@@ -175,8 +187,8 @@ const ReadScreen = () => {
         //         <Box><TextField sx={{width:0.9, flexDirection:'row'}} id={"item"+i} class='list-card' name={"item"+i} defaultValue={item}></TextField></Box>
         //     </Box>
         // )
+    if(store&&store.currentWork)
     return (
-       
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>
                     <Box id="readPage_workTitle" sx={{textAlign:'center',position:'relative',paddingTop:'2%',width:'60%'}}>
@@ -244,6 +256,7 @@ const ReadScreen = () => {
         </Box>
        
     );
+    else return <Box>no work found</Box>;
 }
 
 export default ReadScreen;

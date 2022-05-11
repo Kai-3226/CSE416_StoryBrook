@@ -23,9 +23,11 @@ function AuthContextProvider(props) {
     });
     const history = useHistory();
 
-    // useEffect(() => {
-    //     auth.getLoggedIn();
-    // }, []);
+    useEffect(() => {
+        if(!auth.loggedIn){
+        console.log("log in");
+        auth.getLoggedIn();}
+    }, []);
 
     const authReducer = (action) => {
         const { type, payload } = action;
@@ -91,7 +93,7 @@ function AuthContextProvider(props) {
         const response = await api.getLoggedIn();
         if (response.status === 200) {
             authReducer({
-                type: AuthActionType.SET_LOGGED_IN,
+                type: AuthActionType.GET_LOGGED_IN,
                 payload: {
                     loggedIn: response.data.loggedIn,
                     user: response.data.user,
@@ -332,6 +334,7 @@ function AuthContextProvider(props) {
             console.log(err);
         }
     }
+
     //find user by email 
     auth.setTargetUser=async function(author){
         try{
@@ -355,25 +358,28 @@ function AuthContextProvider(props) {
     auth.followAuthor=async function(authorId){
         try{       
             // get follewing user data
-         
+
             const response = await api.getUserbyId(authorId);
+
             if(response.data.success){
+                
                 let user=response.data.user;
+               
                 user.follower.push(auth.user._id);
                 const res=await api.updateUser(user);
                 if(res.data.success){
-                    console.log(auth.user._id);
+                    
                     const response = await api.getUserbyId(auth.user._id);
                     if(response.data.success){
                         let newUser=response.data.user;
-                        console.log("369"+ auth.user._id);
+                      
                         newUser.following.push(authorId);
                         const respon=await api.updateUser(newUser);
                         if(respon.data.success){
                             console.log("following successfully");
                             authReducer({
                                 type: AuthActionType.LOGIN_USER,
-                                payload:newUser
+                                payload:response.data.user
                             })
                         }
                     }
@@ -388,12 +394,11 @@ function AuthContextProvider(props) {
     auth.unfollowAuthor=async function(authorId){
         try{       
             // get follewing user data
-            console.log(authorId);
-          
+            console.log(authorId);    
             const response = await api.getUserbyId(authorId);
             if(response.data.success){
                 let user=response.data.user;
-                console.log(user);
+    
                 for (let s = 0; s < user.follower.length; s++) {
                     if(user.follower[s]==auth.user._id) {
                         user.follower.splice(s,1);
@@ -401,7 +406,7 @@ function AuthContextProvider(props) {
                 }
                 const res=await api.updateUser(user);
                 if(res.data.success){  
-                    console.log(auth.user._id);
+                    //console.log(auth.user._id);
                     const response = await api.getUserbyId(auth.user._id);
                     if(response.data.success){
                         let newUser=response.data.user;
@@ -413,10 +418,9 @@ function AuthContextProvider(props) {
                         const respon=await api.updateUser(newUser);
                         if(respon.data.success){
                             console.log("unfollowing successfully");
-                            console.log(newUser);
                             authReducer({
                                 type: AuthActionType.LOGIN_USER,
-                                payload:newUser
+                                payload:respon.data.user
                             })
                         }
                     }
