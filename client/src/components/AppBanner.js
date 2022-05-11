@@ -16,10 +16,12 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import { TextField } from '@mui/material';
 import DeleteModal from './DeleteModal';
-import CreatePageBanner from './CreatePageBanner';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
+import logo_comic from '../Images/logo_comic.png';
+import logo_tale from '../Images/logo_tale.png';
+import logo from '../Images/logo.png'
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -173,7 +175,13 @@ export default function AppBanner() {
             // } else 
             if((store.status==0||store.status==1)){
                 editToolbar=
-                <Button size = "small" color ="primary" variant="contained" onClick={handleCreate}>Create</Button>
+    
+                <IconButton variant="outlined" onClick={handleCreate}>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAvMjdZGObNNzsHRpZGhT0KsDXJn1MPsGkDQ&usqp=CAU"
+                        height='32'
+                         />  
+                        </IconButton> 
+                
             }
     }
     
@@ -182,7 +190,7 @@ export default function AppBanner() {
             let lastname=auth.user.lastName.substring(0,1).toUpperCase();
             let firstname=auth.user.firstName.substring(0,1).toUpperCase();
             return(
-                <Box position='relative' alignContent='center' sx={{height:'50px',width:'50px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                <Box position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
                     {firstname+lastname}
                 </Box>
             );
@@ -192,19 +200,29 @@ export default function AppBanner() {
    
     let banner="";
 
+    let imageUrl=logo;
+    if(store.status==0) {imageUrl=logo_tale}
+    else if(store.status==1) {imageUrl=logo_comic};
+
    if(store)
     banner= <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">
                 <Toolbar sx={{bgcolor:"#e0e0e0"}}>
-                    <Typography                        
+                    {/* <Typography                        
                         variant="h4"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}      
                         onClick={()=>{handleSplashScreen()}}                  
-                    >
-                        <b style={{ textDecoration: 'none', color: '#d4b038' }}>StoryBrook</b>
-                    </Typography>
+                    > */}
+                        <Box position="relative" sx={{ display:"flex", width:"10%",height:"100%",alignItems:"center", flexDirection:"column"}}>
+                        <Button onClick={(event) => {handleSplashScreen()}} sx={{ width: "200px", height: "50px", backgroundImage:`url(${imageUrl})`, 
+                        backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
+                        </Button>
+                        </Box>
+    
+                        
+                    {/* </Typography> */}
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {editToolbar}

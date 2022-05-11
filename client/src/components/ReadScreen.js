@@ -132,6 +132,7 @@ const ReadScreen = () => {
 
     };
     const handleFollow = (event) => {
+        console.log(auth.loggedIn);
         event.preventDefault();
         event.stopPropagation();
         if(auth.loggedIn&&!user.following.includes(work.authorId) &&user._id!==work.authorId) //haven't followed yet so follow it
@@ -210,7 +211,7 @@ const ReadScreen = () => {
                                 {work.authorName}
                                 </Typography> 
                             </Box>
-                            <Button color={followButtonColor} disable={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>
+                            <Button color={followButtonColor} disabled={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>
                         </Box>
                     </Box>
                 </Box>
@@ -249,8 +250,8 @@ const ReadScreen = () => {
                 <Box id="comment_banner" bgcolor='primary' display='flex'> 
                     <Typography component="h1" variant="h4" marginTop='1%' color='red'>Comments</Typography> 
                     
-                    <TextField sx={{width:'60%',height:'0%',bgcolor:'lightgrey',marginTop:'1%'}} defaultValue={comment} autocomplete="off" value={comment} onChange={(e)=>setComment(e.target.value)} ></TextField>
-                    <Button disable={buttonDisable} onClick={handleComment} variant="outlined" id='readPage_author_follow' sx={{position:'relative',margin:'1%',}}>submit</Button>
+                    <TextField sx={{width:'60%',height:'0%',bgcolor:'lightgrey',marginTop:'1%'}} defaultValue={comment} autoComplete="off" value={comment} onChange={(e)=>setComment(e.target.value)} ></TextField>
+                    <Button disabled={buttonDisable} onClick={handleComment} variant="outlined" id='readPage_author_follow' sx={{position:'relative',margin:'1%',}}>submit</Button>
                 
                 </Box>
                     

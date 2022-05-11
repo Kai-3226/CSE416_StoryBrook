@@ -225,7 +225,6 @@ getUserData = async(req,res) =>{
             console.log("get user data error");
             return res.status(400).json({ success: false, error: err });
         }
-        console.log("find user: "+ user);
 
         return res.status(200).json({ success: true, user: user });
     }).catch(
@@ -254,7 +253,7 @@ getOneUser = async(req,res) =>{
 
 updateUser =async (req,res) => {
     const body = req.body;
-    console.log(body);
+   
     // console.log("updateUser: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
@@ -264,7 +263,6 @@ updateUser =async (req,res) => {
     }
 
     User.findOne({ _id: body._id }, (err, user) => {
-        console.log("user found: " + JSON.stringify(user));
         
         if (err) {
             return res.status(404).json({
