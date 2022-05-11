@@ -41,18 +41,30 @@ function MypageWorkCard(props) {
                     handleDeleteWork(event, work._id)
                     }} aria-label='delete'>
                     <DeleteIcon/>
-                </IconButton>;;
+                </IconButton>;
     }
+    var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
+    var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
+    // import data
+    //var json=work.content;
+    //workstore.loadJSON(json);
+    // wait for loading
+    //workstore.waitLoading();
+    // do export
+    
+    let response=url;
+    if(work.workType==0) {response=bookUrl};
 
     let workElement =
         <Box sx={{ position:"relative",width:"35%",height:"100%",marginLeft:"8%",marginTop:"5%",marginBottom:"5%" }}> 
             {deletebutton}
+        
         <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"100%",height:"100%"}} onClick={(event) => {handleOpen(event, work._id)}}>
            
             <CardMedia
                 component="img"
                 height="140"
-                image= {work}
+                image= {response}
                 alt= {work.name}
             />
            

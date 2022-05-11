@@ -5,7 +5,7 @@ import {useState } from 'react';
 import { GlobalStoreContext } from '../store'
 import AuthContext from  '../auth';
 import WorkCard from './WorkCard';
-import Copyright2 from './Copyright';
+import Copyright from './Copyright';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -24,7 +24,7 @@ const ViewScreen = () => {
         //console.log("abc");
     }, []);
 
-    let list = [];
+    
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -55,7 +55,9 @@ const ViewScreen = () => {
             <MenuItem onClick={(event) => {handleSort(3)}}>Most Like</MenuItem>
         </Menu>
     );
-
+        
+    
+    let list = [];
     let work = "";
 
     if (store && store.workList) {
@@ -63,32 +65,26 @@ const ViewScreen = () => {
         list = store.workList;
         console.log(list);
         list = list.filter(item => item.published["publish"] === true);
-        const rows = list.reduce(function (rows, key, index) { 
+        const rows = list.reduce(function (rows, key, index) {
             return (index % 4 == 0 ? rows.push([key]) 
-              : rows[rows.length-1].push(key)) && rows;
-          }, []);
-        console.log(rows);
+            : rows[rows.length-1].push(key)) && rows;
+        }, []);
 
-
-        // let rows = [];
-        // for (var i = 0, end = store.workList.length / 4; i < end; ++i){
-        //     rows.push(store.workList.slice(i * 4, (i + 1) * 4));
-        // }
-        // console.log(rows);
         work = 
-            rows.map((row) => (
-                <Box sx = {{display:'flex',position:'relative'}}>
-                    {row.map((item) =>(<WorkCard work={item}/>))}
-                </Box>
-            ));
+        rows.map((row) => (
+            <Box sx = {{display:'flex',position:'relative'}}>
+                {row.map((item) =>(<WorkCard work={item}/>))}
+            </Box>
+        ));
     }
+        
     
     return (
         <div id="viewpage">
             <div id="viewpage_banner">
             </div >
             
-            <div style={{height:'700px',overflow:'auto'}}>
+            <div style={{overflow:'auto'}}>
                 {/* <InfiniteScroll
                     //pageStart={0}
                     // loadMore={loadFunc}
@@ -100,9 +96,7 @@ const ViewScreen = () => {
                 {work}
                 {/* </InfiniteScroll> */}
             </div>
-            <div>
-                <Copyright2/>
-            </div>
+                <Copyright/>     
         </div>)
 }
 

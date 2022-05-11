@@ -13,6 +13,7 @@ export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
     const [text,setText]=useState("");
+    const[stat,setStatus]=useState(0);
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
@@ -22,7 +23,8 @@ export default function MyPage () {
         mylist = store.workList.filter(item => item.author === auth.user.email);
         if(status === 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
-        } else{
+        } else if(stat == 2)
+        {
             mylist = mylist.filter(item => item.published["publish"] === false);
         }
         if (store && store.workList) {
@@ -64,12 +66,12 @@ export default function MyPage () {
         }
 
     }
-    /*
+
     if (store.mode=="friends"){
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.friends.map((friendId)=> (
+                auth.user.friends.map((friendId)=> (
                         <Card></Card>
                     ))
                 }
@@ -79,7 +81,7 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.following.map((authorId)=> (
+                auth.user.following.map((authorId)=> (
                         <Card></Card>
                     ))
                 }
@@ -89,7 +91,7 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.works.map((workId)=> (
+                auth.user.works.map((workId)=> (
                         <Card></Card>
                     ))
                 }
@@ -99,13 +101,12 @@ export default function MyPage () {
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
-                user.like.map((workId)=> (
+                auth.user.like.map((workId)=> (
                         <Card></Card>
                     ))
                 }
             </List>
     }
-    */
     return(
         <Box bgcolor="lightgreen" display="flex" sx={{height:'85%',width:'100%'}}>
             <MypageSidebar></MypageSidebar>

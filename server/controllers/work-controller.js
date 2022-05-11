@@ -70,21 +70,29 @@ updateWork = async (req, res) => {
             })
         }
         work.workType = body.workType;
-        work.author = body.author;
         work.content =body.content;
         work.published=body.published;
+        work.name=body.name;
         
+        work.view=body.view;
+        work.comments=body.comments;
+        work.likes=body.likes;
+        work.dislikes=body.dislikes;
+        work.author=body.author;
+        work.authorName=body.authorName;
+        work.authorId=body.authorId;
         work
             .save()
             .then(() => {
                 return res.status(200).json({
                     success: true,
                     id: work._id,
+                    work:work,
                     message: 'Work updated!',
                 })
             })
             .catch(error => {
-                console.log("FAILURE: " + JSON.stringify(error));
+                console.log("FAILURE: updatework failed\n" + JSON.stringify(error));
                 return res.status(404).json({
                     error,
                     message: 'Work not updated!',
@@ -130,54 +138,6 @@ getWorks = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Works not found` })
         }
-        // const body = req.body;
-        
-        // if (body.query="mostlike"){
-        //     for(let i=0;i<works.length-1;i++){
-        //         for(let j=0;j<works.length-i-1;j++){
-        //             if (works[j].likes.length < works[j+1].likes.length){
-        //                 swap(works,j,j+1);
-        //             }   
-        //         }
-        //     }
-        // }
-        // else if (body,query="mostview"){
-        //     for(let i=0;i<works.length-1;i++){
-        //         for(let j=0;j<works.length-i-1;j++){
-        //             if (works[j].view < works[j+1].view){
-        //                 swap(works,j,j+1);
-        //             }   
-        //         }
-        //     }
-        // }
-        // else if (body.query="followingWorks"){
-        //     for(work in works){
-        //         if(!body.payload.includes(works[work].author)){
-        //             works.splice(work,1);
-        //         }
-        //     }
-        // }
-        // else if (body.query="myWork"){
-        //     for(work in works){
-        //         if(works[work].author!==body.payload){
-        //             works.splice(work,1);
-        //         }
-        //     }
-        // }
-        // else if (body.query="latest"){
-        //     for(let i=0;i<works.length-1;i++){
-        //         for(let j=0;j<works.length-i-1;j++){
-        //             if (works[j].published.time < works[j+1].published.time){
-        //                 swap(works,j,j+1);
-        //             }   
-        //         }
-        //     }
-        // }
-        // else{
-        //     return res
-        //         .status(404)
-        //         .json({ success: false, error: `Not valid query` })
-        // }
         return res.status(200).json({ success: true, data: works })
     }).catch(err => console.log(err))
 }
@@ -207,7 +167,9 @@ getWorkPairs = async (req, res) => {
                     author: work.author,
                     published: work.published,
                     view: work.view,
-                    comments: work.comments
+                    comments: work.comments,
+                    authorName:work.authorName,
+                    authorId:work.authorId
                 };
                 pairs.push(pair);
             }
