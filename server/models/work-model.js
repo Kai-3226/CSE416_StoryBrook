@@ -5,7 +5,7 @@ const WorkSchema = new Schema(
     {
         name: { type: String, required: true },
         content: { type: Object },  
-        // work type is 0:story 1:comic
+        // work type is 0:story  1:comic
         workType: { type: Number , required: true },  
         comments: { type: [ {"userId" : String, 
                              "userName": String,

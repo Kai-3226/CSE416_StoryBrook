@@ -1,4 +1,4 @@
-import { useContext, useState,useEffect } from 'react'
+import { useContext, useState,useEffect} from 'react'
 import { GlobalStoreContext } from '../store'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -14,24 +14,34 @@ import { Workspace } from 'polotno/canvas/workspace';
 import { createStore } from 'polotno/model/store';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import AuthContext from '../auth';
+import {useParams} from 'react-router-dom';
 
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
     const [comment,setComment]=useState("Any Comment?");
+    const {id}=useParams();
+
     const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
-    workstore.loadJSON(store.currentWork.content);
     
     let work="";
     if(store&&store.currentWork){
         work=store.currentWork;
-      
+        workstore.loadJSON(work.content);
     }
+    else if(store){
+        store.setCurrentWork(id);
+    }
+    // else {
+
+    // }
+    
     let user="";
     if(auth&&auth.loggedIn){
-        user=auth.user;
-      
+        user=auth.user;  
     }
+    
+   
     useEffect(() => {
         if(store&&store.currentWork){
         work.view++;
@@ -59,7 +69,7 @@ const ReadScreen = () => {
         event.preventDefault();
         event.stopPropagation(); 
 
-        if(!work.likes.includes(auth.user._id)) //haven't like yet
+        if(auth.loggedIn&&!work.likes.includes(auth.user._id)) //haven't like yet
             {
             work.likes.push(auth.user._id);
             likeButtonColor="success"; 
@@ -68,7 +78,7 @@ const ReadScreen = () => {
             user.like.push(work._id);
             auth.interact(user);
             }
-        else if(work.likes.includes(auth.user._id)) //like yet so unlike it
+        else if(auth.loggedIn&&work.likes.includes(auth.user._id)) //like yet so unlike it
             {
                
             for (let i = 0; i < work.likes.length; i++) {
@@ -93,7 +103,7 @@ const ReadScreen = () => {
     const handleDislikes = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
+        if(auth.loggedIn&&!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
             {work.dislikes.push(auth.user._id);
             dislikeButtonColor="success";
             store.interactWork(work); 
@@ -101,7 +111,7 @@ const ReadScreen = () => {
             user.dislike.push(work._id);
             auth.interact(user);
             }
-        else if(work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
+        else if(auth.loggedIn&&work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
             {
             for (let i = 0; i < work.dislikes.length; i++) {
                    if(work.dislikes[i]===auth.user._id) {
@@ -122,16 +132,19 @@ const ReadScreen = () => {
 
     };
     const handleFollow = (event) => {
+        console.log(auth.loggedIn);
         event.preventDefault();
         event.stopPropagation();
-        if(!user.following.includes(work.authorId) &&user._id!==work.authorId) //haven't followed yet so follow it
-           {followOption="unfollow";
+        if(auth.loggedIn&&!user.following.includes(work.authorId) &&user._id!==work.authorId) //haven't followed yet so follow it
+           {console.log("follow");
+            followOption="unfollow";
             followButtonColor="success";
             auth.followAuthor(work.authorId);
             
         }
-        else if (user.following.includes(work.authorId)&&user._id!==work.authorId)//have followed yet so unfollow it
-        {   followOption="follow";
+        else if (auth.loggedIn&&user.following.includes(work.authorId)&&user._id!==work.authorId)//have followed yet so unfollow it
+        {   console.log("unfollow");
+            followOption="follow";
             followButtonColor="primary";
             auth.unfollowAuthor(work.authorId);
            
@@ -144,12 +157,15 @@ const ReadScreen = () => {
     const handleComment = (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if(auth.loggedIn) 
+        {
         let newComment={"userId" : user._id, 
                         "userName": user.profile.userName,
                         "content": comment,                                                     
                         "response": null}
         work.comments.push(newComment);
         store.interactWork(work);
+    }
         setComment("Any Comment?");
     };
     const handleReply= (event) => {
@@ -175,8 +191,8 @@ const ReadScreen = () => {
         //         <Box><TextField sx={{width:0.9, flexDirection:'row'}} id={"item"+i} class='list-card' name={"item"+i} defaultValue={item}></TextField></Box>
         //     </Box>
         // )
+    if(store&&store.currentWork)
     return (
-       
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>
                     <Box id="readPage_workTitle" sx={{textAlign:'center',position:'relative',paddingTop:'2%',width:'60%'}}>
@@ -195,7 +211,7 @@ const ReadScreen = () => {
                                 {work.authorName}
                                 </Typography> 
                             </Box>
-                            <Button color={followButtonColor} disable={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>
+                            <Button color={followButtonColor} disabled={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>
                         </Box>
                     </Box>
                 </Box>
@@ -234,8 +250,8 @@ const ReadScreen = () => {
                 <Box id="comment_banner" bgcolor='primary' display='flex'> 
                     <Typography component="h1" variant="h4" marginTop='1%' color='red'>Comments</Typography> 
                     
-                    <TextField sx={{width:'60%',height:'0%',bgcolor:'lightgrey',marginTop:'1%'}} defaultValue={comment} autocomplete="off" value={comment} onChange={(e)=>setComment(e.target.value)} ></TextField>
-                    <Button disable={buttonDisable} onClick={handleComment} variant="outlined" id='readPage_author_follow' sx={{position:'relative',margin:'1%',}}>submit</Button>
+                    <TextField sx={{width:'60%',height:'0%',bgcolor:'lightgrey',marginTop:'1%'}} defaultValue={comment} autoComplete="off" value={comment} onChange={(e)=>setComment(e.target.value)} ></TextField>
+                    <Button disabled={buttonDisable} onClick={handleComment} variant="outlined" id='readPage_author_follow' sx={{position:'relative',margin:'1%',}}>submit</Button>
                 
                 </Box>
                     
@@ -244,6 +260,7 @@ const ReadScreen = () => {
         </Box>
        
     );
+    else return <Box>no work found</Box>;
 }
 
 export default ReadScreen;
