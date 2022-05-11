@@ -563,7 +563,7 @@ function GlobalStoreContextProvider(props) {
 // Generate view list in view screem
     store.viewlist = function(criteria){
         let list=[];
-        if (criteria===0 || criteria===4){
+        if (criteria===3){
             let i, j;
             let all=store.workList;
             for (i = 0; i < all.length-1; i++) {
@@ -573,18 +573,7 @@ function GlobalStoreContextProvider(props) {
                     }
                 }
             }
-            if (criteria===0){    //follow
-                for(let work in all){
-                    let authorId = work.author;
-                    for (let author in auth.user.following){
-                        if(authorId === author){
-                            list.push(work);
-                            // console.log(listOwned);
-                        }   
-                    }
-                }
-            }
-            else if (criteria===4){          //search
+            if (criteria===3){          //search
                 for(let work in all){
                     if(work.name.includes(store.text)){
                         list.push(work);
@@ -598,17 +587,17 @@ function GlobalStoreContextProvider(props) {
             let list=store.workList;
             for (i = 0; i < list.length-1; i++) {
                 for (j = 0; j < list.length-i-1; j++) {
-                    if(criteria===1){       //latest
+                    if(criteria===0){       //latest
                         if (list[j].published.date > list[j+1].published.data){
                             swap(list,j,j+1);
                         }
                     }
-                    else if(criteria===2){         //view
+                    else if(criteria===1){         //view
                         if (list[j].view < list[j+1].view){
                             swap(list,j,j+1);
                         }
                     }
-                    else if(criteria===3){           //like
+                    else if(criteria===2){           //like
                         if (list[j].likes < list[j+1].likes){
                             swap(list,j,j+1);
                         }

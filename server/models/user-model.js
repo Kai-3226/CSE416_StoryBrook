@@ -16,10 +16,10 @@ const UserSchema = new Schema(
                             "content": [{"isYou": Boolean,   
                                     "message": String}]
                                     }]},
-        notification: { type: [{ "type": Number, 
-                                 "userId": String,
+        notification: { type: [{ "userId": String,
                                  "userName": String, 
-                                 "workId": String}]},  
+                                 "workId": String,
+                                 "workType": Number}]},  
         works: { type: [String]},
         comicLibrary: { type: [String]},
         like: { type: [String]},

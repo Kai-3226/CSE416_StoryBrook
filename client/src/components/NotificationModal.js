@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { GlobalStoreContext } from '../store';
+import AuthContext from '../auth';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -33,6 +34,7 @@ const style = {
 
 function NotificationModal() {
   const { auth } = useContext(AuthContext);
+  const { store } = useContext(GlobalStoreContext);
   let open=true;
     // const { store } = useContext(GlobalStoreContext);
     // let name = "";
@@ -50,8 +52,14 @@ function NotificationModal() {
     // }
 
   let notification = "";
+  let list = [];
   if(auth.user !== null){
     list = auth.user.notification;
+    for (let s = 0; s < list.length; s++) {
+      if(list[s].workType !== store.status) {
+          list.splice(s,1);
+      }
+  }
     notification = list.map((item) => (<NotificationCard infor={item}/>))
   }
     
@@ -64,12 +72,6 @@ function NotificationModal() {
               Notification
             </Typography> 
             </Box>
-            {/* <Box  sx={{position:'relative',maxWidth:'100%',height:80,border:'1px solid #000'}}>
-                NotificationCard1
-            </Box>
-            <Box  sx={{position:'relative',maxWidth:'100%',height:80,border:'1px solid #000'}}>
-                NotificationCard2
-            </Box> */}
             {notification}
         </Box>
    

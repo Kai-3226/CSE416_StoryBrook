@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import InfiniteScroll from 'react-infinite-scroller';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const ViewScreen = () => {
     const { store } = useContext(GlobalStoreContext);
@@ -24,19 +26,42 @@ const ViewScreen = () => {
         //console.log("abc");
     }, []);
 
-    
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
 
     function handleSort(criteria){
+        handleMenuClose();
         store.viewlist(criteria);
         list = store.view;
     }
 
+    const menuButton = (
+        <Button
+            id="sort-button"
+            aria-controls={isMenuOpen ? 'sort-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={isMenuOpen ? 'true' : undefined}
+            variant="contained"
+            disableElevation
+            onClick={handleMenuOpen}
+            endIcon={<KeyboardArrowDownIcon />}
+        >
+            Options
+      </Button>
+    );
+
+    
     const menu = (
         <Menu
+        id="sort-menu"
+        MenuListProps={{
+          'aria-labelledby': 'sort-button',
+        }}
         anchorEl={anchorEl}
         anchorOrigin={{
             vertical: 'top',
@@ -49,10 +74,9 @@ const ViewScreen = () => {
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-            <MenuItem onClick={(event) => {handleSort(0)}}>Follow</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(1)}}>Latest</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(2)}}>Most View</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(3)}}>Most Like</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(0)}}>Latest</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(1)}}>Most View</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(2)}}>Most Like</MenuItem>
         </Menu>
     );
         
@@ -82,8 +106,9 @@ const ViewScreen = () => {
     return (
         <div id="viewpage">
             <div id="viewpage_banner">
-            </div >
-            
+                {menuButton}
+                {menu}
+            </div>
             <div style={{overflow:'auto'}}>
                 {/* <InfiniteScroll
                     //pageStart={0}
