@@ -12,6 +12,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import TextField from '@mui/material/TextField';
 
 const ViewScreen = () => {
     const { store } = useContext(GlobalStoreContext);
@@ -19,6 +20,20 @@ const ViewScreen = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const [input,setInput] = useState("");
+
+    function handleUpdateText(event) {
+        setInput(event.target.value);
+    }
+
+    function handleKeyPress(event) {
+        console.log(store.view);
+        if(event.code === "Enter") {
+            console.log(input);
+            store.searchWork(input);
+            console.log(store.view);
+            list = store.view;
+        }
+    }
 
     useEffect(() => {
         store.loadWorkList();
@@ -39,6 +54,13 @@ const ViewScreen = () => {
         store.viewlist(criteria);
         list = store.view;
     }
+
+    let search_field = 
+    <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' disbaled={store.addingList}
+        onChange={(event) => {handleUpdateText(event)}}
+        onKeyPress={(event) => {handleKeyPress(event)}}
+        defaultValue={store.text}
+    />;
 
     const menuButton = (
         <Button
@@ -85,8 +107,8 @@ const ViewScreen = () => {
     let work = "";
 
     if (store && store.workList) {
-        console.log(store.workList);
-        list = store.workList;
+        console.log(store.view);
+        list = store.view;
         console.log(list);
         list = list.filter(item => item.published["publish"] === true&&item.workType===store.status);
         const rows = list.reduce(function (rows, key, index) {
@@ -106,6 +128,7 @@ const ViewScreen = () => {
     return (
         <div id="viewpage">
             <div id="viewpage_banner">
+                {search_field}
                 {menuButton}
                 {menu}
             </div>
