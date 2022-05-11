@@ -84,6 +84,7 @@ function GlobalStoreContextProvider(props) {
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_WORK_LIST: {
                 console.log("loading");
+                console.log(payload)
                 return setStore({
                     workList: payload,
                     currentWork: null,
@@ -300,6 +301,7 @@ function GlobalStoreContextProvider(props) {
                 //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.email===work.author){
+                        console.log("ASDASD")
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
@@ -317,6 +319,7 @@ function GlobalStoreContextProvider(props) {
                 
             }
             console.log(viewable);
+            console.log(store.status)
 
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK_LIST,

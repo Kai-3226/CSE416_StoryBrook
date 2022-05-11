@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect } from "react";
 import { GlobalStoreContext } from '../store'
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
@@ -38,18 +37,16 @@ function HomeScreenFollow() {
 
     if (store && store.workList) {
         list = store.workList;
-        list = list.filter(item => item.published["publish"] === true);
-        const rows = list.reduce(function (rows, key, index) {
-            return (index % 4 == 0 ? rows.push([key]) 
-            : rows[rows.length-1].push(key)) && rows;
-        }, []);
+        list = list.filter(item => item.published["publish"] === true&&item.workType===store.status);
+        // const rows = list.reduce(function (rows, key, index) {
+        //     return (index % 4 == 0 ? rows.push([key]) 
+        //     : rows[rows.length-1].push(key)) && rows;
+        // }, []);
         
         work = 
-        rows.map((row) => (
-            <Box sx = {{display:'flex',position:'relative'}}>
-                {row.map((item) =>(<WorkCard work={item}/>))}
+            <Box bgcolor="lightblue" sx = {{display:'flex',width:'100%'}}>
+                {list.map((item) =>(<WorkCard work={item}/>))}
             </Box>
-        ));
     }
 
     return (
@@ -69,4 +66,3 @@ function HomeScreenFollow() {
     );
 }
 export default HomeScreenFollow;
-

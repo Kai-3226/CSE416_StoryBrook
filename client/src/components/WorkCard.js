@@ -27,39 +27,16 @@ function WorkCard(props) {
         store.setCurrentWork(id);
     }
 
-    async function handleDeleteWork(event, id) {
-        event.stopPropagation();
-        store.markWorkForDeletion(id);
-    }
-    
-    
-    
-    let deletebutton=
-    <IconButton  onClick={(event) => {
-        handleDeleteWork(event, work._id)
-        }} aria-label='delete'>
-        <DeleteIcon/>
-    </IconButton>;
-    
-    if(auth.user===null){
-        deletebutton="";
-    }
-    else if(auth.user._id!==work.author || store.mode!=="user"){
-        deletebutton=
-        "";
-    }
-
-    const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
     var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
     var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
     
     let response=url;
     if(work.workType==0) {response=bookUrl};
+    if (store) console.log("ASDHOIAHSDOIHAOSDHIOAHSIDHOASIDHOID")
   
     
     let workElement =
         <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"relative",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
-            {deletebutton}
             <CardMedia
                 component="img"
                 height="140"

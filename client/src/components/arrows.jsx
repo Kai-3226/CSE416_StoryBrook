@@ -1,5 +1,4 @@
 import React from "react";
-import Button from '@mui/material/Button';
 
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
 
@@ -9,7 +8,7 @@ function Arrow({
   onClick
 }) {
   return (
-    <Button
+    <button
       disabled={disabled}
       onClick={onClick}
       style={{
@@ -23,7 +22,7 @@ function Arrow({
       }}
     >
       {children}
-    </Button>
+    </button>
   );
 }
 
@@ -46,7 +45,7 @@ export function LeftArrow() {
   }, [isFirstItemVisible, visibleItemsWithoutSeparators]);
 
   return (
-    <Arrow sx={{fontFamily: "Comic Sans MS"}} disabled={disabled} onClick={() => scrollPrev()}>
+    <Arrow disabled={disabled} onClick={() => scrollPrev()}>
       Left
     </Arrow>
   );
@@ -70,7 +69,7 @@ export function RightArrow() {
   }, [isLastItemVisible, visibleItemsWithoutSeparators]);
 
   return (
-    <Arrow sx={{fontFamily: "Comic Sans MS"}} disabled={disabled} onClick={() => scrollNext()}>
+    <Arrow disabled={disabled} onClick={() => scrollNext()}>
       Right
     </Arrow>
   );
