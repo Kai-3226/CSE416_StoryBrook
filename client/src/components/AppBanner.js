@@ -21,7 +21,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import logo_comic from '../Images/logo_comic.png';
 import logo_tale from '../Images/logo_tale.png';
-import logo from '.../Images/logo.png';
+import logo from '../Images/logo.png';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
