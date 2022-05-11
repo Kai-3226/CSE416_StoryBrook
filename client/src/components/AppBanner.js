@@ -22,6 +22,8 @@ import Dialog from '@mui/material/Dialog';
 import logo_comic from '../Images/logo_comic.png';
 import logo_tale from '../Images/logo_tale.png';
 import logo from '../Images/Logo.png';
+import comic_create from '../Images/comic_create.png';
+import story_create from '../Images/story_create.png';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -174,12 +176,12 @@ export default function AppBanner() {
             //     editToolbar = <CreatePageBanner/>
             // } else 
             if((store.status==0||store.status==1)){
+                let createUrl="";
+                if(store.status==0) {createUrl=story_create}
+                else if(store.status==1) {createUrl=comic_create};
                 editToolbar=
-    
-                <IconButton variant="outlined" onClick={handleCreate}>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAvMjdZGObNNzsHRpZGhT0KsDXJn1MPsGkDQ&usqp=CAU"
-                        height='32'
-                         />  
+                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px',backgroundImage:`url(${createUrl})`,backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }} >
+                           
                         </IconButton> 
                 
             }
