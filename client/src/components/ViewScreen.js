@@ -10,6 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import InfiniteScroll from 'react-infinite-scroller';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import TextField from '@mui/material/TextField';
 
 const ViewScreen = () => {
     const { store } = useContext(GlobalStoreContext);
@@ -18,25 +21,69 @@ const ViewScreen = () => {
     const isMenuOpen = Boolean(anchorEl);
     const [input,setInput] = useState("");
 
+    function handleUpdateText(event) {
+        setInput(event.target.value);
+    }
+
+    function handleKeyPress(event) {
+        console.log(store.view);
+        if(event.code === "Enter") {
+            console.log(input);
+            store.searchWork(input);
+            console.log(store.view);
+            list = store.view;
+        }
+    }
+
     useEffect(() => {
         store.loadWorkList();
         // store.view(1);
         //console.log("abc");
     }, []);
 
-    
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
 
     function handleSort(criteria){
+        handleMenuClose();
         store.viewlist(criteria);
         list = store.view;
     }
 
+    let search_field = 
+    <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' disbaled={store.addingList}
+        onChange={(event) => {handleUpdateText(event)}}
+        onKeyPress={(event) => {handleKeyPress(event)}}
+        defaultValue={store.text}
+    />;
+
+    const menuButton = (
+        <Button
+            id="sort-button"
+            aria-controls={isMenuOpen ? 'sort-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={isMenuOpen ? 'true' : undefined}
+            variant="contained"
+            disableElevation
+            onClick={handleMenuOpen}
+            endIcon={<KeyboardArrowDownIcon />}
+        >
+            Options
+      </Button>
+    );
+
+    
     const menu = (
         <Menu
+        id="sort-menu"
+        MenuListProps={{
+          'aria-labelledby': 'sort-button',
+        }}
         anchorEl={anchorEl}
         anchorOrigin={{
             vertical: 'top',
@@ -49,10 +96,9 @@ const ViewScreen = () => {
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-            <MenuItem onClick={(event) => {handleSort(0)}}>Follow</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(1)}}>Latest</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(2)}}>Most View</MenuItem>
-            <MenuItem onClick={(event) => {handleSort(3)}}>Most Like</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(0)}}>Latest</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(1)}}>Most View</MenuItem>
+            <MenuItem onClick={(event) => {handleSort(2)}}>Most Like</MenuItem>
         </Menu>
     );
         
@@ -61,8 +107,8 @@ const ViewScreen = () => {
     let work = "";
 
     if (store && store.workList) {
-        console.log(store.workList);
-        list = store.workList;
+        console.log(store.view);
+        list = store.view;
         console.log(list);
         list = list.filter(item => item.published["publish"] === true&&item.workType===store.status);
         const rows = list.reduce(function (rows, key, index) {
@@ -82,8 +128,10 @@ const ViewScreen = () => {
     return (
         <div id="viewpage">
             <div id="viewpage_banner">
-            </div >
-            
+                {search_field}
+                {menuButton}
+                {menu}
+            </div>
             <div style={{overflow:'auto'}}>
                 {/* <InfiniteScroll
                     //pageStart={0}
