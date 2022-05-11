@@ -9,7 +9,8 @@ getLoggedIn = async (req, res) => {
     try {
         auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
-        return res.status(200).json({
+        if (loggedInUser)
+        {   return res.status(200).json({
             loggedIn: true,
             user: { 
                 _id:loggedInUser._id,
@@ -27,7 +28,13 @@ getLoggedIn = async (req, res) => {
                 alarm: loggedInUser.alarm,
                 profile: loggedInUser.profile
             }
-        });
+            })
+        }
+        else return res.status(300).json({
+            loggedIn: false,
+            user: null,
+            })
+
     })}catch (err) {
         console.log("loggin failed");
         return res.status(500).json({
