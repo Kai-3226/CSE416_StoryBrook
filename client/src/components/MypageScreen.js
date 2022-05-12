@@ -44,6 +44,7 @@ export default function MyPage () {
     }
 
     if (store.mode=="works"){
+        store.loadWorkList();
         selectbar=
         <Box>
             <Button onClick={(event) => {handleClick(1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>

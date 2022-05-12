@@ -29,6 +29,7 @@ export default function CreatePageBanner() {
         //store.currentWork.content=;
         store.currentWork.published={publish:true,date:Date()};
         store.updateCurrentWork();
+        auth.sendNotification(store.currentWork.workId, store.currentWork.workType);
         history.push('/mypage')
         //history.push(`/read/${store.currentWork._id}`);
         alert("Work is published");

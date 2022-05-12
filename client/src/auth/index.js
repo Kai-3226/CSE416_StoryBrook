@@ -476,6 +476,29 @@ function AuthContextProvider(props) {
         }
     }
 
+    auth.sendNotification=async function(workId, workType){
+        try{
+            let notification = {"userId": user.userId,
+                                "userName": user.userName, 
+                                "workId": workId,
+                                "workType": workType};       
+            for(let i=0; i<user.follower.length; i++){
+                const response = await api.getUserbyId(user.follower[i]);
+                if(response.data.success){
+                    let user = response.data.user;
+                    user.notification.push(notification);
+                    const respon = await api.updateUser(user);
+                    if(respon.data.success){
+                        console.log("notification send successfully");
+                    }
+                }
+            }
+        }
+        catch(err){
+            console.log("send notification error");
+        }
+    }
+
     
     return (
         <AuthContext.Provider value={{
