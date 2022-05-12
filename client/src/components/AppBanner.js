@@ -23,6 +23,7 @@ import logo from '../Images/Logo.png';
 import comic_create from '../Images/comic_create.png';
 import story_create from '../Images/story_create.png';
 
+
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -32,6 +33,7 @@ export default function AppBanner() {
     const { store } = useContext(GlobalStoreContext);
     const [popUp, setpopUp] = useState(false);
     const [targetPage, setTargetPage] = useState("Creating");
+
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -59,6 +61,8 @@ export default function AppBanner() {
         else {
             handleMenuClose();
             auth.logoutUser();
+           
+
         }
             
     }
