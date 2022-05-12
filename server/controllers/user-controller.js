@@ -3,7 +3,8 @@ const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
 const sendEmail = require("../utils/email/sendEmail");
 //const crypto = require("crypto");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { Console } = require('console');
 
 getLoggedIn = async (req, res) => {
     try {
@@ -214,11 +215,27 @@ loginUser = async (req, res) => {
 }
 
 logoutUser= async (req, res) => {
-    await res.clearCookie()
-    .status(200).json({
-        success:true,
-        user:null
-    }).send();
+    try{
+    let response=res.cookie("token", null, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    }).status(200).json({
+            success:true,
+            user:null
+        });
+        // await res.clearCookie('token')
+        // .status(200).json({
+        //     success:true,
+        //     user:null
+        // });
+        return response;
+    }catch(err) {
+        res.status(500).json({
+            success: false,
+            errorMessage:"Log out process is wrong"
+        }).send();
+    }
 }
 
 
