@@ -1,9 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom'
-import api from '../api'
+import { useHistory } from 'react-router-dom';
+import api from '../api';
+
 
 const AuthContext = createContext();
 console.log("create AuthContext: " + AuthContext);
+
 
 // THESE ARE ALL THE TYPES OF UPDATES TO OUR AUTH STATE THAT CAN BE PROCESSED
 export const AuthActionType = {
@@ -23,7 +25,9 @@ function AuthContextProvider(props) {
         userList:[]
     });
     const history = useHistory();
+    
 
+ 
     useEffect(() => {
         if(!auth.loggedIn){
         console.log("log in");
@@ -127,13 +131,16 @@ function AuthContextProvider(props) {
         }
     }
     auth.logoutUser = async function(){
+       
         const response = await api.logoutUser();
         if(response.status === 200){
             authReducer({
                 type: AuthActionType.LOGOUT_USER,
                 paylaod:null
             })
+           
             history.push("/");
+            console.log("logout user");
         }
     }
     auth.loginUser = async function(user){

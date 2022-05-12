@@ -10,8 +10,6 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationModal from './NotificationModal';
-import FriendModal from './FriendModal';
 import { useHistory, useLocation } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import { TextField } from '@mui/material';
@@ -21,7 +19,10 @@ import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import logo_comic from '../Images/logo_comic.png';
 import logo_tale from '../Images/logo_tale.png';
-import logo from '../Images/logo.png';
+import logo from '../Images/Logo.png';
+import comic_create from '../Images/comic_create.png';
+import story_create from '../Images/story_create.png';
+
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -32,6 +33,7 @@ export default function AppBanner() {
     const { store } = useContext(GlobalStoreContext);
     const [popUp, setpopUp] = useState(false);
     const [targetPage, setTargetPage] = useState("Creating");
+
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -59,6 +61,8 @@ export default function AppBanner() {
         else {
             handleMenuClose();
             auth.logoutUser();
+           
+
         }
             
     }
@@ -174,18 +178,19 @@ export default function AppBanner() {
             //     editToolbar = <CreatePageBanner/>
             // } else 
             if((store.status==0||store.status==1)){
+                let createUrl="";
+                if(store.status==0) {createUrl=story_create}
+                else if(store.status==1) {createUrl=comic_create};
                 editToolbar=
-    
-                <IconButton variant="outlined" onClick={handleCreate}>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAvMjdZGObNNzsHRpZGhT0KsDXJn1MPsGkDQ&usqp=CAU"
-                        height='32'
-                         />  
+                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px',backgroundImage:`url(${createUrl})`,backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }} >
+                           
                         </IconButton> 
                 
             }
     }
     
     function getAccountMenu(loggedIn) {
+        
         if(loggedIn){
             let lastname=auth.user.lastName.substring(0,1).toUpperCase();
             let firstname=auth.user.firstName.substring(0,1).toUpperCase();

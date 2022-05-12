@@ -241,8 +241,8 @@ const ReadScreen = () => {
                         <Typography component="h1" variant="h4" >View:  {work.view}</Typography> 
                     </Box>
                     <Box id="readPage_Toolbar"  display='flex' sx={{postion:'relative',height:'100%',width:'50%',paddingLeft:'20%'}}>
-                        <IconButton disable={buttonDisable} color={likeButtonColor} onClick={handleLikes}><ThumbsUp style={{ fontSize:'25pt'}} />{work.likes.length}</IconButton>
-                        <IconButton disable={buttonDisable} color={dislikeButtonColor} onClick={handleDislikes}><ThumbsDown style={{fontSize:'25pt'}} />{work.dislikes.length}</IconButton>
+                        <IconButton disabled={buttonDisable} color={likeButtonColor} onClick={handleLikes}><ThumbsUp style={{ fontSize:'25pt'}} />{work.likes.length}</IconButton>
+                        <IconButton disabled={buttonDisable} color={dislikeButtonColor} onClick={handleDislikes}><ThumbsDown style={{fontSize:'25pt'}} />{work.dislikes.length}</IconButton>
                         {/* <IconButton disable={buttonDisable} onClick={handleShare}><Share style={{fontSize:'25pt'}} />Share</IconButton> */}
                     </Box> 
                 </Box>

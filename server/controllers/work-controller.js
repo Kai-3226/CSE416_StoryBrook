@@ -135,8 +135,8 @@ getWorks = async (req, res) => {
         }
         if (!works.length) {
             return res
-                .status(404)
-                .json({ success: false, error: `Works not found` })
+                .status(200)
+                .json({ success: true, data:[] })
         }
         return res.status(200).json({ success: true, data: works })
     }).catch(err => console.log(err))

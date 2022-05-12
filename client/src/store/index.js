@@ -85,6 +85,7 @@ function GlobalStoreContextProvider(props) {
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_WORK_LIST: {
                 console.log("loading");
+                console.log(payload)
                 return setStore({
                     workList: payload,
                     currentWork: null,
@@ -175,11 +176,11 @@ function GlobalStoreContextProvider(props) {
             }
             case GlobalStoreActionType.MODE: {
                 return setStore({
-                    workList:store.workList,
+                    workList:payload.workList,
                     currentWork:null,
                     editActive:false,
                     workMarkedForDeletion:null,
-                    mode: payload,
+                    mode: payload.mode,
                     text: store.text,
                     status: store.status,
                     view: store.view
@@ -304,6 +305,7 @@ function GlobalStoreContextProvider(props) {
                 //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.email===work.author){
+                        console.log("ASDASD")
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
@@ -374,26 +376,23 @@ function GlobalStoreContextProvider(props) {
             let work = response.data.work;
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
-                payload: work                      //{list: work,edit: input}
+                payload: work                      
             });
-            // console.log(this.currentWork);  
-            // console.log(work);    
+            console.log(work);    
 
-            if(this.currentWork)
+            if(work)
             {
-                if(this.currentWork.published['publish']==true)
-                {   if(this.currentWork.workType==1)  history.push(`/read/${id}`);
-                    else if (this.currentWork.workType==0) history.push(`/readStory/${id}`); }
-                else if (this.currentWork.published['publish']==false)
-                {   if(this.currentWork.workType==1)  history.push(`/create/`);
-                    else if (this.currentWork.workType==0) history.push(`/createStory/`);
+                if(work.published['publish']==true)
+                {   if(work.workType==1)  history.push(`/read/${id}`);
+                    else if (work.workType==0) history.push(`/readStory/${id}`); }
+                else if (work.published['publish']==false)
+                {   if(work.workType==1)  history.push(`/create/`);
+                    else if (work.workType==0) history.push(`/createStory/`);
                 }
                 
             }
         
         }
-        
-              
     }
 
     store.updateWork = async function (newWork) {
@@ -475,11 +474,54 @@ function GlobalStoreContextProvider(props) {
             payload:filter
         });
     }
-    store.setMode= function (input){
+    store.setMode= async function (input){
+        if(input=="work"){
+            const response = await api.getWorkList();
+            if (response.data.success) {
+                let workArray = response.data.data;
+                let viewable=[];
+                //console.log(workArray);
+                for(let key in workArray){
+                    let work = workArray[key];
+                    //console.log(work);
+                    if(auth.loggedIn){
+                        if(auth.user.email===work.author){
+                            console.log("ASDASD")
+                            // console.log(auth.user.email,list.email,list.published.published)
+                            viewable.push(work);
+                        }
+                        else{
+                            if(work.published.publish===true){
+                                viewable.push(work);
+                                // console.log(listOwned);
+                            } 
+                        }
+                    }
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
+                    }
+                }
+                storeReducer({
+                    type: GlobalStoreActionType.MODE,
+                    payload: {mode:input,
+                        workList:viewable}
+                });
+            }
+            else {
+                console.log("API FAILED TO GET THE works list");
+            }
+
+        }
+        else {
         storeReducer({
             type: GlobalStoreActionType.MODE,
-            payload:input
-        });
+            payload:{mode:input,
+                workList:store.workList
+            }
+        });}
     }
     store.like = async function (id) {
         let response = await api.getWorkById(id);

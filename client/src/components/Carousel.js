@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { GlobalStoreContext } from '../store'
 import Button from '@mui/material/Button';
 
 import "../App.css";
@@ -13,7 +14,7 @@ export const CarouselItem = ({ children, width }) => {
 const Carousel = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-
+  
   const updateIndex = (newIndex) => {
     if (newIndex < 0) {
       newIndex = React.Children.count(children) - 1;

@@ -23,7 +23,7 @@ export default function MyPage () {
         mylist = store.workList.filter(item => item.author === auth.user.email);
         if(status === 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
-        } else if(stat == 2)
+        } else if(status == 2)
         {
             mylist = mylist.filter(item => item.published["publish"] === false);
         }
