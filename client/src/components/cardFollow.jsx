@@ -17,7 +17,7 @@ export function Card({ title, like, view,workType, itemId }) {
   function handleOpen(event, id){
     event.stopPropagation();
     console.log(id);
-    store.setCurrentWork(id);
+    store.readWork(id);
   }
   
   return (
