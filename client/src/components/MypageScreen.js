@@ -23,7 +23,7 @@ export default function MyPage () {
         mylist = store.workList.filter(item => item.author === auth.user.email);
         if(status === 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
-        } else if(stat == 2)
+        } else if(status == 2)
         {
             mylist = mylist.filter(item => item.published["publish"] === false);
         }
@@ -51,6 +51,7 @@ export default function MyPage () {
         </Box>
         if (store && store.workList) {
             mylist = store.workList.filter(item => item.author === auth.user.email);
+            console.log("hello")
             list = "";  
             let rows = [];
             for (var i = 0, end = mylist.length / 2; i < end; ++i){
@@ -78,6 +79,9 @@ export default function MyPage () {
             </List>
     }
     else if(store.mode=="followings"){
+        selectbar="";
+        console.log("hello")
+
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
@@ -98,6 +102,9 @@ export default function MyPage () {
             </List>
     }
     else if (store.mode=="likes"){
+        selectbar="";
+        console.log("hello")
+
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {

@@ -3,7 +3,7 @@ import { GlobalStoreContext } from '../store'
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
 
 export function Card({ title, like, view,workType, itemId }) {
-    const { store } = React.useContext(GlobalStoreContext);
+  const { store } = React.useContext(GlobalStoreContext);
   const visibility = React.useContext(VisibilityContext);
 
   const visible = visibility.isItemVisible(itemId);

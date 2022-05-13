@@ -5,6 +5,8 @@ const UserController = require('../controllers/user-controller')
 const LibraryController=require('../controllers/library-controller')
 const userModel = require('../models/user-model')
 const libraryModel = require('../models/library-model')
+require("dotenv").config()
+const upload = require('../Cloudinary/multer')
 const router = express.Router()
 
 router.post('/work', auth.verify, WorkController.createWork)
@@ -21,6 +23,8 @@ router.get('/loggedIn', UserController.getLoggedIn)
 // router.put('/updateUser/:email',UserController.updateUser)
 router.get('/getUserData/:id',auth.verify,UserController.getUserData)
 router.put('/updateUser',auth.verify,UserController.updateUser)
+router.put('/updateUserIcon', upload.single("icon"), UserController.updateUserIcon)
+
 
 router.post('/library', auth.verify, LibraryController.createLibrary)
 router.put('/library/:id', auth.verify, LibraryController.updateLibrary)
