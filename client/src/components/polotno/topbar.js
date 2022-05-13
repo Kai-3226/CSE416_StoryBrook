@@ -110,7 +110,9 @@ export default observer(({  workstore }) => {
   const [title,setTitle]=React.useState(store.currentWork.name);
   const history = useHistory();
 
-  function handleSave(){
+  function handleSave(event) {
+    event.preventDefault();
+    event.stopPropagation(); 
     const json = workstore.toJSON();
     store.currentWork.name=title;
     store.currentWork.content=json;
@@ -142,23 +144,25 @@ export default observer(({  workstore }) => {
   const words = allWords.slice(0, 6);
   return words.join(' ').replace(/\s/g, '-').toLowerCase() || 'polotno';
 };
-
-   async function handlePublish(){
-    // const json = workstore.toJSON();
-    //store.currentWork.content=saveAsImage();
-    const json = workstore.toJSON();
+let s="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX5K5jJMJsZd66cw6hLVPLfyykXVF5ou3VCQ&usqp=CAU"
+   
+async function handlePublish(event){
+    event.preventDefault();
+    event.stopPropagation(); 
+    //const json = workstore.toJSON();
     store.currentWork.name=title;
     // store.currentWork.content=json;
-    let url=await workstore.toPDFDataURL();
-    console.log(url);
+    store.currentWork.content= [];
+    
+    store.currentWork.content=await Promise.all (workstore.pages.map(async (page) => {
+        let pageUrl=await workstore.toDataURL({pageId: page.id});
+        return pageUrl;
+      }));
     
     store.currentWork.published={publish:true,date:Date()};
     console.log("send not");
     auth.sendNotification(store.currentWork.workId, store.currentWork.workType);
-    
     store.updateCurrentWork();
-
-
     history.push(`/read/${store.currentWork._id}`);
     alert("Work is published");
   };
@@ -259,7 +263,7 @@ export default observer(({  workstore }) => {
                     <Box marginLeft='0% '> 
                                           
                         <IconButton variant="outlined" onClick={handlePublish} size="medium">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX5K5jJMJsZd66cw6hLVPLfyykXVF5ou3VCQ&usqp=CAU"
+                            <img src={s}
                         height='32'
                          />  
                           </IconButton> 
