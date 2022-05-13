@@ -77,7 +77,7 @@ function WorkCard(props) {
     function handleOpen(event, id){
         event.stopPropagation();
         console.log(id);
-        store.setCurrentWork(id);
+        store.readWork(id);
        
     }
 

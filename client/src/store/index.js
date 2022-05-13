@@ -256,6 +256,7 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION CREATES A NEW LIST
     store.createWork = async function () {
+       
         let payload = {
             name: "Untitled",
             content: null,
@@ -278,7 +279,7 @@ function GlobalStoreContextProvider(props) {
                 payload: newWork
             }
             );
-            console.log(store.status)
+            
             if (store.status == 1 )
                 history.push("/create/")
             else if (store.status == 0)
@@ -305,7 +306,6 @@ function GlobalStoreContextProvider(props) {
                 //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.email===work.author){
-                        console.log("ASDASD")
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }
@@ -394,6 +394,34 @@ function GlobalStoreContextProvider(props) {
         
         }
     }
+    store.readWork = async function (id) {        
+        let response = await api.getWorkById(id);
+        if (response.data.success) {
+            let work = response.data.work;
+            work.view=work.view+1;
+            let resp = await api.updateWorkById(work._id,work);  
+            if (resp.data.success) {
+                let work=resp.data.work;
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_WORK,
+                    payload: work                      
+                });  
+            }
+            console.log(work);
+            if(work)
+            {
+                if(work.published['publish']==true)
+                {   if(work.workType==1)  history.push(`/read/${id}`);
+                    else if (work.workType==0) history.push(`/readStory/${id}`); }
+                else if (work.published['publish']==false)
+                {   if(work.workType==1)  history.push(`/create/`);
+                    else if (work.workType==0) history.push(`/createStory/`);
+                }
+                
+            }
+        
+        }
+    }
 
     store.updateWork = async function (newWork) {
         if(newWork.author==auth.user.email){    
@@ -416,10 +444,9 @@ function GlobalStoreContextProvider(props) {
        
         const response = await api.updateWorkById(store.currentWork._id, store.currentWork);
         if (response.data.success) {
-            console.log(response.data.work);
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
-                payload: store.currentWork
+                payload: response.data.work
             });
         }
     }
@@ -727,6 +754,7 @@ function GlobalStoreContextProvider(props) {
            else{console.log("work update unsuccessfully")}     
      
     }
+    
 
     return (
         <GlobalStoreContext.Provider value={{

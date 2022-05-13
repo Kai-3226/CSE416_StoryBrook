@@ -69,11 +69,11 @@ updateWork = async (req, res) => {
                 message: 'Work not found!',
             })
         }
+        if(!work){console.log("work not found");}
         work.workType = body.workType;
         work.content =body.content;
         work.published=body.published;
-        work.name=body.name;
-        
+        work.name=body.name; 
         work.view=body.view;
         work.comments=body.comments;
         work.likes=body.likes;
