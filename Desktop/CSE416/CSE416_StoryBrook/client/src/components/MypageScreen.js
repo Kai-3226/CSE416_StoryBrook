@@ -18,7 +18,6 @@ export default function MyPage () {
     let list="";
     let selectbar="";
     let mylist = [];
-    auth.getUserList();
     function handleClick(status){
         mylist = store.workList.filter(item => item.author === auth.user.email);
         if(status === 1){
@@ -66,14 +65,14 @@ export default function MyPage () {
         }
 
     }
-    if(store.mode==="followings"){
-        console.log(auth.user.following)
+    if(store.mode==="followings" && auth.users!==null){
+        console.log(auth.users);
         list=
-            <List sx={{ width: '80%', left: '20%'}}>
+            <List sx={{ width: '100%', left: '0%'}}>
                 {
-                auth.user.following.map((authorId)=> (
-                        <Card></Card>
-                    ))
+                auth.users.filter((user) => auth.user.following.includes(user._id)).map((item) => (
+                    <Card props={item}></Card>
+                ))
                 }
             </List>
     }

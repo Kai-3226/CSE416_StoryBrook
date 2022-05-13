@@ -2,9 +2,11 @@ import React from "react";
 import Box from '@mui/material/Box';
 import { useContext } from 'react';
 import { GlobalStoreContext } from '../store';
+import AuthContext from '../auth';
 
 export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
+    const {auth} = useContext(AuthContext);
     function handleClick(event,input){
         event.stopPropagation();
         console.log(input);  
@@ -12,6 +14,10 @@ export default function Sidebar () {
         console.log(store.mode);    
         if(store.mode=="works")
         {store.loadWorkList();}
+        if(input=="followings"){
+            auth.getUserList();
+            console.log(auth.users);
+        }
         
     }  
     let friend ="unselected-menu";
@@ -19,13 +25,7 @@ export default function Sidebar () {
     let work ="unselected-menu";
     let library ="unselected-menu";
     let like ="unselected-menu";
-    if(store.mode=="friends"){
-        friend="selected-menu";
-        follow ="unselected-menu";
-        work ="unselected-menu";
-        library ="unselected-menu";
-        like ="unselected-menu";
-    }
+
     if(store.mode=="followings"){
         follow="selected-menu";
         friend ="unselected-menu";
@@ -60,10 +60,8 @@ export default function Sidebar () {
             
             <div id="sidebar">
                 <div id="sidebar-menu">
-                <Box className={friend} onClick={(event) => {handleClick(event,"friends")}}>Friends</Box>
                 <Box className={follow} onClick={(event) => {handleClick(event,"followings")}}>Followings</Box>
                 <Box className={work} onClick={(event) => {handleClick(event,"works")}}>Works</Box>
-                <Box className={library} onClick={(event) => {handleClick(event,"library")}}>Library</Box>
                 <Box className={like} onClick={(event) => {handleClick(event,"likes")}}>Your Likes</Box>
                 </div>
             </div>

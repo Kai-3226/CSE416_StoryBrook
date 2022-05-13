@@ -37,5 +37,4 @@ router.put('/getOneUser/:email',UserController.getOneUser)
 router.get('/getUsers',UserController.getUsers)
 
 
-
 module.exports = router

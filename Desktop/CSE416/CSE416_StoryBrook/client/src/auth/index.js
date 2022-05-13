@@ -58,10 +58,10 @@ function AuthContextProvider(props) {
             }
             case AuthActionType.LOGIN_USER: {
                 return setAuth({
-                    user:payload.user,
+                    user:payload,
                     loggedIn:true,
                     error:false,
-                    users: payload.users
+                    users: auth.users
                 })
             }
             case AuthActionType.ERROR: {
@@ -78,6 +78,15 @@ function AuthContextProvider(props) {
                     loggedIn:true,
                     error:false, 
                     users: auth.users
+                })
+            }
+            case AuthActionType.FOLLOWING: {
+                console.log("Following")
+                return setAuth({
+                    user:auth.user,
+                    loggedIn:true,
+                    error:false, 
+                    users: payload
                 })
             }
             default:
@@ -101,7 +110,7 @@ function AuthContextProvider(props) {
         const response = await api.getLoggedIn();
         if (response.status === 200) {
             authReducer({
-                type: AuthActionType.SET_LOGGED_IN,
+                type: AuthActionType.GET_LOGGED_IN,
                 payload: {
                     loggedIn: response.data.loggedIn,
                     user: response.data.user,
@@ -151,10 +160,7 @@ function AuthContextProvider(props) {
             if(response.status===200){
                     authReducer({
                         type: AuthActionType.LOGIN_USER,
-                        payload:{ 
-                            user: response.data.user
-                            //users: res.data.users
-                        }
+                        payload: response.data.user
                     });
                 history.push("/");
                
@@ -176,17 +182,13 @@ function AuthContextProvider(props) {
         try{
             const response = await api.getUsers();
             console.log(response.data.users);
-            // if(response.status===200){
-            //         authReducer({
-            //             type: AuthActionType.LOGIN_USER,
-            //             payload:{ 
-            //                 user: response.data.user
-            //                 //users: res.data.users
-            //             }
-            //         });
-            //     history.push("/");
-               
-            // }
+            if(response.status===200){
+                    authReducer({
+                        type: AuthActionType.FOLLOWING,
+                        payload:response.data.users
+                    });
+            }
+            console.log(auth.users);
         }
         catch(err){
             console.log("getUserListError");

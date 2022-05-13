@@ -251,8 +251,7 @@ getUsers = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Users not found` })
         }
-        console.log(users);
-        res.status(200).json({ success: true, users: users }).send()
+        return res.status(200).json({ success: true, users: users })
     }).catch(err => console.log(err))
 }
 updateUser =async (req,res) => {
