@@ -256,6 +256,7 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION CREATES A NEW LIST
     store.createWork = async function () {
+       
         let payload = {
             name: "Untitled",
             content: null,
@@ -305,7 +306,6 @@ function GlobalStoreContextProvider(props) {
                 //console.log(work);
                 if(auth.loggedIn){
                     if(auth.user.email===work.author){
-                        console.log("ASDASD")
                         // console.log(auth.user.email,list.email,list.published.published)
                         viewable.push(work);
                     }

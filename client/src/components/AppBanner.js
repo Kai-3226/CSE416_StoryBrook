@@ -34,7 +34,6 @@ export default function AppBanner() {
     const [popUp, setpopUp] = useState(false);
     const [targetPage, setTargetPage] = useState("Creating");
 
-
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
