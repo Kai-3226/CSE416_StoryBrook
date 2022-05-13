@@ -12,7 +12,6 @@ import WorkCard from './WorkCard'
 export default function Card(props) {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext)
-    const user = auth.searchUser(props);
     console.log(props);
     function handleMessage(){
 
@@ -21,33 +20,15 @@ export default function Card(props) {
         
     }
     let cardElement =""
-    if(store.mode=="friends"){
-        console.log(user);
-        cardElement =
-            <ListItem>
-                <Box sx={{ p: 1, flexGrow: 1 }}>{props.email}</Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={handleMessage} aria-label='edit'>
-                        <MessageIcon style={{fontSize:'48pt'}} />
-                    </IconButton>
-                </Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={(event) => {
-                        handleDelete(event, user._id)
-                    }} aria-label='delete'>
-                        <DeleteIcon style={{fontSize:'48pt'}} />
-                    </IconButton>
-                </Box>
-            </ListItem>
-        }
-    else if (store.mode=="followings"){
-        console.log(props);
+    if (store.mode=="followings"){
+        let target = ""
+        console.log(auth.users)
         cardElement =
             <ListItem>
                     <Box sx={{ p: 1, flexGrow: 1 }}>{props.email}</Box>
                     <Box sx={{ p: 1 }}>
                         <IconButton onClick={(event) => {
-                            handleDelete(event, user._id)
+                            handleDelete(event, target)
                         }} aria-label='delete'>
                             <DeleteIcon style={{fontSize:'48pt'}} />
                         </IconButton>

@@ -169,7 +169,7 @@ loginUser = async (req, res) => {
                 })
         }
         
-
+        console.log(existingUser);
         // LOGIN THE USER
         const token = auth.signToken(existingUser);
 
@@ -241,7 +241,20 @@ getOneUser = async(req,res) =>{
         }
         )
 }
-
+getUsers = async (req, res) => {
+    await User.find({}, (err, users) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!users.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Users not found` })
+        }
+        console.log(users);
+        res.status(200).json({ success: true, users: users }).send()
+    }).catch(err => console.log(err))
+}
 updateUser =async (req,res) => {
     const body = req.body
     // console.log("updateUser: " + JSON.stringify(body));
@@ -461,5 +474,6 @@ module.exports = {
     resetPassword,
     changePassword,
     verifyEmail,
-    getOneUser
+    getOneUser,
+    getUsers
 }

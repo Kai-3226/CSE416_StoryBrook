@@ -13,8 +13,8 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    //baseURL: 'http://localhost:4000/api',
-    baseURL: 'https://sbrook.herokuapp.com/api',    
+    baseURL: 'http://localhost:4000/api',
+    //baseURL: 'https://sbrook.herokuapp.com/api',    
 
 })
 //'https://storybrook.herokuapp.com/api' 'http://localhost:4000/api'
@@ -45,6 +45,7 @@ export const updateUser = (email,payload)=> api.put(`/updateUser/${email}`,paylo
 
 export const getUserbyId=(id)=>api.get(`/getUserData/${id}`)
 export const getOneUser =(email)=>api.get(`/getOneUser/${email}`)
+export const getUsers = ()=>api.get('/getUsers/')
 
 const apis = {
     createWork,
@@ -53,7 +54,7 @@ const apis = {
     updateWorkById,
     deleteWorkById,
     getWorkById,
-
+    getUsers,
     getWorkList,
     getLoggedIn,
     registerUser,
