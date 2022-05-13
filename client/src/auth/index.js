@@ -1,9 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom'
-import api from '../api'
+import { useHistory } from 'react-router-dom';
+import api from '../api';
+
 
 const AuthContext = createContext();
 console.log("create AuthContext: " + AuthContext);
+
 
 // THESE ARE ALL THE TYPES OF UPDATES TO OUR AUTH STATE THAT CAN BE PROCESSED
 export const AuthActionType = {
@@ -23,7 +25,9 @@ function AuthContextProvider(props) {
         userList:[]
     });
     const history = useHistory();
+    
 
+ 
     useEffect(() => {
         if(!auth.loggedIn){
         console.log("log in");
@@ -127,13 +131,16 @@ function AuthContextProvider(props) {
         }
     }
     auth.logoutUser = async function(){
+       
         const response = await api.logoutUser();
         if(response.status === 200){
             authReducer({
                 type: AuthActionType.LOGOUT_USER,
                 paylaod:null
             })
+           
             history.push("/");
+            console.log("logout user");
         }
     }
     auth.loginUser = async function(user){
@@ -478,12 +485,13 @@ function AuthContextProvider(props) {
 
     auth.sendNotification=async function(workId, workType){
         try{
-            let notification = {"userId": user.userId,
-                                "userName": user.userName, 
+            console.log(auth.user);
+            let notification = {"userId": auth.user.userId,
+                                "userName": auth.user.userName, 
                                 "workId": workId,
                                 "workType": workType};       
-            for(let i=0; i<user.follower.length; i++){
-                const response = await api.getUserbyId(user.follower[i]);
+            for(let i=0; i<auth.user.follower.length; i++){
+                const response = await api.getUserbyId(auth.user.follower[i]);
                 if(response.data.success){
                     let user = response.data.user;
                     user.notification.push(notification);

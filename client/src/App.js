@@ -14,7 +14,6 @@ import {
     RegisterScreen,
     HomeScreen,
     ViewScreen,
-    HomeScreen2,
     ResetPassword,
     StoryCreate,
     ChangePassword

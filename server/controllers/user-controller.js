@@ -3,13 +3,15 @@ const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
 const sendEmail = require("../utils/email/sendEmail");
 //const crypto = require("crypto");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { Console } = require('console');
 
 getLoggedIn = async (req, res) => {
     try {
         auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
-        return res.status(200).json({
+        if (loggedInUser)
+        {   return res.status(200).json({
             loggedIn: true,
             user: { 
                 _id:loggedInUser._id,
@@ -24,10 +26,16 @@ getLoggedIn = async (req, res) => {
                 comicLibrary:loggedInUser.comicLibrary,
                 like: loggedInUser.like,
                 dislike: loggedInUser.dislike,
-                alarm: loggedInUser.alarm,
+                notification: loggedInUser.notification,
                 profile: loggedInUser.profile
             }
-        });
+            })
+        }
+        else return res.status(300).json({
+            loggedIn: false,
+            user: null,
+            })
+
     })}catch (err) {
         console.log("loggin failed");
         return res.status(500).json({
@@ -85,7 +93,7 @@ registerUser = async (req, res) => {
                 comicLibrary: [],
                 like: [],
                 dislike: [],
-                alarm: [],
+                notification: [],
                 profile: {},
                 passwordHash: passwordHash
         });
@@ -98,7 +106,7 @@ registerUser = async (req, res) => {
         newUser.comicLibrary=[],
         newUser.like= [],
         newUser.dislike= [],
-        newUser.alarm= [],
+        newUser.notification= [],
         newUser.profile= {"age": 0,
                         "gender": "N/A",
                         "userName": newUser.firstName,
@@ -130,7 +138,7 @@ registerUser = async (req, res) => {
                 comicLibrary:savedUser.comicLibrary,
                 like: savedUser.like,
                 dislike: savedUser.dislike,
-                alarm: savedUser.alarm,
+                notification: savedUser.notification,
                 profile: savedUser.profile
             }
         }).send();
@@ -194,7 +202,7 @@ loginUser = async (req, res) => {
                 comicLibrary: existingUser.comicLibrary,
                 like:  existingUser.like,
                 dislike:  existingUser.dislike,
-                alarm: existingUser.alarm,
+                notification: existingUser.notification,
                 profile:  existingUser.profile
             }
         }).send();
@@ -207,11 +215,27 @@ loginUser = async (req, res) => {
 }
 
 logoutUser= async (req, res) => {
-    await res.clearCookie()
-    .status(200).json({
-        success:true,
-        user:null
-    }).send();
+    try{
+    let response=res.cookie("token", null, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    }).status(200).json({
+            success:true,
+            user:null
+        });
+        // await res.clearCookie('token')
+        // .status(200).json({
+        //     success:true,
+        //     user:null
+        // });
+        return response;
+    }catch(err) {
+        res.status(500).json({
+            success: false,
+            errorMessage:"Log out process is wrong"
+        }).send();
+    }
 }
 
 

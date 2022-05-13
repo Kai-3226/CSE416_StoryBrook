@@ -10,8 +10,6 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationModal from './NotificationModal';
-import FriendModal from './FriendModal';
 import { useHistory, useLocation } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import { TextField } from '@mui/material';
@@ -22,6 +20,12 @@ import Dialog from '@mui/material/Dialog';
 import logo_comic from '../Images/logo_comic.png';
 import logo_tale from '../Images/logo_tale.png';
 import logo from '../Images/logo.png';
+import comic_create from '../Images/comic_create.png';
+import story_create from '../Images/story_create.png';
+import NotificationModal from './NotificationModal';
+import ringing from '../Images/ringing.png';
+import not_ringing from '../Images/not_ringing.png';
+
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -32,6 +36,7 @@ export default function AppBanner() {
     const { store } = useContext(GlobalStoreContext);
     const [popUp, setpopUp] = useState(false);
     const [targetPage, setTargetPage] = useState("Creating");
+
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -59,6 +64,8 @@ export default function AppBanner() {
         else {
             handleMenuClose();
             auth.logoutUser();
+           
+
         }
             
     }
@@ -174,18 +181,19 @@ export default function AppBanner() {
             //     editToolbar = <CreatePageBanner/>
             // } else 
             if((store.status==0||store.status==1)){
+                let createUrl="";
+                if(store.status==0) {createUrl=story_create}
+                else if(store.status==1) {createUrl=comic_create};
                 editToolbar=
-    
-                <IconButton variant="outlined" onClick={handleCreate}>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAvMjdZGObNNzsHRpZGhT0KsDXJn1MPsGkDQ&usqp=CAU"
-                        height='32'
-                         />  
+                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px',backgroundImage:`url(${createUrl})`,backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }} >
+                           
                         </IconButton> 
                 
             }
     }
     
     function getAccountMenu(loggedIn) {
+        
         if(loggedIn){
             let lastname=auth.user.lastName.substring(0,1).toUpperCase();
             let firstname=auth.user.firstName.substring(0,1).toUpperCase();
@@ -203,6 +211,29 @@ export default function AppBanner() {
     let imageUrl=logo;
     if(store.status==0) {imageUrl=logo_tale}
     else if(store.status==1) {imageUrl=logo_comic};
+
+    const [showNotification, setShowNotification] = useState(false)
+    const handleNotification = () => setShowNotification(!showNotification)
+
+    let notificationButton = "";
+    let notificationSection = "";
+    
+    console.log(auth.loggedIn);
+    if (auth.loggedIn === true && (store.status==0||store.status==1)){
+        console.log(auth.user);
+        if (auth.user.notification.length === 0){
+            notificationButton = not_ringing;
+        }else {
+            notificationButton = ringing;
+        }
+        notificationSection = 
+        <div>
+            <Button onClick={(event) => {handleNotification()}} sx={{ width: "200px", height: "50px", backgroundImage:`url(${notificationButton})`, 
+            backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
+            </Button>
+            { showNotification ? <NotificationModal/> : null }
+        </div>
+    }
 
    if(store)
     banner= <Box sx={{ flexGrow: 1 }} >
@@ -226,6 +257,7 @@ export default function AppBanner() {
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {editToolbar}
+                        {notificationSection}
                         <IconButton
                             size="large"
                             edge="end"

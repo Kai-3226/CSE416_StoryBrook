@@ -25,10 +25,12 @@ export default function CreatePageBanner() {
       }
 
       function handlePublish(){
+        console.log("publish");
         store.currentWork.name=title;
         //store.currentWork.content=;
         store.currentWork.published={publish:true,date:Date()};
         store.updateCurrentWork();
+        console.log("send not");
         auth.sendNotification(store.currentWork.workId, store.currentWork.workType);
         history.push('/mypage')
         //history.push(`/read/${store.currentWork._id}`);
