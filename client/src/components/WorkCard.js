@@ -13,7 +13,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import { createStore } from 'polotno/model/store';
+
 
 
 let image = null;
@@ -78,6 +78,7 @@ function WorkCard(props) {
         event.stopPropagation();
         console.log(id);
         store.readWork(id);
+        auth.setTargetUser(work.authorId);
        
     }
 
@@ -103,7 +104,6 @@ function WorkCard(props) {
         "";
     }
 
-    const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' });
     var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
     var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
     
@@ -117,7 +117,7 @@ function WorkCard(props) {
             <CardMedia
                 component="img"
                 height="140"
-                image= {response}
+                image= {work.content[0]}
                 alt= {work.name}
             />
            

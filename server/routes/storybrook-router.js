@@ -8,7 +8,7 @@ const libraryModel = require('../models/library-model')
 const router = express.Router()
 
 router.post('/work', auth.verify, WorkController.createWork)
-router.put('/work/:id', auth.verify, WorkController.updateWork)
+router.put('/work/:id', WorkController.updateWork)
 router.delete('/work/:id', auth.verify, WorkController.deleteWorkById)
 router.get('/work/:id', WorkController.getWorkById)
 router.get('/works', WorkController.getWorks)
@@ -19,7 +19,7 @@ router.get('/logout',UserController.logoutUser)
 router.get('/loggedIn', UserController.getLoggedIn)
 // router.get('/getUserData',UserController.getUserData)
 // router.put('/updateUser/:email',UserController.updateUser)
-router.get('/getUserData/:id',auth.verify,UserController.getUserData)
+router.get('/getUserData/:id',UserController.getUserData)
 router.put('/updateUser',auth.verify,UserController.updateUser)
 
 router.post('/library', auth.verify, LibraryController.createLibrary)
@@ -34,6 +34,7 @@ router.put('/resetPassword/:token/:id',  UserController.resetPassword)
 router.post('/verifyEmail',UserController.verifyEmail)
 router.put('/changePassword',auth.verify,UserController.changePassword)
 router.put('/getOneUser/:email',auth.verify,UserController.getOneUser)
+router.get('/getUsers',UserController.getUsers)
 
 
 

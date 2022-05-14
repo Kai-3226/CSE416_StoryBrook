@@ -184,8 +184,10 @@ export default function AppBanner() {
                 if(store.status==0) {createUrl=story_create}
                 else if(store.status==1) {createUrl=comic_create};
                 editToolbar=
-                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px',backgroundImage:`url(${createUrl})`,backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }} >
-                           
+                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px'}}>
+                         <img src={createUrl}
+            height='32'
+          ></img>
                         </IconButton> 
                 
             }

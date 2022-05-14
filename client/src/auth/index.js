@@ -15,6 +15,9 @@ export const AuthActionType = {
     LOGIN_USER: "LOGIN_USER",
     ERROR: "ERROR",
     UPDATE_USER: "UPDATE_USER",
+    SET_TARGET_USER: "SET_TARGET_USER",
+    FOLLOWING: "FOLLOWING"
+
 }
 
 function AuthContextProvider(props) {
@@ -22,7 +25,8 @@ function AuthContextProvider(props) {
         user: null,
         loggedIn: false,
         error: false,
-        userList:[]
+        userList:[],
+        targetUser:null
     });
     const history = useHistory();
     
@@ -41,49 +45,83 @@ function AuthContextProvider(props) {
                 return setAuth({
                     user: payload.user,
                     loggedIn: payload.loggedIn,
-                    error: false
+                    error: false,
+                    targetUser:auth.targetUser,
+                    userList: auth.userList
+
                 });
             }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true,
-                    error: false
+                    error: false,
+                    targetUser:auth.targetUser,
+                    userList: []
+
                 })
             }
             case AuthActionType.LOGOUT_USER: {
                 return setAuth({
                     user:null,
                     loggedIn: false,
-                    error: false
+                    error: false,
+                    targetUser:auth.targetUser,
+                    userList: []
                 })
             }
             case AuthActionType.LOGIN_USER: {
                 return setAuth({
                     user:payload,
                     loggedIn:true,
-                    error:false
+                    error:false,
+                    targetUser:auth.targetUser,
+                    userList: auth.userList
                 })
             }
             case AuthActionType.ERROR: {
                 return setAuth({
                     user:null,
                     loggedIn:false,
-                    error:payload
+                    error:payload,
+                    targetUser:auth.targetUser,
+                    userList: []
                 })
-            }case AuthActionType.UPDATE_USER: {
+            }
+            case AuthActionType.UPDATE_USER: {
                 return setAuth({
                     user:payload,
                     loggedIn:true,
-                    error:false
+                    error:false,
+                    targetUser:auth.targetUser,
+                    userList: auth.userList
                 })
             }
-            
+            case AuthActionType.SET_TARGET_USER: {
+                return setAuth({
+                    user:auth.user,
+                    loggedIn:auth.loggedIn,
+                    error:false,
+                    targetUser:payload,
+                    userList: auth.userList
+                })
+            }
+            case AuthActionType.FOLLOWING: {
+                console.log("Following")
+                return setAuth({
+                    user:auth.user,
+                    loggedIn:true,
+                    error:false, 
+                    userList: payload,
+                    targetUser:payload
+                })
+            }
             default:
                 return setAuth({
                     user:null,
                     loggedIn:false,
-                    error:false
+                    error:false,
+                    userList: []
                 })
         }
     }
@@ -224,17 +262,31 @@ function AuthContextProvider(props) {
             
         }
         catch(err){
-            // authReducer({
-            //     type: AuthActionType.ERROR,
-            //     payload:{
-            //         status:err.response.status,
-            //         message:err.response.data.errorMessage
-            //     }
-            // })
-            console.log(err);
+            authReducer({
+                type: AuthActionType.ERROR,
+                payload:{
+                    status:err.response.status,
+                    message:err.response.data.errorMessage
+                }
+            })
         }
     }
-
+    auth.getUserList = async function(){
+        try{
+            const response = await api.getUsers();
+            console.log(response.data.users);
+            if(response.status===200){
+                    authReducer({
+                        type: AuthActionType.FOLLOWING,
+                        payload:response.data.users
+                    });
+            }
+            console.log(auth.users);
+        }
+        catch(err){
+            console.log("getUserListError");
+        }
+    }
     auth.searchUser = async function (id){
         try{
             const response = await api.getUserData(id);
@@ -250,7 +302,7 @@ function AuthContextProvider(props) {
                 //         message:err.response.data.errorMessage
                 //     }
                 // })
-                console.log("error of reset password");
+               
             }
         }
         
@@ -344,17 +396,16 @@ function AuthContextProvider(props) {
     }
 
     //find user by email 
-    auth.setTargetUser=async function(author){
+    auth.setTargetUser=async function(authorId){
         try{
            
             // let body={"email":author}; console.log(body);
-            const response = await api.getOneUser(author);
+            const response = await api.getUserbyId(authorId);
             if(response.data.success){
-                console.log(response.data.user);
-                // authReducer({
-                //     type: AuthActionType.SET_TARGET_USER,
-                //     payload:response.data.user
-                // })
+                authReducer({
+                    type: AuthActionType.SET_TARGET_USER,
+                    payload:response.data.user
+                })
 
             }
         }
