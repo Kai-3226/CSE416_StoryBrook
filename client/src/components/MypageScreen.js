@@ -44,33 +44,6 @@ export default function MyPage () {
         }
     }
 
-<<<<<<< HEAD
-    if (store.mode=="works"){
-        store.loadWorkList();
-        selectbar=
-        <Box>
-            <Button onClick={(event) => {handleClick(1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
-            <Button onClick={(event) => {handleClick(2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
-        </Box>
-        if (store && store.workList) {
-            mylist = store.workList.filter(item => item.author === auth.user.email);
-            list = "";  
-            let rows = [];
-            for (var i = 0, end = mylist.length / 2; i < end; ++i){
-                rows.push(mylist.slice(i * 2, (i + 1) * 2));
-            }
-            // console.log(rows);
-            list = 
-                rows.map((row) => (
-                    <Box sx = {{display:'flex',position:'relative'}}>
-                        {row.map((item) =>(<MypageWorkCard work={item}/>))}
-                    </Box>
-                ));
-        }
-
-    }
-=======
->>>>>>> af95ddda8c335de9636630640a6f26dae5064916
 
     if (store.mode=="friends"){
         list=

@@ -17,10 +17,7 @@ import AuthContext from '../auth';
 import {useParams} from 'react-router-dom';
 import { Pagination } from '@mui/material';
 
-<<<<<<< HEAD
-=======
 import React, { ChangeEventHandler, useCallback } from "react";
->>>>>>> af95ddda8c335de9636630640a6f26dae5064916
 
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);

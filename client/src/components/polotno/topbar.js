@@ -104,12 +104,8 @@ const DownloadButton = ({ workstore }) => {
 
 export default observer(({ workstore }) => {
   const inputRef = React.useRef();
-<<<<<<< HEAD
   const {  store } = React.useContext(GlobalStoreContext);
   const { auth } = useContext(AuthContext);
-=======
-  const { store } = React.useContext(GlobalStoreContext);
->>>>>>> af95ddda8c335de9636630640a6f26dae5064916
   const [faqOpened, toggleFaq] = React.useState(false);
   const [title, setTitle] = React.useState(store.currentWork.name);
   const history = useHistory();
@@ -156,7 +152,6 @@ export default observer(({ workstore }) => {
     //const json = workstore.toJSON();
     store.currentWork.name = title;
     // store.currentWork.content=json;
-<<<<<<< HEAD
     store.currentWork.content= [];
     
     store.currentWork.content=await Promise.all (workstore.pages.map(async (page) => {
@@ -167,17 +162,6 @@ export default observer(({ workstore }) => {
     store.currentWork.published={publish:true,date:Date()};
     console.log("send not");
     auth.sendNotification(store.currentWork._id, store.currentWork.workType);
-=======
-    store.currentWork.content = [];
-
-    store.currentWork.content = await Promise.all(workstore.pages.map(async (page) => {
-      let pageUrl = await workstore.toDataURL({ pageId: page.id });
-      return pageUrl;
-    }));
-
-    store.currentWork.published = { publish: true, date: Date() };
-
->>>>>>> af95ddda8c335de9636630640a6f26dae5064916
     store.updateCurrentWork();
     history.push(`/read/${store.currentWork._id}`);
     alert("Work is published");

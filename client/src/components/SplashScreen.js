@@ -15,30 +15,17 @@ const theme = createTheme();
 
 export default function SplashScreen() {
     const {store}=useContext(GlobalStoreContext);
-<<<<<<< HEAD
-    const history = useHistory();
-
-     useEffect(() => {
-        store.stat(3);
-=======
   
     
     useEffect(() => {
         store.resetStat();
->>>>>>> af95ddda8c335de9636630640a6f26dae5064916
     }, []);
 
     
     function handleClick(status){
         console.log(status);
         store.stat(status);
-<<<<<<< HEAD
-        console.log(store.status);
-        history.push("/home/");
-        //console.log(store.workList);
-=======
         
->>>>>>> af95ddda8c335de9636630640a6f26dae5064916
     }
     
    
