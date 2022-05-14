@@ -477,18 +477,14 @@ function AuthContextProvider(props) {
     auth.interact=async function(newUser){
         try{
             //console.log(auth.user);
-            const response = await api.getUserbyId(newUser._id);
-            if(response.data.success){
-                let updatedUser=response.data.user;
-
-               const res = await api.updateUser(updatedUser);
-                if(res.data.success){
-                    authReducer({
-                        type: AuthActionType.LOGIN_USER,
-                        payload:newUser
-                    })
-                }
+           const res = await api.updateUser(newUser);
+            if(res.data.success){
+                authReducer({
+                    type: AuthActionType.LOGIN_USER,
+                    payload:newUser
+                })
             }
+            
         }
         catch(err){
             console.log("interact fail");

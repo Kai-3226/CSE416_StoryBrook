@@ -7,10 +7,9 @@ import AuthContext from '../auth';
 export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
     const {auth} = useContext(AuthContext);
-    
+
     function handleClick(event,input){
         event.stopPropagation();
-        store.setMode(input);
         store.setMode(input);
         console.log(store.mode);    
         if(store.mode=="works")

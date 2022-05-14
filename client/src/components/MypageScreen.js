@@ -117,8 +117,7 @@ export default function MyPage () {
     return(
         <Box bgcolor="lightgreen" display="flex" sx={{height:'85%',width:'100%'}}>
             <MypageSidebar></MypageSidebar>
-            <div id="content">    
-            <TextField id="myPage-search" fullWidth value={text} onChange={e => setText(e.target.value)}/>
+            <div id="content">
                 <Box id="mypage-list" sx={{overflowY:'auto'}}>
                     {selectbar}
                     {list}
