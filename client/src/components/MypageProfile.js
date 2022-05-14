@@ -17,7 +17,9 @@ export default function Profile(){
     const fileUploaderRef = useRef();
 
     console.log(auth.user.profile.icon)
-    const fileUploadOnClick = async ()=>{
+    const fileUploadOnClick = (event)=>{
+        event.preventDefault();
+        event.stopPropagation();
         console.log("Hello")
         const formData = new FormData();
         formData.append("icon",fileUploaderRef.current.files[0])
@@ -55,7 +57,7 @@ export default function Profile(){
                         <img alt="Avatar" src={auth.user.profile.icon} style={{width:"50%", height:"auto", borderRadius:"50%"}}>
                         </img>
                             <input type="file"  ref={fileUploaderRef} accept="image/*"/>
-                            <button onClick={fileUploadOnClick}>
+                            <button onClick={(event)=>fileUploadOnClick(event)}>
                                 Upload
                             </button>
                         </Box>

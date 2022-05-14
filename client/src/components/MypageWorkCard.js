@@ -60,7 +60,7 @@ function MypageWorkCard(props) {
            <Box sx={{bgcolor:"lightgrey",position:"absolute",height:"10%"}}> {publishflag} </Box>
             <CardMedia
                 component="img"
-                height="140"
+                height="100%"
                 image= {response}
                 alt= {work.name}
             />

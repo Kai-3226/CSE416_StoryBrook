@@ -23,9 +23,11 @@ export default function MyPage () {
         mylist = store.workList.filter(item => item.author === auth.user.email);
         if(status === 1){
             mylist = mylist.filter(item => item.published["publish"] === true);
+            console.log(mylist);
         } else if(status == 2)
         {
             mylist = mylist.filter(item => item.published["publish"] === false);
+            console.log(mylist);
         }
         if (store && store.workList) {
             list = "";  
@@ -81,8 +83,8 @@ export default function MyPage () {
             }
             console.log(rows);
             list = 
-                rows.map((row) => (
-                    <Box sx = {{display:'flex',position:'relative'}}>
+                rows.map((row,index) => (
+                    <Box key={"workRow"+index} sx = {{display:'flex',position:'relative'}}>
                         {row.map((item) =>(<MypageWorkCard key={item._id} work={item}/>))}
                     </Box>
                 ));
