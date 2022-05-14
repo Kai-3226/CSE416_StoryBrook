@@ -281,7 +281,6 @@ function AuthContextProvider(props) {
                         payload:response.data.users
                     });
             }
-            console.log(auth.users);
         }
         catch(err){
             console.log("getUserListError");

@@ -9,10 +9,9 @@ export default function Sidebar () {
     const {auth} = useContext(AuthContext);
     
     function handleClick(event,input){
+        event.preventDefault();
         event.stopPropagation();
-        store.setMode(input);
-        store.setMode(input);
-        console.log(store.mode);    
+        store.setMode(input);  
         if(store.mode=="works")
         {store.loadWorkList();}
         if(input=="followings"){
