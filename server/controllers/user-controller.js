@@ -51,12 +51,15 @@ registerUser = async (req, res) => {
         if (!firstName || !lastName || !email || !password || !passwordVerify) {
             return res
                 .status(400)
-                .json({ errorMessage: "Please enter all required fields." });
+                .json({ 
+                    success: false,
+                    errorMessage: "Please enter all required fields." });
         }
         if (password.length < 8) {
             return res
                 .status(400)
                 .json({
+                    success: false,
                     errorMessage: "Please enter a password of at least 8 characters."
                 });
         }
@@ -64,6 +67,7 @@ registerUser = async (req, res) => {
             return res
                 .status(400)
                 .json({
+                    success: false,
                     errorMessage: "Please enter the same password twice."
                 })
         }
@@ -257,13 +261,17 @@ getUserData = async(req,res) =>{
     await User.findOne({ _id: req.params.id }, (err, user) => {
         if (err) {
             console.log("get user data error");
-            return res.status(400).json({ success: false, error: err });
+            return res.status(400).json({ success: false,  errorMessage: 'get user data error!' });
         }
 
         return res.status(200).json({ success: true, user: user });
     }).catch(
         err => {console.log("get user data error");
         //console.log(err);
+            return res.status(404).json({
+                success: false,
+                errorMessage: 'get user data error!'
+            })
             })
 }
 
@@ -280,7 +288,7 @@ getOneUser = async(req,res) =>{
             console.log("FAILURE: " + JSON.stringify(error));
             return res.status(404).json({
                 success: false,
-                err: 'not found the user!'
+                errorMessage: 'not found the user!'
             })
         }
         )
@@ -293,7 +301,7 @@ updateUser =async (req,res) => {
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a body to update',
+            errorMessage: 'You must provide a body to update',
         })
     }
 
@@ -333,7 +341,7 @@ updateUser =async (req,res) => {
                 console.log("USER UPDATE FAILURE: " + JSON.stringify(error));
                 return res.status(404).json({
                     success: false,
-                    message: 'User data not updated!'
+                    errorMessage: 'User data not updated!'
                 })
             })
     })
@@ -367,7 +375,7 @@ sendUserEmail = async (req, res) => {
 
         clientURL="sbrook.herokuapp.com";
         const link = `${clientURL}/passwordReset/${token}/${existingUser._id}/`;
-        await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
+        await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.profile.userName,link: link,},"./template/requestResetPassword.handlebars");
       
         return res
         .status(200)
@@ -410,6 +418,7 @@ resetPassword = async (req, res) => {
             return res
                 .status(400)
                 .json({
+                    success: false,
                     errorMessage: "Please enter a password of at least 8 characters."
                 });
         }
@@ -468,11 +477,11 @@ changePassword = async (req, res) => {
 }
 verifyEmail = async (req, res) => {
     try {
-        const {code,useremail} = req.body;
-       
-      
-        await sendEmail(existingUser.email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars");
-      
+        console.log(req.body);
+        const {code,email} = req.body;
+        console.log(code);
+        console.log(email);
+        await sendEmail(email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars"); 
         return res
         .status(200)
         .json({
