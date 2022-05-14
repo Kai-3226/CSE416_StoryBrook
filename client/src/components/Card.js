@@ -17,42 +17,25 @@ export default function Card(props) {
     function handleMessage(){
 
     }
-    function handleDelete(){
-        
+    function handleDelete(event,target){
+        event.stopPropagation();
+        auth.unfollowAuthor(target);
     }
     let cardElement =""
-    if(store.mode=="friends"){
+    const prop = props.props;
+    if (store.mode=="followings"){
         console.log(user);
         cardElement =
-            <ListItem>
-                <Box sx={{ p: 1, flexGrow: 1 }}>{user.firstName+" "+user.lastName}</Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={handleMessage} aria-label='edit'>
-                        <MessageIcon style={{fontSize:'48pt'}} />
-                    </IconButton>
-                </Box>
+            <ListItem sx={{bgcolor: "red",border: "1px solid black"}}>
+                <Box sx={{ p: 1, flexGrow: 1 }}>{prop.email}</Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={(event) => {
-                        handleDelete(event, user._id)
+                        handleDelete(event, prop._id)
                     }} aria-label='delete'>
                         <DeleteIcon style={{fontSize:'48pt'}} />
                     </IconButton>
                 </Box>
-            </ListItem>
-        }
-    else if (store.mode=="followings"){
-        console.log(user);
-        cardElement =
-            <ListItem>
-                    <Box sx={{ p: 1, flexGrow: 1 }}>{user.firstName+" "+user.lastName}</Box>
-                    <Box sx={{ p: 1 }}>
-                        <IconButton onClick={(event) => {
-                            handleDelete(event, user._id)
-                        }} aria-label='delete'>
-                            <DeleteIcon style={{fontSize:'48pt'}} />
-                        </IconButton>
-                    </Box>
-            </ListItem>
+</ListItem>
     }
     else if (store.mode=="works"){
         cardElement=

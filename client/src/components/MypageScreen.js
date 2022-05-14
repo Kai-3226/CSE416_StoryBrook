@@ -56,12 +56,13 @@ export default function MyPage () {
             </List>
     }
     else if(store.mode=="followings"){
+        console.log(auth.userList);
         list=
-            <List sx={{ width: '80%', left: '20%'}}>
+            <List sx={{ width: '100%', left: '0%'}}>
                 {
-                auth.user.following.map((authorId)=> (
-                        <Card></Card>
-                    ))
+                auth.userList.filter((user) => auth.user.following.includes(user._id)).map((item) => (
+                    <Card props={item}></Card>
+                ))
                 }
             </List>
     }
