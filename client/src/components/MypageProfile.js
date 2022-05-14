@@ -14,14 +14,16 @@ import { Link } from 'react-router-dom'
 export default function Profile(){
     const { auth } = useContext(AuthContext);
     const history = useHistory();
-    //const fileUploaderRef = useRef();
+    const fileUploaderRef = useRef();
 
+    console.log(auth.user.profile.icon)
     const fileUploadOnClick = async ()=>{
-        // console.log("Hello")
-        // const formData = new FormData();
-        // formData.append("imgFile",
-        // this.state.selectedFile);
-        // auth.updateUser(formData);
+        console.log("Hello")
+        const formData = new FormData();
+        formData.append("icon",fileUploaderRef.current.files[0])
+        formData.append("_id",auth.user._id)
+        auth.updateUserIcon(formData);
+        history.push("/")
     }
 
     const handleSubmit = (event) => {
@@ -46,16 +48,17 @@ export default function Profile(){
                             flexDirection: 'column',
                             alignItems: 'center',
                         }}>
-                    <Box style={{width: "40vw", float:"right", marginTop: "10vh", display:"flex", flexDirection:"column", alignItems:"center"}}>
-                        {/* <img alt="Avatar" src={auth.user.icon} style={{width:"50%", height:"auto", borderRadius:"50%"}}>
-                        </img>
-                            <input type="file" ref={fileUploaderRef} accept="image/*"/>
-                            <button onClick={fileUploadOnClick}>
-                            Upload!
-                            </button> */}
-                    </Box>
+                    
                     <Box id="profile-setting">
                         <Box>Main Settings</Box>
+                        <Box style={{width: "40vw", float:"right", marginTop: "10vh", display:"flex", flexDirection:"column", alignItems:"center"}}>
+                        <img alt="Avatar" src={auth.user.profile.icon} style={{width:"50%", height:"auto", borderRadius:"50%"}}>
+                        </img>
+                            <input type="file"  ref={fileUploaderRef} accept="image/*"/>
+                            <button onClick={fileUploadOnClick}>
+                                Upload
+                            </button>
+                        </Box>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>

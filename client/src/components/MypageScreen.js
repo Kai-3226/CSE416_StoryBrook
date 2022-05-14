@@ -44,7 +44,6 @@ export default function MyPage () {
         }
     }
 
-
     if (store.mode=="friends"){
         list=
             <List sx={{ width: '80%', left: '20%'}}>
@@ -56,6 +55,7 @@ export default function MyPage () {
             </List>
     }
     else if(store.mode=="followings"){
+
         console.log(auth.userList);
         list=
             <List sx={{ width: '100%', left: '0%'}}>
@@ -90,6 +90,9 @@ export default function MyPage () {
         }
     }
     else if (store.mode=="likes"){
+        selectbar="";
+        console.log("hello")
+
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
