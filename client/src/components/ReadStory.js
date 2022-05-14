@@ -20,6 +20,7 @@ const ReadStory = () => {
     const [comment,setComment]=useState("Any Comment?");
     const {id}=useParams();
 
+    console.log(auth.user);
     let work="";
     if(store&&store.currentWork){
         work=store.currentWork;
@@ -67,6 +68,7 @@ const ReadStory = () => {
             likeButtonColor="success"; 
             store.interactWork(work); 
             user.like.push(work._id);
+            console.log(user);
             auth.interact(user);
             }
         else if(auth.loggedIn&&work&&work.likes.includes(auth.user._id)) //like yet so unlike it

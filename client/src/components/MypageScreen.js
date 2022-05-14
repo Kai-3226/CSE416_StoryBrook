@@ -99,14 +99,20 @@ export default function MyPage () {
             </List>
     }
     else if (store.mode=="likes"){
-        list=
-            <List sx={{ width: '80%', left: '20%'}}>
-                {
-                auth.user.like.map((workId)=> (
-                        <Card></Card>
-                    ))
-                }
-            </List>
+        mylist = store.workList.filter((work) => auth.user.like.includes(work._id));
+        list = "";  
+            let rows = [];
+            for (var i = 0, end = mylist.length / 2; i < end; ++i){
+                rows.push(mylist.slice(i * 2, (i + 1) * 2));
+            }
+        console.log(auth.user);
+        console.log(store.workList);
+        list = 
+            rows.map((row) => (
+                <Box sx = {{display:'flex',position:'relative'}}>
+                    {row.map((item) =>(<MypageWorkCard work={item}/>))}
+                </Box>
+            ));
     }
     return(
         <Box bgcolor="lightgreen" display="flex" sx={{height:'85%',width:'100%'}}>

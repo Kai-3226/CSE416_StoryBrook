@@ -15,7 +15,7 @@ export const AuthActionType = {
     LOGIN_USER: "LOGIN_USER",
     ERROR: "ERROR",
     UPDATE_USER: "UPDATE_USER",
-    FOLLOWING: "FOLLOWING"
+    MYPAGE: "MYPAGE"
 }
 
 function AuthContextProvider(props) {
@@ -86,8 +86,8 @@ function AuthContextProvider(props) {
                     userList: []
                 })
             }
-            case AuthActionType.FOLLOWING: {
-                console.log("Following")
+            case AuthActionType.MYPAGE: {
+                console.log("MYPAGE")
                 return setAuth({
                     user:auth.user,
                     loggedIn:true,
@@ -257,11 +257,11 @@ function AuthContextProvider(props) {
             console.log(response.data.users);
             if(response.status===200){
                     authReducer({
-                        type: AuthActionType.FOLLOWING,
+                        type: AuthActionType.MYPAGE,
                         payload:response.data.users
                     });
             }
-            console.log(auth.users);
+            console.log(auth.userList);
         }
         catch(err){
             console.log("getUserListError");
