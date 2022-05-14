@@ -7,20 +7,25 @@ import Copyright from './Copyright'
 import Button from '@mui/material/Button';
 import { useContext,useState,useEffect } from 'react';
 import { GlobalStoreContext } from '../store';
+import { useHistory } from 'react-router-dom'
 
 const theme = createTheme();
 
+
 export default function SplashScreen() {
     const {store}=useContext(GlobalStoreContext);
+    const history = useHistory();
+
      useEffect(() => {
         store.stat(3);
     }, []);
 
     
     function handleClick(status){
-        console.log(status)
+        console.log(status);
         store.stat(status);
-        
+        console.log(store.status);
+        history.push("/home/");
         //console.log(store.workList);
     }
     

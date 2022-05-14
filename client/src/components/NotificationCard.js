@@ -11,11 +11,12 @@ function NotificationCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
     const { infor } = props;
+    console.log(infor);
 
     function handleOpen(event, id){
         event.stopPropagation();
         console.log(id);
-        store.setCurrentWork(id);
+        store.readWork(id);
         auth.ignoreWork(id);
     }
 
@@ -27,14 +28,15 @@ function NotificationCard(props) {
     
     let viewbutton=
     <Button  onClick={(event) => {
-        handleOpen(event, infor._workId)
+        console.log(infor);
+        handleOpen(event, infor.workId)
         }} aria-label='view' size='small'>
     View
     </Button>;
 
     let ignorebutton=
     <Button  onClick={(event) => {
-        handleIgnore(event, infor._workId)
+        handleIgnore(event, infor.workId)
         }} aria-label='ignore' size='small'>
     Ignore
     </Button>;

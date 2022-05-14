@@ -136,7 +136,7 @@ function AuthContextProvider(props) {
         if(response.status === 200){
             authReducer({
                 type: AuthActionType.LOGOUT_USER,
-                paylaod:null
+                payload:null
             })
            
             history.push("/");
@@ -290,7 +290,7 @@ function AuthContextProvider(props) {
     //     if(response.status === 200){
     //         authReducer({
     //             type: AuthActionType.UPDATE_USER,
-    //             paylaod:null
+    //             payload:null
     //         })
     //     }
     //     console.log(response);
@@ -464,17 +464,25 @@ function AuthContextProvider(props) {
     }
 
     auth.ignoreWork = async function(workId){
-        try{       
+        try{
+            console.log(workId);       
             const response = await api.getUserbyId(auth.user._id);
             if(response.data.success){
                 let user=response.data.user;
-                console.log(user);
+                console.log(response.data.user);
                 for (let s = 0; s < user.notification.length; s++) {
-                    if(user.notification[s].type === 1 && user.notification[s].workId === workId) {
+                    console.log(user.notification[s].workId);  
+                    if(user.notification[s].workId === workId) {
                         user.notification.splice(s,1);
                     }
                 }
                 const res=await api.updateUser(user);
+                if(res.data.success){
+                    authReducer({
+                        type: AuthActionType.UPDATE_USER,
+                        payload:user
+                    })
+                }               
             }
         }
         catch(err){
@@ -486,14 +494,16 @@ function AuthContextProvider(props) {
     auth.sendNotification=async function(workId, workType){
         try{
             console.log(auth.user);
-            let notification = {"userId": auth.user.userId,
-                                "userName": auth.user.userName, 
+            let notification = {"userId": auth.user._id,
+                                "userName": auth.user.profile.userName, 
                                 "workId": workId,
-                                "workType": workType};       
+                                "workType": workType};
+            console.log(notification);    
             for(let i=0; i<auth.user.follower.length; i++){
                 const response = await api.getUserbyId(auth.user.follower[i]);
                 if(response.data.success){
                     let user = response.data.user;
+                    console.log(user);
                     user.notification.push(notification);
                     const respon = await api.updateUser(user);
                     if(respon.data.success){

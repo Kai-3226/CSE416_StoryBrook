@@ -161,7 +161,7 @@ async function handlePublish(event){
     
     store.currentWork.published={publish:true,date:Date()};
     console.log("send not");
-    auth.sendNotification(store.currentWork.workId, store.currentWork.workType);
+    auth.sendNotification(store.currentWork._id, store.currentWork.workType);
     store.updateCurrentWork();
     history.push(`/read/${store.currentWork._id}`);
     alert("Work is published");

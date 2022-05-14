@@ -15,18 +15,15 @@ import { createStore } from 'polotno/model/store';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import AuthContext from '../auth';
 import {useParams} from 'react-router-dom';
-import ComicViewer from "react-comic-viewer";
 import { Pagination } from '@mui/material';
 
-import React, { ChangeEventHandler, useCallback } from "react";
-import {Toggle} from "react-toggle";
 
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
     const [comment,setComment]=useState("Any Comment?");
     const {id}=useParams();
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = useState(1);
   
 
     // const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 

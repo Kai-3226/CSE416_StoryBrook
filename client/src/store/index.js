@@ -394,8 +394,10 @@ function GlobalStoreContextProvider(props) {
         
         }
     }
-    store.readWork = async function (id) {        
+    store.readWork = async function (id) {     
+        console.log(id);
         let response = await api.getWorkById(id);
+        console.log(response);
         if (response.data.success) {
             let work = response.data.work;
             work.view=work.view+1;
@@ -694,6 +696,7 @@ function GlobalStoreContextProvider(props) {
 
 
     store.stat = async function (status){
+        console.log(status);
         const response = await api.getWorkList();
         if (response.data.success) {
             let workArray = response.data.data;
@@ -731,8 +734,7 @@ function GlobalStoreContextProvider(props) {
         else {
             console.log("API FAILED TO SET STATUS AND GET THE works list");
         }
- 
-        history.push("/home/");
+
     }
 
 
