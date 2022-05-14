@@ -318,10 +318,11 @@ updateUserIcon =async (req,res) => {
         }
         
         user.profile.icon=file.path
-        console.log(user)
+        
 
         user.save()
             .then(() => {
+                console.log(user);
                 return res.status(200).json({
                     success: true,
                     id: user._id,
