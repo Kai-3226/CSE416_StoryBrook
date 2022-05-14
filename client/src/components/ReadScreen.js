@@ -19,14 +19,13 @@ import ComicViewer from "react-comic-viewer";
 import { Pagination } from '@mui/material';
 
 import React, { ChangeEventHandler, useCallback } from "react";
-import {Toggle} from "react-toggle";
 
 const ReadScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
     const [comment,setComment]=useState("Any Comment?");
     const {id}=useParams();
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = useState(1);
   
 
     // const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
@@ -211,7 +210,7 @@ const ReadScreen = () => {
         //         <Box><TextField sx={{width:0.9, flexDirection:'row'}} id={"item"+i} class='list-card' name={"item"+i} defaultValue={item}></TextField></Box>
         //     </Box>
         // )
-    if(store&&store.currentWork)
+    if(store&&store.currentWork&&store.currentWork.content)
     return (
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>
