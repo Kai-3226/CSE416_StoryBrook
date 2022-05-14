@@ -6,12 +6,14 @@ const sendEmail = require("../utils/email/sendEmail");
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const  upload  = require ('../Cloudinary/multer')
+const { Console } = require('console');
 
 getLoggedIn = async (req, res) => {
     try {
         auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
-        return res.status(200).json({
+        if (loggedInUser)
+        {   return res.status(200).json({
             loggedIn: true,
             user: { 
                 _id:loggedInUser._id,
@@ -29,7 +31,13 @@ getLoggedIn = async (req, res) => {
                 alarm: loggedInUser.alarm,
                 profile: loggedInUser.profile
             }
-        });
+            })
+        }
+        else return res.status(300).json({
+            loggedIn: false,
+            user: null,
+            })
+
     })}catch (err) {
         console.log("loggin failed");
         return res.status(500).json({
@@ -45,12 +53,15 @@ registerUser = async (req, res) => {
         if (!firstName || !lastName || !email || !password || !passwordVerify) {
             return res
                 .status(400)
-                .json({ errorMessage: "Please enter all required fields." });
+                .json({ 
+                    success: false,
+                    errorMessage: "Please enter all required fields." });
         }
         if (password.length < 8) {
             return res
                 .status(400)
                 .json({
+                    success: false,
                     errorMessage: "Please enter a password of at least 8 characters."
                 });
         }
@@ -58,6 +69,7 @@ registerUser = async (req, res) => {
             return res
                 .status(400)
                 .json({
+                    success: false,
                     errorMessage: "Please enter the same password twice."
                 })
         }
@@ -209,13 +221,41 @@ loginUser = async (req, res) => {
 }
 
 logoutUser= async (req, res) => {
-    await res.clearCookie()
-    .status(200).json({
-        success:true,
-        user:null
-    }).send();
+    try{
+    let response=res.cookie("token", null, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    }).status(200).json({
+            success:true,
+            user:null
+        });
+        // await res.clearCookie('token')
+        // .status(200).json({
+        //     success:true,
+        //     user:null
+        // });
+        return response;
+    }catch(err) {
+        res.status(500).json({
+            success: false,
+            errorMessage:"Log out process is wrong"
+        }).send();
+    }
 }
-
+getUsers = async (req, res) => {
+    await User.find({}, (err, users) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!users.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Users not found` })
+        }
+        return res.status(200).json({ success: true, users: users })
+    }).catch(err => console.log(err))
+}
 
 getUserData = async(req,res) =>{
     
@@ -223,15 +263,20 @@ getUserData = async(req,res) =>{
     await User.findOne({ _id: req.params.id }, (err, user) => {
         if (err) {
             console.log("get user data error");
-            return res.status(400).json({ success: false, error: err });
+            return res.status(400).json({ success: false,  errorMessage: 'get user data error!' });
         }
 
         return res.status(200).json({ success: true, user: user });
     }).catch(
         err => {console.log("get user data error");
         //console.log(err);
+            return res.status(404).json({
+                success: false,
+                errorMessage: 'get user data error!'
+            })
             })
 }
+
 //get a userdata by email
 getOneUser = async(req,res) =>{
     // console.log(email);
@@ -245,7 +290,7 @@ getOneUser = async(req,res) =>{
             console.log("FAILURE: " + JSON.stringify(error));
             return res.status(404).json({
                 success: false,
-                err: 'not found the user!'
+                errorMessage: 'not found the user!'
             })
         }
         )
@@ -301,7 +346,7 @@ updateUser =async (req,res) => {
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a body to update',
+            errorMessage: 'You must provide a body to update',
         })
     }
 
@@ -341,7 +386,7 @@ updateUser =async (req,res) => {
                 console.log("USER UPDATE FAILURE: " + JSON.stringify(error));
                 return res.status(404).json({
                     success: false,
-                    message: 'User data not updated!'
+                    errorMessage: 'User data not updated!'
                 })
             })
     })
@@ -375,7 +420,7 @@ sendUserEmail = async (req, res) => {
 
         clientURL="sbrook.herokuapp.com";
         const link = `${clientURL}/passwordReset/${token}/${existingUser._id}/`;
-        await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.name,link: link,},"./template/requestResetPassword.handlebars");
+        await sendEmail(existingUser.email,"Password Reset Request",{name: existingUser.profile.userName,link: link,},"./template/requestResetPassword.handlebars");
       
         return res
         .status(200)
@@ -418,6 +463,7 @@ resetPassword = async (req, res) => {
             return res
                 .status(400)
                 .json({
+                    success: false,
                     errorMessage: "Please enter a password of at least 8 characters."
                 });
         }
@@ -476,11 +522,11 @@ changePassword = async (req, res) => {
 }
 verifyEmail = async (req, res) => {
     try {
-        const {code,useremail} = req.body;
-       
-      
-        await sendEmail(existingUser.email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars");
-      
+        console.log(req.body);
+        const {code,email} = req.body;
+        console.log(code);
+        console.log(email);
+        await sendEmail(email,"Verification Email Code",{name: "",link: code,},"./template/welcome.handlebars"); 
         return res
         .status(200)
         .json({
@@ -514,5 +560,6 @@ module.exports = {
     changePassword,
     verifyEmail,
     getOneUser,
-    updateUserIcon
+    updateUserIcon,
+    getUsers
 }

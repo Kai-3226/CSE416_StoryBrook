@@ -176,11 +176,11 @@ function GlobalStoreContextProvider(props) {
             }
             case GlobalStoreActionType.MODE: {
                 return setStore({
-                    workList:store.workList,
+                    workList:payload.workList,
                     currentWork:null,
                     editActive:false,
                     workMarkedForDeletion:null,
-                    mode: payload,
+                    mode: payload.mode,
                     text: store.text,
                     status: store.status,
                     view: store.view
@@ -278,7 +278,7 @@ function GlobalStoreContextProvider(props) {
                 payload: newWork
             }
             );
-            console.log(store.status)
+            
             if (store.status == 1 )
                 history.push("/create/")
             else if (store.status == 0)
@@ -327,6 +327,7 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.LOAD_WORK_LIST,
                 payload: viewable
             });
+            history.push("/home/")
         }
         else {
             console.log("API FAILED TO GET THE works list");
@@ -394,6 +395,34 @@ function GlobalStoreContextProvider(props) {
         
         }
     }
+    store.readWork = async function (id) {        
+        let response = await api.getWorkById(id);
+        if (response.data.success) {
+            let work = response.data.work;
+            work.view=work.view+1;
+            let resp = await api.updateWorkById(work._id,work);  
+            if (resp.data.success) {
+                let work=resp.data.work;
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_WORK,
+                    payload: work                      
+                });  
+            }
+            console.log(work);
+            if(work)
+            {
+                if(work.published['publish']==true)
+                {   if(work.workType==1)  history.push(`/read/${id}`);
+                    else if (work.workType==0) history.push(`/readStory/${id}`); }
+                else if (work.published['publish']==false)
+                {   if(work.workType==1)  history.push(`/create/`);
+                    else if (work.workType==0) history.push(`/createStory/`);
+                }
+                
+            }
+        
+        }
+    }
 
     store.updateWork = async function (newWork) {
         if(newWork.author==auth.user.email){    
@@ -416,10 +445,9 @@ function GlobalStoreContextProvider(props) {
        
         const response = await api.updateWorkById(store.currentWork._id, store.currentWork);
         if (response.data.success) {
-            console.log(response.data.work);
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_WORK,
-                payload: store.currentWork
+                payload: response.data.work
             });
         }
     }
@@ -474,56 +502,60 @@ function GlobalStoreContextProvider(props) {
             payload:filter
         });
     }
-    store.setMode= function (input){
-        storeReducer({
-            type: GlobalStoreActionType.MODE,
-            payload:input
-        });
+    store.setMode= async function (input){
+       
+        // if(input=="works"){
+        //     const response = await api.getWorkList();
+        //     if (response.data.success) { 
+        //         let workArray = response.data.data;
+        //         console.log(workArray);
+        //         let viewable=[];
+        //         //console.log(workArray);
+        //         for(let key in workArray){
+        //             let work = workArray[key];
+        //             console.log(work);
+        //             if(auth.loggedIn){
+        //                 if(auth.user.email===work.author){
+        //                     console.log("ASDASD")
+        //                     // console.log(auth.user.email,list.email,list.published.published)
+        //                     viewable.push(work);
+        //                 }
+        //                 else{
+        //                     if(work.published.publish===true){
+        //                         viewable.push(work);
+        //                         // console.log(listOwned);
+        //                     } 
+        //                 }
+        //             }
+        //             else{
+        //                 if(work.published.publish===true){
+        //                     viewable.push(work);
+        //                     // console.log(listOwned);
+        //                 } 
+        //             }
+        //         }
+        //         storeReducer({
+        //             type: GlobalStoreActionType.MODE,
+        //             payload: {mode:input,
+        //                 workList:viewable}
+        //         });
+        //     }
+        //     else {
+        //         console.log("API FAILED TO GET THE works list");
+        //     }
+
+        // }
+        // else {
+            storeReducer({
+                type: GlobalStoreActionType.MODE,
+                payload:{mode:input,
+                    workList:store.workList
+                }
+            });
+        //}
     }
-    store.like = async function (id) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
-            if(top5List.dislikes.includes(auth.user.email)){
-                top5List.dislikes.pop(auth.user.email);
-                top5List.likes.push(auth.user.email);
-            }
-            else if(!top5List.likes.includes(auth.user.email)){
-                top5List.likes.push(auth.user.email);
-            }
-            else{
-                top5List.likes.pop(auth.user.email);
-            }
-            store.updateList2(top5List);
-        }
-    }
-    store.dislike = async function (id) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
-            if(top5List.likes.includes(auth.user.email)){
-                top5List.likes.pop(auth.user.email);
-                top5List.dislikes.push(auth.user.email);
-            }
-            else if(!top5List.dislikes.includes(auth.user.email)){
-                top5List.dislikes.push(auth.user.email);
-            }
-            else{
-                top5List.dislikes.pop(auth.user.email);
-            }
-            store.updateList2(top5List);
-        }
-    }
-    store.comment = async function (input,id) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
-            let author=auth.user.firstName+" "+auth.user.lastName;
-            let payload={comment:input,author:author}
-            top5List.comment.push(payload);
-            store.updateList2(top5List);
-        }
-    }
+
+    
     function swap(arr, xp, yp){
         var temp = arr[xp];
         arr[xp] = arr[yp];
@@ -665,6 +697,19 @@ function GlobalStoreContextProvider(props) {
         history.push("/home/");
     }
 
+    store.resetStat = async function (status){
+        
+            //console.log(workArray);
+            storeReducer({
+                type: GlobalStoreActionType.STATUS,
+                payload: {workList:[],
+                        stat:null
+                }
+            });
+       
+    }
+
+
 
     store.myPage = function() {
         history.push("/mypage/");
@@ -684,6 +729,7 @@ function GlobalStoreContextProvider(props) {
            else{console.log("work update unsuccessfully")}     
      
     }
+    
 
     return (
         <GlobalStoreContext.Provider value={{

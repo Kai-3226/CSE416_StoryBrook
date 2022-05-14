@@ -69,11 +69,11 @@ updateWork = async (req, res) => {
                 message: 'Work not found!',
             })
         }
+        if(!work){console.log("work not found");}
         work.workType = body.workType;
         work.content =body.content;
         work.published=body.published;
-        work.name=body.name;
-        
+        work.name=body.name; 
         work.view=body.view;
         work.comments=body.comments;
         work.likes=body.likes;
@@ -135,10 +135,48 @@ getWorks = async (req, res) => {
         }
         if (!works.length) {
             return res
-                .status(404)
-                .json({ success: false, error: `Works not found` })
+                .status(200)
+                .json({ success: true, data:[] })
         }
-        return res.status(200).json({ success: true, data: works })
+            
+        let pairs = [];
+            for (let key in works) {
+                let work = works[key];
+                let pair=null;
+                if(work.published.publish==true&&work.workType==1&&work.content.length>=1){
+                        pair = {
+                        _id: work._id,
+                        name: work.name,
+                        content: work.content.slice(0,1),
+                        workType: work.workType,
+                        likes: work.likes,
+                        published: work.published,
+                        view: work.view,
+                        authorId:work.authorId,
+                        authorName:work.authorName,
+                        author: work.author
+                    };    
+                 }
+                 else {
+                        pair = {
+                        _id: work._id,
+                        name: work.name,
+                        content: [],
+                        workType: work.workType,
+                        likes: work.likes,          
+                        published: work.published,
+                        view: work.view,
+                        authorId:work.authorId,
+                        authorName:work.authorName,
+                        author: work.author
+                    };
+                 }
+                 pairs.push(pair);
+            }
+        
+        
+        
+        return res.status(200).json({ success: true, data: pairs })
     }).catch(err => console.log(err))
 }
 getWorkPairs = async (req, res) => {

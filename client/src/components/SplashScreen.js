@@ -5,21 +5,28 @@ import storytelling from '../Images/storytelling.png'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from './Copyright'
 import Button from '@mui/material/Button';
-import { useContext,useState } from 'react';
+import { useContext,useState,useEffect, } from 'react';
 import { GlobalStoreContext } from '../store';
+
 
 const theme = createTheme();
 
 export default function SplashScreen() {
     const {store}=useContext(GlobalStoreContext);
+  
+    
+    useEffect(() => {
+        store.resetStat();
+    }, []);
+
     
     function handleClick(status){
-        console.log(status)
+        console.log(status);
         store.stat(status);
         
-        //console.log(store.workList);
     }
     
+   
 
     return (
         <div style={{backgroundImage: `url(${splashScreen})`, backgroundRepeat: "no-repeat",backgroundPosition: "center",backgroundSize: "cover"}}>

@@ -26,6 +26,7 @@ const ReadStory = () => {
     }
     else if(store){
         store.setCurrentWork(id);
+        work=store.currentWork;
     }
 
     let user="";
@@ -33,12 +34,12 @@ const ReadStory = () => {
         user=auth.user;
       
     }
-    useEffect(() => {
-        if(store&&store.currentWork){
-        work.view++;
-        store.interactWork(work);  
-        }
-    }, []);
+    // useEffect(() => {
+    //     if(store&&store.currentWork){
+    //     work.view++;
+    //     store.interactWork(work);  
+    //     }
+    // }, []);
 
    
     let buttonDisable=true;
@@ -46,12 +47,12 @@ const ReadStory = () => {
 
     let likeButtonColor="default";
     let dislikeButtonColor="default";
-    if(auth.loggedIn && work.likes.includes(auth.user._id)) {likeButtonColor="success";}
-    if(auth.loggedIn && work.dislikes.includes(auth.user._id)) {dislikeButtonColor="success";} 
+    if(auth.loggedIn && work&&work.likes.includes(auth.user._id)) {likeButtonColor="success";}
+    if(auth.loggedIn && work&&work.dislikes.includes(auth.user._id)) {dislikeButtonColor="success";} 
 
     let followOption="follow";
     let followButtonColor="primary";
-    if(auth.loggedIn&&user.following.includes(work.authorId)) 
+    if(auth.loggedIn&&work&&user.following.includes(work.authorId)) 
         {followOption="unfollow";followButtonColor="success";}
 
 
@@ -60,7 +61,7 @@ const ReadStory = () => {
         event.preventDefault();
         event.stopPropagation(); 
 
-        if(auth.loggedIn&&!work.likes.includes(auth.user._id)) //haven't like yet
+        if(auth.loggedIn&&work&&!work.likes.includes(auth.user._id)) //haven't like yet
             {
             work.likes.push(auth.user._id);
             likeButtonColor="success"; 
@@ -68,7 +69,7 @@ const ReadStory = () => {
             user.like.push(work._id);
             auth.interact(user);
             }
-        else if(auth.loggedIn&&work.likes.includes(auth.user._id)) //like yet so unlike it
+        else if(auth.loggedIn&&work&&work.likes.includes(auth.user._id)) //like yet so unlike it
             {
                
             for (let i = 0; i < work.likes.length; i++) {
@@ -92,14 +93,14 @@ const ReadStory = () => {
     const handleDislikes = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(auth.loggedIn&&!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
+        if(auth.loggedIn&&work&&!work.dislikes.includes(auth.user._id)) //haven't dislike yet so like it
             {work.dislikes.push(auth.user._id);
             dislikeButtonColor="success";
             store.interactWork(work); 
             user.dislike.push(work._id);
             auth.interact(user);
             }
-        else if(auth.loggedIn&&work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
+        else if(auth.loggedIn&&work&&work.dislikes.includes(auth.user._id)) //dislike yet so undislike it
             {
             for (let i = 0; i < work.dislikes.length; i++) {
                    if(work.dislikes[i]===auth.user._id) {
@@ -166,7 +167,7 @@ const ReadStory = () => {
         
     }
 
-    if(store&&store.currentWork)
+    if(store&&store.currentWork&&store.currentWork.content)
     return (   
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>

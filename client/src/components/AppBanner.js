@@ -23,6 +23,7 @@ import logo from '../Images/logo.png';
 import comic_create from '../Images/comic_create.png';
 import story_create from '../Images/story_create.png';
 
+
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -59,6 +60,8 @@ export default function AppBanner() {
         else {
             handleMenuClose();
             auth.logoutUser();
+           
+
         }
             
     }
@@ -178,8 +181,10 @@ export default function AppBanner() {
                 if(store.status==0) {createUrl=story_create}
                 else if(store.status==1) {createUrl=comic_create};
                 editToolbar=
-                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px',backgroundImage:`url(${createUrl})`,backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }} >
-                           
+                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px'}}>
+                         <img src={createUrl}
+            height='32'
+          ></img>
                         </IconButton> 
                 
             }

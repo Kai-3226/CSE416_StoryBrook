@@ -46,6 +46,7 @@ export const updateUserIcon = (payload) => api.put(`/updateUserIcon/`, payload)
 
 export const getUserbyId=(id)=>api.get(`/getUserData/${id}`)
 export const getOneUser =(email)=>api.get(`/getOneUser/${email}`)
+export const getUsers = ()=>api.get('/getUsers/')
 
 const apis = {
     createWork,
@@ -54,7 +55,7 @@ const apis = {
     updateWorkById,
     deleteWorkById,
     getWorkById,
-
+    getUsers,
     getWorkList,
     getLoggedIn,
     registerUser,
