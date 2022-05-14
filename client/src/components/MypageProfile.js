@@ -20,7 +20,6 @@ export default function Profile(){
     const fileUploadOnClick = (event)=>{
         event.preventDefault();
         event.stopPropagation();
-        console.log("Hello")
         const formData = new FormData();
         formData.append("icon",fileUploaderRef.current.files[0])
         formData.append("_id",auth.user._id)

@@ -12,8 +12,6 @@ export default function Sidebar () {
         event.preventDefault();
         event.stopPropagation();
         store.setMode(input);  
-        if(store.mode=="works")
-        {store.loadWorkList();}
         if(input=="followings"){
             auth.getUserList();
             console.log(auth.users);
@@ -39,7 +37,7 @@ export default function Sidebar () {
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="works"){
+    if(store.mode=="works"||store.mode=="works_editing"||store.mode=="works_published"){
         
         work="selected-menu"
         friend ="unselected-menu";
