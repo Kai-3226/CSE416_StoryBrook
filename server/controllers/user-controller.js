@@ -3,7 +3,9 @@ const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
 const sendEmail = require("../utils/email/sendEmail");
 //const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
+const  upload  = require ('../Cloudinary/multer')
 const { Console } = require('console');
 
 getLoggedIn = async (req, res) => {
@@ -294,6 +296,49 @@ getOneUser = async(req,res) =>{
         )
 }
 
+updateUserIcon =async (req,res) => {
+    const file = req.file;
+    // console.log("updateUser: " + JSON.stringify(body));
+    if (!file) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a file to update',
+        })
+    }
+
+    console.log(file.path)
+
+    User.findOne({ _id: req.body._id }, (err, user) => {
+        
+        if (err) {
+            return res.status(404).json({
+                success: false,
+                errMessage: 'User not found!'
+            })
+        }
+        
+        user.profile.icon=file.path
+        console.log(user)
+
+        user.save()
+            .then(() => {
+                return res.status(200).json({
+                    success: true,
+                    id: user._id,
+                    user:user,
+                    message: 'User data updated!',
+                })
+            })
+            .catch(error => {
+                console.log("USER UPDATE FAILURE: " + JSON.stringify(error));
+                return res.status(404).json({
+                    success: false,
+                    message: 'User data not updated!'
+                })
+            })
+    })
+}
+
 updateUser =async (req,res) => {
     const body = req.body;
    
@@ -515,5 +560,6 @@ module.exports = {
     changePassword,
     verifyEmail,
     getOneUser,
+    updateUserIcon,
     getUsers
 }

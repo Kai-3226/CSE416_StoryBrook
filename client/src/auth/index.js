@@ -394,6 +394,32 @@ function AuthContextProvider(props) {
         }
     }
 
+    auth.updateUserIcon =async function(payload){
+        try{
+            //console.log(auth.user);
+            const response = await api.updateUserIcon(payload);
+            console.log(response)
+            if(response.status===200){
+                console.log(response.data.user)
+                authReducer({
+                    type: AuthActionType.LOGIN_USER,
+                    payload:response.data.user
+                })
+                console.log(response.message)
+            }
+            
+        }
+        catch(err){
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.errorMessage
+            //     }
+            // })
+            console.log(err);
+        }
+    }
     //find user by email 
     auth.setTargetUser=async function(authorId){
         try{
