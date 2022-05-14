@@ -699,8 +699,6 @@ function GlobalStoreContextProvider(props) {
 
     store.resetStat = async function (status){
         
-        
-            let viewable=[];
             //console.log(workArray);
             storeReducer({
                 type: GlobalStoreActionType.STATUS,
@@ -708,9 +706,7 @@ function GlobalStoreContextProvider(props) {
                         stat:null
                 }
             });
-     
- 
-        
+       
     }
 
 

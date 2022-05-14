@@ -19,20 +19,23 @@ export default function RegisterScreen() {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext)
 
-    // const code=10000;
-    // const [value, setValue] = useState("");
-    // const [useremail, setEmail] = useState("");
+  
+    const [value, setValue] = useState("");
+    const [useremail, setEmail] = useState("");
    
-    // const verifyEmail=(event)=>{
-    //   if(useremail!="")
-    //   {var val = Math.floor(1000 + Math.random() * 9000);
-    //   console.log(val);
-    //   code=val;
-    //   event.preventDefault();
-    //   auth.verifEmail(code,useremail);}
-    //   else(alert("input a valid email"))
-    // }
-    // const clearValue = () => setValue("");
+    const verifyEmail=(event)=>{
+        event.preventDefault();
+        event.stopPropagation();
+        console.log(useremail);
+        if(useremail!="")
+      { const val = Math.floor(1000 + Math.random() * 9000);
+        console.log(val);
+        let code=val.toString();
+        auth.verifyEmail(code,useremail);
+        }
+      else(alert("input a valid email"))
+}
+    const clearValue = () => setValue("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -96,12 +99,13 @@ export default function RegisterScreen() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    onChange={(event)=>setEmail(event.target.value)}
                                     
                                 />
                             </Grid>
-                            {/* <Button onSubmit={verifyEmail} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> Verif Email</Button>
+                            <Button onClick={verifyEmail} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> Verif Email</Button>
                             <Box display="flex"> <ReactInputVerificationCode onChange={setValue} value={value} />
-                            <Button onClick={clearValue}>Clear</Button> </Box> */}
+                            <Button onClick={clearValue}>Clear</Button> </Box>
                             <Grid item xs={12}>
                                 <TextField
                                     required

@@ -20,102 +20,18 @@ import { Typography } from '@mui/material';
 */
 function CommentCard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const {comment} = props;
     const [anchorEl, setAnchorEl] = useState(false);
-    const isOpen = Boolean(anchorEl);
     const { auth } = useContext(AuthContext);
 
+    let userName="";
+    // for( let i=0;i<auth.userList.length;i++)
+    // {
 
-    // function handleLike(){
-    //     store.like(idNamePair._id);
-    //     store.loadIdNamePairs();
-    // }
-    // function handleDislike(){
-    //     store.dislike(idNamePair._id);
-    //     store.loadIdNamePairs();
     // }
 
-    // function handleToggleEdit(event) {
-    //     event.stopPropagation();
-    //     setText(idNamePair.name);
-    //     toggleEdit();
-    // }
-
-    // function toggleEdit() {
-    //     let newActive = !editActive;
-    //     if (newActive) {
-    //         store.setIsListNameEditActive();
-    //     }
-    //     setEditActive(newActive);
-    // }
-
-    // async function handleDeleteList(event, id) {
-    //     event.stopPropagation();
-    //     store.markListForDeletion(id);
-    // }
-
-    // function handleKeyPress(event) {
-    //     if (event.code === "Enter") {
-    //         let id = event.target.id.substring("list-".length);
-    //         store.changeListName(id, text);
-    //         toggleEdit();
-    //     }
-    // }
-    // function handleUpdateText(event) {
-    //     setText(event.target.value);
-    // }
-    // function handleOpen(id){
-    //     if(!isOpen){
-    //         setAnchorEl(!isOpen);
-    //         let card=document.getElementById(idNamePair._id);
-    //         store.setCurrentList(id);
-    //         console.log(store.currentList);
-    //     }
-    // }
-    // function handleClose(){
-    //     setAnchorEl(!isOpen);
-    //     let card=document.getElementById(idNamePair._id);
-    //     card.classList.remove(".expand");
-    //     store.closeCurrentList();
-    // }
-    // let open="";
-    // let color="unpublished-list-card"
-    // let publish= <Button sx={{color:"red" }} onClick={(event) => {
-    //                 handleLoadList(event, idNamePair._id)
-    //             }}>
-    //                 Edit
-    //             </Button>;
-    // if (idNamePair.published.published){
-    //     color="published-list-card";
-    //     publish="Published:"+idNamePair.published.time;
-    //     open=
-    //     <IconButton onClick={(event) => {handleOpen(idNamePair._id)}}>
-    //         <Open style={{fontSize: '18pt'}}/>
-    //     </IconButton>  
-    // }
-    // let list="";
-    // if(isOpen){
-    //     list=<Work></Work>;
-    //     open=
-    //     <IconButton onClick={(event) => {handleClose(idNamePair._id)}}>
-    //         <Close style={{fontSize: '18pt'}}/>
-    //     </IconButton>
-    // }
-    // let deletebutton=
-    // <IconButton  onClick={(event) => {
-    //     handleDeleteList(event, idNamePair._id)
-    //     }} aria-label='delete' disabled={store.isListNameEditActive}>
-    //     <Delete style={{fontSize:'36pt'}} />
-    // </IconButton>;
-    // if(auth.user===null){
-    //     deletebutton="";
-    // }
-    // else if(auth.user.email!==idNamePair.email){
-    //     deletebutton="";
-    // }
-
+    
     let cardElement =
         <ListItem
             // id={idNamePair._id}

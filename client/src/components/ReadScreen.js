@@ -31,18 +31,18 @@ const ReadScreen = () => {
     // const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
     
     let work=null;
+    let authorName="";
     if(store&&store.currentWork){
         work=store.currentWork;
+        authorName=work.authorName;
         // workstore.loadJSON(work.content);
     }
     else if(store){
         store.setCurrentWork(id);
         work=store.currentWork;
-        
     }
-    // else {
 
-    // }
+    if(auth.targetUser) {authorName=auth.targetUser.profile.userName;}
     
     let user="";
     if(auth&&auth.loggedIn){
@@ -227,7 +227,7 @@ const ReadScreen = () => {
                         <Box id='readPage_author_text' sx={{position:'relative',height:'100%',width:'100%'}}>    
                             <Box id='readPage_author_name' sx={{position:'relative',textAlign:'center',width:'100%',height:'50%'}}>
                                 <Typography component="h1" variant="h5" >
-                                {work.authorName}
+                                {authorName}
                                 </Typography> 
                             </Box>
                             <Button color={followButtonColor} disabled={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>

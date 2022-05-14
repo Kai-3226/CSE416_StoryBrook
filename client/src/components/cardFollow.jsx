@@ -1,18 +1,24 @@
 import React from "react";
 import { GlobalStoreContext } from '../store'
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
+import Box from '@mui/material/Box';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import Avatar from '@mui/material/Avatar';
+import Cards from '@mui/material/Card';
 
-export function Card({ title, like, view,workType, itemId }) {
-    const { store } = React.useContext(GlobalStoreContext);
+export function Card(props) {
+  const { store } = React.useContext(GlobalStoreContext);
   const visibility = React.useContext(VisibilityContext);
-
-  const visible = visibility.isItemVisible(itemId);
+  const { work,ItemId } = props;
+  const visible = visibility.isItemVisible(ItemId);
 
   var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
   var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
-
   let response=url;
-  if(workType==0) {response=bookUrl};
+  if(work.workType==0) {response=bookUrl};
 
   function handleOpen(event, id){
     event.stopPropagation();
@@ -21,29 +27,46 @@ export function Card({ title, like, view,workType, itemId }) {
   }
   
   return (
-    <div
+    <Cards  hoverable="true" sx={{width:"20vw",height:"38vh",marginLeft:"4vw", userSelect: "none" }} 
       role="button"
-      style={{
-        border: "1px solid",
-        display: "inline-block",
-        margin: "0 10px",
-        width: "160px",
-        userSelect: "none"
-      }}
+      
+      // sx={{
+      //   border: "1px solid",
+      //   borderRadius: "0.2cm",
+      //   margin: "0 10px",
+      //   height: "220px",
+      //   width: "25vw",
+      //   userSelect: "none"
+      // }}
       tabIndex={0}
       className="card"
-      onClick={(event) => {handleOpen(event, itemId)}}
+      onClick={(event) => {handleOpen(event, work._id)}}
     >
-      <div>
-        <div>{title}</div>
-        <div>Like: {like}  View: {view}</div>
-      </div>
-      <div
-        style={{
-            backgroundImage: `url(${response})`,
-          height: "200px"
-        }}
-      />
-    </div>
+       <CardMedia
+                component="img"
+                height="80%"
+                image= {work.content[0]}
+                alt= {work.name}
+            />
+                <Box display="flex" sx={{bgcolor:"lightgreen",position:"relative",width:"100%",height:"20%",justifyContent: 'space-between'}}> 
+                    <Box  sx={{bgcolor:"",position:"relative",width:"30%"}}>
+                    <Typography sx={{justifyContent:'center'}}>
+                        {work.name}
+                    </Typography>
+                    </Box>
+                    <Box sx={{display:"flex",alignContent:'center'}}>
+                        <RemoveRedEyeIcon></RemoveRedEyeIcon>
+                        <Typography >
+                            {work.view}
+                        </Typography>
+                        <ThumbUpIcon size='20%'></ThumbUpIcon>
+                        <Typography>
+                            {work.likes.length}
+                        </Typography>
+                        <Avatar alt={work.author} src={work.avatar} />
+                    </Box>
+                </Box>
+
+    </Cards>
   );
 }

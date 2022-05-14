@@ -15,6 +15,7 @@ export const AuthActionType = {
     LOGIN_USER: "LOGIN_USER",
     ERROR: "ERROR",
     UPDATE_USER: "UPDATE_USER",
+    SET_TARGET_USER: "SET_TARGET_USER",
 }
 
 function AuthContextProvider(props) {
@@ -22,7 +23,8 @@ function AuthContextProvider(props) {
         user: null,
         loggedIn: false,
         error: false,
-        userList:[]
+        userList:[],
+        targetUser:null
     });
     const history = useHistory();
     
@@ -41,41 +43,55 @@ function AuthContextProvider(props) {
                 return setAuth({
                     user: payload.user,
                     loggedIn: payload.loggedIn,
-                    error: false
+                    error: false,
+                    targetUser:auth.targetUser
                 });
             }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true,
-                    error: false
+                    error: false,
+                    targetUser:auth.targetUser
                 })
             }
             case AuthActionType.LOGOUT_USER: {
                 return setAuth({
                     user:null,
                     loggedIn: false,
-                    error: false
+                    error: false,
+                    targetUser:auth.targetUser
                 })
             }
             case AuthActionType.LOGIN_USER: {
                 return setAuth({
                     user:payload,
                     loggedIn:true,
-                    error:false
+                    error:false,
+                    targetUser:auth.targetUser
                 })
             }
             case AuthActionType.ERROR: {
                 return setAuth({
                     user:null,
                     loggedIn:false,
-                    error:payload
+                    error:payload,
+                    targetUser:auth.targetUser
                 })
             }case AuthActionType.UPDATE_USER: {
                 return setAuth({
                     user:payload,
                     loggedIn:true,
-                    error:false
+                    error:false,
+                    targetUser:auth.targetUser
+                })
+            }
+            case AuthActionType.SET_TARGET_USER: {
+                return setAuth({
+                    user:auth.user,
+                    loggedIn:auth.loggedIn,
+                    error:false,
+                    targetUser:payload
                 })
             }
             
@@ -224,14 +240,13 @@ function AuthContextProvider(props) {
             
         }
         catch(err){
-            // authReducer({
-            //     type: AuthActionType.ERROR,
-            //     payload:{
-            //         status:err.response.status,
-            //         message:err.response.data.errorMessage
-            //     }
-            // })
-            console.log(err);
+            authReducer({
+                type: AuthActionType.ERROR,
+                payload:{
+                    status:err.response.status,
+                    message:err.response.data.errorMessage
+                }
+            })
         }
     }
 
@@ -250,7 +265,7 @@ function AuthContextProvider(props) {
                 //         message:err.response.data.errorMessage
                 //     }
                 // })
-                console.log("error of reset password");
+               
             }
         }
         
@@ -344,17 +359,16 @@ function AuthContextProvider(props) {
     }
 
     //find user by email 
-    auth.setTargetUser=async function(author){
+    auth.setTargetUser=async function(authorId){
         try{
            
             // let body={"email":author}; console.log(body);
-            const response = await api.getOneUser(author);
+            const response = await api.getUserbyId(authorId);
             if(response.data.success){
-                console.log(response.data.user);
-                // authReducer({
-                //     type: AuthActionType.SET_TARGET_USER,
-                //     payload:response.data.user
-                // })
+                authReducer({
+                    type: AuthActionType.SET_TARGET_USER,
+                    payload:response.data.user
+                })
 
             }
         }
