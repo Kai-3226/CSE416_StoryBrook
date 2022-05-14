@@ -237,7 +237,19 @@ logoutUser= async (req, res) => {
         }).send();
     }
 }
-
+getUsers = async (req, res) => {
+    await User.find({}, (err, users) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!users.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Users not found` })
+        }
+        return res.status(200).json({ success: true, users: users })
+    }).catch(err => console.log(err))
+}
 
 getUserData = async(req,res) =>{
     
@@ -254,6 +266,7 @@ getUserData = async(req,res) =>{
         //console.log(err);
             })
 }
+
 //get a userdata by email
 getOneUser = async(req,res) =>{
     // console.log(email);
@@ -492,5 +505,6 @@ module.exports = {
     resetPassword,
     changePassword,
     verifyEmail,
-    getOneUser
+    getOneUser,
+    getUsers
 }
