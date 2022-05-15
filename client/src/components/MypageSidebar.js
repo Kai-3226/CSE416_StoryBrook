@@ -9,11 +9,9 @@ export default function Sidebar () {
     const {auth} = useContext(AuthContext);
 
     function handleClick(event,input){
+        event.preventDefault();
         event.stopPropagation();
-        store.setMode(input);
-        console.log(store.mode);    
-        if(store.mode=="works")
-        {store.loadWorkList();}
+        store.setMode(input);  
         if(input=="followings"){
             auth.getUserList();
             console.log(auth.users);
@@ -39,7 +37,7 @@ export default function Sidebar () {
         library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="works"){
+    if(store.mode=="works"||store.mode=="works_editing"||store.mode=="works_published"){
         
         work="selected-menu"
         friend ="unselected-menu";

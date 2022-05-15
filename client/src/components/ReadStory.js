@@ -169,7 +169,7 @@ const ReadStory = () => {
         
     }
 
-    if(store&&store.currentWork)
+    if(store&&store.currentWork&&store.currentWork.content)
     return (   
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>

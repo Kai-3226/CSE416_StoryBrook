@@ -15,7 +15,9 @@ export const AuthActionType = {
     LOGIN_USER: "LOGIN_USER",
     ERROR: "ERROR",
     UPDATE_USER: "UPDATE_USER",
-    MYPAGE: "MYPAGE"
+    MYPAGE: "MYPAGE",
+    SET_TARGET_USER: "SET_TARGET_USER"
+
 }
 
 function AuthContextProvider(props) {
@@ -23,7 +25,8 @@ function AuthContextProvider(props) {
         user: null,
         loggedIn: false,
         error: false,
-        userList:[]
+        userList:[],
+        targetUser:null
     });
     const history = useHistory();
     
@@ -42,16 +45,20 @@ function AuthContextProvider(props) {
                 return setAuth({
                     user: payload.user,
                     loggedIn: payload.loggedIn,
-                    error: false, 
+                    error: false,
+                    targetUser:auth.targetUser,
                     userList: auth.userList
+
                 });
             }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true,
-                    error: false, 
+                    error: false,
+                    targetUser:auth.targetUser,
                     userList: []
+
                 })
             }
             case AuthActionType.LOGOUT_USER: {
@@ -59,6 +66,7 @@ function AuthContextProvider(props) {
                     user:null,
                     loggedIn: false,
                     error: false,
+                    targetUser:auth.targetUser,
                     userList: []
                 })
             }
@@ -67,6 +75,7 @@ function AuthContextProvider(props) {
                     user:payload,
                     loggedIn:true,
                     error:false,
+                    targetUser:auth.targetUser,
                     userList: auth.userList
                 })
             }
@@ -75,6 +84,7 @@ function AuthContextProvider(props) {
                     user:null,
                     loggedIn:false,
                     error:payload,
+                    targetUser:auth.targetUser,
                     userList: []
                 })
             }
@@ -83,7 +93,17 @@ function AuthContextProvider(props) {
                     user:payload,
                     loggedIn:true,
                     error:false,
-                    userList: []
+                    targetUser:auth.targetUser,
+                    userList: auth.userList
+                })
+            }
+            case AuthActionType.SET_TARGET_USER: {
+                return setAuth({
+                    user:auth.user,
+                    loggedIn:auth.loggedIn,
+                    error:false,
+                    targetUser:payload,
+                    userList: auth.userList
                 })
             }
             case AuthActionType.MYPAGE: {
@@ -92,7 +112,8 @@ function AuthContextProvider(props) {
                     user:auth.user,
                     loggedIn:true,
                     error:false, 
-                    userList: payload
+                    userList: payload,
+                    targetUser:payload
                 })
             }
             default:
@@ -241,14 +262,13 @@ function AuthContextProvider(props) {
             
         }
         catch(err){
-            // authReducer({
-            //     type: AuthActionType.ERROR,
-            //     payload:{
-            //         status:err.response.status,
-            //         message:err.response.data.errorMessage
-            //     }
-            // })
-            console.log(err);
+            authReducer({
+                type: AuthActionType.ERROR,
+                payload:{
+                    status:err.response.status,
+                    message:err.response.data.errorMessage
+                }
+            })
         }
     }
     auth.getUserList = async function(){
@@ -261,7 +281,6 @@ function AuthContextProvider(props) {
                         payload:response.data.users
                     });
             }
-            console.log(auth.userList);
         }
         catch(err){
             console.log("getUserListError");
@@ -282,41 +301,10 @@ function AuthContextProvider(props) {
                 //         message:err.response.data.errorMessage
                 //     }
                 // })
-                console.log("error of reset password");
+               
             }
         }
         
-    auth.changePassword= async function(newpassword){
-
-
-        let body = {
-            email:auth.user.email,
-            password:newpassword
-        }
-        
-        try{
-            const response = await api.changePassword(body);
-            console.log("done")
-            if(response.status===200){
-                console.log("done change password");
-                authReducer({
-                    type: AuthActionType.LOGIN_USER,
-                    payload:response.data.user
-                })
-                history.push('/');
-            }
-        }
-        catch(err){
-            // authReducer({
-            //     type: AuthActionType.ERROR,
-            //     payload:{
-            //         status:err.response.status,
-            //         message:err.response.data.errorMessage
-            //     }
-            // })
-            console.log("error of reset password");
-        }
-    }
     // auth.updateUser = async function (email,payload) {
     //     const response = await api.updateUser(email,payload);
     //     if(response.status === 200){
@@ -355,7 +343,6 @@ function AuthContextProvider(props) {
         try{
             //console.log(auth.user);
             const response = await api.updateUser(auth.user);
-            console.log(response)
             if(response.status===200){
                 authReducer({
                     type: AuthActionType.LOGIN_USER,
@@ -375,18 +362,41 @@ function AuthContextProvider(props) {
         }
     }
 
+    auth.updateUserIcon =async function(payload){
+        try{
+            //console.log(auth.user);
+            const response = await api.updateUserIcon(payload);
+            if(response.success){
+                console.log(response.data.user)
+                authReducer({
+                    type: AuthActionType.LOGIN_USER,
+                    payload:response.data.user
+                })
+            }
+            
+        }
+        catch(err){
+            // authReducer({
+            //     type: AuthActionType.ERROR,
+            //     payload:{
+            //         status:err.response.status,
+            //         message:err.response.errorMessage
+            //     }
+            // })
+            console.log("upload icon error");
+        }
+    }
     //find user by email 
-    auth.setTargetUser=async function(author){
+    auth.setTargetUser=async function(authorId){
         try{
            
             // let body={"email":author}; console.log(body);
-            const response = await api.getOneUser(author);
+            const response = await api.getUserbyId(authorId);
             if(response.data.success){
-                console.log(response.data.user);
-                // authReducer({
-                //     type: AuthActionType.SET_TARGET_USER,
-                //     payload:response.data.user
-                // })
+                authReducer({
+                    type: AuthActionType.SET_TARGET_USER,
+                    payload:response.data.user
+                })
 
             }
         }
