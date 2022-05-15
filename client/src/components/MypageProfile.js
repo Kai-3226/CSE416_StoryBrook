@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box';
-import Textfield from '@mui/material/TextField'
 import Button from '@mui/material/Button';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useContext, useState, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../auth';
 import Grid from '@mui/material/Grid';

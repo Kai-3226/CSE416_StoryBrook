@@ -1,4 +1,4 @@
-import { useContext, useState,useEffect } from 'react'
+import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
 import Copyright from './Copyright'

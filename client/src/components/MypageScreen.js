@@ -115,7 +115,7 @@ export default function MyPage () {
             ));
 
     }
-    else if (store.mode=="likes"){
+    else if (store.mode==="likes"){
         selectbar="";
         console.log("hello")
 
