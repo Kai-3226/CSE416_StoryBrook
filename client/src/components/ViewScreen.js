@@ -56,6 +56,7 @@ const ViewScreen = () => {
     }
 
     let search_field = 
+
     <TextField  sx={{bgcolor: '#FFFFFF',width:"80%"}}  label='search' disbaled={store.addingList}
         onChange={(event) => {handleUpdateText(event)}}
         onKeyPress={(event) => {handleKeyPress(event)}}

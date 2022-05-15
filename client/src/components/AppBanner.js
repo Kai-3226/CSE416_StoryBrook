@@ -19,9 +19,12 @@ import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import logo_comic from '../Images/logo_comic.png';
 import logo_tale from '../Images/logo_tale.png';
-import logo from '../Images/Logo.png';
+import logo from '../Images/logo.png';
 import comic_create from '../Images/comic_create.png';
 import story_create from '../Images/story_create.png';
+import NotificationModal from './NotificationModal';
+import ringing from '../Images/ringing.png';
+import not_ringing from '../Images/not_ringing.png';
 
 
 export default function AppBanner() {
@@ -219,6 +222,29 @@ export default function AppBanner() {
     if(store.status==0) {imageUrl=logo_tale}
     else if(store.status==1) {imageUrl=logo_comic};
 
+    const [showNotification, setShowNotification] = useState(false)
+    const handleNotification = () => setShowNotification(!showNotification)
+
+    let notificationButton = "";
+    let notificationSection = "";
+    
+    console.log(auth.loggedIn);
+    if (auth.loggedIn === true && (store.status==0||store.status==1)){
+        console.log(auth.user);
+        if (auth.user.notification.length === 0){
+            notificationButton = not_ringing;
+        }else {
+            notificationButton = ringing;
+        }
+        notificationSection = 
+        <div>
+            <Button onClick={(event) => {handleNotification()}} sx={{ width: "200px", height: "50px", backgroundImage:`url(${notificationButton})`, 
+            backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
+            </Button>
+            { showNotification ? <NotificationModal/> : null }
+        </div>
+    }
+
    if(store)
     banner= <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">
@@ -241,6 +267,7 @@ export default function AppBanner() {
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {editToolbar}
+                        {notificationSection}
                         <IconButton
                             size="large"
                             edge="end"

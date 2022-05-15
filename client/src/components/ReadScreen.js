@@ -15,7 +15,6 @@ import { createStore } from 'polotno/model/store';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import AuthContext from '../auth';
 import {useParams} from 'react-router-dom';
-import ComicViewer from "react-comic-viewer";
 import { Pagination } from '@mui/material';
 
 import React, { ChangeEventHandler, useCallback } from "react";
