@@ -18,46 +18,37 @@ export default function Sidebar () {
         }
     }  
 
-    let friend ="unselected-menu";
     let follow ="unselected-menu";
     let work ="unselected-menu";
-    let library ="unselected-menu";
+
     let like ="unselected-menu";
     if(store.mode==="friends"){
-        friend="selected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
-        library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="followings"){
+    if(store.mode==="followings"){
         follow="selected-menu";
-        friend ="unselected-menu";
         work ="unselected-menu";
-        library ="unselected-menu";
+
         like ="unselected-menu";
     }
-    if(store.mode=="works"||store.mode=="works_editing"||store.mode=="works_published"){
-        
+    if(store.mode==="works"||store.mode==="works_editing"||store.mode==="works_published"){   
         work="selected-menu"
-        friend ="unselected-menu";
         follow ="unselected-menu";
-        library ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="library"){
-        library="selected-menu"
-        friend ="unselected-menu";
+    if(store.mode==="library"){
+        
         follow ="unselected-menu";
         work ="unselected-menu";
         like ="unselected-menu";
     }
-    if(store.mode=="likes"){
+    if(store.mode==="likes"){
         like="selected-menu"
-        friend ="unselected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
-        library ="unselected-menu";
+
     }
 
         return (
