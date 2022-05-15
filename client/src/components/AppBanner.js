@@ -238,7 +238,7 @@ export default function AppBanner() {
         <div>
             <IconButton onClick={(event) => {handleNotification()}} sx={{ width: "50px", height: "50px",  
             backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
-                <img src={notificationButton} height='32' width='32'></img>
+                <img src={notificationButton} alt="" height='32' width='32'></img>
             </IconButton>
             { showNotification ? <NotificationModal/> : null }
         </div>

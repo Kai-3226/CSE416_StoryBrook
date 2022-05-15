@@ -6,7 +6,6 @@ const sendEmail = require("../utils/email/sendEmail");
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const  upload  = require ('../Cloudinary/multer')
-const { Console } = require('console');
 
 getLoggedIn = async (req, res) => {
     try {
@@ -29,7 +28,7 @@ getLoggedIn = async (req, res) => {
                 comicLibrary:loggedInUser.comicLibrary,
                 like: loggedInUser.like,
                 dislike: loggedInUser.dislike,
-                alarm: loggedInUser.alarm,
+                notification: loggedInUser.notification,
                 profile: loggedInUser.profile
             }
             })
@@ -93,33 +92,23 @@ registerUser = async (req, res) => {
                 lastName: lastName,
                 email: email,
                 friends: [],
-                follwoing: [],
+                following: [],
                 follower: [],
                 message: [],
                 works: [],
                 comicLibrary: [],
                 like: [],
                 dislike: [],
-                alarm: [],
-                profile: {},
+                notification:[],
+                profile: {"age": 0,
+                "gender": "N/A",
+                "userName": firstName,
+                "myStatement":"Stay Hungry, Stay Foolish",
+                "icon": ""
+                    },
                 passwordHash: passwordHash
         });
 
-        newUser.friends= [],
-        newUser.following= [],
-        newUser.follower= [],
-        newUser.message= [],      
-        newUser.works= [],      
-        newUser.comicLibrary=[],
-        newUser.like= [],
-        newUser.dislike= [],
-        newUser.alarm= [],
-        newUser.profile= {"age": 0,
-                        "gender": "N/A",
-                        "userName": newUser.firstName,
-                        "myStatement":"Stay Hungry, Stay Foolish",
-                        "icon": ""
-                    }
     
         const savedUser = await newUser.save();
 
@@ -145,7 +134,7 @@ registerUser = async (req, res) => {
                 comicLibrary:savedUser.comicLibrary,
                 like: savedUser.like,
                 dislike: savedUser.dislike,
-                alarm: savedUser.alarm,
+                notification: savedUser.notification,
                 profile: savedUser.profile
             }
         }).send();
@@ -211,7 +200,7 @@ loginUser = async (req, res) => {
                 comicLibrary: existingUser.comicLibrary,
                 like:  existingUser.like,
                 dislike:  existingUser.dislike,
-                alarm: existingUser.alarm,
+                notification: existingUser.notification,
                 profile:  existingUser.profile
             }
         }).send();
