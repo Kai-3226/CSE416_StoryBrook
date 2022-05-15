@@ -12,7 +12,7 @@ export default function Sidebar () {
         event.preventDefault();
         event.stopPropagation();
         store.setMode(input);  
-        if(input=="followings"){
+        if(input==="followings"){
             auth.getUserList();
             console.log(auth.users);
         }
@@ -23,7 +23,7 @@ export default function Sidebar () {
     let work ="unselected-menu";
     let library ="unselected-menu";
     let like ="unselected-menu";
-    if(store.mode=="friends"){
+    if(store.mode==="friends"){
         friend="selected-menu";
         follow ="unselected-menu";
         work ="unselected-menu";
