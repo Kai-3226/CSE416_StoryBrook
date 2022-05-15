@@ -58,7 +58,9 @@ export default function MyPage () {
             <Button onClick={(event) => {handleClick(event,1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
             <Button onClick={(event) => {handleClick(event,2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
         </Box>
-        mylist = store.workList.filter(item => item.author == auth.user.email);
+        mylist=[];
+        if(auth.loggedIn)
+        {mylist = store.workList.filter(item => item.author == auth.user.email);}
         rows=[];
         for (var i = 0, end = mylist.length / 2; i < end; ++i){
             rows.push(mylist.slice(i * 2, (i + 1) * 2));
@@ -77,7 +79,9 @@ export default function MyPage () {
             <Button onClick={(event) => {handleClick(event,1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
             <Button onClick={(event) => {handleClick(event,2)}} id="work-following" sx={{bgcolor:'#c4c4c0',color:'black'}}>Editing</Button>
         </Box>
-        mylist = store.workList.filter(item => item.author == auth.user.email).filter(item => item.published["publish"] === true);
+        mylist=[];
+        if(auth.loggedIn)
+        {mylist = store.workList.filter(item => item.author == auth.user.email).filter(item => item.published["publish"] === true);}
         rows=[];
         for (var i = 0, end = mylist.length / 2; i < end; ++i){
             rows.push(mylist.slice(i * 2, (i + 1) * 2));
@@ -85,7 +89,7 @@ export default function MyPage () {
         list = 
             rows.map((row,index) => (
                 <Box key={"workRow"+index} sx = {{display:'flex',position:'relative'}}>
-                    {row.map((item) =>(<MypageWorkCard work={item}/>))}
+                    {row.map((item) =>(<MypageWorkCard key={item._id} work={item}/>))}
                 </Box>
             ));
 
@@ -96,7 +100,9 @@ export default function MyPage () {
             <Button onClick={(event) => {handleClick(event,1)}} id="work-published" sx={{bgcolor:'#c4c4c0',color:'black'}}>Published</Button>
             <Button onClick={(event) => {handleClick(event,2)}} id="work-following" sx={{bgcolor:'#c4c4c4',color:'black'}}>Editing</Button>
         </Box>
-        mylist = store.workList.filter(item => item.author == auth.user.email).filter(item => item.published["publish"] === false);
+         mylist=[];
+         if(auth.loggedIn)
+        {mylist = store.workList.filter(item => item.author == auth.user.email).filter(item => item.published["publish"] === false);}
         rows=[];
         for (var i = 0, end = mylist.length / 2; i < end; ++i){
             rows.push(mylist.slice(i * 2, (i + 1) * 2));

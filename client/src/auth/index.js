@@ -305,37 +305,6 @@ function AuthContextProvider(props) {
             }
         }
         
-    auth.changePassword= async function(newpassword){
-
-
-        let body = {
-            email:auth.user.email,
-            password:newpassword
-        }
-        
-        try{
-            const response = await api.changePassword(body);
-            console.log("done")
-            if(response.status===200){
-                console.log("done change password");
-                authReducer({
-                    type: AuthActionType.LOGIN_USER,
-                    payload:response.data.user
-                })
-                history.push('/');
-            }
-        }
-        catch(err){
-            // authReducer({
-            //     type: AuthActionType.ERROR,
-            //     payload:{
-            //         status:err.response.status,
-            //         message:err.response.data.errorMessage
-            //     }
-            // })
-            console.log("error of reset password");
-        }
-    }
     // auth.updateUser = async function (email,payload) {
     //     const response = await api.updateUser(email,payload);
     //     if(response.status === 200){
@@ -374,7 +343,6 @@ function AuthContextProvider(props) {
         try{
             //console.log(auth.user);
             const response = await api.updateUser(auth.user);
-            console.log(response)
             if(response.status===200){
                 authReducer({
                     type: AuthActionType.LOGIN_USER,

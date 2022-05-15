@@ -56,7 +56,7 @@ const ViewScreen = () => {
     }
 
     let search_field = 
-    <TextField fullWidth sx={{bgcolor: '#FFFFFF'}}  label='search' disbaled={store.addingList}
+    <TextField  sx={{bgcolor: '#FFFFFF',width:"80%"}}  label='search' disbaled={store.addingList}
         onChange={(event) => {handleUpdateText(event)}}
         onKeyPress={(event) => {handleKeyPress(event)}}
         defaultValue={store.text}
@@ -126,13 +126,13 @@ const ViewScreen = () => {
         
     
     return (
-        <div id="viewpage">
+        <div id="viewpage" style={{position:"relative" ,width:"100%",height:"80%"}}>
             <div id="viewpage_banner">
                 {search_field}
                 {menuButton}
                 {menu}
             </div>
-            <div style={{overflow:'auto'}}>
+            <div style={{overflow:'auto',height:'100%',width:'100%'}} >
                 {/* <InfiniteScroll
                     //pageStart={0}
                     // loadMore={loadFunc}
