@@ -506,54 +506,54 @@ function GlobalStoreContextProvider(props) {
         });
     }
     store.setMode= async function (input){
-        // if(input==="works"){
-        //     const response = await api.getWorkList();
-        //     if (response.data.success) { 
-        //         let workArray = response.data.data;
-        //         console.log(workArray);
-        //         let viewable=[];
-        //         //console.log(workArray);
-        //         for(let key in workArray){
-        //             let work = workArray[key];
-        //             console.log(work);
-        //             if(auth.loggedIn){
-        //                 if(auth.user.email===work.author){
-        //                     // console.log(auth.user.email,list.email,list.published.published)
-        //                     viewable.push(work);
-        //                 }
-        //                 else{
-        //                     if(work.published.publish===true){
-        //                         viewable.push(work);
-        //                         // console.log(listOwned);
-        //                     } 
-        //                 }
-        //             }
-        //             else{
-        //                 if(work.published.publish===true){
-        //                     viewable.push(work);
-        //                     // console.log(listOwned);
-        //                 } 
-        //             }
-        //         }
-        //         storeReducer({
-        //             type: GlobalStoreActionType.MODE,
-        //             payload: {mode:input,
-        //                 workList:viewable}
-        //         });
-        //     }
-        //     else {
-        //         console.log("API FAILED TO GET THE works list");
-        //     }
+        if(input==="works"){
+            const response = await api.getWorkList();
+            if (response.data.success) { 
+                let workArray = response.data.data;
+                console.log(workArray);
+                let viewable=[];
+                //console.log(workArray);
+                for(let key in workArray){
+                    let work = workArray[key];
+                    console.log(work);
+                    if(auth.loggedIn){
+                        if(auth.user.email===work.author){
+                            // console.log(auth.user.email,list.email,list.published.published)
+                            viewable.push(work);
+                        }
+                        else{
+                            if(work.published.publish===true){
+                                viewable.push(work);
+                                // console.log(listOwned);
+                            } 
+                        }
+                    }
+                    else{
+                        if(work.published.publish===true){
+                            viewable.push(work);
+                            // console.log(listOwned);
+                        } 
+                    }
+                }
+                storeReducer({
+                    type: GlobalStoreActionType.MODE,
+                    payload: {mode:input,
+                        workList:viewable}
+                });
+            }
+            else {
+                console.log("API FAILED TO GET THE works list");
+            }
 
-        // }
-        // else {
+        }
+        else {
             storeReducer({
                 type: GlobalStoreActionType.MODE,
                 payload:{mode:input,
                     workList:store.workList
                 }
             });
-        // }
+        }
     }
 
     function swap(arr, xp, yp){

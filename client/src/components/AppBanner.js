@@ -73,7 +73,7 @@ export default function AppBanner() {
             setTargetPage("myPage")
         }
         else {
-            if(store.status==0||store.status==1)
+            if(store.status===0||store.status===1)
             {handleMenuClose();
             history.push('/myPage')}
             else {
@@ -233,7 +233,6 @@ export default function AppBanner() {
     let notificationButton = "";
     let notificationSection = "";
     
-    console.log(auth.loggedIn);
     if (auth.loggedIn === true && (store.status===0||store.status===1)){
         console.log(auth.user);
         if (auth.user.notification.length === 0){
