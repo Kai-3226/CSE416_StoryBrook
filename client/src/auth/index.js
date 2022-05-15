@@ -281,7 +281,6 @@ function AuthContextProvider(props) {
                         payload:response.data.users
                     });
             }
-            console.log(auth.users);
         }
         catch(err){
             console.log("getUserListError");
@@ -306,37 +305,6 @@ function AuthContextProvider(props) {
             }
         }
         
-    auth.changePassword= async function(newpassword){
-
-
-        let body = {
-            email:auth.user.email,
-            password:newpassword
-        }
-        
-        try{
-            const response = await api.changePassword(body);
-            console.log("done")
-            if(response.status===200){
-                console.log("done change password");
-                authReducer({
-                    type: AuthActionType.LOGIN_USER,
-                    payload:response.data.user
-                })
-                history.push('/');
-            }
-        }
-        catch(err){
-            // authReducer({
-            //     type: AuthActionType.ERROR,
-            //     payload:{
-            //         status:err.response.status,
-            //         message:err.response.data.errorMessage
-            //     }
-            // })
-            console.log("error of reset password");
-        }
-    }
     // auth.updateUser = async function (email,payload) {
     //     const response = await api.updateUser(email,payload);
     //     if(response.status === 200){
@@ -375,7 +343,6 @@ function AuthContextProvider(props) {
         try{
             //console.log(auth.user);
             const response = await api.updateUser(auth.user);
-            console.log(response)
             if(response.status===200){
                 authReducer({
                     type: AuthActionType.LOGIN_USER,
@@ -399,14 +366,12 @@ function AuthContextProvider(props) {
         try{
             //console.log(auth.user);
             const response = await api.updateUserIcon(payload);
-            console.log(response)
-            if(response.status===200){
+            if(response.success){
                 console.log(response.data.user)
                 authReducer({
                     type: AuthActionType.LOGIN_USER,
                     payload:response.data.user
                 })
-                console.log(response.message)
             }
             
         }
@@ -418,7 +383,7 @@ function AuthContextProvider(props) {
             //         message:err.response.errorMessage
             //     }
             // })
-            console.log(err);
+            console.log("upload icon error");
         }
     }
     //find user by email 
