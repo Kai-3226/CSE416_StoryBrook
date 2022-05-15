@@ -13,7 +13,8 @@ getLoggedIn = async (req, res) => {
         auth.verify(req, res, async function () {
         const loggedInUser = await User.findOne({ _id: req.userId });
         if (loggedInUser)
-        {   return res.status(200).json({
+        {   
+            return res.status(200).json({
             loggedIn: true,
             user: { 
                 _id:loggedInUser._id,
@@ -28,7 +29,7 @@ getLoggedIn = async (req, res) => {
                 comicLibrary:loggedInUser.comicLibrary,
                 like: loggedInUser.like,
                 dislike: loggedInUser.dislike,
-                notification: loggedInUser.notification,
+                alarm: loggedInUser.alarm,
                 profile: loggedInUser.profile
             }
             })
@@ -99,7 +100,7 @@ registerUser = async (req, res) => {
                 comicLibrary: [],
                 like: [],
                 dislike: [],
-                notification: [],
+                alarm: [],
                 profile: {},
                 passwordHash: passwordHash
         });
@@ -112,7 +113,7 @@ registerUser = async (req, res) => {
         newUser.comicLibrary=[],
         newUser.like= [],
         newUser.dislike= [],
-        newUser.notification= [],
+        newUser.alarm= [],
         newUser.profile= {"age": 0,
                         "gender": "N/A",
                         "userName": newUser.firstName,
@@ -144,7 +145,7 @@ registerUser = async (req, res) => {
                 comicLibrary:savedUser.comicLibrary,
                 like: savedUser.like,
                 dislike: savedUser.dislike,
-                notification: savedUser.notification,
+                alarm: savedUser.alarm,
                 profile: savedUser.profile
             }
         }).send();
@@ -189,6 +190,8 @@ loginUser = async (req, res) => {
         // LOGIN THE USER
         const token = auth.signToken(existingUser);
 
+        console.log(existingUser.profile)
+        
         await res.cookie("token", token, {
             httpOnly: true,
             secure: true,
@@ -208,7 +211,7 @@ loginUser = async (req, res) => {
                 comicLibrary: existingUser.comicLibrary,
                 like:  existingUser.like,
                 dislike:  existingUser.dislike,
-                notification: existingUser.notification,
+                alarm: existingUser.alarm,
                 profile:  existingUser.profile
             }
         }).send();
@@ -243,6 +246,7 @@ logoutUser= async (req, res) => {
         }).send();
     }
 }
+
 getUsers = async (req, res) => {
     await User.find({}, (err, users) => {
         if (err) {
@@ -274,7 +278,7 @@ getUserData = async(req,res) =>{
                 success: false,
                 errorMessage: 'get user data error!'
             })
-            })
+        })
 }
 
 //get a userdata by email
@@ -318,11 +322,10 @@ updateUserIcon =async (req,res) => {
         }
         
         user.profile.icon=file.path
-        
+        console.log(user)
 
         user.save()
-            .then(() => {
-                console.log(user);
+            .then(() => { 
                 return res.status(200).json({
                     success: true,
                     id: user._id,
@@ -496,7 +499,7 @@ resetPassword = async (req, res) => {
 changePassword = async (req, res) => {
     try {
         const { email, password} = req.body;
-       console.log(password);
+        console.log(password);
         console.log(email);
         
         const saltRounds = 10;

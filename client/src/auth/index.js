@@ -370,7 +370,6 @@ function AuthContextProvider(props) {
             //console.log(auth.user);
             const response = await api.updateUserIcon(payload);
             if(response.data.success){
-                console.log(response.data.user)
                 authReducer({
                     type: AuthActionType.LOGIN_USER,
                     payload:response.data.user
@@ -389,6 +388,7 @@ function AuthContextProvider(props) {
             console.log("upload icon error");
         }
     }
+
     //find user by email 
     auth.setTargetUser=async function(authorId){
         try{
