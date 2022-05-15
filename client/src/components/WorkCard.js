@@ -121,7 +121,7 @@ function WorkCard(props) {
                 alt= {work.name}
             />
            
-                <Box display="flex" sx={{bgcolor:"lightgreen",position:"relative",width:"100%",height:"20%"}}> 
+                <Box display="flex" sx={{bgcolor:"#C39BD3",position:"relative",width:"100%",height:"25%"}}> 
                 <Typography paddingRight="20%" >
                     {work.name}
                 </Typography>

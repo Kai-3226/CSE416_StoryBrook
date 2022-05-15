@@ -1,6 +1,9 @@
 import React from "react";
 
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
+import IconButton from '@mui/material/IconButton';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 function Arrow({
   children,
@@ -8,7 +11,7 @@ function Arrow({
   onClick
 }) {
   return (
-    <button
+    <IconButton
       disabled={disabled}
       onClick={onClick}
       style={{
@@ -22,7 +25,7 @@ function Arrow({
       }}
     >
       {children}
-    </button>
+    </IconButton>
   );
 }
 
@@ -46,7 +49,7 @@ export function LeftArrow() {
 
   return (
     <Arrow disabled={disabled} onClick={() => scrollPrev()}>
-      Left
+      <ArrowLeftIcon></ArrowLeftIcon>
     </Arrow>
   );
 }
@@ -70,7 +73,7 @@ export function RightArrow() {
 
   return (
     <Arrow disabled={disabled} onClick={() => scrollNext()}>
-      Right
+      <ArrowRightIcon></ArrowRightIcon>
     </Arrow>
   );
 }

@@ -19,26 +19,10 @@ const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
     
-    // let list = [];
-    // let work = "";
-
-    // if (store && store.workList) {
-    //     list = store.workList;
-    //     console.log(list);
-    //     list = list.filter(item => item.published["publish"] === true);
-    //     const rows = list.reduce(function (rows, key, index) {
-    //         return (index % 4 == 0 ? rows.push([key]) 
-    //         : rows[rows.length-1].push(key)) && rows;
-    //     }, []);
-    //     console.log(rows);
-
-    //     work = 
-    //     rows.map((row) => (
-    //         <Box sx = {{display:'flex',position:'relative'}}>
-    //             {row.map((item) =>(<WorkCard work={item}/>))}
-    //         </Box>
-    //     ));
-    // }
+    function handleViewMore(criteria){
+        store.viewlist(criteria);
+        history.push("/view/");
+    }
 
     return (
         <Box id="homeScreen">
@@ -57,25 +41,13 @@ const HomeScreen = () => {
             </div>
             <Box>
                 <Typography component="h1" variant="h3" sx={{position:'relative',marginLeft:'5%',height:'100%',width:'100%', fontFamily: "Comic Sans MS"}}>
-                    Follow
-                </Typography> 
-                <Button id='follow' onClick={(event) => {history.push("/view/")}} sx={{position:'relative',marginLeft:'90%',width:'10%',bgcolor:'white', fontFamily: "Comic Sans MS"}}>
-                    View More
-                </Button>
-                <Box>
-                    <HomeScreenFollow>
-                    </HomeScreenFollow>
-                </Box>
-            </Box>
-            <Box>
-                <Typography component="h1" variant="h3" sx={{position:'relative',marginLeft:'5%',height:'100%',width:'100%', fontFamily: "Comic Sans MS"}}>
                     Lastest
                 </Typography> 
-                <Button id='lastest' onClick={(event) => {history.push("/view/")}} sx={{position:'relative',marginLeft:'90%',width:'10%',bgcolor:'white', fontFamily: "Comic Sans MS"}}>
+                <Button id='lastest' onClick={(event) => {handleViewMore(0)}} sx={{position:'relative',marginLeft:'90%',width:'10%',bgcolor:'white', fontFamily: "Comic Sans MS"}}>
                     View More
                 </Button>
                 <Box>
-                    <HomeScreenFollow>
+                    <HomeScreenFollow criteria={1}>
                     </HomeScreenFollow>
                 </Box>
             </Box>
@@ -83,11 +55,11 @@ const HomeScreen = () => {
                 <Typography component="h1" variant="h3" sx={{position:'relative',marginLeft:'5%',height:'100%',width:'100%', fontFamily: "Comic Sans MS"}}>
                     Most View
                 </Typography> 
-                <Button id='MostView' onClick={(event) => {history.push("/view/")}} sx={{position:'relative',marginLeft:'90%',width:'10%',bgcolor:'white', fontFamily: "Comic Sans MS"}}>
+                <Button id='MostView' onClick={(event) => {handleViewMore(1)}} sx={{position:'relative',marginLeft:'90%',width:'10%',bgcolor:'white', fontFamily: "Comic Sans MS"}}>
                     View More
                 </Button>
                 <Box>
-                    <HomeScreenFollow>
+                    <HomeScreenFollow criteria={2}>
                     </HomeScreenFollow>
                 </Box>
             </Box>
@@ -95,11 +67,11 @@ const HomeScreen = () => {
                 <Typography component="h1" variant="h3" sx={{position:'relative',marginLeft:'5%',height:'100%',width:'100%', fontFamily: "Comic Sans MS"}}>
                     Most Likes
                 </Typography> 
-                <Button id='mostLikes' onClick={(event) => {history.push("/view/")}} sx={{position:'relative',marginLeft:'90%',width:'10%',bgcolor:'white', fontFamily: "Comic Sans MS"}}>
+                <Button id='mostLikes' onClick={(event) => {handleViewMore(2)}} sx={{position:'relative',marginLeft:'90%',width:'10%',bgcolor:'white', fontFamily: "Comic Sans MS"}}>
                     View More
                 </Button>
                 <Box>
-                    <HomeScreenFollow>
+                    <HomeScreenFollow criteria={3}>
                     </HomeScreenFollow>
                 </Box>
             </Box>
