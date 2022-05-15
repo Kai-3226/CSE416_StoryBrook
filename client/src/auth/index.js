@@ -369,7 +369,7 @@ function AuthContextProvider(props) {
         try{
             //console.log(auth.user);
             const response = await api.updateUserIcon(payload);
-            if(response.success){
+            if(response.data.success){
                 console.log(response.data.user)
                 authReducer({
                     type: AuthActionType.LOGIN_USER,
