@@ -555,53 +555,6 @@ function GlobalStoreContextProvider(props) {
             });
         }
     }
-
-       
-    
-    store.like = async function (id) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
-            if(top5List.dislikes.includes(auth.user.email)){
-                top5List.dislikes.pop(auth.user.email);
-                top5List.likes.push(auth.user.email);
-            }
-            else if(!top5List.likes.includes(auth.user.email)){
-                top5List.likes.push(auth.user.email);
-            }
-            else{
-                top5List.likes.pop(auth.user.email);
-            }
-            store.updateList2(top5List);
-        }
-    }
-    store.dislike = async function (id) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
-            if(top5List.likes.includes(auth.user.email)){
-                top5List.likes.pop(auth.user.email);
-                top5List.dislikes.push(auth.user.email);
-            }
-            else if(!top5List.dislikes.includes(auth.user.email)){
-                top5List.dislikes.push(auth.user.email);
-            }
-            else{
-                top5List.dislikes.pop(auth.user.email);
-            }
-            store.updateList2(top5List);
-        }
-    }
-    store.comment = async function (input,id) {
-        let response = await api.getWorkById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
-            let author=auth.user.firstName+" "+auth.user.lastName;
-            let payload={comment:input,author:author}
-            top5List.comment.push(payload);
-            store.updateList2(top5List);
-        }
-    }
     function swap(arr, xp, yp){
         var temp = arr[xp];
         arr[xp] = arr[yp];
