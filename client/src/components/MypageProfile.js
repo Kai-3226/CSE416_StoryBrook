@@ -24,7 +24,6 @@ export default function Profile(){
         formData.append("icon",fileUploaderRef.current.files[0])
         formData.append("_id",auth.user._id)
         auth.updateUserIcon(formData);
-        history.push("/")
     }
 
     const handleSubmit = (event) => {
