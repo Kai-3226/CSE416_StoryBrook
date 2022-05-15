@@ -74,7 +74,7 @@ function NotificationModal() {
      
         <Box sx={style}  >  
             <Box id="NotificationModal_banner" sx={{position:'relative',width:'100%',height:40,borderBottom:'1px solid #000',marginBottom:0.5}}>
-            <Typography component="h1" variant="h4" >
+            <Typography component="h1" variant="h4"  color="black">
               Notification
             </Typography> 
             </Box>
