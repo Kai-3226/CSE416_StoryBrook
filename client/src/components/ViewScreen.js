@@ -1,14 +1,12 @@
 //author kai
 
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import {useState } from 'react';
 import { GlobalStoreContext } from '../store'
-import AuthContext from  '../auth';
 import WorkCard from './WorkCard';
 import Copyright from './Copyright';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import InfiniteScroll from 'react-infinite-scroller';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -16,7 +14,6 @@ import TextField from '@mui/material/TextField';
 
 const ViewScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-    const { auth } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const [input,setInput] = useState("");
@@ -34,12 +31,6 @@ const ViewScreen = () => {
             list = store.view;
         }
     }
-
-    useEffect(() => {
-        store.loadWorkList();
-        // store.view(1);
-        //console.log("abc");
-    }, []);
 
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -113,7 +104,7 @@ const ViewScreen = () => {
         console.log(list);
         list = list.filter(item => item.published["publish"] === true&&item.workType===store.status);
         const rows = list.reduce(function (rows, key, index) {
-            return (index % 4 == 0 ? rows.push([key]) 
+            return (index % 4 === 0 ? rows.push([key]) 
             : rows[rows.length-1].push(key)) && rows;
         }, []);
 

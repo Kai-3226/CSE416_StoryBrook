@@ -2,15 +2,11 @@ import { React } from "react";
 import Comics from '../Images/Comics.png'
 import splashScreen from '../Images/splashScreen.png'
 import storytelling from '../Images/storytelling.png'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from './Copyright'
 import Button from '@mui/material/Button';
-import { useContext,useState,useEffect, } from 'react';
+import { useContext,useEffect } from 'react';
 import { GlobalStoreContext } from '../store';
-import { useHistory } from 'react-router-dom'
 
-
-const theme = createTheme();
 
 
 export default function SplashScreen() {

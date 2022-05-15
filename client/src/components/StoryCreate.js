@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import Box from '@mui/material/Box';
-import { useContext, useState,useEffect } from 'react'
+import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
 import Copyright from './Copyright'
 import { useHistory } from 'react-router-dom';
 import { TextField } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
 import { Button } from '@mui/material';
 
 export default function StoryCreate() {

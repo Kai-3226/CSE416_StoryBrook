@@ -4,16 +4,10 @@ import {
   Button,
   Navbar,
   Alignment,
-  AnchorButton,
-  Divider,
-  Dialog,
-  Classes,
   Position,
   Menu,
   MenuItem,
 } from '@blueprintjs/core';
-import FaGithub from '@meronex/icons/fa/FaGithub';
-import FaDiscord from '@meronex/icons/fa/FaDiscord';
 import { downloadFile } from 'polotno/utils/download';
 import { Popover2 } from '@blueprintjs/popover2';
 import { t } from 'polotno/utils/l10n';
@@ -21,11 +15,10 @@ import { t } from 'polotno/utils/l10n';
 import styled from 'polotno/utils/styled';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import { GlobalStoreContext } from '../../store';
 import { useHistory } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import AuthContext from '../../auth';
 
 const NavbarContainer = styled('div')`
@@ -106,7 +99,6 @@ export default observer(({ workstore }) => {
   const inputRef = React.useRef();
   const {  store } = React.useContext(GlobalStoreContext);
   const { auth } = useContext(AuthContext);
-  const [faqOpened, toggleFaq] = React.useState(false);
   const [title, setTitle] = React.useState(store.currentWork.name);
   const history = useHistory();
 
@@ -119,31 +111,9 @@ export default observer(({ workstore }) => {
     store.updateCurrentWork();
 
   }
-  async function saveAsImage() {
-    return workstore.pages.forEach((page, index) => {
-      // do not add index if we have just one page
-      const indexString =
-        workstore.pages.length > 1 ? '-' + (index + 1) : '';
-      workstore.saveAsImage({
-        pageId: page.id,
-        fileName: getName() + indexString + '.png',
-      });
-    });
-  }
+ 
 
-  const getName = () => {
-    const texts = [];
-    workstore.pages.forEach((p) => {
-      p.children.forEach((c) => {
-        if (c.type === 'text') {
-          texts.push(c.text);
-        }
-      });
-    });
-    const allWords = texts.join(' ').split(' ');
-    const words = allWords.slice(0, 6);
-    return words.join(' ').replace(/\s/g, '-').toLowerCase() || 'polotno';
-  };
+
 
 
   async function handlePublish(event) {
@@ -257,7 +227,7 @@ export default observer(({ workstore }) => {
         <Navbar.Group align={Alignment.RIGHT}>
           <TextField sx={{ height: '100%', bgcolor: 'grey', marginLeft: '10%' }} defaultValue={title} onChange={(e) => setTitle(e.target.value)} ></TextField>
           <IconButton id="saveButton" bgcolor='blue' variant="contained" onClick={handleSave}>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUwAAABuCAYAAABMfSrWAAAAAXNSR0
+          <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUwAAABuCAYAAABMfSrWAAAAAXNSR0
                             IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABuBSURBVHhe7Z1rcB
                             ZVmsfzYSYEZ9ZbzZfdmqqtWf2yVumHqZpiVnfng64yOygzIqsjwso4C+XoyKLusl6Wi1wMuUAIl7
                             wvIHcJtwxEiSAXTQgxZFEcCDGQYEKIXCQmsIKiaA3v9v/lffDQefpy+vZ2wtNVv1Le7j59+nT618
@@ -389,7 +359,7 @@ export default observer(({ workstore }) => {
           <Box marginLeft='0% '>
 
             <IconButton variant="outlined" onClick={handlePublish} size="medium">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdAAAACiCAYAAADxwJx+AAAAAXNSR0
+              <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdAAAACiCAYAAADxwJx+AAAAAXNSR0
                                       IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABrGSURBVHhe7Z1tjB
                                       3Vfca37BoM+I3uetfmzS5+Lx+Cggz1JxBRlXwgKiqJjYVSN1GLyAdEiIViU6hNhUiruLhpUYlxgq
                                       GtnCY4kECUKC6VgSqFqiBXohIlH7ppRJqwa7reN7+u5/Q8s+cs587+594z73PvfX7ST/buzsw9d+

@@ -27,7 +27,7 @@ export default function RegisterScreen() {
         event.preventDefault();
         event.stopPropagation();
         console.log(useremail);
-        if(useremail!="")
+        if(useremail!=="")
       { const val = Math.floor(1000 + Math.random() * 9000);
         let code=val.toString();
         auth.verifyEmail(code,useremail);

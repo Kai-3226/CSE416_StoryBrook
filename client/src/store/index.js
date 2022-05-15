@@ -1,4 +1,4 @@
-import { FormControlUnstyledContext } from '@mui/base';
+
 import { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../api'
@@ -281,9 +281,9 @@ function GlobalStoreContextProvider(props) {
             );
             auth.user.works.push(newWork._id);
             auth.updateUser();
-            if (store.status == 1 )
+            if (store.status === 1 )
                 history.push("/create/")
-            else if (store.status == 0)
+            else if (store.status === 0)
                 history.push("/createStory/")
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
             // console.log(this.currentWork.id);
@@ -393,12 +393,12 @@ function GlobalStoreContextProvider(props) {
 
             if(work)
             {
-                if(work.published['publish']==true)
-                {   if(work.workType==1)  history.push(`/read/${id}`);
-                    else if (work.workType==0) history.push(`/readStory/${id}`); }
-                else if (work.published['publish']==false)
-                {   if(work.workType==1)  history.push(`/create/`);
-                    else if (work.workType==0) history.push(`/createStory/`);
+                if(work.published['publish']===true)
+                {   if(work.workType===1)  history.push(`/read/${id}`);
+                    else if (work.workType===0) history.push(`/readStory/${id}`); }
+                else if (work.published['publish']===false)
+                {   if(work.workType===1)  history.push(`/create/`);
+                    else if (work.workType===0) history.push(`/createStory/`);
                 }
                 
             }
@@ -422,12 +422,12 @@ function GlobalStoreContextProvider(props) {
             }
             if(work)
             {
-                if(work.published['publish']==true)
-                {   if(work.workType==1)  history.push(`/read/${id}`);
-                    else if (work.workType==0) history.push(`/readStory/${id}`); }
-                else if (work.published['publish']==false)
-                {   if(work.workType==1)  history.push(`/create/`);
-                    else if (work.workType==0) history.push(`/createStory/`);
+                if(work.published['publish']===true)
+                {   if(work.workType===1)  history.push(`/read/${id}`);
+                    else if (work.workType===0) history.push(`/readStory/${id}`); }
+                else if (work.published['publish']===false)
+                {   if(work.workType===1)  history.push(`/create/`);
+                    else if (work.workType===0) history.push(`/createStory/`);
                 }
                 
             }
@@ -436,7 +436,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.updateWork = async function (newWork) {
-        if(newWork.author==auth.user.email){    
+        if(newWork.author===auth.user.email){    
                 let response = await api.updateWorkById(newWork._id, newWork);
                 // newAuth.works.push(response.data.work._id);
                 if (response.data.success) {
@@ -506,7 +506,7 @@ function GlobalStoreContextProvider(props) {
         });
     }
     store.setMode= async function (input){
-        if(input=="works"){
+        if(input==="works"){
             const response = await api.getWorkList();
             if (response.data.success) { 
                 let workArray = response.data.data;

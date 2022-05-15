@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Copyright from './Copyright'
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import api from '../api';
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {useParams} from 'react-router-dom';
 
@@ -21,7 +21,7 @@ export default function ResetPassword() {
     const handleSubmit = async (event)=>{
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        if(formData.get('password') == formData.get('passwordVerify')){
+        if(formData.get('password') === formData.get('passwordVerify')){
             auth.resetPassword(token,id,formData.get('password'));
         } else{
             alert('password not match');
