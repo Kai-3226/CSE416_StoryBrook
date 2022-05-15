@@ -196,13 +196,22 @@ export default function AppBanner() {
     function getAccountMenu(loggedIn) {
         
         if(loggedIn){
-            let lastname=auth.user.lastName.substring(0,1).toUpperCase();
-            let firstname=auth.user.firstName.substring(0,1).toUpperCase();
-            return(
-                <Box position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
-                    {firstname+lastname}
-                </Box>
-            );
+            if (auth.user.profile.icon == "") {
+                let lastname=auth.user.lastName.substring(0,1).toUpperCase();
+                let firstname=auth.user.firstName.substring(0,1).toUpperCase();
+                return(
+                    <Box position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                        {firstname+lastname}
+                    </Box>
+                );
+            } else {
+                return(
+                    <Box style={{  width:"40px", height:"40px" , borderRadius:"0.8cm" ,backgroundImage: `url(${auth.user.profile.icon})`, backgroundPosition: 'center', backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat', marginLeft:"1rem"}}>
+                    </Box>
+                );
+            }
+            
         }
         return <AccountCircle />;
     }

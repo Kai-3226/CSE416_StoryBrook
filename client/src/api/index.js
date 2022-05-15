@@ -41,7 +41,8 @@ export const resetPassword = (token,id,payload) => api.put(`/resetPassword/${tok
 export const sendUserEmail = (payload) => api.post(`/requestPasswordReset/`, payload)
 export const verifyEmail = (payload) => api.post(`/verifyEmail/`, payload)
 export const changePassword = (payload)=> api.put('/changePassword/',payload)
-export const updateUser = (payload)=> api.put(`/updateUser/`,payload)
+export const updateUser = (payload)=> api.put(`/updateUser/`, payload )
+export const updateUserIcon = (payload) => api.put(`/updateUserIcon/`, payload)
 
 export const getUserbyId=(id)=>api.get(`/getUserData/${id}`)
 export const getOneUser =(email)=>api.get(`/getOneUser/${email}`)
@@ -66,7 +67,8 @@ const apis = {
     changePassword,
     updateUser,
     getUserbyId,
-    getOneUser
+    getOneUser,
+    updateUserIcon
 }
 
 export default apis
