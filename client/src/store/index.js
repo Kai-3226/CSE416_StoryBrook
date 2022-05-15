@@ -425,7 +425,7 @@ function GlobalStoreContextProvider(props) {
                 if(work.published['publish']===true)
                 {   if(work.workType===1)  history.push(`/read/${id}`);
                     else if (work.workType===0) history.push(`/readStory/${id}`); }
-                else if (work.published['publish']==false)
+                else if (work.published['publish']===false)
                 {   if(work.workType===1)  history.push(`/create/`);
                     else if (work.workType===0) history.push(`/createStory/`);
                 }
@@ -436,7 +436,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.updateWork = async function (newWork) {
-        if(newWork.author==auth.user.email){    
+        if(newWork.author===auth.user.email){    
                 let response = await api.updateWorkById(newWork._id, newWork);
                 // newAuth.works.push(response.data.work._id);
                 if (response.data.success) {
@@ -506,7 +506,7 @@ function GlobalStoreContextProvider(props) {
         });
     }
     store.setMode= async function (input){
-        if(input=="works"){
+        if(input==="works"){
             const response = await api.getWorkList();
             if (response.data.success) { 
                 let workArray = response.data.data;
@@ -555,8 +555,6 @@ function GlobalStoreContextProvider(props) {
             });
         }
     }
-
-       
     function swap(arr, xp, yp){
         var temp = arr[xp];
         arr[xp] = arr[yp];

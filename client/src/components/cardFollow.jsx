@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalStoreContext } from '../store'
-import { VisibilityContext } from "react-horizontal-scrolling-menu";
+
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -11,14 +11,13 @@ import Cards from '@mui/material/Card';
 
 export function Card(props) {
   const { store } = React.useContext(GlobalStoreContext);
-  const visibility = React.useContext(VisibilityContext);
-  const { work,ItemId } = props;
-  const visible = visibility.isItemVisible(ItemId);
-
-  var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
+  
+  const { work } = props;
+  
   var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
-  let response=url;
-  if(work.workType==0) {response=bookUrl};
+  let response="";
+  if(work.workType===1) {response=work.content[0];}
+  if(work.workType===0) {response=bookUrl};
 
   function handleOpen(event, id){
     event.stopPropagation();
@@ -45,7 +44,7 @@ export function Card(props) {
        <CardMedia
                 component="img"
                 height="80%"
-                image= {work.content[0]}
+                image= {response}
                 alt= {work.name}
             />
                 <Box display="flex" sx={{bgcolor:"#C39BD3",position:"relative",width:"100%",height:"20%",justifyContent: 'space-between'}}> 

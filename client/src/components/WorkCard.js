@@ -1,12 +1,11 @@
 //author kai
 
-import { useContext, useState } from 'react'
+import { useContext} from 'react'
 import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -104,11 +103,10 @@ function WorkCard(props) {
         "";
     }
 
-    var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
     var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
-    
-    let response=url;
-    if(work.workType==0) {response=bookUrl};
+    let response="";
+    if(work.workType===1) {response=work.content[0];}
+    if(work.workType===0) {response=bookUrl};
   
     
     let workElement =
@@ -117,7 +115,7 @@ function WorkCard(props) {
             <CardMedia
                 component="img"
                 height="140"
-                image= {work.content[0]}
+                image= {response}
                 alt= {work.name}
             />
            
