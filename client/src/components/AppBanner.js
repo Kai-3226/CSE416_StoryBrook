@@ -73,8 +73,12 @@ export default function AppBanner() {
             setTargetPage("myPage")
         }
         else {
-            handleMenuClose();
-            history.push('/myPage')
+            if(store.status==0||store.status==1)
+            {handleMenuClose();
+            history.push('/myPage')}
+            else {
+                alert("Pick one type story first ^0^.")
+            }
         }
             
     }

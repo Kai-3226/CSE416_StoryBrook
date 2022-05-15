@@ -41,8 +41,6 @@ export default function MyPage () {
             </List>
     }
     else if(store.mode==="followings"){
-
-        console.log(auth.userList);
         list=
             <List sx={{ width: '100%', left: '0%'}}>
                 {
@@ -116,17 +114,19 @@ export default function MyPage () {
 
     }
     else if (store.mode==="likes"){
-        selectbar="";
-        console.log("hello")
-
-        list=
-            <List sx={{ width: '80%', left: '20%'}}>
-                {
-                auth.user.like.map((workId)=> (
-                        <Card></Card>
-                    ))
-                }
-            </List>
+        mylist=[];
+        mylist = store.workList.filter((work) => auth.user.like.includes(work._id));
+        list = "";  
+        let rows = [];
+            for (i = 0, end = mylist.length / 2; i < end; ++i){
+                rows.push(mylist.slice(i * 2, (i + 1) * 2));
+            }
+        list = 
+            rows.map((row) => (
+                <Box sx = {{display:'flex',position:'relative'}}>
+                    {row.map((item) =>(<MypageWorkCard work={item}/>))}
+                </Box>
+            ));
     }
     
     

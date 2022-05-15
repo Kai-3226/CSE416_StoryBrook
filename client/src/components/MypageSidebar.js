@@ -2,20 +2,16 @@ import React from "react";
 import Box from '@mui/material/Box';
 import { useContext } from 'react';
 import { GlobalStoreContext } from '../store';
-import AuthContext from '../auth';
+
 
 export default function Sidebar () {
     const {store}=useContext(GlobalStoreContext);
-    const {auth} = useContext(AuthContext);
+  
     
     function handleClick(event,input){
         event.preventDefault();
         event.stopPropagation();
         store.setMode(input);  
-        if(input==="followings"){
-            auth.getUserList();
-            console.log(auth.users);
-        }
     }  
 
     let follow ="unselected-menu";
