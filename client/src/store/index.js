@@ -556,15 +556,8 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-        }
-        else {
-        storeReducer({
-            type: GlobalStoreActionType.MODE,
-            payload:{mode:input,
-                workList:store.workList
-            }
-        });}
-    }
+       
+    
     store.like = async function (id) {
         let response = await api.getWorkById(id);
         if (response.data.success) {
