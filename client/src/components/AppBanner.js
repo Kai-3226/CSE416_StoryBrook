@@ -19,7 +19,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import logo_comic from '../Images/logo_comic.png';
 import logo_tale from '../Images/logo_tale.png';
-import logo from '../Images/logo.png';
+import logo from '../Images/Logo.png';
 import comic_create from '../Images/comic_create.png';
 import story_create from '../Images/story_create.png';
 import NotificationModal from './NotificationModal';
@@ -97,7 +97,6 @@ export default function AppBanner() {
         if(store.status == 0 || store.status == 1)
         {  
             //editToolbar= <CreatePageBanner/>
-            console.log(store.status)
             store.createWork();
             setTargetPage("Creating");
         }
