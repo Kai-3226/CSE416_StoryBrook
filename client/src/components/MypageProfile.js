@@ -19,12 +19,10 @@ export default function Profile(){
     console.log(auth.user.profile.icon)
     const fileUploadOnClick = (event)=>{
         event.preventDefault();
-        event.stopPropagation();
         const formData = new FormData();
         formData.append("icon",fileUploaderRef.current.files[0])
         formData.append("_id",auth.user._id)
         auth.updateUserIcon(formData);
-        history.push("/")
     }
 
     const handleSubmit = (event) => {
@@ -37,6 +35,12 @@ export default function Profile(){
         auth.updateUser();
         history.push("/")
     };
+
+    const handleCancel = (event) => {
+        event.preventDefault();
+        auth.getLoggedIn();
+        history.push("/")
+    }
 
     return (
         <>
@@ -123,25 +127,36 @@ export default function Profile(){
                                         autoFocus
                                     />
                                 </Grid>
-                            </Grid>
-                            <Button 
+                                <Button 
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                            >
-                                Save
-                            </Button>
-                            <Grid container justifyContent="flex-end">
-                                    <Link to="/changePassword/" variant="h6">
-                                        Want to change password?
-                                    </Link>
+                                >
+                                    Save
+                                </Button>
+                                <Button 
+                                    onClick={(event) => {handleCancel(event)}}
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Cancel
+                                </Button>
+                                <Grid container justifyContent="flex-end">
+                                    <Grid item>
+                                        <Link to="/changePassword/" variant="body2">
+                                            {"Want to change password?"}
+                                        </Link>
+                                    </Grid>
+                                </Grid>
                             </Grid>
+                            
+                            
                         </Box>
                     </Box>
                 </Box>
             </Container>
-        
         </div>
         <Copyright/>
         </>

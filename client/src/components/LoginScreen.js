@@ -39,7 +39,7 @@ export default function LogInScreen() {
 
     return (
         <ThemeProvider theme={theme}>
-        <Grid container component="main" sx={{ height: '40vh' }}>
+        <Grid container component="main" sx={{ height: '94.5vh' }}>
           <CssBaseline />
           <ErrorModal></ErrorModal>
           <Grid
@@ -94,10 +94,6 @@ export default function LogInScreen() {
                   id="password"
                   autoComplete="current-password"
                 />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
                 <Button
                   type="submit"
                   fullWidth
@@ -108,12 +104,12 @@ export default function LogInScreen() {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2">
+                    <Link to="/requestPasswordReset/" variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link to="/register/" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
