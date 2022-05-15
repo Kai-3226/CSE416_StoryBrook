@@ -117,7 +117,7 @@ registerUser = async (req, res) => {
                         "gender": "N/A",
                         "userName": newUser.firstName,
                         "myStatement":"Stay Hungry, Stay Foolish",
-                        "icon": newUser.firstName.substring(0,1).toUpperCase()+newUser.lastName.substring(0,1).toUpperCase()
+                        "icon": ""
                     }
     
         const savedUser = await newUser.save();
