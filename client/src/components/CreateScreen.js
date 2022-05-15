@@ -17,7 +17,7 @@ const CreateScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     
     const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
-    const json=workstore.toJSON();
+    let json=workstore.toJSON();
     window.store = workstore;
     if(store.currentWork&&store.currentWork.content==null)
     {  

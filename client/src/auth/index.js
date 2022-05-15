@@ -453,7 +453,7 @@ function AuthContextProvider(props) {
                 let user=response.data.user;
     
                 for (let s = 0; s < user.follower.length; s++) {
-                    if(user.follower[s]==auth.user._id) {
+                    if(user.follower[s]===auth.user._id) {
                         user.follower.splice(s,1);
                     }
                 }
@@ -464,7 +464,7 @@ function AuthContextProvider(props) {
                     if(response.data.success){
                         let newUser=response.data.user;
                         for (let i = 0; i < newUser.following.length; i++) {
-                            if(newUser.following[i]==authorId) {
+                            if(newUser.following[i]===authorId) {
                                 newUser.following.splice(i,1);
                             }
                         }
