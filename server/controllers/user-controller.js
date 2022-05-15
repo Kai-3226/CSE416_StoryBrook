@@ -299,21 +299,16 @@ updateUserIcon =async (req,res) => {
         })
     }
 
-    console.log(file.path)
 
-    User.findOne({ _id: req.body._id }, (err, user) => {
-        
-        if (err) {
-            return res.status(404).json({
-                success: false,
-                errMessage: 'User not found!'
-            })
-        }
-        
-        user.profile.icon=file.path
-        console.log(user)
+        let user=await User.findOne({ _id: req.body._id })
+        user.profile.icon=file.path;
+        user.profile.userName=req.body.usenName;
+        user.profile.age=req.body.age;
+        user.profile.gender=req.body.gender;
+        user.profile.myStatement=req.body.myStatement;
+     
 
-        user.save()
+        await user.save()
             .then(() => { 
                 return res.status(200).json({
                     success: true,
@@ -329,7 +324,6 @@ updateUserIcon =async (req,res) => {
                     message: 'User data not updated!'
                 })
             })
-    })
 }
 
 updateUser =async (req,res) => {
@@ -343,7 +337,7 @@ updateUser =async (req,res) => {
         })
     }
 
-    User.findOne({ _id: body._id }, (err, user) => {
+    await User.findOne({ _id: body._id }, async(err, user) => {
         
         if (err) {
             return res.status(404).json({
@@ -365,7 +359,7 @@ updateUser =async (req,res) => {
         user.notification=body.notification;
         user.profile=body.profile;
         
-        user.save()
+        await user.save()
             .then(() => {
                 console.log(" updated user SUCCESS!!!");
                 return res.status(200).json({

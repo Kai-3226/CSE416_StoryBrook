@@ -370,10 +370,14 @@ function AuthContextProvider(props) {
             //console.log(auth.user);
             const response = await api.updateUserIcon(payload);
             if(response.data.success){
+                let newdata=response.data.user;
+                const res = await api.updateUser(newdata);
+                if(res.data.success){
                 authReducer({
                     type: AuthActionType.LOGIN_USER,
-                    payload:response.data.user
+                    payload:res.data.user
                 })
+             }
             }
             
         }

@@ -221,7 +221,10 @@ export default function AppBanner() {
     else if(store.status===1) {imageUrl=logo_comic};
 
     const [showNotification, setShowNotification] = useState(false)
-    const handleNotification = () => setShowNotification(!showNotification)
+    const handleNotification = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setShowNotification(!showNotification)}
 
     let notificationButton = "";
     let notificationSection = "";
@@ -236,7 +239,7 @@ export default function AppBanner() {
         }
         notificationSection = 
         <div>
-            <IconButton onClick={(event) => {handleNotification()}} sx={{ width: "50px", height: "50px",  
+            <IconButton onClick={(event) => {handleNotification(event)}} sx={{ width: "50px", height: "50px",  
             backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
                 <img src={notificationButton} alt="" height='32' width='32'></img>
             </IconButton>
