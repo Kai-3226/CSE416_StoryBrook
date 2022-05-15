@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState} from 'react';
 import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
 import Button from '@mui/material/Button';
@@ -6,13 +6,11 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useHistory, useLocation } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
-import { TextField } from '@mui/material';
 import DeleteModal from './DeleteModal';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
@@ -94,7 +92,7 @@ export default function AppBanner() {
     }
 
     const handleCreate = () => {
-        if(store.status == 0 || store.status == 1)
+        if(store.status === 0 || store.status === 1)
         {  
             //editToolbar= <CreatePageBanner/>
             store.createWork();
@@ -178,13 +176,14 @@ export default function AppBanner() {
             // if (store.currentWork && store.currentWork.published.publish == false && targetPage == "Creating"){
             //     editToolbar = <CreatePageBanner/>
             // } else 
-            if((store.status==0||store.status==1)){
+            if((store.status===0||store.status===1)){
                 let createUrl="";
-                if(store.status==0) {createUrl=story_create}
-                else if(store.status==1) {createUrl=comic_create};
+                if(store.status===0) {createUrl=story_create}
+                else if(store.status===1) {createUrl=comic_create};
                 editToolbar=
                 <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px'}}>
                          <img src={createUrl}
+                         alt=""
             height='32'
           ></img>
                         </IconButton> 
@@ -195,7 +194,7 @@ export default function AppBanner() {
     function getAccountMenu(loggedIn) {
         
         if(loggedIn){
-            if (auth.user.profile.icon == "") {
+            if (auth.user.profile.icon === "") {
                 let lastname=auth.user.lastName.substring(0,1).toUpperCase();
                 let firstname=auth.user.firstName.substring(0,1).toUpperCase();
                 return(
@@ -218,8 +217,8 @@ export default function AppBanner() {
     let banner="";
 
     let imageUrl=logo;
-    if(store.status==0) {imageUrl=logo_tale}
-    else if(store.status==1) {imageUrl=logo_comic};
+    if(store.status===0) {imageUrl=logo_tale}
+    else if(store.status===1) {imageUrl=logo_comic};
 
     const [showNotification, setShowNotification] = useState(false)
     const handleNotification = () => setShowNotification(!showNotification)
@@ -228,7 +227,7 @@ export default function AppBanner() {
     let notificationSection = "";
     
     console.log(auth.loggedIn);
-    if (auth.loggedIn === true && (store.status==0||store.status==1)){
+    if (auth.loggedIn === true && (store.status===0||store.status===1)){
         console.log(auth.user);
         if (auth.user.notification.length === 0){
             notificationButton = not_ringing;

@@ -13,24 +13,24 @@ export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
     const [text,setText]=useState("");
-    const[stat,setStatus]=useState(0);
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
     let rows=[];
     let mylist = [];
+    let i=0;
+    let end=0;
 
 
     function handleClick(event,status){
         event.preventDefault();
         event.stopPropagation();
-        setStatus(status);
-        if(status==1) {
+        if(status===1) {
             store.setMode("works_editing");}
-        else if(status==2) {store.setMode("works_published");}
+        else if(status===2) {store.setMode("works_published");}
     }
 
-    if (store.mode=="friends"){
+    if (store.mode==="friends"){
         list=
             <List sx={{ width: '80%', left: '20%'}}>
                 {
@@ -40,7 +40,7 @@ export default function MyPage () {
                 }
             </List>
     }
-    else if(store.mode=="followings"){
+    else if(store.mode==="followings"){
 
         console.log(auth.userList);
         list=
@@ -52,7 +52,7 @@ export default function MyPage () {
                 }
             </List>
     }
-    else if (store.mode=="works"){
+    else if (store.mode==="works"){
         selectbar=
         <Box>
             <Button onClick={(event) => {handleClick(event,1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
@@ -60,9 +60,9 @@ export default function MyPage () {
         </Box>
         mylist=[];
         if(auth.loggedIn)
-        {mylist = store.workList.filter(item => item.author == auth.user.email);}
+        {mylist = store.workList.filter(item => item.author === auth.user.email);}
         rows=[];
-        for (var i = 0, end = mylist.length / 2; i < end; ++i){
+        for (i = 0, end = mylist.length / 2; i < end; ++i){
             rows.push(mylist.slice(i * 2, (i + 1) * 2));
         }
         list = 
@@ -73,7 +73,7 @@ export default function MyPage () {
             ));
 
     }
-    else if(store.mode=="works_editing"){
+    else if(store.mode==="works_editing"){
         selectbar=
         <Box>
             <Button onClick={(event) => {handleClick(event,1)}} id="work-published" sx={{bgcolor:'#c4c4c4',color:'black'}}>Published</Button>
@@ -81,9 +81,9 @@ export default function MyPage () {
         </Box>
         mylist=[];
         if(auth.loggedIn)
-        {mylist = store.workList.filter(item => item.author == auth.user.email).filter(item => item.published["publish"] === true);}
+        {mylist = store.workList.filter(item => item.author ===auth.user.email).filter(item => item.published["publish"] === true);}
         rows=[];
-        for (var i = 0, end = mylist.length / 2; i < end; ++i){
+        for ( i = 0, end = mylist.length / 2; i < end; ++i){
             rows.push(mylist.slice(i * 2, (i + 1) * 2));
         }
         list = 
@@ -94,7 +94,7 @@ export default function MyPage () {
             ));
 
     }
-    else if(store.mode=="works_published"){
+    else if(store.mode==="works_published"){
         selectbar=
         <Box>
             <Button onClick={(event) => {handleClick(event,1)}} id="work-published" sx={{bgcolor:'#c4c4c0',color:'black'}}>Published</Button>
@@ -102,9 +102,9 @@ export default function MyPage () {
         </Box>
          mylist=[];
          if(auth.loggedIn)
-        {mylist = store.workList.filter(item => item.author == auth.user.email).filter(item => item.published["publish"] === false);}
+        {mylist = store.workList.filter(item => item.author === auth.user.email).filter(item => item.published["publish"] === false);}
         rows=[];
-        for (var i = 0, end = mylist.length / 2; i < end; ++i){
+        for (i = 0, end = mylist.length / 2; i < end; ++i){
             rows.push(mylist.slice(i * 2, (i + 1) * 2));
         }
         list = 
@@ -115,7 +115,7 @@ export default function MyPage () {
             ));
 
     }
-    else if (store.mode=="likes"){
+    else if (store.mode==="likes"){
         selectbar="";
         console.log("hello")
 

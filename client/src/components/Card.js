@@ -5,7 +5,6 @@ import AuthContext from '../auth';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
-import MessageIcon from '@mui/icons-material/MessageOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import WorkCard from './WorkCard'
 
@@ -14,16 +13,14 @@ export default function Card(props) {
     const { auth } = useContext(AuthContext)
     const user = auth.searchUser(props);
     console.log(user);
-    function handleMessage(){
 
-    }
     function handleDelete(event,target){
         event.stopPropagation();
         auth.unfollowAuthor(target);
     }
     let cardElement =""
     const prop = props.props;
-    if (store.mode=="followings"){
+    if (store.mode==="followings"){
         console.log(user);
         cardElement =
             <ListItem sx={{bgcolor: "red",border: "1px solid black"}}>
@@ -37,19 +34,19 @@ export default function Card(props) {
                 </Box>
 </ListItem>
     }
-    else if (store.mode=="works"){
+    else if (store.mode==="works"){
         cardElement=
             <ListItem>
                 <WorkCard></WorkCard>
             </ListItem>
     }
-    else if (store.mode=="library"){
+    else if (store.mode==="library"){
         cardElement=
             <ListItem>
                 <WorkCard></WorkCard>
             </ListItem>
     }
-    else if (store.mode=="likes"){
+    else if (store.mode==="likes"){
         cardElement=
             <ListItem>
                 <WorkCard></WorkCard>

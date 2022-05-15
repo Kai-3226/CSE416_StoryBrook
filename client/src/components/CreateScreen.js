@@ -1,4 +1,4 @@
-import { useContext, useState,useEffect } from 'react'
+import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
 import Copyright from './Copyright'
@@ -17,7 +17,7 @@ const CreateScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     
     const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
-    const json=workstore.toJSON();
+    let json=workstore.toJSON();
     window.store = workstore;
     if(store.currentWork&&store.currentWork.content==null)
     {  

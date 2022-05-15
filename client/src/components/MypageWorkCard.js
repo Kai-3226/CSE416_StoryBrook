@@ -1,12 +1,12 @@
 //author kai
 
-import { useContext, useState } from 'react'
+import { useContext} from 'react'
 import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -32,12 +32,12 @@ function MypageWorkCard(props) {
     
     let deletebutton=''
     let publishflag="published";
-    if(work.published.publish==false) {publishflag="editing";}
+    if(work.published.publish===false) {publishflag="editing";}
     
     if(auth.user===null){
         deletebutton="";
     }
-    else if(auth.user.email==work.author){
+    else if(auth.user.email===work.author){
         deletebutton= 
                 <IconButton style={{bottom:'0%'}} onClick={(event) => {
                     handleDeleteWork(event, work._id)
@@ -50,7 +50,7 @@ function MypageWorkCard(props) {
    
     
     let response=url;
-    if(work.workType==0) {response=bookUrl};
+    if(work.workType===0) {response=bookUrl};
 
     let workElement =
         <Box key={work.id} sx={{ bgcolor:"red",position:"relative",width:"30%",height:"60%",marginLeft:"10%",marginTop:"2%",marginBottom:"2.5%",mr:"5%" }}> 

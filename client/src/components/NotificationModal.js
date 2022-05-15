@@ -3,10 +3,7 @@ import { GlobalStoreContext } from '../store';
 import AuthContext from '../auth';
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { autocompleteClasses } from '@mui/material';
 import NotificationCard from './NotificationCard';
 /*
     This modal is shown when the user asks to delete a list. Note 

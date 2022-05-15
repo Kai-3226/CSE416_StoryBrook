@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import api from '../api';
 import ErrorModal from './ErrorModal';
 import Copyright from './Copyright'
 import { createTheme, ThemeProvider } from '@mui/material/styles';

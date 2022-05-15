@@ -10,17 +10,15 @@ import Copyright from './Copyright'
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {useParams} from 'react-router-dom';
 
 export default function ChangePassword() {
     const {auth} = useContext(AuthContext);
-    const {token}=useParams();
 
     const handleSubmit = async (event)=>{
         event.preventDefault();
         event.stopPropagation();
         const formData = new FormData(event.currentTarget);
-        if(formData.get('password') == formData.get('passwordVerify')){
+        if(formData.get('password') === formData.get('passwordVerify')){
             auth.changePassword(formData.get('password'));
         } else{
             alert('password not match');

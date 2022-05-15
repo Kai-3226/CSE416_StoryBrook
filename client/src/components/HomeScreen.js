@@ -1,11 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext} from 'react'
 import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
 import Copyright from './Copyright'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AuthContext from '../auth';
-import WorkCard from './WorkCard.js';
 import Carousel, {CarouselItem} from "./Carousel"
 import HomeScreenFollow from "./HomeScreenFollow"
 import { useHistory } from 'react-router-dom'

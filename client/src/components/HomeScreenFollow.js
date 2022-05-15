@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import { GlobalStoreContext } from '../store'
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { Card } from "./cardFollow";
@@ -33,15 +33,11 @@ function HomeScreenFollow(props) {
 
       const { disableScroll, enableScroll } = usePreventBodyScroll();
     
-    //   useEffect(() => {
-    //     store.loadWorkList();
-    //   }, []);
 
       let list = [];
       let work = "";
     if (store && store.workList) {
         let i, j;
-        // store.sortBy(criteria);
         list = store.workList;
         for (i = 0; i < list.length-1; i++) {
           for (j = 0; j < list.length-i-1; j++) {
