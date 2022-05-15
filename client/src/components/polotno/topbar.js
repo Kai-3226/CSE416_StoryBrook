@@ -25,6 +25,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import { GlobalStoreContext } from '../../store';
 import { useHistory } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import AuthContext from '../../auth';
 
 const NavbarContainer = styled('div')`
   @media screen and (max-width: 500px) {
@@ -102,7 +104,8 @@ const DownloadButton = ({ workstore }) => {
 
 export default observer(({ workstore }) => {
   const inputRef = React.useRef();
-  const { store } = React.useContext(GlobalStoreContext);
+  const {  store } = React.useContext(GlobalStoreContext);
+  const { auth } = useContext(AuthContext);
   const [faqOpened, toggleFaq] = React.useState(false);
   const [title, setTitle] = React.useState(store.currentWork.name);
   const history = useHistory();
@@ -149,15 +152,16 @@ export default observer(({ workstore }) => {
     //const json = workstore.toJSON();
     store.currentWork.name = title;
     // store.currentWork.content=json;
-    store.currentWork.content = [];
-
-    store.currentWork.content = await Promise.all(workstore.pages.map(async (page) => {
-      let pageUrl = await workstore.toDataURL({ pageId: page.id });
-      return pageUrl;
-    }));
-
-    store.currentWork.published = { publish: true, date: Date() };
-
+    store.currentWork.content= [];
+    
+    store.currentWork.content=await Promise.all (workstore.pages.map(async (page) => {
+        let pageUrl=await workstore.toDataURL({pageId: page.id});
+        return pageUrl;
+      }));
+    
+    store.currentWork.published={publish:true,date:Date()};
+    console.log("send not");
+    auth.sendNotification(store.currentWork._id, store.currentWork.workType);
     store.updateCurrentWork();
     history.push(`/read/${store.currentWork._id}`);
     alert("Work is published");

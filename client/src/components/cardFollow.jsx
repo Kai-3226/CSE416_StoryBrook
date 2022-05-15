@@ -48,7 +48,7 @@ export function Card(props) {
                 image= {work.content[0]}
                 alt= {work.name}
             />
-                <Box display="flex" sx={{bgcolor:"lightgreen",position:"relative",width:"100%",height:"20%",justifyContent: 'space-between'}}> 
+                <Box display="flex" sx={{bgcolor:"#C39BD3",position:"relative",width:"100%",height:"20%",justifyContent: 'space-between'}}> 
                     <Box  sx={{bgcolor:"",position:"relative",width:"30%"}}>
                     <Typography sx={{justifyContent:'center'}}>
                         {work.name}

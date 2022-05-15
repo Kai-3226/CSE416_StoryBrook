@@ -28,7 +28,7 @@ getLoggedIn = async (req, res) => {
                 comicLibrary:loggedInUser.comicLibrary,
                 like: loggedInUser.like,
                 dislike: loggedInUser.dislike,
-                alarm: loggedInUser.alarm,
+                notification: loggedInUser.notification,
                 profile: loggedInUser.profile
             }
             })
@@ -99,7 +99,7 @@ registerUser = async (req, res) => {
                 comicLibrary: [],
                 like: [],
                 dislike: [],
-                alarm: [],
+                notification: [],
                 profile: {},
                 passwordHash: passwordHash
         });
@@ -112,7 +112,7 @@ registerUser = async (req, res) => {
         newUser.comicLibrary=[],
         newUser.like= [],
         newUser.dislike= [],
-        newUser.alarm= [],
+        newUser.notification= [],
         newUser.profile= {"age": 0,
                         "gender": "N/A",
                         "userName": newUser.firstName,
@@ -144,7 +144,7 @@ registerUser = async (req, res) => {
                 comicLibrary:savedUser.comicLibrary,
                 like: savedUser.like,
                 dislike: savedUser.dislike,
-                alarm: savedUser.alarm,
+                notification: savedUser.notification,
                 profile: savedUser.profile
             }
         }).send();
@@ -208,7 +208,7 @@ loginUser = async (req, res) => {
                 comicLibrary: existingUser.comicLibrary,
                 like:  existingUser.like,
                 dislike:  existingUser.dislike,
-                alarm: existingUser.alarm,
+                notification: existingUser.notification,
                 profile:  existingUser.profile
             }
         }).send();

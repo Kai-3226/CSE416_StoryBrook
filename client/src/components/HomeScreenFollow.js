@@ -20,9 +20,16 @@ function onWheel(apiObj, ev) {
         apiObj.scrollPrev();
       }
 }
+
+function swap(arr, xp, yp){
+  var temp = arr[xp];
+  arr[xp] = arr[yp];
+  arr[yp] = temp;
+}
     
-function HomeScreenFollow() {
+function HomeScreenFollow(props) {
     const { store } = useContext(GlobalStoreContext);
+    const { criteria } = props;
 
       const { disableScroll, enableScroll } = usePreventBodyScroll();
     
@@ -33,24 +40,35 @@ function HomeScreenFollow() {
       let list = [];
       let work = "";
     if (store && store.workList) {
+        let i, j;
+        // store.sortBy(criteria);
         list = store.workList;
+        for (i = 0; i < list.length-1; i++) {
+          for (j = 0; j < list.length-i-1; j++) {
+              if(criteria===1){
+                  if (list[j].published.date > list[j+1].published.data){
+                      swap(list,j,j+1);
+                  }
+              }
+              else if(criteria===2){
+                  if (list[j].view < list[j+1].view){
+                      swap(list,j,j+1);
+                  }
+              }
+              else if(criteria===3){
+                  if (list[j].likes < list[j+1].likes){
+                      swap(list,j,j+1);
+                  }
+              }
+          }
+        }
         list = list.filter(item => item.published["publish"] === true&&item.workType===store.status).slice(0,20);
-        // // const rows = list.reduce(function (rows, key, index) {
-        // //     return (index % 4 == 0 ? rows.push([key]) 
-        // //     : rows[rows.length-1].push(key)) && rows;
-        // // }, []);
         
         work = list.map((item) => 
         // console.log(item))
         (
           <Card key={item.authorId} work={item}
-          // title={item.name}
-          // like={item.likes.length} // NOTE: itemId is required for track items
-          // view={item.view}
             itemId={item._id}
-          // workType={item.workType}
-          // key={item.authorId}
-          
         />
         ))
     }

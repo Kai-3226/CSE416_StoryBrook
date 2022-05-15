@@ -7,9 +7,11 @@ import Copyright from './Copyright'
 import Button from '@mui/material/Button';
 import { useContext,useState,useEffect, } from 'react';
 import { GlobalStoreContext } from '../store';
+import { useHistory } from 'react-router-dom'
 
 
 const theme = createTheme();
+
 
 export default function SplashScreen() {
     const {store}=useContext(GlobalStoreContext);
