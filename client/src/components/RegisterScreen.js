@@ -29,7 +29,6 @@ export default function RegisterScreen() {
         console.log(useremail);
         if(useremail!="")
       { const val = Math.floor(1000 + Math.random() * 9000);
-        console.log(val);
         let code=val.toString();
         auth.verifyEmail(code,useremail);
         }
@@ -103,9 +102,11 @@ export default function RegisterScreen() {
                                     
                                 />
                             </Grid>
+                            <Grid item xs={12}>
                             <Button onClick={verifyEmail} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> Verif Email</Button>
                             <Box display="flex"> <ReactInputVerificationCode onChange={setValue} value={value} />
                             <Button onClick={clearValue}>Clear</Button> </Box>
+                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
