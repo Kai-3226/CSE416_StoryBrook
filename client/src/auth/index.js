@@ -133,7 +133,7 @@ function AuthContextProvider(props) {
     }
 
     auth.getLoggedIn = async function () {
-        const response = await api.getLoggedIn();
+        try{const response = await api.getLoggedIn();
         if (response.status === 200) {
             authReducer({
                 type: AuthActionType.GET_LOGGED_IN,
@@ -142,6 +142,9 @@ function AuthContextProvider(props) {
                     user: response.data.user,
                 }
             });
+        }}
+        catch(err){
+            console.log("no token can be use to login");
         }
     }
 

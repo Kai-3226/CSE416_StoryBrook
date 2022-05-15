@@ -19,16 +19,29 @@ const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
     
+    let showCases=<CarouselItem></CarouselItem>;
+    if(store.workList)
+        {   let mylist=[]
+            mylist = store.workList.filter(item => item.published["publish"] === true&&item.workType===store.status).slice(0,4);
+            showCases= mylist.map((item,index)=>
+                <CarouselItem key={"CarouselItem"+index} item={item}>
+                {item.content[0]}
+                </CarouselItem>)
+
+        }
+
     function handleViewMore(criteria){
         store.viewlist(criteria);
         history.push("/view/");
     }
 
+
     return (
         <Box id="homeScreen">
             <div>
                 <Carousel>
-                    <CarouselItem>
+                    {showCases}
+                    {/* <CarouselItem>
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU"
                     </CarouselItem>
                     <CarouselItem>
@@ -36,7 +49,7 @@ const HomeScreen = () => {
                     </CarouselItem>
                     <CarouselItem>
                         "https://s3-us-west-2.amazonaws.com/s.cdpn.io/29841/dog.jpg"
-                    </CarouselItem>
+                    </CarouselItem> */}
                 </Carousel>
             </div>
             <Box>

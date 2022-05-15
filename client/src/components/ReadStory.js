@@ -214,7 +214,7 @@ const ReadStory = () => {
                     <Box id="comment_banner" bgcolor='primary' display='flex'> 
                         <Typography component="h1" variant="h4" marginTop='1%' color='red'>Comments</Typography> 
                         
-                        <TextField sx={{width:'60%',height:'0%',bgcolor:'lightgrey',marginTop:'1%'}} label="Comment" defaultValue={comment} autoComplete="off" value={comment} onChange={(e)=>setComment(e.target.value)} ></TextField>
+                        <TextField sx={{width:'60%',height:'0%',bgcolor:'lightgrey',marginTop:'1%'}} label="Comment" autoComplete="off" value={comment} onChange={(e)=>setComment(e.target.value)} ></TextField>
                         <Button disabled={buttonDisable} onClick={handleComment} variant="outlined" id='readPage_author_follow' sx={{position:'relative',margin:'1%',}}>submit</Button>
                     
                     </Box>

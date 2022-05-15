@@ -1,12 +1,25 @@
 import React, { useEffect, useState, useContext } from "react";
 import { GlobalStoreContext } from '../store'
 import Button from '@mui/material/Button';
+import AuthContext from '../auth';
 
 import "../App.css";
 
-export const CarouselItem = ({ children, width }) => {
+export const CarouselItem = ({ children, width,item }) => {
+  const {auth} = useContext(AuthContext);
+  const { store } = useContext(GlobalStoreContext);
+
+  function handleOpen(event){
+    event.preventDefault();
+    event.stopPropagation();
+    
+    console.log(item);
+    store.readWork(item._id);
+    auth.setTargetUser(item.authorId);
+  }
+  
   return (
-    <div className="carousel-item" style={{ width: width, backgroundImage: `url(${children})`,  backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat" } }>
+    <div onClick={(event)=>handleOpen(event)} className="carousel-item" style={{ border:'1px solid black',width: width, backgroundImage: `url(${children})`,  backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat" } }>
     </div>
   );
 };
