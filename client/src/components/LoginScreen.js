@@ -18,6 +18,7 @@ import ErrorModal from './ErrorModal';
 import Container from '@mui/material/Container';
 import Copyright from './Copyright';
 import Paper from '@mui/material/Paper';
+import log from '../Images/log.png';
 
 
 
@@ -48,7 +49,7 @@ export default function LogInScreen() {
             sm={4}
             md={7}
             sx={{
-              backgroundImage: 'url(https://source.unsplash.com/random)',
+              backgroundImage: `url(${log})`,
               backgroundRepeat: 'no-repeat',
               backgroundColor: (t) =>
                 t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
