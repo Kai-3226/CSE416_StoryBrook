@@ -97,7 +97,6 @@ export default function AppBanner() {
         if(store.status == 0 || store.status == 1)
         {  
             //editToolbar= <CreatePageBanner/>
-            console.log(store.status)
             store.createWork();
             setTargetPage("Creating");
         }
