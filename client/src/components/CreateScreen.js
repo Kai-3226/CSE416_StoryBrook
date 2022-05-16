@@ -23,7 +23,7 @@ const CreateScreen = () => {
     {  
         store.currentWork.content=json;
     }
-    else 
+    else if(store.currentWork.published.published===false)
     {
         workstore.loadJSON(store.currentWork.content);
     }

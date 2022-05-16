@@ -26,10 +26,20 @@ export default function Profile(){
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        formData.append("icon",fileUploaderRef.current.files[0])
-        formData.append("_id",auth.user._id)
-        auth.updateUserIcon(formData);
+        if(!fileUploaderRef.current.files[0]) {
+            auth.user.profile.age = formData.get('age')
+            auth.user.profile.gender=formData.get('gender')
+            auth.user.profile.userName=formData.get('userName')
+            auth.user.profile.myStatement=formData.get('myStatement')
+            auth.updateUser();
+        }
+        else{
+            formData.append("icon",fileUploaderRef.current.files[0])
+            formData.append("_id",auth.user._id)
+            auth.updateUserIcon(formData);
+        }
         alert("user profile data updated");
+        history.push("/");
     };
 
     const handleCancel = (event) => {

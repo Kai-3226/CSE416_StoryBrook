@@ -46,8 +46,8 @@ function AuthContextProvider(props) {
                     user: payload.user,
                     loggedIn: payload.loggedIn,
                     error: false,
-                    targetUser:auth.targetUser,
-                    userList: auth.userList
+                    targetUser:null,
+                    userList: []
 
                 });
             }
@@ -56,7 +56,7 @@ function AuthContextProvider(props) {
                     user: payload.user,
                     loggedIn: true,
                     error: false,
-                    targetUser:auth.targetUser,
+                    targetUser:null,
                     userList: []
 
                 })
@@ -66,7 +66,7 @@ function AuthContextProvider(props) {
                     user:null,
                     loggedIn: false,
                     error: false,
-                    targetUser:auth.targetUser,
+                    targetUser:null,
                     userList: []
                 })
             }
@@ -75,23 +75,23 @@ function AuthContextProvider(props) {
                     user:payload,
                     loggedIn:true,
                     error:false,
-                    targetUser:auth.targetUser,
-                    userList: auth.userList
+                    targetUser:null,
+                    userList: []
                 })
             }
             case AuthActionType.ERROR: {
                 return setAuth({
-                    user:null,
-                    loggedIn:false,
+                    user:auth.user,
+                    loggedIn:auth.loggedIn,
                     error:payload,
                     targetUser:auth.targetUser,
-                    userList: []
+                    userList: auth.userList
                 })
             }
             case AuthActionType.UPDATE_USER: {
                 return setAuth({
                     user:payload,
-                    loggedIn:true,
+                    loggedIn:auth.loggedIn,
                     error:false,
                     targetUser:auth.targetUser,
                     userList: auth.userList
@@ -110,10 +110,10 @@ function AuthContextProvider(props) {
                 console.log("Following")
                 return setAuth({
                     user:auth.user,
-                    loggedIn:true,
+                    loggedIn:auth.loggedIn,
                     error:false, 
-                    userList: payload,
-                    targetUser:payload
+                    targetUser:auth.targetUser,
+                    userList: payload
                 })
             }
             default:
@@ -371,9 +371,11 @@ function AuthContextProvider(props) {
             const response = await api.updateUserIcon(payload);
             if(response.data.success){
                 let newdata=response.data.user;
+                console.log(auth.user);
                 const res = await api.updateUser(newdata);
                 if(res.data.success){
-                authReducer({
+                    console.log(res.data.user);
+                    authReducer({
                     type: AuthActionType.LOGIN_USER,
                     payload:res.data.user
                 })

@@ -26,24 +26,20 @@ const ReadScreen = () => {
     // const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
     
     let work=null;
-    let authorName="";
-    if(store&&store.currentWork){
+    if(store&&store.currentWork&&auth.targetUser){
         work=store.currentWork;
-        authorName=work.authorName;
-        // workstore.loadJSON(work.content);
     }
     else if(store){
-        store.setCurrentWork(id);
-        work=store.currentWork;
+        
+        store.readWork(id);
     }
 
-    if(auth.targetUser) {authorName=auth.targetUser.profile["userName"];}
     
     let user="";
     if(auth&&auth.loggedIn){
         user=auth.user;  
     }
-    
+  
     
    
     let buttonDisable=true;
@@ -171,7 +167,7 @@ const ReadScreen = () => {
     // };
    
     let comments = "";
-    if(store.currentWork){
+    if(store.currentWork&&work){
         if(work.comments.length>0){  
             comments= work.comments.map((element) => (   
                       <CommentCard comment={element}/>
@@ -198,7 +194,7 @@ const ReadScreen = () => {
         //         <Box><TextField sx={{width:0.9, flexDirection:'row'}} id={"item"+i} class='list-card' name={"item"+i} defaultValue={item}></TextField></Box>
         //     </Box>
         // )
-    if(store&&store.currentWork&&store.currentWork.content&&auth.targetUser)
+    if(store&&store.currentWork&&store.currentWork.content&&auth.targetUser){
     return (
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
                 <Box id="readPage_wordInfo" sx={{position:'relative',height:'20%',display:'flex'}}>
@@ -209,7 +205,7 @@ const ReadScreen = () => {
                     </Box>
                     <Box id='readPage_author' display='flex' sx={{position:'relative',paddingLeft:'5%',height:'100%',width:'40%'}}> 
 
-                    <Box style={{  width:"30%",height:"auto" , borderRadius:"50%" ,backgroundImage: `url(${auth.targetUser.profile.icon})`, backgroundPosition: 'center', backgroundSize: 'cover',
+                    <Box style={{  width:"30%",height:"auto" , borderRadius:"50%" ,backgroundImage: `url(${auth.targetUser.profile['icon']})`, backgroundPosition: 'center', backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat', marginLeft:"1rem"}}>
                     </Box>
                    {/*  <img src={auth.targetUser.profile['icon']}
@@ -219,7 +215,7 @@ const ReadScreen = () => {
                         <Box id='readPage_author_text' sx={{position:'relative',height:'100%',width:'100%'}}>    
                             <Box id='readPage_author_name' sx={{position:'relative',textAlign:'center',width:'100%',height:'50%'}}>
                                 <Typography component="h1" variant="h5" >
-                                {authorName}
+                                {auth.targetUser.profile["userName"]}
                                 </Typography> 
                             </Box>
                             <Button color={followButtonColor} disabled={buttonDisable} onClick={handleFollow} variant="outlined" id='readPage_author_follow' sx={{position:'relative',marginLeft:'20%',width:'60%'}}>{followOption}</Button>
@@ -272,7 +268,7 @@ const ReadScreen = () => {
                 </Box>   
         </Box>
        
-    );
+    );}
     else return <Box>no work found</Box>;
 }
 

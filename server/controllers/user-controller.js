@@ -301,12 +301,16 @@ updateUserIcon =async (req,res) => {
 
 
         let user=await User.findOne({ _id: req.body._id })
+        if(!user)  { return res.status(404).json({
+            success: false,
+            errorMessage: 'User data not updated!'})}
+        
         user.profile.icon=file.path;
-        user.profile.userName=req.body.usenName;
+        user.profile.userName=req.body.userName;
         user.profile.age=req.body.age;
         user.profile.gender=req.body.gender;
         user.profile.myStatement=req.body.myStatement;
-     
+        
 
         await user.save()
             .then(() => { 

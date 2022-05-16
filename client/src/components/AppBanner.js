@@ -95,7 +95,8 @@ export default function AppBanner() {
             
     }
 
-    const handleCreate = () => {
+    const handleCreate = (event) => {
+        event.stopPropagation();
         if(store.status === 0 || store.status === 1)
         {  
             //editToolbar= <CreatePageBanner/>
@@ -185,7 +186,7 @@ export default function AppBanner() {
                 if(store.status===0) {createUrl=story_create}
                 else if(store.status===1) {createUrl=comic_create};
                 editToolbar=
-                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px'}}>
+                <IconButton variant="outlined" onClick={(event)=>handleCreate(event)} sx={{top:'5px',height:'50px',width:'100px'}}>
                          <img src={createUrl}
                          alt=""
             height='32'
@@ -196,7 +197,7 @@ export default function AppBanner() {
     }
     
     function getAccountMenu(loggedIn) {
-        
+        console.log(loggedIn);
         if(loggedIn){
             if (auth.user.profile.icon === "") {
                 let lastname=auth.user.lastName.substring(0,1).toUpperCase();
