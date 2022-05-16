@@ -5,10 +5,9 @@ import AuthContext from '../auth';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import WorkCard from './WorkCard'
 import Avatar from '@mui/material/Avatar';
-import { maxHeight } from '@mui/system';
+import DeleteButton from '../Images/delete.png';
 
 export default function Card(props) {
     const { store } = useContext(GlobalStoreContext);
@@ -54,8 +53,9 @@ export default function Card(props) {
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={(event) => {
                         handleDelete(event, prop._id)
-                    }} aria-label='delete'>
-                        <DeleteIcon style={{fontSize:'48pt'}} />
+                    }} aria-label='delete' sx={{ width: "100%", height: "100%",  
+                    backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
+                        <img src={DeleteButton} alt="" height='100%' width='10%'></img>
                     </IconButton>
                 </Box>
             </ListItem>
