@@ -21,7 +21,7 @@ const style = {
     left: '68%',
     width: 300,
     minHeight:200,
-    maxHeight:600,
+    maxHeight:500,
     overflowY: 'auto',
     bgcolor:'#FCF3CF',
     border: '1px solid #000',
