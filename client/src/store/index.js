@@ -468,6 +468,18 @@ function GlobalStoreContextProvider(props) {
             });
         }
     }
+    store.publishWork = async function () {   
+        const response = await api.updateWorkById(store.currentWork._id, store.currentWork);
+        if (response.data.success) {
+            storeReducer({
+                type: GlobalStoreActionType.SET_CURRENT_WORK,
+                payload: response.data.work
+            });  
+            history.push(`/read/${store.currentWork._id}`);
+        }
+    }
+  
+  
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING AN ITEM
     store.setIsEditActive = function () {
         storeReducer({

@@ -12,7 +12,7 @@ import MypageWorkCard from './MypageWorkCard';
 export default function MyPage () {
     const { auth } = useContext(AuthContext);
     const {store} = useContext(GlobalStoreContext);
-    const [text,setText]=useState("");
+    // const [text,setText]=useState("");
     //const user = auth.searchUser(auth.user)
     let list="";
     let selectbar="";
@@ -138,7 +138,7 @@ export default function MyPage () {
         <Box bgcolor="" display="flex" sx={{height:'85%',width:'100%'}}>
             <MypageSidebar></MypageSidebar>
             <div id="content">    
-            <TextField id="myPage-search" fullWidth value={text} onChange={e => setText(e.target.value)}/>
+            {/* <TextField id="myPage-search" fullWidth value={text} onChange={e => setText(e.target.value)}/> */}
                 <Box id="mypage-list" sx={{overflowY:'auto'}}>
                     {selectbar}
                     {list}

@@ -401,7 +401,7 @@ input {
   width: 80%;
   height: 100%;
   flex-direction: column;
-  padding: 5px;
+  padding: 0;
   background-color: #f9f9e7;
 }
 #mypage-search {
@@ -416,7 +416,7 @@ input {
   border-radius:5px;
   top:10%;
   left:0%;
-  height:90%;
+  height:100%;
   width:100%;
   background-color: #f2f1d5;
 }
