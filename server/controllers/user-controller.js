@@ -6,7 +6,6 @@ const sendEmail = require("../utils/email/sendEmail");
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const  upload  = require ('../Cloudinary/multer')
-const { Console } = require('console');
 
 getLoggedIn = async (req, res) => {
     try {
@@ -29,7 +28,7 @@ getLoggedIn = async (req, res) => {
                 comicLibrary:loggedInUser.comicLibrary,
                 like: loggedInUser.like,
                 dislike: loggedInUser.dislike,
-                alarm: loggedInUser.alarm,
+                notification: loggedInUser.notification,
                 profile: loggedInUser.profile
             }
             })
@@ -93,33 +92,23 @@ registerUser = async (req, res) => {
                 lastName: lastName,
                 email: email,
                 friends: [],
-                follwoing: [],
+                following: [],
                 follower: [],
                 message: [],
                 works: [],
                 comicLibrary: [],
                 like: [],
                 dislike: [],
-                alarm: [],
-                profile: {},
+                notification:[],
+                profile: {"age": 0,
+                "gender": "N/A",
+                "userName": firstName,
+                "myStatement":"Stay Hungry, Stay Foolish",
+                "icon": ""
+                    },
                 passwordHash: passwordHash
         });
 
-        newUser.friends= [],
-        newUser.following= [],
-        newUser.follower= [],
-        newUser.message= [],      
-        newUser.works= [],      
-        newUser.comicLibrary=[],
-        newUser.like= [],
-        newUser.dislike= [],
-        newUser.alarm= [],
-        newUser.profile= {"age": 0,
-                        "gender": "N/A",
-                        "userName": newUser.firstName,
-                        "myStatement":"Stay Hungry, Stay Foolish",
-                        "icon": ""
-                    }
     
         const savedUser = await newUser.save();
 
@@ -145,7 +134,7 @@ registerUser = async (req, res) => {
                 comicLibrary:savedUser.comicLibrary,
                 like: savedUser.like,
                 dislike: savedUser.dislike,
-                alarm: savedUser.alarm,
+                notification: savedUser.notification,
                 profile: savedUser.profile
             }
         }).send();
@@ -211,7 +200,7 @@ loginUser = async (req, res) => {
                 comicLibrary: existingUser.comicLibrary,
                 like:  existingUser.like,
                 dislike:  existingUser.dislike,
-                alarm: existingUser.alarm,
+                notification: existingUser.notification,
                 profile:  existingUser.profile
             }
         }).send();
@@ -310,21 +299,20 @@ updateUserIcon =async (req,res) => {
         })
     }
 
-    console.log(file.path)
 
-    User.findOne({ _id: req.body._id }, (err, user) => {
+        let user=await User.findOne({ _id: req.body._id })
+        if(!user)  { return res.status(404).json({
+            success: false,
+            errorMessage: 'User data not updated!'})}
         
-        if (err) {
-            return res.status(404).json({
-                success: false,
-                errMessage: 'User not found!'
-            })
-        }
+        user.profile.icon=file.path;
+        user.profile.userName=req.body.userName;
+        user.profile.age=req.body.age;
+        user.profile.gender=req.body.gender;
+        user.profile.myStatement=req.body.myStatement;
         
-        user.profile.icon=file.path
-        console.log(user)
 
-        user.save()
+        await user.save()
             .then(() => { 
                 return res.status(200).json({
                     success: true,
@@ -340,7 +328,6 @@ updateUserIcon =async (req,res) => {
                     message: 'User data not updated!'
                 })
             })
-    })
 }
 
 updateUser =async (req,res) => {
@@ -354,7 +341,7 @@ updateUser =async (req,res) => {
         })
     }
 
-    User.findOne({ _id: body._id }, (err, user) => {
+    await User.findOne({ _id: body._id }, async(err, user) => {
         
         if (err) {
             return res.status(404).json({
@@ -376,7 +363,7 @@ updateUser =async (req,res) => {
         user.notification=body.notification;
         user.profile=body.profile;
         
-        user.save()
+        await user.save()
             .then(() => {
                 console.log(" updated user SUCCESS!!!");
                 return res.status(200).json({

@@ -402,7 +402,7 @@ input {
   height: 100%;
   flex-direction: column;
   padding: 5px;
-  background-color: #C7CA3D;
+  background-color: #f9f9e7;
 }
 #mypage-search {
   border-radius: 5px;
@@ -418,7 +418,7 @@ input {
   left:0%;
   height:90%;
   width:100%;
-  background-color: #ca6e3d;
+  background-color: #f2f1d5;
 }
 #work-published{
   top:15%;

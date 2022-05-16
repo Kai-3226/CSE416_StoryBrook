@@ -356,10 +356,16 @@ function GlobalStoreContextProvider(props) {
     store.deleteWork = async function (WorkToDelete) {
         let response = await api.deleteWorkById(WorkToDelete);
         if (response.data.success) {
+            for (let s =0;s<store.workList.length;s++)
+            {   if(store.workList[s]._id===WorkToDelete)
+                {
+                    store.workList.splice(s,1);
+                }
+            }
             store.closeCurrentWork();
             // delete the work from user's works array
             for (let i =0;i<auth.user.works.length;i++)
-            {   if(auth.works[i]===WorkToDelete)
+            {   if(auth.user.works[i]===WorkToDelete)
                 {
                     auth.user.works.splice(i,1);
                     auth.updateUser();
@@ -406,9 +412,8 @@ function GlobalStoreContextProvider(props) {
         }
     }
     store.readWork = async function (id) {     
-        console.log(id);
+        console.log("read work:"+id);
         let response = await api.getWorkById(id);
-        console.log(response);
         if (response.data.success) {
             let work = response.data.work;
             work.view=work.view+1;
@@ -419,6 +424,7 @@ function GlobalStoreContextProvider(props) {
                     type: GlobalStoreActionType.SET_CURRENT_WORK,
                     payload: work                      
                 });  
+                auth.setTargetUser(work.authorId);
             }
             if(work)
             {

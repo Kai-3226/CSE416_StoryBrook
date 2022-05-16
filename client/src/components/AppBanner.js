@@ -73,8 +73,12 @@ export default function AppBanner() {
             setTargetPage("myPage")
         }
         else {
-            handleMenuClose();
-            history.push('/myPage')
+            if(store.status===0||store.status===1)
+            {handleMenuClose();
+            history.push('/myPage')}
+            else {
+                alert("Pick one type story first ^0^.")
+            }
         }
             
     }
@@ -91,7 +95,8 @@ export default function AppBanner() {
             
     }
 
-    const handleCreate = () => {
+    const handleCreate = (event) => {
+        event.stopPropagation();
         if(store.status === 0 || store.status === 1)
         {  
             //editToolbar= <CreatePageBanner/>
@@ -181,7 +186,7 @@ export default function AppBanner() {
                 if(store.status===0) {createUrl=story_create}
                 else if(store.status===1) {createUrl=comic_create};
                 editToolbar=
-                <IconButton variant="outlined" onClick={handleCreate} sx={{top:'5px',height:'50px',width:'100px'}}>
+                <IconButton variant="outlined" onClick={(event)=>handleCreate(event)} sx={{top:'5px',height:'50px',width:'100px'}}>
                          <img src={createUrl}
                          alt=""
             height='32'
@@ -192,7 +197,7 @@ export default function AppBanner() {
     }
     
     function getAccountMenu(loggedIn) {
-        
+        console.log(loggedIn);
         if(loggedIn){
             if (auth.user.profile.icon === "") {
                 let lastname=auth.user.lastName.substring(0,1).toUpperCase();
@@ -221,12 +226,14 @@ export default function AppBanner() {
     else if(store.status===1) {imageUrl=logo_comic};
 
     const [showNotification, setShowNotification] = useState(false)
-    const handleNotification = () => setShowNotification(!showNotification)
+    const handleNotification = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setShowNotification(!showNotification)}
 
     let notificationButton = "";
     let notificationSection = "";
     
-    console.log(auth.loggedIn);
     if (auth.loggedIn === true && (store.status===0||store.status===1)){
         console.log(auth.user);
         if (auth.user.notification.length === 0){
@@ -236,17 +243,17 @@ export default function AppBanner() {
         }
         notificationSection = 
         <div>
-            <IconButton onClick={(event) => {handleNotification()}} sx={{ width: "50px", height: "50px",  
+            <IconButton onClick={(event) => {handleNotification(event)}} sx={{ width: "50px", height: "50px",  
             backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
-                <img src={notificationButton} height='32' width='32'></img>
+                <img src={notificationButton} alt="" height='32' width='32'></img>
             </IconButton>
             { showNotification ? <NotificationModal/> : null }
         </div>
     }
 
    if(store)
-    banner= <Box sx={{ flexGrow: 1 }} >
-            <AppBar position="static">
+    banner= <Box sx={{ flexGrow: 1,width:"100%",height:"10%"}} >
+            <AppBar position="fixed">
                 <Toolbar sx={{bgcolor:"#e0e0e0"}}>
                     {/* <Typography                        
                         variant="h4"

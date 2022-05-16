@@ -50,22 +50,23 @@ function MypageWorkCard(props) {
    
     
     let response=url;
+    if(work.workType===1&&work.published.publish===true) {response=work.content[0]}
     if(work.workType===0) {response=bookUrl};
 
     let workElement =
-        <Box key={work.id} sx={{ bgcolor:"red",position:"relative",width:"30%",height:"60%",marginLeft:"10%",marginTop:"2%",marginBottom:"2.5%",mr:"5%" }}> 
+        <Box key={work.id} sx={{position:"relative",width:"30%",height:"50%",marginLeft:"10%",marginTop:"2%",marginBottom:"2.5%",mr:"5%" }}> 
            
         <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"100%",height:"60%"}} onClick={(event) => {handleOpen(event, work._id)}}>
            <Box display= "flex" sx={{bgcolor:"lightgrey",position:"absolute",height:"10%",borderRadius:"0.1cm",alignItems:'center'}}> {deletebutton}{publishflag}  </Box>
             <CardMedia
                 component="img"
-                height="70%"
-                width="100%"
+                height="140"
+                width="auto"
                 image= {response}
                 alt= {work.name}
             />
            
-                <Box display="flex" sx={{bgcolor:"lightgreen",position:"relative",width:"100%",height:"20%",justifyContent: 'space-between'}}> 
+                <Box display="flex" sx={{bgcolor:"lightblue",position:"relative",width:"100%",height:"20%",justifyContent: 'space-between'}}> 
                     <Box  sx={{bgcolor:"",position:"relative",width:"30%"}}>
                     <Typography sx={{justifyContent:'center'}}>
                         {work.name}
