@@ -8,10 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import thumbup from '../Images/thumbup.png'
+import view from '../Images/view.png'
+
 
 
 function WorkCard(props) {
@@ -61,13 +62,13 @@ function WorkCard(props) {
                 let lastname=auth.userList[i].lastName.substring(0,1).toUpperCase();
                 let firstname=auth.userList[i].firstName.substring(0,1).toUpperCase();
                 icon = 
-                    <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                    <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm"}}>
                         {firstname+lastname}
                     </Avatar>
                 ;
             } else {
                 icon = 
-                    <Avatar alt={work.author} src={auth.userList[i].profile.icon} />
+                    <Avatar alt={work.author} src={auth.userList[i].profile.icon} sx={{marginRight: '5%'}} />
                 ;
             }
         }
@@ -80,23 +81,28 @@ function WorkCard(props) {
             <CardMedia
                 component="img"
                 height="140"
+                width="auto"
                 image= {response}
                 alt= {work.name}
             />
            
-                <Box display="flex" sx={{bgcolor:"#C39BD3",position:"relative",width:"100%",height:"25%"}}> 
-                <Typography paddingRight="20%" >
-                    {work.name}
-                </Typography>
-                <RemoveRedEyeIcon></RemoveRedEyeIcon>
-                <Typography >
-                    {work.view}
-                </Typography>
-                <ThumbUpIcon size='20%'></ThumbUpIcon>
-                <Typography>
-                    {work.likes.length}
-                </Typography>
-                {icon}
+                <Box display="flex" sx={{bgcolor:"#C39BD3",position:"relative",width:"100%",height:"12.5%",justifyContent: 'space-between'}}> 
+                    <Box sx={{position:"relative",width:"30%"}}>
+                      <Typography sx={{p: 1, flexGrow: 1,fontSize: "25px", fontFamily: "Comic Sans MS",marginLeft: "3%"}}>
+                          {work.name}
+                      </Typography>
+                    </Box>
+                    <Box sx={{position:"relative",width:"45%",display:"flex", paddingTop:'2%'}}>
+                        <img src={view} alt="" height='75%' width='20%'></img>
+                        <Typography sx={{marginLeft: '5%', marginRight: '5%', fontSize: "25px", fontFamily: "Comic Sans MS"}} >
+                            {work.view}
+                        </Typography>
+                        <img src={thumbup} alt="" height='75%' width='17.5%'></img>
+                        <Typography sx={{marginLeft: '5%', marginRight: '5%', fontSize: "25px", fontFamily: "Comic Sans MS"}}>
+                            {work.likes.length}
+                        </Typography>
+                        {icon}
+                    </Box>
                 </Box>
         </Card>
     return (
