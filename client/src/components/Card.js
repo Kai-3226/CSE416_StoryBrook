@@ -20,6 +20,7 @@ export default function Card(props) {
     }
     let cardElement =""
     const prop = props.props;
+    
     if (store.mode==="followings"){
         console.log(user);
         cardElement =

@@ -269,7 +269,7 @@ const ReadScreen = () => {
         </Box>
        
     );}
-    else return <Box>no work found</Box>;
+    else return <Box fontSize="50px">Loading</Box>;
 }
 
 export default ReadScreen;

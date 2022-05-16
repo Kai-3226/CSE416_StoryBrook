@@ -18,10 +18,10 @@ const HomeScreen = () => {
     const history = useHistory();
     
     let showCases=<CarouselItem></CarouselItem>;
-    if(store.workList&&store.userList)
+    if(store.workList)
         {   let mylist=[]
             mylist = store.workList.filter(item => item.published["publish"] === true&&item.workType===store.status);
-            mylist=mylist.slice(mylist.length-5,mylist.length);
+            mylist=mylist.slice(mylist.length-3,mylist.length);
             showCases= mylist.map((item,index)=>
                 <CarouselItem key={"CarouselItem"+index} item={item}>
                 {item.content[0]}

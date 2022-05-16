@@ -423,14 +423,15 @@ function AuthContextProvider(props) {
             if(response.data.success){
                 
                 let user=response.data.user;
-               
+                console.log(user.email);
                 user.follower.push(auth.user._id);
+                console.log(user);
                 const res=await api.updateUser(user);
                 if(res.data.success){
                     
-                    const response = await api.getUserbyId(auth.user._id);
-                    if(response.data.success){
-                        let newUser=response.data.user;
+                    const respons = await api.getUserbyId(auth.user._id);
+                    if(respons.data.success){
+                        let newUser=respons.data.user;
                       
                         newUser.following.push(authorId);
                         const respon=await api.updateUser(newUser);
@@ -438,7 +439,7 @@ function AuthContextProvider(props) {
                             console.log("following successfully");
                             authReducer({
                                 type: AuthActionType.LOGIN_USER,
-                                payload:response.data.user
+                                payload:respon.data.user
                             })
                         }
                     }
@@ -542,14 +543,13 @@ function AuthContextProvider(props) {
         }
     }
 
-    auth.sendNotification=async function(workId, workType, workName){
+    auth.sendNotification=async function(workId, workType){
         try{
             console.log(auth.user);
             let notification = {"userId": auth.user._id,
                                 "userName": auth.user.profile.userName, 
                                 "workId": workId,
-                                "workType": workType,
-                                "workName": workName};
+                                "workType": workType};
             console.log(notification);    
             for(let i=0; i<auth.user.follower.length; i++){
                 const response = await api.getUserbyId(auth.user.follower[i]);
