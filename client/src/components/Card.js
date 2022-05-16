@@ -5,10 +5,9 @@ import AuthContext from '../auth';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import WorkCard from './WorkCard'
 import Avatar from '@mui/material/Avatar';
-import { maxHeight } from '@mui/system';
+import DeleteButton from '../Images/delete.png';
 
 export default function Card(props) {
     const { store } = useContext(GlobalStoreContext);
@@ -47,15 +46,17 @@ export default function Card(props) {
     if (store.mode==="followings"){
         console.log(user);
         cardElement =
+            
             <ListItem sx={{height: '100px', bgcolor: "#CE8FE7",borderRadius:"0.5cm", width: "97.5%",marginLeft: "1%"}}>
                 {icon}
-                <Box sx={{ p: 1, flexGrow: 1, color:"white", fontSize: "50px", fontFamily: "Comic Sans MS" }}>{prop.profile.userName}</Box>
-                <Box sx={{ p: 1, flexGrow: 1, color:"#F9E79F", fontSize: "50px", fontFamily: "Comic Sans MS" }}>"{prop.profile.myStatement}"</Box>
+                <Box sx={{ p: 1, flexGrow: 1, color:"white", fontSize: "50px", fontFamily: "Comic Sans MS",marginLeft: "3%" }}>{prop.profile.userName}</Box>
+                <Box sx={{ p: 1, flexGrow: 1, color:"#F9E79F", fontSize: "50px", fontFamily: "Comic Sans MS",marginLeft: "15%" }}>"{prop.profile.myStatement}"</Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={(event) => {
                         handleDelete(event, prop._id)
-                    }} aria-label='delete'>
-                        <DeleteIcon style={{fontSize:'48pt'}} />
+                    }} aria-label='delete' sx={{ width: "10%", height: "100%",  
+                    backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer", marginLeft: "80%"}}>
+                        <img src={DeleteButton} alt="" height='100%' width='100%'></img>
                     </IconButton>
                 </Box>
             </ListItem>
