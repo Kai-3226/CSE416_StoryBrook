@@ -46,7 +46,7 @@ export default function Profile(){
         event.preventDefault();
         history.push("/")
     }
-
+    if(auth.loggedIn)
     return (
         <>
         <div style={{display:"flex", width:"100%" ,alignItems:"center", background:"rgba(209, 247, 255, 1)"}}>
@@ -166,4 +166,10 @@ export default function Profile(){
         <Copyright/>
         </>
     );
+    else return (  <>
+        <div style={{display:"flex", width:"100%",fontSize:"50px",height:"100%", background:"rgba(209, 247, 255, 1)"}}>
+        LOADING
+        </div>
+        <Copyright/>
+        </>)
 }
