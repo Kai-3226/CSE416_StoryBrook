@@ -543,14 +543,15 @@ function AuthContextProvider(props) {
         }
     }
 
-    auth.sendNotification=async function(workId, workType, workName){
+    auth.sendNotification=async function(workId, workType,workName){
         try{
             console.log(auth.user);
             let notification = {"userId": auth.user._id,
                                 "userName": auth.user.profile.userName, 
                                 "workId": workId,
                                 "workType": workType,
-                                "workName": workName};
+                                "workName": workName
+                            };
             console.log(notification);    
             for(let i=0; i<auth.user.follower.length; i++){
                 const response = await api.getUserbyId(auth.user.follower[i]);

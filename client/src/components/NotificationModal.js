@@ -17,13 +17,13 @@ import NotificationCard from './NotificationCard';
 
 const style = {  
     position: 'fixed',
-    top: '5%',
-    left: '65%',
+    top: '4%',
+    left: '68%',
     width: 300,
-    minHeight:100,
-    maxHeight:500,
+    minHeight:200,
+    maxHeight:600,
     overflowY: 'auto',
-    bgcolor:'white',
+    bgcolor:'#FCF3CF',
     border: '1px solid #000',
     borderRadius:'0.25cm',
     zIndex:'1',
@@ -71,7 +71,7 @@ function NotificationModal() {
      
         <Box sx={style}  >  
             <Box id="NotificationModal_banner" sx={{position:'relative',width:'100%',height:40,borderBottom:'1px solid #000',marginBottom:0.5}}>
-            <Typography component="h1" variant="h4"  color="black">
+            <Typography component="h1" variant="h4"  color="black" fontFamily="Comic Sans MS">
               Notification
             </Typography> 
             </Box>

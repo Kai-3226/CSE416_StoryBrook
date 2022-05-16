@@ -4,10 +4,10 @@ import AuthContext from '../auth';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Avatar from '@mui/material/Avatar';
 import Cards from '@mui/material/Card';
+import thumbup from '../Images/thumbup.png'
+import view from '../Images/view.png'
 
 export function Card(props) {
   const { store } = React.useContext(GlobalStoreContext);
@@ -32,20 +32,20 @@ export function Card(props) {
             let lastname=auth.userList[i].lastName.substring(0,1).toUpperCase();
             let firstname=auth.userList[i].firstName.substring(0,1).toUpperCase();
             icon = 
-                <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm"}}>
                     {firstname+lastname}
                 </Avatar>
             ;
         } else {
             icon = 
-                <Avatar alt={work.author} src={auth.userList[i].profile.icon} />
+                <Avatar alt={work.author} src={auth.userList[i].profile.icon} sx={{marginRight: '5%'}} />
             ;
         }
     }
     }
   
   return (
-    <Cards  hoverable="true" sx={{width:"20vw",height:"38vh",marginLeft:"4vw", userSelect: "none" }} 
+    <Cards  hoverable="true" sx={{width:"55%",height:"99%",marginLeft:"10%", userSelect: "none" ,borderRadius:"0.5cm"}} 
       role="button"
       
       // sx={{
@@ -62,29 +62,28 @@ export function Card(props) {
     >
        <CardMedia
                 component="img"
-                height="80%"
+                height="200"
                 image= {response}
                 alt= {work.name}
             />
                 <Box display="flex" sx={{bgcolor:"#C39BD3",position:"relative",width:"100%",height:"20%",justifyContent: 'space-between'}}> 
-                    <Box  sx={{bgcolor:"",position:"relative",width:"30%"}}>
-                    <Typography sx={{justifyContent:'center'}}>
-                        {work.name}
-                    </Typography>
+                    <Box sx={{position:"relative",width:"30%"}}>
+                      <Typography sx={{p: 1, flexGrow: 1,fontSize: "25px", fontFamily: "Comic Sans MS",marginLeft: "3%"}}>
+                          {work.name}
+                      </Typography>
                     </Box>
-                    <Box sx={{display:"flex",alignContent:'center'}}>
-                        <RemoveRedEyeIcon></RemoveRedEyeIcon>
-                        <Typography >
+                    <Box sx={{position:"relative",width:"55%",display:"flex", paddingTop:'2%'}}>
+                        <img src={view} alt="" height='75%' width='20%'></img>
+                        <Typography sx={{marginLeft: '5%', marginRight: '5%', fontSize: "25px", fontFamily: "Comic Sans MS"}} >
                             {work.view}
                         </Typography>
-                        <ThumbUpIcon size='20%'></ThumbUpIcon>
-                        <Typography>
+                        <img src={thumbup} alt="" height='75%' width='17.5%'></img>
+                        <Typography sx={{marginLeft: '5%', marginRight: '5%', fontSize: "25px", fontFamily: "Comic Sans MS"}}>
                             {work.likes.length}
                         </Typography>
                         {icon}
                     </Box>
                 </Box>
-
     </Cards>
   );
 }
