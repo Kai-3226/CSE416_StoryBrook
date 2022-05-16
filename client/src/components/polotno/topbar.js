@@ -131,7 +131,7 @@ export default observer(({ workstore }) => {
     
     store.currentWork.published={publish:true,date:Date()};
     console.log("send not");
-    auth.sendNotification(store.currentWork._id, store.currentWork.workType);
+    auth.sendNotification(store.currentWork._id, store.currentWork.workType, store.currentWork.name);
     store.updateCurrentWork();
     history.push(`/read/${store.currentWork._id}`);
     alert("Work is published");
