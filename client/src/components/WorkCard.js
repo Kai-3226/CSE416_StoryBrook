@@ -22,7 +22,6 @@ function WorkCard(props) {
 
     function handleOpen(event, id){
         event.stopPropagation();
-        console.log(id);
         store.readWork(id);
         auth.setTargetUser(work.authorId);
        

@@ -14,29 +14,36 @@ export default function Profile(){
     const history = useHistory();
     const fileUploaderRef = useRef();
 
-    console.log(auth.user.profile.icon)
-    const fileUploadOnClick = (event)=>{
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append("icon",fileUploaderRef.current.files[0])
-        formData.append("_id",auth.user._id)
-        auth.updateUserIcon(formData);
-    }
+    // console.log(auth.user.profile.icon)
+    // const fileUploadOnClick = (event)=>{
+    //     event.preventDefault();
+    //     const formData = new FormData();
+    //     formData.append("icon",fileUploaderRef.current.files[0])
+    //     formData.append("_id",auth.user._id)
+    //     auth.updateUserIcon(formData);
+    // }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        auth.user.profile.age = formData.get('age')
-        auth.user.profile.gender=formData.get('gender')
-        auth.user.profile.userName=formData.get('userName')
-        auth.user.profile.myStatement=formData.get('myStatement')
-        auth.updateUser();
-        history.push("/")
+        if(!fileUploaderRef.current.files[0]) {
+            auth.user.profile.age = formData.get('age')
+            auth.user.profile.gender=formData.get('gender')
+            auth.user.profile.userName=formData.get('userName')
+            auth.user.profile.myStatement=formData.get('myStatement')
+            auth.updateUser();
+        }
+        else{
+            formData.append("icon",fileUploaderRef.current.files[0])
+            formData.append("_id",auth.user._id)
+            auth.updateUserIcon(formData);
+        }
+        alert("user profile data updated");
+        history.push("/");
     };
 
     const handleCancel = (event) => {
         event.preventDefault();
-        auth.getLoggedIn();
         history.push("/")
     }
 
@@ -54,13 +61,13 @@ export default function Profile(){
                     
                     <Box id="profile-setting">
                         <Box>Main Settings</Box>
-                        <Box style={{width: "40vw", float:"right", marginTop: "10vh", display:"flex", flexDirection:"column", alignItems:"center"}}>
-                        <img alt="Avatar" src={auth.user.profile.icon} style={{width:"50%", height:"auto", borderRadius:"50%"}}>
+                        <Box style={{height:"10vw",width: "10vw", marginTop: "5vh",marginLeft:"5%", display:"flex", flexDirection:"column", alignItems:"center"}}>
+                        <img alt="Avatar" src={auth.user.profile.icon} style={{width:"80%", height:"80%", borderRadius:"50%"}}>
                         </img>
-                            <input type="file"  ref={fileUploaderRef} accept="image/*"/>
-                            <button onClick={(event)=>fileUploadOnClick(event)}>
+                            <input type="file"  ref={fileUploaderRef} accept="image/*"  style={{marginLeft:"50vw"}}/>
+                            {/* <button onClick={(event)=>fileUploadOnClick(event)}>
                                 Upload
-                            </button>
+                            </button> */}
                         </Box>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                             <Grid container spacing={2}>
@@ -127,15 +134,15 @@ export default function Profile(){
                                 </Grid>
                                 <Button 
                                 type="submit"
-                                fullWidth
+                               
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                sx={{ ml:2,mt: 3, mb: 2 }}
                                 >
                                     Save
                                 </Button>
                                 <Button 
                                     onClick={(event) => {handleCancel(event)}}
-                                    fullWidth
+                                   
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >

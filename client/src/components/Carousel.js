@@ -20,6 +20,7 @@ export const CarouselItem = ({ children, width,item }) => {
   
   return (
     <div onClick={(event)=>handleOpen(event)} className="carousel-item" style={{ border:'1px solid black',width: width, backgroundImage: `url(${children})`,  backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat" } }>
+      <div style={{position:"absolute",fontSize: "100px",width:"50%",height:"auto",color:"black",backgroundColor:"lightyellow",bottom:"80%"}}>{"Title: "+item.name}</div>
     </div>
   );
 };

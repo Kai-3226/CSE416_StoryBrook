@@ -6,12 +6,12 @@ import Copyright from './Copyright'
 import Button from '@mui/material/Button';
 import { useContext,useEffect } from 'react';
 import { GlobalStoreContext } from '../store';
-
+import AuthContext from '../auth';
 
 
 export default function SplashScreen() {
     const {store}=useContext(GlobalStoreContext);
-  
+    const {auth} = useContext(AuthContext);
     
     useEffect(() => {
         store.resetStat();
@@ -23,7 +23,7 @@ export default function SplashScreen() {
         event.stopPropagation();
         console.log(status);
         store.stat(status);
-        
+        auth.getUserList();
     }
     
    
