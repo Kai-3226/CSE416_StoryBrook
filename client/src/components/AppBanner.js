@@ -43,7 +43,9 @@ export default function AppBanner() {
         setAnchorEl(null);
     };
 
-    const handleSplashScreen = () => {
+    const handleSplashScreen = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         if(location.pathname.includes("create")){
             setpopUp(true);
             setTargetPage("splash");
@@ -263,7 +265,7 @@ export default function AppBanner() {
                         onClick={()=>{handleSplashScreen()}}                  
                     > */}
                         <Box position="relative" sx={{ display:"flex", width:"10%",height:"100%",alignItems:"center", flexDirection:"column"}}>
-                        <Button onClick={(event) => {handleSplashScreen()}} sx={{ width: "200px", height: "50px", backgroundImage:`url(${imageUrl})`, 
+                        <Button onClick={(event) => {handleSplashScreen(event)}} sx={{ width: "200px", height: "50px", backgroundImage:`url(${imageUrl})`, 
                         backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
                         </Button>
                         </Box>

@@ -48,7 +48,6 @@ function MypageWorkCard(props) {
     var url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGvVjITwe377mswrgJw8klsFzO3KT8dmbaeg&usqp=CAU";
     var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
    
-    
     let response=url;
     if(work.workType===1&&work.published.publish===true) {response=work.content[0]}
     if(work.workType===0) {response=bookUrl};
@@ -57,7 +56,7 @@ function MypageWorkCard(props) {
         <Box key={work.id} sx={{position:"relative",width:"30%",height:"50%",marginLeft:"10%",marginTop:"2%",marginBottom:"2.5%",mr:"5%" }}> 
            
         <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"100%",height:"60%"}} onClick={(event) => {handleOpen(event, work._id)}}>
-           <Box display= "flex" sx={{bgcolor:"lightgrey",position:"absolute",height:"10%",borderRadius:"0.1cm",alignItems:'center'}}> {deletebutton}{publishflag}  </Box>
+           <Box display= "flex" sx={{bgcolor:"lightgrey",position:"absolute",height:"10%",borderRadius:"0.1cm",alignItems:'center',paddingRight:"5%"}}> {deletebutton}{publishflag}  </Box>
             <CardMedia
                 component="img"
                 height="140"
