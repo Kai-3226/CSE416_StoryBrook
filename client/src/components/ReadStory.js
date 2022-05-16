@@ -116,6 +116,7 @@ const ReadStory = () => {
     const handleFollow = (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if(user._id===work.authorId) {alert("you cant follow youself")};
         if(auth.loggedIn&&!user.following.includes(work.authorId)&&user._id!==work.authorId) //haven't followed yet so follow it
            {followOption="unfollow";
             followButtonColor="success";

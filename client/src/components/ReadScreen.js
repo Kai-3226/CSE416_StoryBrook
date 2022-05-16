@@ -127,7 +127,7 @@ const ReadScreen = () => {
         console.log(auth.loggedIn);
         event.preventDefault();
         event.stopPropagation();
-        if(user._id===work.authorId) {console.log("you cant follow youself")};
+        if(user._id===work.authorId) {alert("you cant follow youself")};
         if(auth.loggedIn&&!user.following.includes(work.authorId) &&user._id!==work.authorId) //haven't followed yet so follow it
            {console.log("follow");
             followOption="unfollow";
