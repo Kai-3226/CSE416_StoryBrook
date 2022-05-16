@@ -562,6 +562,7 @@ function AuthContextProvider(props) {
                     const respon = await api.updateUser(user);
                     if(respon.data.success){
                         console.log("notification send successfully");
+                        console.log(respon.data.user);
                     }
                 }
             }
