@@ -53,6 +53,14 @@ function WorkCard(props) {
     let response="";
     if(work.workType===1) {response=work.content[0];}
     if(work.workType===0) {response=bookUrl};
+
+    let icon = "";
+    for (let i = 0; i < auth.userList.length; i++){
+        if (work.authorId === auth.userList[i]._id){
+            icon = auth.userList[i].profile.icon;
+        }
+    }
+    console.log("abcccccccccccccccc");
   
     
     let workElement =
@@ -77,7 +85,7 @@ function WorkCard(props) {
                 <Typography>
                     {work.likes.length}
                 </Typography>
-                <Avatar alt={work.author} src={work.avatar} />
+                <Avatar alt={work.author} src={icon} />
                 </Box>
         </Card>
     return (
