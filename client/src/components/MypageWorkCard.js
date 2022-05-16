@@ -52,6 +52,13 @@ function MypageWorkCard(props) {
     if(work.workType===1&&work.published.publish===true) {response=work.content[0]}
     if(work.workType===0) {response=bookUrl};
 
+    let icon = "";
+    for (let i = 0; i < auth.userList.length; i++){
+        if (work.authorId === auth.userList[i]._id){
+            icon = auth.userList[i].profile.icon;
+        }
+    }
+
     let workElement =
         <Box key={work.id} sx={{position:"relative",width:"30%",height:"50%",marginLeft:"10%",marginTop:"2%",marginBottom:"2.5%",mr:"5%" }}> 
            
@@ -80,7 +87,7 @@ function MypageWorkCard(props) {
                         <Typography>
                             {work.likes.length}
                         </Typography>
-                        <Avatar alt={work.author} src={work.avatar} />
+                        <Avatar alt={work.author} src={icon} />
                     </Box>
                 </Box>
         </Card>

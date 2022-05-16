@@ -133,6 +133,7 @@ export default observer(({ workstore }) => {
     console.log("send not");
     auth.sendNotification(store.currentWork._id, store.currentWork.workType);
     store.publishWork();
+
     alert("Work is published");
   };
 
