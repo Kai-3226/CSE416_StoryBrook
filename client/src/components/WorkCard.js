@@ -60,6 +60,7 @@ function WorkCard(props) {
             icon = auth.userList[i].profile.icon;
         }
     }
+    console.log("abcccccccccccccccc");
   
     
     let workElement =

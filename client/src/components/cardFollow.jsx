@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalStoreContext } from '../store'
-
+import AuthContext from '../auth';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -11,7 +11,7 @@ import Cards from '@mui/material/Card';
 
 export function Card(props) {
   const { store } = React.useContext(GlobalStoreContext);
-  
+  const { auth } = React.useContext(AuthContext);
   const { work } = props;
   
   var bookUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf9kvIzoVAbJmLgv5k6kHQj6czGK0V0Qew1w&usqp=CAU";
@@ -24,6 +24,13 @@ export function Card(props) {
     console.log(id);
     store.readWork(id);
   }
+
+  let icon = "";
+    for (let i = 0; i < auth.userList.length; i++){
+        if (work.authorId === auth.userList[i]._id){
+            icon = auth.userList[i].profile.icon;
+        }
+    }
   
   return (
     <Cards  hoverable="true" sx={{width:"20vw",height:"38vh",marginLeft:"4vw", userSelect: "none" }} 
@@ -62,7 +69,7 @@ export function Card(props) {
                         <Typography>
                             {work.likes.length}
                         </Typography>
-                        <Avatar alt={work.author} src={work.avatar} />
+                        <Avatar alt={work.author} src={icon} />
                     </Box>
                 </Box>
 
