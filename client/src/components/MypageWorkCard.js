@@ -55,7 +55,19 @@ function MypageWorkCard(props) {
     let icon = "";
     for (let i = 0; i < auth.userList.length; i++){
         if (work.authorId === auth.userList[i]._id){
-            icon = auth.userList[i].profile.icon;
+            if (auth.userList[i].profile.icon === "") {
+                let lastname=auth.userList[i].lastName.substring(0,1).toUpperCase();
+                let firstname=auth.userList[i].firstName.substring(0,1).toUpperCase();
+                icon = 
+                    <Box position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                        {firstname+lastname}
+                    </Box>
+                ;
+            } else {
+                icon = 
+                    <Avatar alt={work.author} src={auth.userList[i].profile.icon} />
+                ;
+            }
         }
     }
 
@@ -87,7 +99,7 @@ function MypageWorkCard(props) {
                         <Typography>
                             {work.likes.length}
                         </Typography>
-                        <Avatar alt={work.author} src={icon} />
+                        {icon}
                     </Box>
                 </Box>
         </Card>
