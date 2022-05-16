@@ -23,6 +23,7 @@ import story_create from '../Images/story_create.png';
 import NotificationModal from './NotificationModal';
 import ringing from '../Images/ringing.png';
 import not_ringing from '../Images/not_ringing.png';
+import Avatar from '@mui/material/Avatar';
 
 
 export default function AppBanner() {
@@ -205,15 +206,13 @@ export default function AppBanner() {
                 let lastname=auth.user.lastName.substring(0,1).toUpperCase();
                 let firstname=auth.user.firstName.substring(0,1).toUpperCase();
                 return(
-                    <Box position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                    <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
                         {firstname+lastname}
-                    </Box>
+                    </Avatar>
                 );
             } else {
                 return(
-                    <Box style={{  width:"40px", height:"40px" , borderRadius:"0.8cm" ,backgroundImage: `url(${auth.user.profile.icon})`, backgroundPosition: 'center', backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat', marginLeft:"1rem"}}>
-                    </Box>
+                    <Avatar alt={auth.user.userName} src={auth.user.profile.icon} />
                 );
             }
             
