@@ -7,19 +7,20 @@ import Copyright from './Copyright'
 import { useHistory } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
+import AuthContext from '../auth';
 
 export default function StoryCreate() {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
     const editorRef = useRef(null);
     const [title,setTitle]=React.useState(store.currentWork.name);
+    const { auth } = useContext(AuthContext);
 
     const handleSave= () => {
         if (editorRef.current) {          
             store.currentWork.name=title;
             store.currentWork.content=editorRef.current.getContent();
             store.updateCurrentWork();
-            console.log(store.currentWork);
             alert("Work is saved");
         }
     };
@@ -30,7 +31,8 @@ export default function StoryCreate() {
             store.currentWork.name=title;
             store.currentWork.content=editorRef.current.getContent();
             store.currentWork.published={publish:true,date:Date()};
-            console.log(store.currentWork);
+            console.log("send not");
+            auth.sendNotification(store.currentWork._id, store.currentWork.workType,store.currentWork.name);
             store.updateCurrentWork();
             history.push(`/readStory/${store.currentWork._id}`);
             alert("Work is published");

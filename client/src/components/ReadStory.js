@@ -116,6 +116,7 @@ const ReadStory = () => {
     const handleFollow = (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if(user._id===work.authorId) {alert("you cant follow youself")};
         if(auth.loggedIn&&!user.following.includes(work.authorId)&&user._id!==work.authorId) //haven't followed yet so follow it
            {followOption="unfollow";
             followButtonColor="success";
@@ -220,7 +221,7 @@ const ReadStory = () => {
         </Box>
        
     );
-    else return <Box>no work found</Box>;
+    else return <Box fontSize="50px">Loading</Box>;
 }
 
 export default ReadStory;

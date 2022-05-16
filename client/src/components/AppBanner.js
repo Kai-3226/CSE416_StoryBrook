@@ -17,7 +17,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import logo_comic from '../Images/logo_comic.png';
 import logo_tale from '../Images/logo_tale.png';
-import logo from '../Images/logo.png';
+import logo from '../Images/Logo.png';
 import comic_create from '../Images/comic_create.png';
 import story_create from '../Images/story_create.png';
 import NotificationModal from './NotificationModal';
@@ -200,7 +200,6 @@ export default function AppBanner() {
     }
     
     function getAccountMenu(loggedIn) {
-        console.log(loggedIn);
         if(loggedIn){
             if (auth.user.profile.icon === "") {
                 let lastname=auth.user.lastName.substring(0,1).toUpperCase();
@@ -236,7 +235,6 @@ export default function AppBanner() {
     let notificationSection = "";
     
     if (auth.loggedIn === true && (store.status===0||store.status===1)){
-        console.log(auth.user);
         if (auth.user.notification.length === 0){
             notificationButton = not_ringing;
         }else {
