@@ -48,23 +48,25 @@ function NotificationCard(props) {
     }
 
     let element = 
-    <Box id='NotificationCard'   width='100%' height='100%' marginTop='5%'>
-        <Box id='NotificationType' height='20%'>
+    <Box id='NotificationCard'   width='100%' height='100%' marginTop='5%' bgcolor="#D2B4DE" display="flex">
+         <Box id='NotificationName' display='flex' height='50%' marginTop='2%'>
+            <Avatar alt={infor.userName} src={icon} />
+            <Box id='NotificationCard_name' sx={{textAlign:'center',position:'relative',width:'70%',height:'100%',paddingTop:'4%'}}> {infor.userName}</Box>
+        </Box>
+        <Box id='NotificationType' height='20%' bgcolor="red">
             <Typography fontSize='15px'>
             Check out the new work 
             </Typography>
             <Typography fontSize='15px'>
             {infor.workName}
             </Typography>
+            <Box id='NotificationButton' alignContent='center' display='flex' height='25%'>
+                {viewbutton}
+                {ignorebutton}
+            </Box>
         </Box>
-        <Box id='NotificationName' display='flex' height='50%' marginTop='2%'>
-            <Avatar alt={infor.userName} src={icon} />
-            <Box id='NotificationCard_name' sx={{textAlign:'center',position:'relative',width:'70%',height:'100%',paddingTop:'4%'}}> {infor.userName}</Box>
-        </Box>
-        <Box id='NotificationButton' alignContent='center' display='flex' height='25%'>
-            {viewbutton}
-            {ignorebutton}
-        </Box>
+       
+       
     </Box>;
     
     let cardElement =
