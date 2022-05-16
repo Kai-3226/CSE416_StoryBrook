@@ -1,5 +1,3 @@
-//author kai
-
 import { useContext} from 'react'
 import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth';
