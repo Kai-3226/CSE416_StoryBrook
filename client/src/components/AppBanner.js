@@ -252,8 +252,8 @@ export default function AppBanner() {
     }
 
    if(store)
-    banner= <Box sx={{ flexGrow: 1 }} >
-            <AppBar position="static">
+    banner= <Box sx={{ flexGrow: 1,width:"100%",height:"10%"}} >
+            <AppBar position="fixed">
                 <Toolbar sx={{bgcolor:"#e0e0e0"}}>
                     {/* <Typography                        
                         variant="h4"
