@@ -50,7 +50,7 @@ export default function Card(props) {
             <ListItem sx={{height: '100px', bgcolor: "#CE8FE7",borderRadius:"0.5cm", width: "97.5%",marginLeft: "1%"}}>
                 {icon}
                 <Box sx={{ p: 1, flexGrow: 1, color:"white", fontSize: "50px", fontFamily: "Comic Sans MS",marginLeft: "3%" }}>{prop.profile.userName}</Box>
-                <Box sx={{ p: 1, flexGrow: 1, color:"#F9E79F", fontSize: "50px", fontFamily: "Comic Sans MS",marginLeft: "15%" }}>"{prop.profile.myStatement}"</Box>
+                <Box sx={{ p: 1, flexGrow: 1, color:"#F9E79F", fontSize: "30px", fontFamily: "Comic Sans MS",marginLeft: "15%" }}>"{prop.profile.myStatement}"</Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={(event) => {
                         handleDelete(event, prop._id)

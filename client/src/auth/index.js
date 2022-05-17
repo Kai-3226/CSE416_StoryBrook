@@ -172,7 +172,7 @@ function AuthContextProvider(props) {
         }
     }
     auth.logoutUser = async function(){
-       
+        history.push("/");
         const response = await api.logoutUser();
         if(response.status === 200){
             authReducer({
@@ -180,7 +180,6 @@ function AuthContextProvider(props) {
                 payload:null
             })
            
-            history.push("/");
             console.log("logout user");
         }
     }
@@ -571,6 +570,23 @@ function AuthContextProvider(props) {
             console.log("send notification error");
         }
     }
+    auth.loadNotification= async function(){
+        try{     
+            const response = await api.getUserbyId(auth.user._id);
+            if(response.data.success){
+                let user=response.data.user;
+                    authReducer({
+                        type: AuthActionType.UPDATE_USER,
+                        payload:user
+                    })             
+            }
+        }
+        catch(err){
+        
+            console.log("load notification error");
+        }
+    }
+
 
     
     return (

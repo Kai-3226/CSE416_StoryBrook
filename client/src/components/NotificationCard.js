@@ -21,22 +21,20 @@ function NotificationCard(props) {
 
     function handleIgnore(event, id){
         event.stopPropagation();
-        console.log(id);
         auth.ignoreWork(id);
     }
     
     let viewbutton=
     <Button  onClick={(event) => {
-        console.log(infor);
         handleOpen(event, infor.workId)
-        }} aria-label='view' size='small'>
+        }} aria-label='view' size='small' variant="contained" sx={{height:"20px",bgcolor:"#F7DC6F",fontFamily:"Comic Sans MS"}} >
     View
     </Button>;
 
     let ignorebutton=
     <Button  onClick={(event) => {
         handleIgnore(event, infor.workId)
-        }} aria-label='ignore' size='small'>
+        }} aria-label='ignore' size='small' variant="contained" sx={{marginLeft:"15%",height:"20px",fontFamily:"Comic Sans MS"}} >
     Ignore
     </Button>;
 
@@ -48,19 +46,20 @@ function NotificationCard(props) {
     }
 
     let element = 
-    <Box id='NotificationCard'   width='100%' height='100%' marginTop='5%' bgcolor="#D2B4DE" display="flex">
-         <Box id='NotificationName' display='flex' height='50%' marginTop='2%'>
+    <Box id='NotificationCard'   width='100%' height='100%' marginTop='5%' bgcolor="#D2B4DE" position="relative" display="flex" fontFamily="Comic Sans MS" borderRadius="0.3cm">
+         <Box id='NotificationName' height='50%' marginTop='2%' >
             <Avatar alt={infor.userName} src={icon} />
-            <Box id='NotificationCard_name' sx={{textAlign:'center',position:'relative',width:'70%',height:'100%',paddingTop:'4%'}}> {infor.userName}</Box>
+            <Box id='NotificationCard_name' sx={{position:'relative',height:'100%',paddingTop:'4%',overflow: "hidden", width:"70px",whiteSpace: "nowrap",textOverflow:"ellipsis",marginLeft:"10%"}}> {infor.userName}</Box>
         </Box>
-        <Box id='NotificationType' height='20%' bgcolor="red">
-            <Typography fontSize='15px'>
+        <Box id='NotificationType' height='20%' marginLeft="10%" >
+            <Typography fontSize='15px' fontFamily="Comic Sans MS">
             Check out the new work 
             </Typography>
-            <Typography fontSize='15px'>
+            <Typography fontSize='20px' marginTop="5%" fontFamily="Comic Sans MS" color="#000000" sx={{overflow: "hidden", width:"180px",whiteSpace: "nowrap",textOverflow:"ellipsis"}}>
             {infor.workName}
             </Typography>
-            <Box id='NotificationButton' alignContent='center' display='flex' height='25%'>
+
+            <Box id='NotificationButton' alignContent='center' marginTop="5%" display='flex' height='25%' fontFamily="Comic Sans MS">
                 {viewbutton}
                 {ignorebutton}
             </Box>
@@ -70,7 +69,7 @@ function NotificationCard(props) {
     </Box>;
     
     let cardElement =
-        <Box sx={{height:100,width:'100%',bgcolor:'#47D366'}}>     
+        <Box sx={{height:100,width:'100%'}}>     
                {element}
         </Box>
     return (
