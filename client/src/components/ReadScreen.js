@@ -13,6 +13,7 @@ import CommentCard from './CommentsCard';
 import AuthContext from '../auth';
 import {useParams} from 'react-router-dom';
 import { Pagination } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 
 
 const ReadScreen = () => {
@@ -192,6 +193,22 @@ const ReadScreen = () => {
         //         <Box><TextField sx={{width:0.9, flexDirection:'row'}} id={"item"+i} class='list-card' name={"item"+i} defaultValue={item}></TextField></Box>
         //     </Box>
         // )
+
+    let icon = "";
+    if (auth.targetUser && auth.targetUser.profile.icon === "") {
+        let lastname=auth.targetUser.lastName.substring(0,1).toUpperCase();
+        let firstname=auth.targetUser.firstName.substring(0,1).toUpperCase();
+        icon = 
+            <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                {firstname+lastname}
+            </Avatar>
+        ;
+    } else if (auth.targetUser){
+        icon = 
+            <Avatar alt={auth.targetUser._id} src={auth.targetUser.profile.icon} />
+        ;
+    }
+
     if(store&&store.currentWork&&store.currentWork.content&&auth.targetUser){
     return (
        <Box id="readPage_screen" sx={{bgcolor:'white'} } component="form" > 
@@ -202,10 +219,10 @@ const ReadScreen = () => {
                         </Typography> 
                     </Box>
                     <Box id='readPage_author' display='flex' sx={{position:'relative',paddingLeft:'5%',height:'100%',width:'40%'}}> 
-
-                    <Box style={{  width:"30%",height:"auto" , borderRadius:"50%" ,backgroundImage: `url(${auth.targetUser.profile['icon']})`, backgroundPosition: 'center', backgroundSize: 'cover',
+                    {icon}
+                    {/* <Box style={{  width:"30%",height:"auto" , borderRadius:"50%" ,backgroundImage: `url(${auth.targetUser.profile['icon']})`, backgroundPosition: 'center', backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat', marginLeft:"1rem"}}>
-                    </Box>
+                    </Box> */}
                    {/*  <img src={auth.targetUser.profile['icon']}
                         alt=""
                         style={{border:'1px solid #ddd', borderRadius:'50%'}}/> */}
