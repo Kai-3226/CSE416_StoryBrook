@@ -37,7 +37,7 @@ export default function Card(props) {
                 ;
             } else {
                 icon = 
-                    <Avatar alt={prop.profile.userName} src={prop.profile.icon} sx={{height:'100%',width:'5%', bgcolor:"white"}} />
+                    <Avatar alt={prop.profile.userName} src={prop.profile.icon} sx={{height:'100%',width:'10%', bgcolor:"white"}} />
                 ;
             }
         }

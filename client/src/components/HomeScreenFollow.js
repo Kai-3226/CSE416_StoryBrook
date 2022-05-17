@@ -71,7 +71,7 @@ function HomeScreenFollow(props) {
 
     return (
     <div>
-        <div className="example" style={{height: "300px" }}>
+        <div className="example" style={{height: "50%" }}>
         <div onMouseEnter={disableScroll} onMouseLeave={enableScroll}>
             <ScrollMenu
             LeftArrow={LeftArrow}

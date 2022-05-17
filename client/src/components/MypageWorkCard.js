@@ -71,13 +71,13 @@ function MypageWorkCard(props) {
     }
 
     let workElement =
-        <Box key={work.id} sx={{position:"relative",width:"30%",height:"50%",marginLeft:"10%",marginTop:"2%",marginBottom:"2.5%",mr:"5%" }}> 
+        <Box key={work.id} sx={{position:"relative",width:"40%",height:"100%",marginLeft:"5%",marginTop:"2%",marginBottom:"2.5%" }}> 
            
         <Card id={work.id} hoverable="true" sx={{ position:"relative",width:"100%",height:"60%"}} onClick={(event) => {handleOpen(event, work._id)}}>
            <Box display= "flex" sx={{bgcolor:"lightgrey",position:"absolute",height:"10%",borderRadius:"0.1cm",alignItems:'center',paddingRight:"5%"}}> {deletebutton}{publishflag}  </Box>
             <CardMedia
                 component="img"
-                height="140"
+                height="150"
                 width="auto"
                 image= {response}
                 alt= {work.name}
@@ -89,7 +89,7 @@ function MypageWorkCard(props) {
                           {work.name}
                       </Typography>
                     </Box>
-                    <Box sx={{position:"relative",width:"35%",display:"flex", paddingTop:'2%'}}>
+                    <Box sx={{position:"relative",width:"55%",display:"flex", paddingTop:'2%'}}>
                         <img src={view} alt="" height='75%' width='20%'></img>
                         <Typography sx={{marginLeft: '5%', marginRight: '5%', fontSize: "25px", fontFamily: "Comic Sans MS"}} >
                             {work.view}

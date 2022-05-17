@@ -75,7 +75,7 @@ function WorkCard(props) {
   
     
     let workElement =
-        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"static",width:"20%",height:"100%",margin:"2.5%" }} onClick={(event) => {handleOpen(event, work._id)}}>
+        <Card key={'card'+work.id} id={work.id} hoverable="true" sx={{ position:"static",width:"30%",height:"100%",margin:"2%" }} onClick={(event) => {handleOpen(event, work._id)}}>
             {deletebutton}
             <CardMedia
                 component="img"
@@ -91,7 +91,7 @@ function WorkCard(props) {
                           {work.name}
                       </Typography>
                     </Box>
-                    <Box sx={{position:"relative",width:"45%",display:"flex", paddingTop:'2%'}}>
+                    <Box sx={{position:"relative",width:"60%",display:"flex", paddingTop:'2%'}}>
                         <img src={view} alt="" height='75%' width='20%'></img>
                         <Typography sx={{marginLeft: '5%', marginRight: '5%', fontSize: "25px", fontFamily: "Comic Sans MS"}} >
                             {work.view}
