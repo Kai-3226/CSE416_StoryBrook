@@ -229,6 +229,7 @@ export default function AppBanner() {
     const handleNotification = (event) => {
         event.preventDefault();
         event.stopPropagation();
+        auth.loadNotification();
         setShowNotification(!showNotification)}
 
     let notificationButton = "";
@@ -243,7 +244,7 @@ export default function AppBanner() {
         notificationSection = 
         <div>
             <IconButton onClick={(event) => {handleNotification(event)}} sx={{ width: "50px", height: "50px",  
-            backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer" }}>
+            backgroundPosition: "center",backgroundSize: "contain", backgroundRepeat: "no-repeat", cursor: "pointer",marginTop:"10%" }}>
                 <img src={notificationButton} alt="" height='32' width='32'></img>
             </IconButton>
             { showNotification ? <NotificationModal/> : null }

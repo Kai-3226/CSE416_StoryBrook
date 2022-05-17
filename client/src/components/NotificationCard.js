@@ -21,22 +21,20 @@ function NotificationCard(props) {
 
     function handleIgnore(event, id){
         event.stopPropagation();
-        console.log(id);
         auth.ignoreWork(id);
     }
     
     let viewbutton=
     <Button  onClick={(event) => {
-        console.log(infor);
         handleOpen(event, infor.workId)
-        }} aria-label='view' size='small'>
+        }} aria-label='view' size='small' variant="contained" sx={{height:"20px",bgcolor:"#F7DC6F",fontFamily:"Comic Sans MS"}} >
     View
     </Button>;
 
     let ignorebutton=
     <Button  onClick={(event) => {
         handleIgnore(event, infor.workId)
-        }} aria-label='ignore' size='small'>
+        }} aria-label='ignore' size='small' variant="contained" sx={{marginLeft:"15%",height:"20px",fontFamily:"Comic Sans MS"}} >
     Ignore
     </Button>;
 
@@ -48,10 +46,10 @@ function NotificationCard(props) {
     }
 
     let element = 
-    <Box id='NotificationCard'   width='100%' height='100%' marginTop='5%' bgcolor="#D2B4DE" position="relative" display="flex" fontFamily="Comic Sans MS" borderRadius="0.5cm">
+    <Box id='NotificationCard'   width='100%' height='100%' marginTop='5%' bgcolor="#D2B4DE" position="relative" display="flex" fontFamily="Comic Sans MS" borderRadius="0.3cm">
          <Box id='NotificationName' height='50%' marginTop='2%' >
             <Avatar alt={infor.userName} src={icon} />
-            <Box id='NotificationCard_name' sx={{position:'relative',height:'100%',paddingTop:'4%',overflow: "hidden", width:"70px",whiteSpace: "nowrap",textOverflow:"ellipsis"}}> {infor.userName}</Box>
+            <Box id='NotificationCard_name' sx={{position:'relative',height:'100%',paddingTop:'4%',overflow: "hidden", width:"70px",whiteSpace: "nowrap",textOverflow:"ellipsis",marginLeft:"10%"}}> {infor.userName}</Box>
         </Box>
         <Box id='NotificationType' height='20%' marginLeft="10%" >
             <Typography fontSize='15px' fontFamily="Comic Sans MS">

@@ -570,6 +570,23 @@ function AuthContextProvider(props) {
             console.log("send notification error");
         }
     }
+    auth.loadNotification= async function(){
+        try{     
+            const response = await api.getUserbyId(auth.user._id);
+            if(response.data.success){
+                let user=response.data.user;
+                    authReducer({
+                        type: AuthActionType.UPDATE_USER,
+                        payload:user
+                    })             
+            }
+        }
+        catch(err){
+        
+            console.log("load notification error");
+        }
+    }
+
 
     
     return (
