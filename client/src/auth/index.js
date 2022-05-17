@@ -172,7 +172,7 @@ function AuthContextProvider(props) {
         }
     }
     auth.logoutUser = async function(){
-       
+        history.push("/");
         const response = await api.logoutUser();
         if(response.status === 200){
             authReducer({
@@ -180,7 +180,6 @@ function AuthContextProvider(props) {
                 payload:null
             })
            
-            history.push("/");
             console.log("logout user");
         }
     }

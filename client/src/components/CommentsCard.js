@@ -13,13 +13,15 @@ function CommentCard(props) {
     const { auth } = useContext(AuthContext);
 
     let icon = "";
+    let user=null;
     for (let i = 0; i < auth.userList.length; i++){
-        if (comment.authorId === auth.userList[i]._id){
+        if (comment.userId === auth.userList[i]._id){
+            user=auth.userList[i];
             if (auth.userList[i].profile.icon === "") {
                 let lastname=auth.userList[i].lastName.substring(0,1).toUpperCase();
                 let firstname=auth.userList[i].firstName.substring(0,1).toUpperCase();
                 icon = 
-                    <Box position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                    <Box position='relative' alignContent='center' sx={{height:'50px',width:'50px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
                         {firstname+lastname}
                     </Box>
                 ;
@@ -40,7 +42,7 @@ function CommentCard(props) {
                             <Box id='readPage_commentCard_commenterDetail'  sx={{height:'100%',width:'80%',paddingLeft:'5%'}}>
                                 <Box id='commentCard_commenterDetail_authorName' sx={{width:'100%',height:'30%'}}>
                                     <Typography variant="h6">
-                                    {comment.userName}
+                                    {user.profile.userName}
                                     </Typography> 
                                 </Box>
                                 <Box id='commentCard_commenterDetail_comment' sx={{width:'100%',height:'35%'}}>
