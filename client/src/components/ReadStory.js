@@ -207,7 +207,7 @@ const ReadStory = () => {
 
             
                 <Box id='readpage_wrapper' bgcolor='white' sx={{position:'relative', width:'100%',height:'80%'}}>
-                <Box id="readPage_diaplayPlace"  sx={{display:'flex',position:'relative',left:'5%',height:'100%',width:'90%',border:'1px solid black'}}>    
+                <Box id="readPage_diaplayPlace"  sx={{display:'flex',position:'relative',left:'5%',height:'100%',width:'90%',border:'1px solid black', overflowY: 'auto'}}>    
                      <Markup content={work.content} />
 
                  </Box>
