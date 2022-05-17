@@ -23,7 +23,6 @@ const ReadScreen = () => {
     const [page, setPage] = useState(1);
   
 
-    // const workstore = createStore({ key: 'nFA5H9elEytDyPyvKL7T' }); 
     
     let work=null;
     if(store&&store.currentWork&&auth.targetUser){
@@ -41,7 +40,6 @@ const ReadScreen = () => {
     }
   
     
-   
     let buttonDisable=true;
     if(auth.loggedIn) {buttonDisable=false};
 

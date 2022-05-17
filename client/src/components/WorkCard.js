@@ -61,7 +61,7 @@ function WorkCard(props) {
                 let lastname=auth.userList[i].lastName.substring(0,1).toUpperCase();
                 let firstname=auth.userList[i].firstName.substring(0,1).toUpperCase();
                 icon = 
-                    <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'10%'}}>
+                    <Avatar position='relative' alignContent='center' sx={{height:'40px',width:'40px',bgcolor:"darkgrey",border:"1px solid",borderRadius:"0.8cm",paddingTop:'5%'}}>
                         {firstname+lastname}
                     </Avatar>
                 ;
