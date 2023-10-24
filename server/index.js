@@ -13,7 +13,7 @@ app.use(express.urlencoded({ limit: '200mb',extended: true }))
 
 app.use(cors({
 
-    origin: ["https://storybrook.herokuapp.com","http://localhost:3000","https://sbrook.herokuapp.com"],        //http://localhost:3000
+    origin: ["http://localhost:3000","https://sbrook.herokuapp.com"],        //http://localhost:3000
 
     credentials: true
 }))

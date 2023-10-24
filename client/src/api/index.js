@@ -6,15 +6,12 @@
     is a native (to browsers) standard, but Axios is easier
     to use when sending JSON back and forth and it`s a Promise-
     based API which helps a lot with asynchronous communication.
-    
-    @author McKilla Gorilla
 */
 
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    //baseURL: 'http://localhost:4000/api',
-    baseURL: 'https://sbrook.herokuapp.com/api',    
+    baseURL: 'http://localhost:4000/api',   
 })
 
 //'https://storybrook.herokuapp.com/api' 'http://localhost:4000/api'
